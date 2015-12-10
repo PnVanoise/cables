@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>MortElecView</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Tension</th>
+                <td>{{ entity.tension }}</td>
+            </tr>
+            <tr>
+                <th>Gestionnaire</th>
+                <td>{{ entity.gestionnaire }}</td>
+            </tr>
+            <tr>
+                <th>Type_pylone</th>
+                <td>{{ entity.typepylone }}</td>
+            </tr>
+            <tr>
+                <th>Especes</th>
+                <td>{{ entity.especes }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ entity.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Nb_cas</th>
+                <td>{{ entity.nbcas }}</td>
+            </tr>
+            <tr>
+                <th>Etat_ligne</th>
+                <td>{{ entity.etatligne }}</td>
+            </tr>
+            <tr>
+                <th>Neutralisation</th>
+                <td>{{ entity.neutralisation }}</td>
+            </tr>
+            <tr>
+                <th>Date_neutralisation</th>
+                <td>{{ entity.dateneutralisation }}</td>
+            </tr>
+            <tr>
+                <th>Commune</th>
+                <td>{{ entity.commune }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ entity.source }}</td>
+            </tr>
+            <tr>
+                <th>Observateur</th>
+                <td>{{ entity.observateur }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ entity.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ entity.age }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Id_poteau_risque</th>
+                <td>{{ entity.idpoteaurisque }}</td>
+            </tr>
+            <tr>
+                <th>Geom</th>
+                <td>{{ entity.geom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('mortelecview') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('mortelecview_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

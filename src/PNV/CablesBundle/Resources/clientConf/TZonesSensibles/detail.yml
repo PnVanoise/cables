@@ -1,0 +1,84 @@
+subEditAccess: 3
+subSchemaPoteauxUrl: cables/config/poteauxerdf/list 
+subDataPoteauxUrl: cables/zonessensibles/poteauxerdf/
+subSchemaTronconsUrl: cables/config/tronconserdf/list
+subDataTronconsUrl: cables/zonessensibles/tronconserdf/
+groups:
+    -   name: Informations
+        fields:
+            -   name: nom_zone_sensible
+                label: "Zone sensible"
+                label: "Nom de la zone sensible"
+                type: string
+            -   name: niveau_sensibilite
+                label: "Niveau sensibilité" 
+                type: string 
+    -   name: Poteaux inventories
+        fields:
+            -   name: nb_poteaux_inventories
+                label: "Nombre poteaux inventories"
+                type: string
+                help: Nombre poteaux inventories
+            -   name: nb_poteaux_inventories_risque_fort
+                label: Nbr. poteaux inventories risque fort
+                type: string
+                help: Nbr. poteaux inventories risque fort
+            -   name: nb_poteaux_inventories_risque_secondaire
+                label: Nbr. poteaux inventories risque secondaire
+                type: string
+                help: Nbr. poteaux inventories risque secondaire
+            -   name: nb_poteaux_inventories_risque_faible
+                label: Nbr poteaux inventories risque faible
+                help: Nbr poteaux inventories risque faible
+                type: string
+    -   name: Tronçons inventories
+        fields:
+            -   name: m_troncons_inventories
+                label: "Troncons inventories"
+                type: string
+            -   name: m_troncons_equipes_risque_faible
+                label: Troncons équipés risque faible
+                help: Troncons équipés risque faible
+                type: string
+            -   name: m_troncons_inventories_risque_secondaire
+                label: Troncons inventories risque secondaire
+                help: Troncons inventories risque secondaire
+                type: string
+            -   name: m_troncons_inventories_risque_faible
+                label: Troncons inventories risque faible
+                help: Troncons inventories risque faible
+                type: string
+    -   name: Poteaux équipés
+        fields:
+            -   name: nb_poteaux_equipés
+                label: "Nbr. poteaux équipés"
+                type: string
+            -   name: nb_poteaux_equipes_risque_fort
+                label: Nbr. poteaux équipés risque fort
+                help: Nbr. poteaux équipés risque fort
+                type: string
+            -   name: nb_poteaux_equipes_risque_secondaire
+                label: nbr. poteaux équipés risque secondaire
+                help: nbr. poteaux équipés risque secondaire
+                type: string
+            -   name: nb_poteaux_equipes_risque_faible
+                label: Nbr. poteaux équipés risque faible
+                help: Nbr. poteaux équipés risque faible
+                type: string 
+    -   name: Tronçons équipés
+        fields:
+            -   name: m_troncons_equipes
+                label: "Troncons équipés"
+                type: string
+            -   name: m_troncons_equipes_risque_fort
+                label: Troncons équipés risque fort
+                help: Troncons équipés risque fort
+                type: string
+            -   name: m_troncons_equipes_risque_secondaire
+                label: Troncons équipés risque secondaire
+                help: Troncons équipés risque secondaire
+                type: string
+            -   name: m_troncons_equipes_risque_faible
+                label: Troncons équipés risque faible
+                help: Troncons équipés risque faible
+                type: string

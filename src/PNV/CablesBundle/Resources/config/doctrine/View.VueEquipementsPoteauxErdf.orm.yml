@@ -1,0 +1,27 @@
+PNV\CablesBundle\Entity\View\VueEquipementsPoteauxErdf:
+    type: entity
+    table: cables73.v_equipements_poteaux
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\VueEquipementsPoteauxErdf
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        id_inventaire_poteau_erdf:
+            type: string
+        type_equipement_poteau:
+            column: nom_type_equipement_poteau
+            type: string
+        dateEquipement:
+            column: date_equipement
+            type: date
+        misEnPlace:
+            column: mis_en_place
+            type: string
+        id_nb_equipements:
+            type: string
+        geom_json:
+            type: json_array

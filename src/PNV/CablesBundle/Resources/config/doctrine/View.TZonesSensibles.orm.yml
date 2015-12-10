@@ -1,0 +1,30 @@
+PNV\CablesBundle\Entity\View\TZonesSensibles:
+    type: entity
+    table: cables73.t_zones_sensibles
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TZonesSensibles
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_zone_sensible
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle: #nom_zone_sensible
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: nom_zone_sensible
+        niveau_sensibilite:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: niveau_sensibilite
+    lifecycleCallbacks: {  }

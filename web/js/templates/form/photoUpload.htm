@@ -1,0 +1,60 @@
+<span class="btn btn-success btn-file "> Choisir une photo
+        <input type="file" nv-file-select="" uploader="uploader"/>
+</span><br/>
+
+<div >
+	
+
+<div>
+	<div class="float-right"><h3>File d'attente</h3>
+    <h4>Longueur de la file d'attente: {{ uploader.queue.length }}</h4></div>
+	   <table class="table">
+            <thead>
+                <tr>
+                    <th width="50%">Nom de la photo</th>
+                    <th ng-show="uploader.isHTML5">Taille</th>
+                    <th ng-show="uploader.isHTML5">Progression</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+        	<tbody>
+                <tr ng-repeat="item in uploader.queue">
+                    <td><strong>{{ item.file.name }}</strong>
+                    <div ng-show="uploader.isHTML5" photo-thumb="{ file: item._file, height: 100 }"></div>
+                    </td>
+                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                    <td ng-show="uploader.isHTML5">
+                        <div class="progress" style="margin-bottom: 0;">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+        	<div>
+                Progression de la file d'attente:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> Charger la photo
+            </button>
+            <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                <span class="glyphicon glyphicon-ban-circle"></span> Annuler
+            </button>
+            <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                <span class="glyphicon glyphicon-trash"></span> Supprimer 
+            </button>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>BaseSite</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Observateurid</th>
+                <td>{{ entity.observateurId }}</td>
+            </tr>
+            <tr>
+                <th>Typeid</th>
+                <td>{{ entity.typeId }}</td>
+            </tr>
+            <tr>
+                <th>Sitenom</th>
+                <td>{{ entity.siteNom }}</td>
+            </tr>
+            <tr>
+                <th>Sitecode</th>
+                <td>{{ entity.siteCode }}</td>
+            </tr>
+            <tr>
+                <th>Sitedate</th>
+                <td>{{ entity.siteDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Sitedescription</th>
+                <td>{{ entity.siteDescription }}</td>
+            </tr>
+            <tr>
+                <th>Geom</th>
+                <td>{{ entity.geom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('basesite') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('basesite_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

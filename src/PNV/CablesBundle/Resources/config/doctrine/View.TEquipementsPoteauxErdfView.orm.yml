@@ -1,0 +1,91 @@
+PNV\CablesBundle\Entity\View\TEquipementsPoteauxErdfView:
+    type: entity
+    table: cables73.t_equipements_poteaux_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TEquipementsPoteauxErdfView
+    indexes:
+        IDX_8329EA96DF5EDD87:
+            columns:
+                - id_nb_equipements
+        IDX_8329EA96BD3FF468:
+            columns:
+                - id_type_equipement_poteau
+        IDX_8329EA962F648596:
+            columns:
+                - id_inventaire_poteau_erdf
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_equipement_poteau_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        dateEquipement:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_equipement
+        loginSaisie:
+            type: string
+            nullable: true
+            length: 25
+            fixed: false
+            comment: ''
+            column: login_saisie
+        misEnPlace:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: false
+            column: mis_en_place
+        id_nb_equipements:
+            type: string
+            nullable: true
+            comment: ''
+            default: false
+            column: id_nb_equipements
+        id_type_equipement_poteau:
+            type: string
+            nullable: true
+            comment: ''
+            default: false
+            column: id_type_equipement_poteau
+        id_inventaire_poteau_erdf:
+            type: string
+            nullable: true
+            comment: ''
+            default: false
+            column: id_inventaire_poteau_erdf
+    manyToOne:
+        nb_equipements:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoNbEquipements
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_nb_equipements:
+                    referencedColumnName: id_nb_equipements
+            orphanRemoval: false
+        type_equipement_poteau:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoTypeEquipementPoteau
+            cascade: {  }
+            mappedBy: null
+            inversedBy: equipements_poteaux_erdf
+            joinColumns:
+                id_type_equipement_poteau:
+                    referencedColumnName: id_type_equipement_poteau
+            orphanRemoval: false
+        inventaire_poteau_erdf:
+            targetEntity: PNV\CablesBundle\Entity\View\TInventairePoteauxErdfView
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_inventaire_poteau_erdf:
+                    referencedColumnName: id_inventaire_poteau_erdf
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

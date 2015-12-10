@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>AiresAigleView</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ entity.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Nidification10ans</th>
+                <td>{{ entity.nidification10Ans }}</td>
+            </tr>
+            <tr>
+                <th>Commentaires</th>
+                <td>{{ entity.commentaires }}</td>
+            </tr>
+            <tr>
+                <th>Precisionloc</th>
+                <td>{{ entity.precisionLoc }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ entity.source }}</td>
+            </tr>
+            <tr>
+                <th>Geom</th>
+                <td>{{ entity.geom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('airesaigleview') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('airesaigleview_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

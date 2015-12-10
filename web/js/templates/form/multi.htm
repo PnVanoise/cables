@@ -1,0 +1,25 @@
+<div ng-repeat="item in data" >
+    <div class="input-group" ng-if="schema.type!='xhr'">
+        <input class="form-control" type="text" ng-if="schema.type=='string'" ng-model="data[$index]" ng-minlength="schema.options.minLength" ng-maxlength="schema.options.maxLength" ng-required="schema.options.minLength>0">
+        <input class="form-control" type="number" ng-if="schema.type=='num'" ng-model="data[$index]">
+        <input class="form-control" type="text" ng-if="schema.type=='date'" ng-model="data[$index]">
+        <input type="checkbox" ng-if="val.type=='bool'" ng-model="data[$index]">
+        <select class="form-control" ng-options="item.id as item.libelle for item in schema.options.choices" ng-model="data[$index]" ng-if="schema.type=='select'"></select>
+        <textarea class="form-control" ng-if="schema.type=='text'" ng-model="data[$index]"></textarea>
+        <div class="input-group-addon" ng-if="$index>0">
+            <span class="glyphicon glyphicon-remove" ng-click="remove($index)"></span>
+        </div>
+        <div class="input-group-addon" ng-if="$index==0">
+            <span class="glyphicon glyphicon-option-vertical"></span>
+        </div>
+    </div>
+    <div ng-if="schema.type=='xhr'">
+        <angucompletewrapper id="{{schema.name}}{{$index}}" decorated="true" inputclass="form-control" selectedobject="data[$index]" url="{{schema.options.url}}/" reverseurl="{{schema.options.reverseurl}}" titlefield="label" initial="data[$index]">
+            <span ng-if="$index>0" class="glyphicon glyphicon-remove" ng-click="remove($index)"></span>
+            <span ng-if="$index==0" class="glyphicon glyphicon-option-vertical"></span>
+        </angucompletewrapper>
+    </div>
+</div>
+<div class="row col-lg-12">
+    <button type="button" class="btn btn-default btn-xs" tabindex="-1" ng-click="add()" ng-disabled="addDisabled"><span class="glyphicon glyphicon-plus"></span></button>
+</div>

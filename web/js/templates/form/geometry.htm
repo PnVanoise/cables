@@ -1,0 +1,11 @@
+<table class="table">
+    <tr>
+        <th>Long.</th>
+        <th>Lat.</th>
+    </tr>
+    <tr ng-repeat="point in geom">
+        <td>{{point[0]}}</td><td>{{point[1]}}</td>
+    </tr>
+</table>
+<input type="hidden" ng-model="geom[0][0]" ng-required="true"></input>
+<input type="hidden" ng-model="geom[0][1]" ng-required="true"></input>

@@ -1,0 +1,37 @@
+title: Photos du poteau
+emptyMsg: "Aucune photo"
+createBtnLabel: Nouvelle photo
+createUrl: "#/cables/edit/poteauxerdf/photospoteauxerdf/"
+editUrl: "#/cables/edit/photospoteauxerdf/"
+detailUrl: "#/cables/photospoteauxerdf/"
+editAccess: 5
+fields: 
+    -   name: id 
+        label: ID
+        filter: 
+            id: text
+        options: 
+            visible: false
+    -   name: commentaire 
+        label: Commentaire
+        filter: 
+            commentaire: text
+        options: 
+            visible: true
+    -   name: neutralise 
+        label: neutralisé
+        filter: 
+            neutralise: text
+        options: 
+            visible: true
+    -   name: auteur
+        label: Auteur 
+        filter: 
+            auteur: text
+        options:
+            visible: true
+    -   name: cheminPhoto
+        label: Aperçu
+        options:
+            visible: true
+            type: image

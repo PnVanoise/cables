@@ -1,0 +1,31 @@
+PNV\CablesBundle\Entity\View\TCommunes:
+    type: entity
+    table: cables73.t_communes
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TCommunes
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: insee
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        nomCommune:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: nom_commune
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+    lifecycleCallbacks: {  }

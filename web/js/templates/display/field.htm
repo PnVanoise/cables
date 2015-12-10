@@ -1,0 +1,12 @@
+<div ng-if="field.type=='string'" style="white-space: pre">{{data}}</div>
+<div ng-if="field.type=='num'">{{data}}</div>
+<div ng-if="field.type=='date'">{{data|datefr}}</div>
+<div ng-if="field.type=='select'">{{field.options.choices|tselect:data}}</div>
+<div ng-if="field.type=='bool'">{{data ? 'Oui' : 'Non'}}</div>
+<div xhrdisplay ng-if="field.type=='xhr'" inputid="data" xhrurl="field.options.url"></div>
+<ul ng-if="field.type=='multi'" class="list-unstyled">
+    <li ng-repeat="item in data">{{item}}</li>
+</ul>
+<ul ng-if="field.type=='file'" class="list-unstyled">
+    <li ng-repeat="item in data"><a ng-href="uploads/{{field.options.target||''}}{{item}}" target="blank">{{item.slice(item.indexOf('_')+1)}}</a>
+</ul>

@@ -1,0 +1,26 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    geometry:
+        class: PNV\Utils\GeometryService
+
+    normalizer:
+        class: PNV\Utils\NormalizeService
+
+    commons.check_auth:
+        class: Commons\UsersBundle\EventListeners\SecurityListener
+        tags:
+            - {name: kernel.event_listener, event: kernel.controller, method: authTokenCheck}
+
+    commons.auth_error:
+        class: Commons\UsersBundle\EventListeners\SecurityListener
+        tags:
+            - {name: kernel.event_listener, event: kernel.exception, method: authExceptionResponse}
+

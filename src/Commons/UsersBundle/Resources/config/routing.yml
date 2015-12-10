@@ -1,0 +1,28 @@
+#commons_users_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: CommonsUsersBundle:Default:index }
+
+
+commons_users_login:
+    path: /login
+    defaults: { _controller: CommonsUsersBundle:Default:login }
+    requirements:
+        _method: POST
+
+commons_users_logout:
+    path: /logout
+    defaults: { _controller: CommonsUsersBundle:Default:logout }
+    requirements:
+        _method: GET
+
+commons_users_getbyname:
+    path: /name/{app}/{droit}/{q}
+    defaults: { _controller: CommonsUsersBundle:Default:getUsersByName }
+    requirements:
+        _method: GET
+
+commons_users_getbyid:
+    path: /id/{id}
+    defaults: { _controller: CommonsUsersBundle:Default:getUserById }
+    requirements:
+        _method: GET

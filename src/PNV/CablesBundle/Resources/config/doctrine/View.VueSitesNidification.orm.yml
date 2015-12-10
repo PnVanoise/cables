@@ -1,0 +1,20 @@
+PNV\CablesBundle\Entity\View\VueSitesNidification:
+    type: entity
+    table: cables73.v_sites_nidification_zone_tampon
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\VueSitesNidification
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_espece
+            generator:
+                strategy: SEQUENCE
+    fields:
+        nom_espece:
+            type: string
+        geom_json:
+            type: json_array

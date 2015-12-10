@@ -1,0 +1,12 @@
+<html>
+	<body>
+		<h1>Liste Test</h1>
+		{% for cat in categories %}
+			<tr>{{ cat.espece }}</tr> </br>
+			<tr>{{ cat.source }}</tr> </br>
+			<tr>{{ cat.id }}</tr> </br>
+		{% else %}
+			<p>Aucune catégorie n'a été trouvée.</p>
+		{% endfor %}
+	</body>
+</html>

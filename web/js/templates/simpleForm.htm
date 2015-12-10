@@ -1,0 +1,57 @@
+<!-- Initialisation de la légende en mode édition -->
+<ng-transclude></ng-transclude>
+
+<!-- Mise en place du formulaire d'édition "Simpleform" -->
+<form name="Simpleform" novalidate class="css-form">
+    <div id="form-container" class="container-fluid">
+
+   <!-- Groupe d'accordion -->
+        <accordion close-others="status.uneALaFois" justified="true" ng-if="schema.groups.length>1">
+            <!-- <accordion-group is-open="status.open" ng-repeat="group in schema.groups" > 
+                <accordion-heading>  {{group.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                    <ng-form name="sub_{{$index}}">
+                        <dynform group="group" data="data" errors="errors"></dynform>
+                    </ng-form>             
+            </accordion-group>  -->  
+            <accordion-group is-open="status.isOpen[$index]" ng-repeat="group in schema.groups" > 
+                <accordion-heading> {{group.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isOpen[$index], 'glyphicon-chevron-right': !status.isOpen[$index]}"></i>
+                </accordion-heading>
+                    <ng-form name="sub_{{$index}}">
+                        <dynform group="group" data="data" errors="errors"></dynform>
+                    </ng-form>             
+            </accordion-group>           
+        </accordion>
+
+        <!-- barre d'action des formulaires -->
+        <div id="formToolbox" class="row">
+              
+            <div id ="btn-action" class=" btn-toolbox float-right">
+                <button class="btn btn-danger" type="button" ng-if="data.id && deleteAccess" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Annuler</button>
+                <button class="btn btn-success" type="button" ng-disabled="!Simpleform.$valid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Enregistrer</button>
+            </div>
+        </div> 
+
+        
+        <div ng-if="schema.groups.length==1">
+            <dynform group="schema.groups[0]" data="data" errors="errors"></dynform>
+            <div id="formToolbox" class="row">
+              <div id ="btn-action" class=" btn-toolbox float-right">
+                <button class="btn btn-danger" type="button" ng-if="data.id && deleteAccess" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span>Annuler</button>
+                <button class="btn btn-success" type="button" ng-disabled="!Simpleform.$valid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Enregistrer</button>
+              </div>
+            </div> 
+        </div>
+    </div>   
+</form>
+
+<!-- Mise en place du sous formulaire s'il y en a -->
+    <!-- debug mode à activer dans app.js -->
+<div spreadsheet ng-if="addSubSchema" schemaurl="schema.subSchemaUrl" dataref="schema.subDataRef" data="data" subtitle="schema.subTitle"></div>
+<pre style='clear:both;' ng-if="debug">{{data|json}}</pre> 
+
+<!-- Initiation du spinner pour le chargement  -->
+<div dw-loading="spinner-form" dw-loading-options="{text: 'Chargement du formulaire'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>
+<div dw-loading="spinner-send" dw-loading-options="{text: 'Traitement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>

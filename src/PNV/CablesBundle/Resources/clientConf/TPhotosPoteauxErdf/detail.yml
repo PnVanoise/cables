@@ -1,0 +1,15 @@
+editAccess: 3
+subEditAccess: 2
+deleteAccess: 5
+groups:
+    -   name: Informations
+        fields:
+            -   name: commentaire
+                label: Commentaire
+                type: string
+            -   name: neutralise
+                label: Neutralisé
+                type: string 
+            -   name: auteur
+                label: Auteur
+                type: string

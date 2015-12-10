@@ -1,0 +1,16 @@
+editAccess: 3
+subEditAccess: 2
+deleteAccess: 5
+groups:
+    -   name: Informations
+        fields:
+            -   name: type_equipement_poteau
+                label: Type équipement poteau
+                help: Type équipement poteau
+                type: string
+            -   name: misEnPlace
+                label: Mise en place
+                type: string
+            -   name: dateEquipement
+                label: Date d'équipement
+                type: string

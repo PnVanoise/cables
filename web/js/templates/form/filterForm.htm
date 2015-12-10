@@ -1,0 +1,9 @@
+<button type="button" class="btn" ng-click="collapseFilters = !collapseFilters">
+    Filtres 
+    <span ng-class="{'glyphicon glyphicon-chevron-right': !collapseFilters, 'glyphicon glyphicon-chevron-down': collapseFilters}"></span>
+</button>
+<div ng-show="collapseFilters">
+    <dynform data="filterData" group="schema"></dynform>
+    <button type="button" class="btn btn-success" ng-click="send()">Filtrer</button>
+    <hr />
+</div>

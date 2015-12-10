@@ -1,0 +1,23 @@
+PNV\CablesBundle\Entity\Dico\DicoTypeEquipementPoteau:
+    type: entity
+    table: cables73.dico_type_equipement_poteau
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\DicoTypeEquipementPoteau
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_type_equipement_poteau
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle: #nomTypeEquipementPoteau
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: nom_type_equipement_poteau

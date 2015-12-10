@@ -1,0 +1,80 @@
+PNV\CablesBundle\Entity\View\TObservations:
+    type: entity
+    table: cables73.t_observations
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TObservations
+    indexes:
+        t_observations_index:
+            columns:
+                - geom
+        IDX_E28F64F02795145C:
+            columns:
+                - id_espece
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_observation
+            generator:
+                strategy: SEQUENCE
+    fields:
+        lieu:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        commentaires:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        precisionLoc:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: precision_loc
+        source:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+        geom:
+            type: geometry
+            nullable: true
+            comment: ''
+            requireSQLConversion: true
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+        nombre:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        date:
+            type: date
+            nullable: true
+            comment: ''
+    manyToOne:
+        espece:
+            targetEntity: PNV\CablesBundle\Entity\Dico\TEspeces
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_espece:
+                    referencedColumnName: id_espece
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

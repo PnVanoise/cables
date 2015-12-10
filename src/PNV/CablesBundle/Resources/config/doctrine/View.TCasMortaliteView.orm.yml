@@ -1,0 +1,97 @@
+PNV\CablesBundle\Entity\View\TCasMortaliteView:
+    type: entity
+    table: cables73.t_cas_mortalite
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TCasMortaliteView
+    indexes:
+        t_cas_mortalite_index:
+            columns:
+                - geom
+        IDX_EE003B462795145C:
+            columns:
+                - id_espece
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_cas_mortalite
+            generator:
+                strategy: SEQUENCE
+    fields:
+        source:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        nb_cas:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: nb_cas
+        sexe:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+        age:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+        date:
+            type: date
+            nullable: true
+            comment: ''
+        geom:
+            type: geometry
+            nullable: true
+            comment: ''
+            requireSQLConversion: true
+        geom_json:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+        id_espece:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_espece
+        id_cause_mortalite:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_cause_mortalite
+    manyToOne:
+        espece:
+            targetEntity: PNV\CablesBundle\Entity\Dico\TEspeces
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_espece:
+                    referencedColumnName: id_espece
+            orphanRemoval: false
+        cause_mortalite:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoCauseMortalite
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_cause_mortalite:
+                    referencedColumnName: id_cause_mortalite
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

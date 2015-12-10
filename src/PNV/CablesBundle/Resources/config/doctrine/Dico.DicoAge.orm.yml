@@ -1,0 +1,24 @@
+PNV\CablesBundle\Entity\Dico\DicoAge:
+    type: entity
+    table: cables73.dico_age
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\DicoAge
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_age
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: lib_age
+    lifecycleCallbacks: {  }

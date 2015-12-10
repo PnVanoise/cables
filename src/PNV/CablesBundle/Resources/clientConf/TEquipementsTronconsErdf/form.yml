@@ -1,0 +1,31 @@
+deleteAccess: 5
+groups:
+    -   name: Localisation
+        fields:
+            -   name: geom
+                label: Coordonnées GPS
+                type: geom
+                options:
+                    geometryType: linestring
+                    dataUrl: cables/eqtronconserdf
+    -   name: Informations
+        fields:
+            -   name: id
+                label: ID
+                type: hidden
+            -   name: idInventaireTronconErdf
+                label: Inventaire Troncon Erdf
+                type: hidden 
+            -   name: loginSaisie
+                label: utilisateur  
+                type: hidden
+            -   name: dateEquipementTroncon
+                label: Date 
+                help: Date d'équipement 
+                type: date
+            -   name: id_type_equipement_troncon
+                label: Type d'équipement
+                help: Type d'équipement tronçon
+                type: select  
+            -   name: type_equipement_troncon # utiliser pour le title en modification 
+                type: hidden  

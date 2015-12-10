@@ -1,0 +1,187 @@
+PNV\CablesBundle\Entity\View\TInventaireTronconsErdfView:
+    type: entity
+    table: cables73.t_inventaire_troncons_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TInventaireTronconsErdfView
+    indexes:
+        t_inventaire_troncons_erdf_index:
+            columns:
+                - geom
+        t_inventaire_troncons_erdf_index_id:
+            columns:
+                - id_zone_sensible
+                - id_risque_deplacement
+                - id_risque_integration_topo
+                - id_risque_integration_vegetation
+                - id_risque_integration_bati
+        IDX_4FDF97D6744AC021:
+            columns:
+                - id_risque_integration_bati
+        IDX_4FDF97D639316D63:
+            columns:
+                - id_risque_deplacement
+        IDX_4FDF97D686A98559:
+            columns:
+                - id_risque_integration_topo
+        IDX_4FDF97D6AA9E2665:
+            columns:
+                - id_risque_integration_vegetation
+        IDX_4FDF97D67D86952E:
+            columns:
+                - id_zone_sensible
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_inventaire_troncon_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        dateInventaire:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_inventaire
+        geom:
+            type: geometry
+            nullable: true
+            comment: ''
+            requireSQLConversion: true
+        remarques:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        dejaNeutralise:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: deja_neutralise
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+        risqueTroncon:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: risque_troncon
+        commune:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: commune
+        nbPhotos:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: nb_photos
+        lgEquipee:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: lg_equipee
+        longueur:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: longueur
+        id_risque_integration_bati:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_risque_integration_bati
+        id_risque_deplacement:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_risque_deplacement
+        id_risque_integration_topo:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_risque_integration_topo
+        id_risque_integration_vegetation:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_risque_integration_vegetation
+        id_zone_sensible:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_zone_sensible
+    manyToOne:
+        risque_integration_bati:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoClassesRisque
+            cascade: {  }
+            mappedBy: null
+            inversedBy: risque_bati
+            joinColumns:
+                id_risque_integration_bati:
+                    referencedColumnName: id_classe_risque
+            orphanRemoval: false
+        risque_deplacement:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoClassesRisque
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_risque_deplacement:
+                    referencedColumnName: id_classe_risque
+            orphanRemoval: false
+        risque_integration_topo:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoClassesRisque
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_risque_integration_topo:
+                    referencedColumnName: id_classe_risque
+            orphanRemoval: false
+        risque_integration_vegetation:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoClassesRisque
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_risque_integration_vegetation:
+                    referencedColumnName: id_classe_risque
+            orphanRemoval: false
+        zone_sensible:
+            targetEntity: PNV\CablesBundle\Entity\View\TZonesSensibles
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_zone_sensible:
+                    referencedColumnName: id_zone_sensible
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

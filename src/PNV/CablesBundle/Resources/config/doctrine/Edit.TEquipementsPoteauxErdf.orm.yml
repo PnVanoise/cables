@@ -1,0 +1,66 @@
+PNV\CablesBundle\Entity\Edit\TEquipementsPoteauxErdf:
+    type: entity
+    table: cables73.t_equipements_poteaux_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Edit\TEquipementsPoteauxErdf
+    indexes:
+        IDX_8329EA96DF5EDD87:
+            columns:
+                - id_nb_equipements
+        IDX_8329EA96BD3FF468:
+            columns:
+                - id_type_equipement_poteau
+        IDX_8329EA962F648596:
+            columns:
+                - id_inventaire_poteau_erdf
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_equipement_poteau_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        dateEquipement:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_equipement
+        loginSaisie:
+            type: string
+            nullable: true
+            length: 25
+            fixed: false
+            comment: ''
+            column: login_saisie
+        misEnPlace:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: false
+            column: mis_en_place
+        nb_equipements:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_nb_equipements
+        type_equipement_poteau:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_type_equipement_poteau
+        inventaire_poteau_erdf:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_inventaire_poteau_erdf
+    lifecycleCallbacks: {  }

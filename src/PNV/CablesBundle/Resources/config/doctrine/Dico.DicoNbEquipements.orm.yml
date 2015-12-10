@@ -1,0 +1,22 @@
+PNV\CablesBundle\Entity\Dico\DicoNbEquipements:
+    type: entity
+    table: cables73.dico_nb_equipements
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\DicoNbEquipements
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_nb_equipements
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle: #nbEquipements
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: nb_equipements

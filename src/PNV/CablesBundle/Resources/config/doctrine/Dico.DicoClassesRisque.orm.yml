@@ -1,0 +1,23 @@
+PNV\CablesBundle\Entity\Dico\DicoClassesRisque:
+    type: entity
+    table: cables73.dico_classes_risque
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\DicoClassesRisque
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_classe_risque
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle: #libClasseRisque
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+            column: lib_classe_risque

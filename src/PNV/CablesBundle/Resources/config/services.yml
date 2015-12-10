@@ -1,0 +1,44 @@
+services:
+    cablesService:
+        class: PNV\CablesBundle\Services\CablesService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tCasMortaliteService:
+        class: PNV\CablesBundle\Services\TCasMortaliteService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tEquipementsPoteauxErdfService:
+        class: PNV\CablesBundle\Services\TEquipementsPoteauxErdfService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tEquipementsTronconsErdfService:
+        class: PNV\CablesBundle\Services\TEquipementsTronconsErdfService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tInventairePoteauxErdfService:
+        class: PNV\CablesBundle\Services\TInventairePoteauxErdfService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tInventaireTronconsErdfService:
+        class: PNV\CablesBundle\Services\TInventaireTronconsErdfService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tObservationsService:
+        class: PNV\CablesBundle\Services\TObservationsService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tPhotosPoteauxErdfService:
+        class: PNV\CablesBundle\Services\TPhotosPoteauxErdfService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tPhotosTronconsErdfService:
+        class: PNV\CablesBundle\Services\TPhotosTronconsErdfService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tSitesNidificationService:
+        class: PNV\CablesBundle\Services\TSitesNidificationService
+        arguments: [@doctrine, @normalizer, @geometry]
+    tZonesSensiblesService:
+        class: PNV\CablesBundle\Services\TZonesSensiblesService
+        arguments: [@doctrine, @normalizer, @geometry]
+    fondsService:
+        class: PNV\CablesBundle\Services\FondsService
+        arguments: [@doctrine, @normalizer, @geometry]
+    filterService:
+        class: PNV\Utils\FilterService
+        arguments: [@doctrine, @normalizer]
+    listeService:
+        class: PNV\Utils\ListeService
+        arguments: [@doctrine, @normalizer]
+

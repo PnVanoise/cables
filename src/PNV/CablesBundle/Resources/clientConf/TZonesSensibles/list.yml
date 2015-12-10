@@ -1,0 +1,55 @@
+title: Zones sensibles 
+emptyMsg: Aucune donnée
+detailUrl: "#/cables/zonessensibles/"
+fields: 
+    -   name: id 
+        label: ID
+        filter: 
+            id: text
+        options: 
+            visible: false
+    # -   name: nom_zone_sensible
+    #     label: Zone sensible
+    #     filter:
+    #         nom_zone_sensible: select 
+    #     options:
+    #         visible: true
+    #         type: select
+    #         style: l
+    -   name: nom_zone_sensible
+        label: Zone sensible
+        filter: 
+            nom_zone_sensible: text
+        options:
+            visible: true
+    -   name: niveau_sensibilite
+        label: Niveau sensibilité
+        filter: 
+            niveau_sensibilite: text
+        options:
+            visible: false
+    -   name: nb_poteaux_inventories
+        label: Nb. poteaux inventories  
+        filter: 
+            nb_poteaux_inventories: text
+        options:
+            visible: true
+    -   name: m_troncons_inventories
+        label: Lg. tronçons inventories
+        help: Mètre tronçon inventorie 
+        filter: 
+            m_troncons_inventories: text
+        options:
+            visible: true 
+    -   name: nb_poteaux_equipes
+        label: Nb. poteaux équipés
+        filter: 
+            nb_poteaux_equipes: text
+        options:
+            visible: true
+    -   name: m_troncons_equipes
+        label: Lg. tronçons équipés
+        filter: 
+            m_troncons_equipes: text
+        options:
+            visible: true

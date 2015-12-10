@@ -1,0 +1,54 @@
+PNV\CablesBundle\Entity\View\VueZonesSensibles:
+    type: entity
+    table: cables73.v_zones_sensibles
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\VueZonesSensibles
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_zone_sensible
+            generator:
+                strategy: SEQUENCE
+    fields:
+        nom_zone_sensible:
+            type: string
+        niveau_sensibilite:
+            type: string
+        nb_poteaux_inventories:
+            type: string
+        nb_poteaux_inventories_risque_fort:
+            type: string
+        nb_poteaux_inventories_risque_secondaire:
+            type: string
+        nb_poteaux_inventories_risque_faible:
+            type: string
+        nb_poteaux_equipes:
+            type: string
+        nb_poteaux_equipes_risque_fort:
+            type: string
+        nb_poteaux_equipes_risque_secondaire:
+            type: string
+        nb_poteaux_equipes_risque_faible:
+            type: string
+        m_troncons_inventories:
+            type: string
+        m_troncons_inventories_risque_fort:
+            type: string
+        m_troncons_inventories_risque_secondaire:
+            type: string
+        m_troncons_inventories_risque_faible:
+            type: string
+        m_troncons_equipes:
+            type: string
+        m_troncons_equipes_risque_fort:
+            type: string
+        m_troncons_equipes_risque_secondaire:
+            type: string
+        m_troncons_equipes_risque_faible:
+            type: string
+        geom:
+            type: json_array

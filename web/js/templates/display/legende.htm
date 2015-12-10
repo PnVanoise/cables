@@ -1,0 +1,23 @@
+<!-- Initialisation de légende -->
+<div id="legende" class="uk-grid uk-margin-remove">
+    <div class="separateur"></div>
+    <div class ="overlay">
+    <div class="base" id="baselayers">
+        <h4 class="uk-margin-top">Fonds de référence</h4>
+    </div>
+        
+    <div class="separateur"></div>
+    
+        <h4  class="uk-margin-top">Données métier</h4>
+        <label class="checkbox">
+            <input id="zs" type="checkbox" ng-click="layerToggle()" value="zoneSensibles" checked><span class="outer"></span> Zones sensibles 
+            </label><br>
+        <label class="checkbox">
+            <input type="checkbox" ng-click="layerToggle()" value="mortalite"><span class="outer"></span> Cas de mortalité
+            </label><br>
+        <label class="checkbox">
+            <input type="checkbox" ng-click="layerToggle()" value="tronconserdf"><span class="outer"></span> Tronçons à risque 
+            </label><br>
+    </div>
+</div>
+

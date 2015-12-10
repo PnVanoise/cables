@@ -1,0 +1,43 @@
+editAccess: 5
+deleteAccess: 5
+groups:
+    -   name: Localisation
+        fields:
+            -   name: geom
+                label: Coordonnées GPS
+                type: geom
+                options:
+                    geometryType: point
+                    dataUrl: cables/mortalites
+    -   name: Informations
+        fields:
+            -   name: id
+                label: ID
+                type: hidden
+            -   name: espece
+                type: hidden
+            -   name: id_espece
+                label: Espece
+                type: select # select permet d'envoyer l'id
+                options:
+                    obligatoire: true 
+            -   name: id_cause_mortalite 
+                label: Cause mortalite
+                type: select
+                options:
+                    obligatoire: true
+            -   name: source
+                label: Source
+                type: selectLib
+            -   name: nb_cas
+                label: Nombre de cas
+                type: num
+            -   name: sexe
+                label: Sexe
+                type: selectLib # selectLib permet d'envoyer le libelle 
+            -   name: age
+                label: Age
+                type: selectLib 
+            -   name: date
+                label: Date
+                type: date

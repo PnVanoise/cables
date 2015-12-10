@@ -1,0 +1,61 @@
+PNV\CablesBundle\Entity\View\TPhotosTronconsErdfView:
+    type: entity
+    table: cables73.t_photos_troncons_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TPhotosTronconsErdfView
+    indexes:
+        IDX_6D348DDB16804DD1:
+            columns:
+                - id_inventaire_troncon_erdf
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_photo_troncon_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        cheminPhoto:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: chemin_photo
+        commentaire:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        neutralise:
+            type: boolean
+            nullable: true
+            comment: ''
+        auteur:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        id_inventaire_troncon_erdf:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_inventaire_troncon_erdf
+    manyToOne:
+        inventaire_troncon_erdf:
+            targetEntity: PNV\CablesBundle\Entity\View\TInventaireTronconsErdfView
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_inventaire_troncon_erdf:
+                    referencedColumnName: id_inventaire_troncon_erdf
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

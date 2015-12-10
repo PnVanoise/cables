@@ -1,0 +1,73 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>MortElecView list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tension</th>
+                <th>Gestionnaire</th>
+                <th>Type_pylone</th>
+                <th>Especes</th>
+                <th>Lieu</th>
+                <th>Nb_cas</th>
+                <th>Etat_ligne</th>
+                <th>Neutralisation</th>
+                <th>Date_neutralisation</th>
+                <th>Commune</th>
+                <th>Source</th>
+                <th>Observateur</th>
+                <th>Sexe</th>
+                <th>Age</th>
+                <th>Date</th>
+                <th>Id_poteau_risque</th>
+                <th>Geom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('mortelecview_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.tension }}</td>
+                <td>{{ entity.gestionnaire }}</td>
+                <td>{{ entity.typepylone }}</td>
+                <td>{{ entity.especes }}</td>
+                <td>{{ entity.lieu }}</td>
+                <td>{{ entity.nbcas }}</td>
+                <td>{{ entity.etatligne }}</td>
+                <td>{{ entity.neutralisation }}</td>
+                <td>{{ entity.dateneutralisation }}</td>
+                <td>{{ entity.commune }}</td>
+                <td>{{ entity.source }}</td>
+                <td>{{ entity.observateur }}</td>
+                <td>{{ entity.sexe }}</td>
+                <td>{{ entity.age }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.idpoteaurisque }}</td>
+                <td>{{ entity.geom }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('mortelecview_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('mortelecview_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('mortelecview_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

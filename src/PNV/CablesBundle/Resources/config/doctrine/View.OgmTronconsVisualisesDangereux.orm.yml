@@ -1,0 +1,28 @@
+PNV\CablesBundle\Entity\View\OgmTronconsVisualisesDangereux:
+    type: entity
+    table: cables73.ogm_troncons_visualises_dangereux
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\OgmTronconsVisualisesDangereux
+    indexes:
+        ogm_troncons_visualises_dangereux_geo_index:
+            columns:
+                - geom
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: idtvd
+            generator:
+                strategy: SEQUENCE
+    fields:
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+    lifecycleCallbacks: {  }

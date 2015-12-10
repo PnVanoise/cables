@@ -1,0 +1,191 @@
+#
+# configuration breadcrumb
+#
+cables_config_breadcrumb:
+    path: breadcrumb
+    defaults: { _controller: PNVCablesBundle:BreadConfig:breadcrumb }
+    requirements:
+        _method: GET
+
+#
+# configurations Cas de Mortalite
+#
+pnv_cables_config_mort_form:
+    path: mortalites/form
+    defaults: { _controller: PNVCablesBundle:TCasMortaliteConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_mort_detail:
+    path: mortalites/detail
+    defaults: { _controller: PNVCablesBundle:TCasMortaliteConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_mort_list:
+    path: mortalites/list
+    defaults: { _controller: PNVCablesBundle:TCasMortaliteConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Equipements Poteaux Erdf
+#
+pnv_cables_config_eqp_form:
+    path: eqpoteauxerdf/form
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdfConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_eqp_detail:
+    path: eqpoteauxerdf/detail
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdfConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_eqp_list:
+    path: eqpoteauxerdf/list
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdfConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Equipements Troncons Erdf
+#
+pnv_cables_config_eqt_form:
+    path: eqtronconserdf/form
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdfConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_eqt_detail:
+    path: eqtronconserdf/detail
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdfConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_eqt_list:
+    path: eqtronconserdf/list
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdfConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Inventaire Poteaux Erdf
+#
+pnv_cables_config_invp_form:
+    path: poteauxerdf/form
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdfConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_invp_detail:
+    path: poteauxerdf/detail
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdfConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_invp_list:
+    path: poteauxerdf/list
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdfConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Inventaire Troncons Erdf
+#
+pnv_cables_config_invt_form:
+    path: tronconserdf/form
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdfConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_invt_detail:
+    path: tronconserdf/detail
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdfConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_invt_list:
+    path: tronconserdf/list
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdfConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Observations
+#
+pnv_cables_config_obs_detail:
+    path: observations/detail
+    defaults: { _controller: PNVCablesBundle:TObservationsConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_obs_list:
+    path: observations/list
+    defaults: { _controller: PNVCablesBundle:TObservationsConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Photos Poteaux Erdf
+#
+pnv_cables_config_photp_form:
+    path: photospoteauxerdf/form
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdfConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_photp_detail:
+    path: photospoteauxerdf/detail
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdfConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_photp_list:
+    path: photospoteauxerdf/list
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdfConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Photos Troncons Erdf
+#
+pnv_cables_config_phott_form:
+    path: photostronconserdf/form
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdfConfig:getForm }
+    requirements:
+        _method: GET
+
+pnv_cables_config_phott_detail:
+    path: photostronconserdf/detail
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdfConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_phott_list:
+    path: photostronconserdf/list
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdfConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Sites de Nidification
+#
+pnv_cables_config_nid_detail:
+    path: nidifications/detail
+    defaults: { _controller: PNVCablesBundle:TSitesNidificationConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_nid_list:
+    path: nidifications/list
+    defaults: { _controller: PNVCablesBundle:TSitesNidificationConfig:getList }
+    requirements:
+        _method: GET
+#
+# configurations Zones Sensibles
+#
+pnv_cables_config_zs_detail:
+    path: zonessensibles/detail
+    defaults: { _controller: PNVCablesBundle:TZonesSensiblesConfig:getDetail }
+    requirements:
+        _method: GET
+
+pnv_cables_config_zs_list:
+    path: zonessensibles/list
+    defaults: { _controller: PNVCablesBundle:TZonesSensiblesConfig:getList }
+    requirements:
+        _method: GET

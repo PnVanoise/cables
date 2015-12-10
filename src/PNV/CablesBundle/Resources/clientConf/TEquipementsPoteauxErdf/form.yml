@@ -1,0 +1,27 @@
+deleteAccess: 5
+groups:
+    -   name: Nouvel équipement
+        fields:
+            -   name: id
+                label: ID
+                type: hidden
+            -   name: idInventairePoteauErdf
+                label: id_inventaire_poteau_erdf
+                type: hidden
+            -   name: loginSaisie
+                label: utilisateur #à modifier 
+                type: hidden
+            -   name: misEnPlace
+                label: mis en place
+                type: bool 
+            -   name: dateEquipement
+                label: Date d'équipement
+                type: date
+            -   name: id_nb_equipements
+                label: Nombre d'équipements
+                type: select 
+            -   name: id_type_equipement_poteau
+                label: Type d'équipement poteau
+                type: select 
+            -   name: type_equipement_poteau # utiliser pour le title en modification 
+                type: hidden 

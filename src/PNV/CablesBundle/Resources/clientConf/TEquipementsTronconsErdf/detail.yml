@@ -1,0 +1,13 @@
+editAccess: 3
+subEditAccess: 2
+deleteAccess: 5
+groups:
+    -   name: Informations
+        fields:
+            -   name: dateEquipementTroncon
+                label: "Date "
+                type: date
+            -   name: type_equipement_troncon
+                label: Type d'équipement tronçon
+                help: Type d'équipement tronçon
+                type: string

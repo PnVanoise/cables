@@ -1,0 +1,25 @@
+deleteAccess: 5
+groups:
+    -   name: Nouvelle photo
+        fields:
+            -   name: id
+                label: ID
+                type: hidden
+            -   name: idInventaireTronconErdf
+                label: ID Inventaire troncon ERDF
+                type: hidden
+            -   name: auteur
+                label: Auteur 
+                type: string  
+            -   name: commentaire
+                label: Commentaire
+                type: text
+            -   name: neutralise
+                label: Avant neutralisation?
+                type: bool
+            -   name: cheminPhoto
+                type: photo
+                options:
+                    id: photosPoteauxErdf
+                    obligatoire: true
+                    # tailleMax: 

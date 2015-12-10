@@ -1,0 +1,22 @@
+Commons\UsersBundle\Entity\Login:
+    type: entity
+    table: utilisateurs.view_login
+    schema: utilisateurs
+    repositoryClass: Commons\UsersBundle\Repositories\LoginRepository
+    id:
+        id_role:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        identifiant:
+            type: text
+        pass:
+            type: text
+        nom_complet:
+            type: text
+        id_application:
+            type: integer
+        maxdroit:
+            type: integer

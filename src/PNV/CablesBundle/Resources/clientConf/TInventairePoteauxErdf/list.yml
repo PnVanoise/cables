@@ -1,0 +1,76 @@
+title: Inventaires Poteaux ERDF
+maplist: cables/poteauxerdf
+refname: cables/poteauxerdf
+emptyMsg: Aucun inventaire poteau
+createBtnLabel: Nouvel inventaire poteau
+createUrl: "#/cables/edit/poteauxerdf/"
+editUrl: "#/cables/edit/poteauxerdf/"
+detailUrl: "#/cables/poteauxerdf/"
+editAccess: 5
+fields: 
+    -   name: id 
+        label: ID
+        filter: 
+            id: text
+        options: 
+            visible: false
+    -   name: dateInventaire
+        label: Date Inventaire
+        filter: 
+            dateInventaire: text
+        options:
+            visible: true
+    -   name: nb_equipement
+        label: Nb équipement 
+        filter: 
+            nb_equipement: text
+        options:
+            visible: true
+    -   name: risquePoteau
+        label: Risque poteau 
+        filter: 
+            risquePoteau: select
+        options:
+            visible: true
+    -   name: commune
+        label: Commune 
+        filter: 
+            commune: select
+        options:
+            visible: true
+    -   name: nbPhotos
+        label: Nb photos 
+        filter: 
+            nbPhotos: text
+        options:
+            visible: true
+    -   name: type_poteau_erdf
+        label: Type Pot. ERDF
+        filter: 
+            type_poteau_erdf: select
+        options:
+            visible: false
+    -   name: type_poteau_erdf_secondaire
+        label: Type Pot. ERDF secondaire
+        filter: 
+            type_poteau_erdf_secondaire: select
+        options:
+            visible: false
+    -   name: zone_sensible
+        label: Zone sensible
+        filter: 
+            zone_sensible: text
+        options:
+            visible: false
+    -   name: attractivite
+        label: Attractivité
+        filter: 
+            attractivite: select
+        options:
+            visible: false
+    -   name: dangerosite
+        label: Dangerosité
+        filter: 
+            dangerosite: select
+        options:
+            visible: false

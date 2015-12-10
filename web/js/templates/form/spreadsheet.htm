@@ -1,0 +1,31 @@
+<div id="subForm" class="" style="clear: both;">
+    <h2>{{subTitle}}</h2>
+    <div class="spreadsheet">
+        <form name="spreadSheet" novalidate>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th ng-repeat="field in schema.fields" tooltip="{{field.help}}">{{field.label}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="line in data">
+                    <th scope="row">{{$index+1}}</th>
+                    <td ng-repeat="field in schema.fields">
+                        <input id="{{field.name}}" name="{{field.name}}" type="text" ng-if="field.type=='string' && !field.options.multi" ng-model="line[field.name]" ng-minlength="field.options.minLength" ng-maxlength="field.options.maxLength" ng-required="field.options.minLength>0 || field.options.required || field.options.primary">
+                        <input id="{{field.name}}" name="{{field.name}}" type="number" min="{{field.options.min}}" max="{{field.options.max}}" step="{{field.options.step}}" ng-if="field.type=='num' && !field.options.multi" ng-model="line[field.name]" ng-required="field.options.required || field.options.primary">
+                        <div id="{{field.name}}" datepick ng-if="field.type=='date' && !field.options.multi" date="line[field.name]" ngrequired="field.options.required || field.options.primary"></div>
+                        <input id="{{field.name}}" type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="line[field.name]">
+                        <select id="{{field.name}}" ng-options="item.id as item.libelle for item in field.options.choices" ng-model="line[field.name]" ng-if="field.type=='select' && !field.options.multi" ng-required="field.options.required || field.options.primary"></select>
+                        <angucompletewrapper id="{{field.name}}" name="{{field.name}}" selectedobject="line[field.name]" url="{{field.options.url}}/" reverseurl="{{field.options.reverseurl}}" titlefield="label" ng-if="field.type=='xhr' && !field.options.multi" initial="line[field.name]" ngrequired="field.options.required || field.options.primary" ngdisabled="field.options.readOnly"></angucompletewrapper>
+                        <calculated id="{{field.name}}" ng-if="field.type=='sum' && !field.options.multi" refs="field.options.ref" data="line" model="line[field.name]" modifiable="field.options.modifiable" min="field.options.min" max="min.options.max"></calculated>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+        <button type="button" class="btn btn-default btn-xs" ng-click="addLines()" ng-disabled="spreadSheet.$invalid"><span class="glyphicon glyphicon-plus"></span> Plus de lignes</button>
+    </div>
+</div>
+<!--<button type="button" ng-click="check()">Test</button>-->

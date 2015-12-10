@@ -1,0 +1,201 @@
+PNV\CablesBundle\Entity\View\TInventairePoteauxErdfView:
+    type: entity
+    table: cables73.t_inventaire_poteaux_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\TInventairePoteauxErdfView
+    indexes:
+        t_inventaire_poteaux_erdf_index:
+            columns:
+                - geom
+        t_inventaire_poteaux_erdf_index_id:
+            columns:
+                - id_type_poteau_erdf
+                - id_type_poteau_erdf_secondaire
+                - id_zone_sensible
+                - id_attractivite
+                - id_dangerosite
+        IDX_102C3C271A3E505C:
+            columns:
+                - id_type_poteau_erdf
+        IDX_102C3C27D2E857EF:
+            columns:
+                - id_type_poteau_erdf_secondaire
+        IDX_102C3C277D86952E:
+            columns:
+                - id_zone_sensible
+        IDX_102C3C2759B8F6C6:
+            columns:
+                - id_attractivite
+        IDX_102C3C272F33FC97:
+            columns:
+                - id_dangerosite
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_inventaire_poteau_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        dateInventaire:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_inventaire
+        remarques:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        etatPoteau:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: etat_poteau
+        neutralisationPrevueIsolation:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: neutralisation_prevue_isolation
+        neutralisationPrevueDissuasion:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: neutralisation_prevue_dissuasion
+        neutralisationPrevueAttraction:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: neutralisation_prevue_attraction
+        dejaNeutralise:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: deja_neutralise
+        geom:
+            type: geometry
+            nullable: true
+            comment: ''
+            requireSQLConversion: true
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+        risquePoteau:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: risque_poteau
+        commune:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: commune
+        nb_equipements:
+            type: string
+            nullable: true
+            fixed: false
+            comment: ''
+            column: nb_equipements
+        nbPhotos:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: nb_photos
+        id_type_poteau_erdf:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_type_poteau_erdf
+        id_type_poteau_erdf_secondaire:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_type_poteau_erdf_secondaire
+        id_attractivite:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_attractivite
+        id_dangerosite:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_dangerosite
+        id_zone_sensible:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_zone_sensible
+    manyToOne:
+        type_poteau_erdf:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoTypePoteauErdf
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_type_poteau_erdf:
+                    referencedColumnName: id_type_poteau_erdf
+            orphanRemoval: false
+        type_poteau_erdf_secondaire:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoTypePoteauErdf
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_type_poteau_erdf_secondaire:
+                    referencedColumnName: id_type_poteau_erdf
+            orphanRemoval: false
+        zone_sensible:
+            targetEntity: PNV\CablesBundle\Entity\View\TZonesSensibles
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_zone_sensible:
+                    referencedColumnName: id_zone_sensible
+            orphanRemoval: false
+        attractivite:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoClassesRisque
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_attractivite:
+                    referencedColumnName: id_classe_risque
+            orphanRemoval: false
+        dangerosite:
+            targetEntity: PNV\CablesBundle\Entity\Dico\DicoClassesRisque
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_dangerosite:
+                    referencedColumnName: id_classe_risque
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

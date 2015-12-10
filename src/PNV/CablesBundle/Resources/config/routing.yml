@@ -1,0 +1,512 @@
+#
+# Config générale de l'appli Cables
+#
+pnv_app_config:
+    path:     /
+    defaults: { _controller: PNVCablesBundle:AppConfig:index }
+    requirements:
+        _method: GET
+
+pnv_app_config_getapps:
+    path: /config/apps
+    defaults: { _controller: PNVCablesBundle:AppConfig:getApps }
+    requirements:
+        _method: GET
+
+pnv_app_config_upload_photo_poteaux:
+    path: /upload_photos_poteaux
+    defaults: {_controller: PNVCablesBundle:TPhotosPoteauxErdf:uploadPhotos}
+    requirements:
+        _method: POST
+
+
+pnv_app_config_delete_photo_poteaux:
+    path: /upload_photos_poteaux/{photo_id}
+    defaults: {_controller: PNVCablesBundle:AppConfig:deletePoteaux }
+    requirements:
+        _method: DELETE
+
+pnv_app_config_upload_photo_tronçons:
+    path: /upload_photos_troncons
+    defaults: {_controller: PNVCablesBundle:AppConfig:uploadTroncons}
+    requirements:
+        _method: POST
+
+
+pnv_app_config_delete_photo_tronçons:
+    path: /upload_photos_troncons/{photo_id}
+    defaults: {_controller: PNVCablesBundle:AppConfig:deleteTroncons }
+    requirements:
+        _method: DELETE
+
+#
+# Config route de la page d'accueil 
+#
+
+pnv_cables_list:
+    path:     cables
+    defaults: { _controller: PNVCablesBundle:Cables:index }
+    requirements:
+        _method: GET
+
+#
+# Config Routes des données métiers 
+
+
+#
+# 1 Cas de mortalités 
+#
+pnv_cables_mort_list:
+    path:     cables/mortalites
+    defaults: { _controller: PNVCablesBundle:TCasMortalite:list }
+    requirements:
+        _method: GET
+
+pnv_cables_mort_detail:
+    path:     cables/mortalites/{id}
+    defaults: { _controller: PNVCablesBundle:TCasMortalite:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_mort_save:
+    path:     cables/mortalites
+    defaults: { _controller: PNVCablesBundle:TCasMortalite:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_mort_update:
+    path:     cables/mortalites/{id}
+    defaults: { _controller: PNVCablesBundle:TCasMortalite:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_mort_suppr:
+    path:     cables/mortalites/{id}
+    defaults: { _controller: PNVCablesBundle:TCasMortalite:delete }
+    requirements:
+        _method: DELETE
+#
+# 2 Equipements Poteaux Erdf
+#
+pnv_cables_equi_pot_erdf_listEq:
+    path:     cables/eqpoteauxerdf
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdf:listEq }
+    requirements:
+        _method: GET
+
+pnv_cables_equi_pot_erdf_list:
+    path:     cables/poteauxerdf/eqpoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdf:list }
+    requirements:
+        _method: GET
+
+pnv_cables_equi_pot_erdf_detail:
+    path:     cables/eqpoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdf:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_equi_pot_erdf_save:
+    path:     cables/eqpoteauxerdf
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdf:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_equi_pot_erdf_update:
+    path:     cables/eqpoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdf:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_equi_pot_erdf_suppr:
+    path:     cables/eqpoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsPoteauxErdf:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 3 Equipements Troncons Erdf
+#
+pnv_cables_equi_tron_erdf_listTr:
+    path:     cables/eqtronconserdf
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdf:listTr }
+    requirements:
+        _method: GET
+
+pnv_cables_equi_tron_erdf_list:
+    path:     cables/tronconserdf/eqtronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdf:list }
+    requirements:
+        _method: GET
+
+pnv_cables_equi_tron_erdf_detail:
+    path:     cables/eqtronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdf:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_equi_tron_erdf_save:
+    path:     cables/eqtronconserdf
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdf:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_equi_tron_erdf_update:
+    path:     cables/eqtronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdf:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_equi_tron_erdf_suppr:
+    path:     cables/eqtronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TEquipementsTronconsErdf:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 4 Inventaire Poteaux Erdf
+#
+pnv_cables_inv_pot_erdf_list:
+    path:     cables/poteauxerdf
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdf:list }
+    requirements:
+        _method: GET
+
+pnv_cables_inv_pot_erdf_in_zs_list:
+    path:     cables/zonessensibles/poteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdf:listInZs }
+    requirements:
+        _method: GET
+
+pnv_cables_inv_pot_erdf_detail:
+    path:     cables/poteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdf:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_inv_pot_erdf_save:
+    path:     cables/poteauxerdf
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdf:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_inv_pot_erdf_update:
+    path:     cables/poteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdf:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_inv_pot_erdf_suppr:
+    path:     cables/poteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventairePoteauxErdf:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 5 Inventaire Troncons Erdf
+#
+pnv_cables_inv_tron_erdf_list:
+    path:     cables/tronconserdf
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdf:list }
+    requirements:
+        _method: GET
+
+pnv_cables_inv_tron_erdf_in_zs_list:
+    path:     cables/zonessensibles/tronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdf:listInZs }
+    requirements:
+        _method: GET
+
+pnv_cables_inv_tron_erdf_detail:
+    path:     cables/tronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdf:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_inv_tron_erdf_save:
+    path:     cables/tronconserdf
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdf:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_inv_tron_erdf_update:
+    path:     cables/tronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdf:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_inv_tron_erdf_suppr:
+    path:     cables/tronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TInventaireTronconsErdf:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 6 Observations
+#
+pnv_cables_observations_list:
+    path:     cables/observations
+    defaults: { _controller: PNVCablesBundle:TObservations:list }
+    requirements:
+        _method: GET
+
+pnv_cables_observations_detail:
+    path:     cables/observations/{id}
+    defaults: { _controller: PNVCablesBundle:TObservations:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_observations_save:
+    path:     cables/observations
+    defaults: { _controller: PNVCablesBundle:TObservations:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_observations_update:
+    path:     cables/observations/{id}
+    defaults: { _controller: PNVCablesBundle:TObservations:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_observations_suppr:
+    path:     cables/observations/{id}
+    defaults: { _controller: PNVCablesBundle:TObservations:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 7 Photos Poteaux Erdf
+#
+pnv_cables_photo_poteaux_listPhotos:
+    path:     cables/photospoteauxerdf
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdf:listPhotos }
+    requirements:
+        _method: GET
+
+pnv_cables_photo_poteaux_list:
+    path:     cables/poteauxerdf/photospoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdf:list }
+    requirements:
+        _method: GET
+
+pnv_cables_photo_poteaux_detail:
+    path:     cables/photospoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdf:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_photo_poteaux_save:
+    path:     cables/photospoteauxerdf
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdf:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_photo_poteaux_update:
+    path:     cables/photospoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdf:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_photo_poteaux_suppr:
+    path:     cables/photospoteauxerdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosPoteauxErdf:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 8 Photos Troncons Erdf
+#
+pnv_cables_photo_tron_listPhotos:
+    path:     cables/photostronconserdf
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdf:listPhotos }
+    requirements:
+        _method: GET
+
+pnv_cables_photo_tron_list:
+    path:     cables/tronconserdf/photostronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdf:list }
+    requirements:
+        _method: GET
+
+pnv_cables_photo_tron_detail:
+    path:     cables/photostronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdf:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_photo_tron_save:
+    path:     cables/photostronconserdf
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdf:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_photo_tron_update:
+    path:     cables/photostronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdf:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_photo_tron_suppr:
+    path:     cables/photostronconserdf/{id}
+    defaults: { _controller: PNVCablesBundle:TPhotosTronconsErdf:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 9 Sites de Nidification
+#
+pnv_cables_site_nid_list:
+    path:     cables/nidifications
+    defaults: { _controller: PNVCablesBundle:TSitesNidification:list }
+    requirements:
+        _method: GET
+
+pnv_cables_site_nid_detail:
+    path:     cables/nidifications/{id}
+    defaults: { _controller: PNVCablesBundle:TSitesNidification:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_site_nid_save:
+    path:     cables/nidifications
+    defaults: { _controller: PNVCablesBundle:TSitesNidification:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_site_nid_update:
+    path:     cables/nidifications/{id}
+    defaults: { _controller: PNVCablesBundle:TSitesNidification:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_site_nid_suppr:
+    path:     cables/nidifications/{id}
+    defaults: { _controller: PNVCablesBundle:TSitesNidification:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 10 Zones Sensibles
+#
+pnv_cables_zs_list:
+    path:     cables/zonessensibles
+    defaults: { _controller: PNVCablesBundle:TZonesSensibles:list }
+    requirements:
+        _method: GET
+
+pnv_cables_zs_detail:
+    path:     cables/zonessensibles/{id}
+    defaults: { _controller: PNVCablesBundle:TZonesSensibles:detail }
+    requirements:
+        _method: GET
+
+pnv_cables_zs_save:
+    path:     cables/zonessensibles
+    defaults: { _controller: PNVCablesBundle:TZonesSensibles:create, id: null }
+    requirements:
+        _method: PUT
+
+pnv_cables_zs_update:
+    path:     cables/zonessensibles/{id}
+    defaults: { _controller: PNVCablesBundle:TZonesSensibles:update, id: null }
+    requirements:
+        _method: POST
+
+pnv_cables_zs_suppr:
+    path:     cables/zonessensibles/{id}
+    defaults: { _controller: PNVCablesBundle:TZonesSensibles:delete }
+    requirements:
+        _method: DELETE
+
+#
+# 11 Fonds de référence ERDF
+#
+pnv_cables_ErdfAppareilCoupure_list:
+    path:     cables/erdfappareilcoupure
+    defaults: { _controller: PNVCablesBundle:Fonds:listAC }
+    requirements:
+        _method: GET
+pnv_cables_ErdfConnexionAerienne_list:
+    path:     cables/erdfconnexionaerienne
+    defaults: { _controller: PNVCablesBundle:Fonds:listCA }
+    requirements:
+        _method: GET
+pnv_cables_ErdfParafoudre_list:
+    path:     cables/erdfparafoudre
+    defaults: { _controller: PNVCablesBundle:Fonds:listPF }
+    requirements:
+        _method: GET
+pnv_cables_ErdfPosteElectrique_list:
+    path:     cables/erdfposteelectrique
+    defaults: { _controller: PNVCablesBundle:Fonds:listPE }
+    requirements:
+        _method: GET
+pnv_cables_ErdfRemonteeAerosout_list:
+    path:     cables/erdfremonteeaerosout
+    defaults: { _controller: PNVCablesBundle:Fonds:listRA }
+    requirements:
+        _method: GET
+pnv_cables_ErdfTronconAerien_list:
+    path:     cables/erdftronconaerien
+    defaults: { _controller: PNVCablesBundle:Fonds:listTA }
+    requirements:
+        _method: GET
+#
+# 12 Fonds de référence OGM
+#
+pnv_cables_OgmCablesRemonteesMecaniques_list:
+    path:     cables/ogmcablesremonteesmecaniques
+    defaults: { _controller: PNVCablesBundle:Fonds:listCRM }
+    requirements:
+        _method: GET
+pnv_cables_OgmDomainesSkiables_list:
+    path:     cables/ogmdomainesskiables
+    defaults: { _controller: PNVCablesBundle:Fonds:listDS }
+    requirements:
+        _method: GET
+pnv_cables_OgmTronconsDangereux_list:
+    path:     cables/ogmtronconsdangereux
+    defaults: { _controller: PNVCablesBundle:Fonds:listTD }
+    requirements:
+        _method: GET
+pnv_cables_OgmTronconsVisualises_list:
+    path:     cables/ogmtronconsvisualises
+    defaults: { _controller: PNVCablesBundle:Fonds:listTV }
+    requirements:
+        _method: GET
+pnv_cables_OgmTronconsVisualisesDangereux_list:
+    path:     cables/ogmtronconsvisualisesdangereux
+    defaults: { _controller: PNVCablesBundle:Fonds:listTVD }
+    requirements:
+        _method: GET
+#
+# 13 Fonds de référence RTE
+#
+pnv_cables_RteLignes_list:
+    path:     cables/rtelignes
+    defaults: { _controller: PNVCablesBundle:Fonds:listLG }
+    requirements:
+        _method: GET
+pnv_cables_RtePostes_list:
+    path:     cables/rtepostes
+    defaults: { _controller: PNVCablesBundle:Fonds:listPO}
+    requirements:
+        _method: GET
+pnv_cables_RtePoteaux_list:
+    path:     cables/rtepoteaux
+    defaults: { _controller: PNVCablesBundle:Fonds:listPT }
+    requirements:
+        _method: GET
+#
+# 14 Autres fonds
+#
+pnv_cables_TAxesMigratoires_list:
+    path:     cables/axesmigratoires
+    defaults: { _controller: PNVCablesBundle:Fonds:listAM }
+    requirements:
+        _method: GET
+pnv_cables_TCommunes_list:
+    path:     cables/communes
+    defaults: { _controller: PNVCablesBundle:Fonds:listCO }
+    requirements:
+        _method: GET

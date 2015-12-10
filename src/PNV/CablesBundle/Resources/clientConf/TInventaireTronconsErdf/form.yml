@@ -1,0 +1,43 @@
+deleteAccess: 5
+groups:
+    -   name: Localisation
+        fields:
+            -   name: geom
+                label: Coordonnées GPS
+                type: geom
+                options:
+                    geometryType: linestring
+                    dataUrl: cables/tronconserdf 
+    -   name: Informations
+        fields:
+            -   name: id
+                label: ID
+                type: hidden
+            -   name: remarques
+                label: Remarques
+                type: string
+            -   name: dateInventaire
+                label: Date 
+                help: Date Inventaire
+                type: date
+            -   name: dejaNeutralise
+                label: Déjà neutralisé
+                type: bool
+            -   name: id_risque_integration_bati
+                label: "Risque integration bâti"
+                type: select 
+            -   name: id_risque_deplacement
+                label: Risque déplacement
+                type: select
+            -   name: id_risque_integration_topo
+                label: Risque intégration topo 
+                type: select 
+            -   name: id_risque_integration_vegetation
+                label: Risque intégration végetation
+                type: select 
+            -   name: id_zone_sensible
+                label: Zone sensible
+                options:
+                    obligatoire: true
+                help: Nom de la zone sensible
+                type: select

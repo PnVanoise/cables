@@ -1,0 +1,26 @@
+editAccess: 3
+deleteAccess: 5
+groups:
+    -   name: Informations
+        fields:
+            -   name: espece
+                label: "Espèce"
+                type: string
+            -   name: cause_mortalite
+                label: Cause mortalite
+                type: string
+            -   name: source
+                label: "Source"
+                type: string
+            -   name: nb_cas
+                label: Nombre de Cas
+                type: string
+            -   name: date
+                label: "Date"
+                type: date
+            -   name: age
+                label: "Âge"
+                type: date
+            -   name: sexe
+                label: "Sexe"
+                type: date

@@ -1,0 +1,23 @@
+PNV\CablesBundle\Entity\View\ErdfConnexionAerienne:
+    type: entity
+    table: cables73.erdf_connexion_aerienne
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\ErdfConnexionAerienne
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+    lifecycleCallbacks: {  }

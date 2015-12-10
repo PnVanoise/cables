@@ -1,0 +1,24 @@
+PNV\CablesBundle\Entity\Dico\DicoTypeEquipementTroncon:
+    type: entity
+    table: cables73.dico_type_equipement_troncon
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\DicoTypeEquipementTroncon
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_type_equipement_troncon
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: nom_type_equipement_troncon
+    lifecycleCallbacks: {  }

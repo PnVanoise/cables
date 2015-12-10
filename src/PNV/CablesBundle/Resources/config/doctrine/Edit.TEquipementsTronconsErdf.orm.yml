@@ -1,0 +1,65 @@
+PNV\CablesBundle\Entity\Edit\TEquipementsTronconsErdf:
+    type: entity
+    table: cables73.t_equipements_troncons_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Edit\TEquipementsTronconsErdf
+    indexes:
+        t_equipements_troncons_erdf_index:
+            columns:
+                - geom
+        IDX_F32A111A16804DD1:
+            columns:
+                - id_inventaire_troncon_erdf
+        IDX_F32A111A3434F3D:
+            columns:
+                - id_type_equipement_troncon
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_equipement_troncon_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        dateEquipementTroncon:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_equipement_troncon
+        geom:
+            type: geometry
+            nullable: true
+            comment: ''
+            requireSQLConversion: true
+        loginSaisie:
+            type: string
+            nullable: true
+            length: 25
+            fixed: false
+            comment: ''
+            column: login_saisie
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+        inventaire_troncon_erdf:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_inventaire_troncon_erdf
+        type_equipement_troncon:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_type_equipement_troncon
+    lifecycleCallbacks: {  }

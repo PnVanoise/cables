@@ -1,0 +1,66 @@
+editAccess: 3
+subEditAccess: 2
+deleteAccess: 5
+subSchemaUrl: cables/config/eqpoteauxerdf/list # récupération du schema du sous tableau (équipements poteaux liés)
+subDataUrl: cables/poteauxerdf/eqpoteauxerdf/ # récupération des données pour le sous tableau
+subSchemaPhotosUrl: cables/config/photospoteauxerdf/list # récupération du schema des photos
+subDataPhotosUrl: cables/poteauxerdf/photospoteauxerdf/ # récupération des données photos
+groups:
+    -   name: Informations
+        fields:
+            -   name: dateInventaire
+                label: "Date inventaire"
+                type: date
+            -   name: remarques
+                label: "Remarques" 
+                type: string 
+            -   name: etatPoteau
+                label: "Etat poteau" 
+                type: string
+            -   name: risquePoteau
+                label: Risque poteau 
+                type: string
+            -   name: dejaNeutralise
+                label: Déjà neutralisé
+                type: bool
+            -   name: commune
+                label: Commune
+                type: string
+            -   name: nb_equipement
+                label: Nombre d'équipement
+                type: string
+            -   name: nbPhotos
+                label: Nombre de photos
+                type: string
+    -   name: Détails
+        fields:
+            -   name: neutralisationPrevueIsolation
+                label: "Neutralisation isolation"
+                help: Neutralisation prévue isolation
+                type: string
+            -   name: neutralisationPrevueDissuasion
+                label: Neutralisation dissuasion
+                help: Neutralisation prévue dissuasion
+                type: string
+            -   name: neutralisationPrevueAttraction
+                label: Neutralisation attraction
+                help: Neutralisation prévue attraction
+                type: string
+            -   name: type_poteau_erdf
+                label: "Poteau ERDF"
+                help: Type de poteau ERDF
+                type: string
+            -   name: type_poteau_erdf_secondaire
+                label: équipement secondaire
+                help: Type d'équipement ERDF secondaire
+                type: string
+            -   name: zone_sensible
+                label: Zone sensible
+                help: Nom de la zone sensible
+                type: string
+            -   name: attractivite
+                label: Attractivité
+                type: string
+            -   name: dangerosite
+                label: Dangerosité
+                type: string

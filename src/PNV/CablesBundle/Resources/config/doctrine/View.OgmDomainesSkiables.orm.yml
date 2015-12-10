@@ -1,0 +1,28 @@
+PNV\CablesBundle\Entity\View\OgmDomainesSkiables:
+    type: entity
+    table: cables73.ogm_domaines_skiables
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\OgmDomainesSkiables
+    indexes:
+        ogm_domaines_skiables_index:
+            columns:
+                - geom
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: iddomaine
+            generator:
+                strategy: SEQUENCE
+    fields:
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+    lifecycleCallbacks: {  }

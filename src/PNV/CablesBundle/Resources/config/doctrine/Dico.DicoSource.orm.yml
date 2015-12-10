@@ -1,0 +1,24 @@
+PNV\CablesBundle\Entity\Dico\DicoSource:
+    type: entity
+    table: cables73.dico_source
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\DicoSource
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_source
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: lib_source
+    lifecycleCallbacks: {  }

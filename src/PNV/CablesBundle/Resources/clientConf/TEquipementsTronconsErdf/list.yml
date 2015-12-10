@@ -1,0 +1,30 @@
+title: Equipements Troncons ERDF
+maplist: cables/eqtronconserdf
+refname: cables/eqtronconserdf
+emptyMsg: "Aucun équipement"
+createBtnLabel: "Nouvel équipement"
+createUrl: "#/cables/edit/tronconserdf/eqtronconserdf/"
+editUrl: "#/cables/edit/eqtronconserdf/"
+detailUrl: "#/cables/eqtronconserdf/"
+editAccess: 5
+fields: 
+    -   name: id 
+        label: ID
+        filter: 
+            id: text
+        options: 
+            visible: true
+    -   name: dateEquipementTroncon
+        label: Date équipement
+        filter: 
+            dateEquipementTroncon: text
+        options:
+            visible: true
+    -   name: type_equipement_troncon
+        label: Type d'équipement
+        filter: 
+            type_equipement_troncon: select
+        options:
+            visible: true
+
+

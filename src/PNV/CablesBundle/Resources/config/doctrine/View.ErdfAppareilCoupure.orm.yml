@@ -1,0 +1,27 @@
+PNV\CablesBundle\Entity\View\ErdfAppareilCoupure:
+    type: entity
+    table: cables73.erdf_appareil_coupure
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\ErdfAppareilCoupure
+    indexes:
+        erdf_appareil_coupure_index:
+            columns:
+                - geom
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+    lifecycleCallbacks: {  }

@@ -1,0 +1,36 @@
+PNV\CablesBundle\Entity\Dico\TEspeces:
+    type: entity
+    table: cables73.t_especes
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Dico\TEspeces
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_espece
+            generator:
+                strategy: SEQUENCE
+    fields:
+        libelle:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+            comment: ''
+            column: nom_espece
+        taille_zone_tampon:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: taille_zone_tampon
+        code_couleur:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: code_couleur

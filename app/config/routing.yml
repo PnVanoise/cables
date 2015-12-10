@@ -1,0 +1,21 @@
+commons_users:
+    resource: "@CommonsUsersBundle/Resources/config/routing.yml"
+    prefix:   /users/
+
+pnv_cables:
+    resource: "@PNVCablesBundle/Resources/config/routing.yml"
+    prefix:   /cables/
+
+pnv_cables_config:
+    resource: "@PNVCablesBundle/Resources/config/routing_config.yml"
+    prefix:   /cables/config/
+
+pnv_cables_base:
+    resource: "@PNVCablesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cables: 
+    resource: "@PNVCablesBundle/Controller/" 
+    type:     annotation 
+    prefix:   /cables/
+    # app/config/routing.yml

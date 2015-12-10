@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="appCables">
+    <head>
+        <meta charset="utf8">
+        <script src="js/lib/jquery/jquery.min.js"></script>
+        <script src="js/lib/jquery/jquery.js"></script>
+        <script src="css/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/lib/angular-1.3.9/angular.js"></script>
+        <script src="js/lib/angular-1.3.9/angular-route.js"></script>
+        <script src="js/lib/leaflet/leaflet-src.js"></script>
+        <script src="js/lib/ng-table.min.js"></script>
+        <script src="js/lib/leaflet.markercluster.js"></script>
+        <script src="js/lib/leaflet.draw/leaflet.draw-src.js"></script>
+        <script src="js/lib/Leaflet.draw.drag/dist/Leaflet.draw.drag-src.js"></script>
+        <script src="js/lib/angular-file-upload.js"></script>
+        <script src="js/lib/ui-bootstrap.min.js"></script>
+        <script src="js/lib/ui-bootstrap-tpls-0.13.3.js"></script>
+        <script src="js/lib/ng-table-resizable-columns.js"></script>
+        <script src="js/lib/spin.js"></script>
+        <script src="js/lib/angular-loading-1.0/angular-loading.min.js"></script>
+        <script src="js/lib/angular-local-storage-0.1.4/dist/angular-local-storage.js"></script>
+        <script type='text/javascript' src="js/lib/leaflet.restoreview.js"></script>
+        <link rel="icon" type="image/png" href="img/Spirale_noire.png" />       
+        <!-- Leaflet FullScreen -->     
+        <script src="js/lib/fullscreen/Control.FullScreen.js"></script>
+        <link rel="stylesheet" href="js/lib/fullscreen/Control.FullScreen.css" />
+        <!-- Page de connexion-->
+        <link href="css/login/animate-custom.css" rel="stylesheet"> 
+        <link href="css/login/login.css" rel="stylesheet">    
+
+
+        <!-- Panel légende -->
+        <script src="js/lib/sidebar/leaflet-sidebar.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+        <link rel="stylesheet" type="text/css" href="js/lib/angular-loading-1.0/angular-loading.css"/>
+        <!-- <link rel="icon" type="image/png" href="img/Spirale_noire.png" /> -->
+        <link rel="stylesheet" href="css/lib/leaflet.css">
+        <link rel="stylesheet" href="css/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/lib/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/lib/ng-table.css">
+        <link rel="stylesheet" href="css/lib/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="js/lib/leaflet.draw/leaflet.draw.css">
+        <script src="js/lib/angular-strap/angular-strap.min.js"></script>
+        <script src="js/lib/angular-strap/angular-strap.tpl.min.js"></script>
+        <script src="js/lib/Leaflet.Snap/leaflet.geometryutil.js"></script>
+        <script src="js/lib/Leaflet.Snap/leaflet.snap.js"></script>
+
+        <!-- Photo upload-->
+        <script src="js/lib/angular-file-upload/angular-file-upload.js"></script> 
+        <!-- Easy button -->
+        <link rel="stylesheet" href="js/lib/easy-button/easy-button.css" />
+        <script src="js/lib/easy-button/easy-button.js"></script>
+        <!-- custom couches geom -->            
+        <script src="js/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+        <link rel="stylesheet" href="js/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">        
+        <script src="js/lib/Leaflet.label/leaflet.label-src.js"></script>
+        <link rel="stylesheet" href="js/lib/Leaflet.label/leaflet.label.css" /> 
+
+        <!-- Test export -->
+        <script src="js/lib/export/tableExport.js"></script> 
+        <script src="js/lib/export/jquery.base64.js"></script> 
+        <script src="js/lib/export/html2canvas.js"></script> 
+        <script src="js/lib/export/jspdf/libs/sprintf.js"></script> 
+        <script src="js/lib/export/jspdf/jspdf.js"></script> 
+        <script src="js/lib/export/jspdf/libs/base64.js"></script>
+
+         <!-- Test ui-route pour tab -->
+        <script src="js/lib/test/angular-ui-router.js"></script> 
+
+        <!-- Css de l'appli-->   
+        <link rel="stylesheet" href="css/app.css">
+
+
+        <title>Projet Câbles dangereux</title>
+    </head>
+    <body>
+        <div>
+            <div ng-controller="baseController">
+
+                <!-- <div usermsg></div> -->
+                    <div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <!-- <a class="navbar-brand" href="#">Cables</a> -->
+                                <!-- <a href="#/cables" class="brand"><i class="icon-bolt">Cables</i></a> -->
+                                <a href="#/cables" class="brand"><i class="icon-bolt">Cables</i></a>
+                            </div>
+                            <!-- <ul class="nav navbar-nav navbar-left" role="menu"> 
+                                        <li ng-if="user" ng-class="{ active: isActive('/cables')}"><a href="#/cables">Accueil</a></li>
+                                        <li ng-if="user" ng-class="{ active: isActive('/cables/zonessensibles')}"><a href="#/cables/zonessensibles">Zones Sens</a></li>
+                                        <li ng-if="user" ng-class="{ active: isActive('/cables/mortalites')}"><a href="#/cables/mortalites">Mort Elec</a></li>
+                                        <li ng-if="user" ng-class="{ active: isActive('/cables/troncons')}"><a href="#/cables/troncons">Tron ERDF</a></li>
+                    
+                            </ul> -->
+
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li ng-if="user">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href=""> <span class="glyphicon glyphicon-user"></span> {{user.nom_complet}}</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#/logout"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Se déconnecter</a></li>
+
+                                    </ul>
+                                        </li>
+                                    <li ng-if="!user"><a href="#/login"><span class="glyphicon glyphicon-lock"></span> Non connecté</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /container -->
+                    </div>
+
+
+                <div ng-view class="container-fluid full-screen">
+                    <div ui-view></div>  
+                </div>
+              
+
+    
+    
+  </body>
+         
+                    
+            </div>
+        </div>
+    
+        <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>
+        
+        
+        <script src="js/app.js"></script>  
+        <script src="js/services/mapServices.js"></script>
+        <script src="js/services/cablesServices.js"></script>
+        <script src="js/services/colorServices.js"></script>
+        <script src="js/directives/formDirectives.js"></script>
+        <script src="js/directives/displayDirectives.js"></script>
+        <script src="js/directives/tabManagerDirectives.js"></script>
+        <script src="js/controleurs/cablesGlobalCtrl.js"></script>
+        <script src="js/controleurs/mortalitesCtrl.js"></script>
+        <script src="js/controleurs/zonesSensiblesCtrl.js"></script>
+        <script src="js/controleurs/tronconsErdfCtrl.js"></script>
+        <script src="js/controleurs/eqTronconsErdfCtrl.js"></script>
+        <script src="js/controleurs/photosTronconsErdfCtrl.js"></script>
+        <script src="js/controleurs/eqPoteauxErdfCtrl.js"></script>
+        <script src="js/controleurs/photosPoteauxErdfCtrl.js"></script>
+        <script src="js/controleurs/nidificationsCtrl.js"></script>
+        <script src="js/controleurs/observationsCtrl.js"></script>
+        <script src="js/controleurs/poteauxErdfCtrl.js"></script> 
+        <script src="js/lib/leaflet.draw-trad-fr.js"></script>
+
+
+    </body>
+</html>

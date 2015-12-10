@@ -1,0 +1,64 @@
+deleteAccess: 5
+groups:
+    -   name: Localisation
+        fields:
+            -   name: geom
+                label: Coordonnées GPS
+                type: geom
+                options:
+                    geometryType: point
+                    dataUrl: cables/poteauxerdf 
+    -   name: Informations
+        fields:
+            -   name: id
+                label: ID
+                type: hidden
+            -   name: remarques
+                label: Remarques
+                type: string
+                options:
+                    maxlength: 250
+            -   name: dateInventaire
+                label: Date 
+                help: Date Inventaire
+                type: date
+            -   name: etatPoteau
+                label: "Etat poteau"
+                type: string
+                options:
+                    maxlength: 250
+            -   name: dejaNeutralise
+                label: Déjà neutralisé
+                type: bool
+            -   name: neutralisationPrevueIsolation
+                label: "Neutralisation isolation"
+                help: Neutralisation prévue isolation
+                type: bool
+            -   name: neutralisationPrevueDissuasion
+                label: Neutralisation dissuasion
+                help: Neutralisation prévue dissuasion
+                type: bool
+            -   name: neutralisationPrevueAttraction
+                label: Neutralisation attraction
+                help: Neutralisation prévue attraction
+                type: bool
+            -   name: id_type_poteau_erdf
+                label: Type Poteau ERDF
+                help: Type de poteau ERDF
+                type: select
+            -   name: id_type_poteau_erdf_secondaire
+                label: Type poteau secondaire
+                help: Type poteau ERDF secondaire
+                type: select 
+            -   name: id_zone_sensible
+                label: Zone sensible
+                options:
+                    obligatoire: true
+                help: Nom de la zone sensible
+                type: select 
+            -   name: id_attractivite
+                label: Attractivité
+                type: select 
+            -   name: id_dangerosite
+                label: Dangerosité
+                type: select

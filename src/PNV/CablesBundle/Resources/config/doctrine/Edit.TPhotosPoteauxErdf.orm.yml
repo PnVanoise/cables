@@ -1,0 +1,50 @@
+PNV\CablesBundle\Entity\Edit\TPhotosPoteauxErdf:
+    type: entity
+    table: cables73.t_photos_poteaux_erdf
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\Edit\TPhotosPoteauxErdf
+    indexes:
+        IDX_F92088912F648596:
+            columns:
+                - id_inventaire_poteau_erdf
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_photo_poteau_erdf
+            generator:
+                strategy: SEQUENCE
+    fields:
+        cheminPhoto:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: chemin_photo
+        commentaire:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        neutralise:
+            type: boolean
+            nullable: true
+            comment: ''
+        auteur:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        id_inventaire_poteau_erdf:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: id_inventaire_poteau_erdf

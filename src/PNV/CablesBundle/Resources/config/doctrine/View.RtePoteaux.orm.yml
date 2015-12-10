@@ -1,0 +1,28 @@
+PNV\CablesBundle\Entity\View\RtePoteaux:
+    type: entity
+    table: cables73.rte_poteaux
+    schema: cables73
+    repositoryClass: PNV\CablesBundle\Repositories\View\RtePoteaux
+    indexes:
+        rte_poteaux_index:
+            columns:
+                - geom
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_rte_poteaux
+            generator:
+                strategy: SEQUENCE
+    fields:
+        geomJson:
+            type: json_array
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: geom_json
+    lifecycleCallbacks: {  }

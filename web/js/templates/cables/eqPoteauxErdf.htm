@@ -1,0 +1,12 @@
+<div class="row" ng-controller="eqPoteauxErdfTabCtrl">
+	<div maplist="cables/eqpoteauxerdf">
+		<div class="bnt-new">
+			<a class="btn btn-success" style="margin-right: 1ex;" ng-if="editAccess" ng-href="{{schema.createUrl}}">{{schema.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
+		</div></br>
+		<div class="padded">
+ 			<div tablewrapper class="table" schema="schema" data="data" refname="cables/eqpoteauxerdf"></div>
+		</div>
+	</div>
+</div>
+
+

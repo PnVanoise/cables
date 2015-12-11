@@ -62,7 +62,7 @@ app.directive('leafletMap', function(){
             var eqtronconserdf = null; // couche de données "Equipements tronçons ERDF"
             var eqpoteauxerdf = null; // couche de données "Equipements tronçons ERDF"
             var nidifications = null; // couche de données "Sites de nidification"
-            var obsClasse1 = null; // couche de données "Observations"
+            var test = null; // couche de données "Observations"
             var obsClasse2 = null; // couche de données "Observations"
             var obsClasse3 = null; // couche de données "Observations"
             var erdfappareilcoupure = null; // couche de référence ERDF
@@ -96,7 +96,11 @@ app.directive('leafletMap', function(){
                 "eqtronconserdf": L.featureGroup(),
                 "eqpoteauxerdf": L.featureGroup(),
                 "nidifications": L.featureGroup(),
-                "obsClasse1": L.featureGroup(),
+                "test": L.polygon([
+				        [51.509, -0.08],
+				        [51.503, -0.06],
+				        [51.51, -0.047]
+				    ]),
                 "obsClasse2": L.featureGroup(),
                 "obsClasse3": L.featureGroup(),
                 "observations": L.featureGroup(),
@@ -138,8 +142,7 @@ app.directive('leafletMap', function(){
                         tabThemaData[key].addTo(map);
                     }    
 
-                            
-           
+                   
                     /* Récupération de l'url de données avec getUrl de configServ
                      * Url fourni dans les contôles des base (exemple : cablesControllers.js)
                      */
@@ -240,8 +243,14 @@ app.directive('leafletMap', function(){
                             else if (storeFlag.getFlagLayer(layerClickedValue) === "cacheUnchecked"){
                                 map.addLayer(tabThemaData[layerClickedValue]);
                                 storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
-                            }                            
+                            } 
+                            // nouvelle méthode pour les sous couches
+                            if (storeFlag.getFlagLayer(layerClickedValue) === "subLayer"){
+                                storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
+                            }                           
                         };
+                       
+
 
                         dfd.resolve();
                     });
@@ -627,15 +636,12 @@ app.directive('leafletMap', function(){
                         switch (true) {
                             case (nb<20):
                                 geom.setIcon(defaultColorService.obsClasse1())
-                                tabThemaData["obsClasse1"].addLayer(geom);
                             break;
                             case (nb>=20 && nb<40):
                                 geom.setIcon(defaultColorService.obsClasse2())
-                                tabThemaData["obsClasse2"].addLayer(geom);
                             break;
                             case (nb>=40):
                                 geom.setIcon(defaultColorService.obsClasse3())
-                                tabThemaData["obsClasse3"].addLayer(geom);
                             break;
                         }
                     };
@@ -645,7 +651,6 @@ app.directive('leafletMap', function(){
                     geoms.push(geom);
 
                     // Ajout des couches GeoJSON dans les couches métiers
-                    tabThemaData["obsClasse1"].addLayer(geom);
                     tabThemaData[layer].addLayer(geom);
 
                     return geom;

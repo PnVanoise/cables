@@ -1,43 +1,53 @@
-var app = angular.module('appCables', [ 'cablesGlobalCtrl', 'mortalitesCtrl', 'zonesSensiblesCtrl', 'tronconsErdfCtrl', 'eqTronconsErdfCtrl', 'eqPoteauxErdfCtrl','nidificationsCtrl','observationsCtrl','poteauxErdfCtrl', 'cablesServices', 'FormDirectives', 'DisplayDirectives', 'ui.bootstrap', 'bootstrap.tabset', 'darthwade.loading', 'mapServices', 'LocalStorageModule']); //'ngTableResizableColumns'
+var app = angular.module('appCables', [ 'cablesGlobalCtrl', 'mortalitesCtrl', 'zonesSensiblesCtrl', 'tronconsErdfCtrl', 'eqTronconsErdfCtrl', 'eqPoteauxErdfCtrl','nidificationsCtrl','observationsCtrl', 'poteauxErdfCtrl', 'photosPoteauxErdfCtrl', 'photosTronconsErdfCtrl', 'cablesServices', 'colorServices', 'FormDirectives', 'DisplayDirectives', 'ui.router', 'ui.bootstrap', 'bootstrap.tabset', 'darthwade.loading', 'mapServices', 'LocalStorageModule']); //, 'ngTableResizableColumns' 
 
 // module de gestion de la page d'accueil
-angular.module('cablesGlobalCtrl', ['cablesServices', 'mapServices', 'ngRoute', 'ngTable']);
+angular.module('cablesGlobalCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
 
 // module de gestion des cas de mortalité
-angular.module('mortalitesCtrl', ['cablesServices', 'mapServices', 'ngRoute', 'ngTable']);
+angular.module('mortalitesCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
 
 // module de gestion des zones sensibles
-angular.module('zonesSensiblesCtrl', ['cablesServices', 'mapServices', 'ngRoute', 'ngTable']);
+angular.module('zonesSensiblesCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
 
 // module de gestion des inventaires tronçons erdf
-angular.module('tronconsErdfCtrl', ['cablesServices', 'mapServices','ngRoute', 'ngTable']);
+angular.module('tronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
 
 // module de gestion des équipements tronçons erdf
-angular.module('eqTronconsErdfCtrl', ['cablesServices', 'mapServices','ngRoute', 'ngTable']);
+angular.module('eqTronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
 
-// module de gestion des équipements poteaux erdf
-angular.module('eqPoteauxErdfCtrl', ['cablesServices', 'mapServices','ngRoute', 'ngTable']);
-
-// module de gestion des sites de nidifications erdf
-angular.module('nidificationsCtrl', ['cablesServices', 'mapServices','ngRoute', 'ngTable']);
-
-// module de gestion des observations erdf
-angular.module('observationsCtrl', ['cablesServices', 'mapServices','ngRoute', 'ngTable']);
+// module de gestion des équipements tronçons erdf
+angular.module('photosTronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
 
 // module de gestion des inventaires poteaux erdf
-angular.module('poteauxErdfCtrl', ['cablesServices', 'mapServices','ngRoute', 'ngTable']);
+angular.module('poteauxErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ui.router', 'ngRoute', 'ngTable']);
 
-// services de l'application
+// module de gestion des équipements poteaux erdf
+angular.module('eqPoteauxErdfCtrl', ['cablesServices', 'colorServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
+
+// module de gestion des équipements poteaux erdf
+angular.module('photosPoteauxErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ui.router', 'ngRoute', 'ngTable']);
+
+// module de gestion des sites de nidifications erdf
+angular.module('nidificationsCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
+
+// module de gestion des observations erdf
+angular.module('observationsCtrl', ['cablesServices', 'colorServices', 'mapServices','ui.router','ngRoute', 'ngTable']);
+
+
+// services principaux de l'application
 angular.module('cablesServices', ['mapServices']);
 
+// services pour la gestion des couleurs des couches géométriques
+angular.module('colorServices', ['mapServices']);
+
 // directives formulaires
-angular.module('FormDirectives', ['angularFileUpload', 'mapServices']);
+angular.module('FormDirectives', ['angularFileUpload','mapServices']);
 
 // directives affichage
 angular.module('DisplayDirectives', ['mapServices']);
 
 // directives map
-angular.module('mapServices', ['cablesServices']);
+angular.module('mapServices', ['cablesServices', 'colorServices']);
 
 
 /*
@@ -47,7 +57,6 @@ app.config(function($routeProvider){
     $routeProvider
         .when('/', {
             controller: 'baseController',
-            templateUrl: 'js/templates/index.htm'
         })
         .when('/login', {
             controller: 'loginController',
@@ -84,6 +93,7 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
         if($location.path() == '/'){
             $location.url('/cables');
         }
+        
         $scope.data = resp;
 
         // FIXME DEBUG
@@ -102,6 +112,8 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
 
     };
 
+    
+
     // gestion des menus dans le bandeau
     $scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
@@ -114,6 +126,8 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
     $scope.check = function(val){
         return userServ.checkLevel(val); 
     }; 
+
+  
   
     configServ.getUrl('config/apps', $scope.success);
 });
@@ -160,4 +174,10 @@ app.controller('logoutController', function($scope, $location, userServ, userMes
 });
 
 
-
+// collapse données letier dans la légende
+app.controller('LegendCtrl', ['$scope', function ($scope) {
+    $scope.isExpanded = false;
+    $scope.togglePThemaData = function() {
+       $scope.isExpanded = !$scope.isExpanded;
+    };
+}]);

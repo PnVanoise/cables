@@ -999,19 +999,33 @@ canvas {
   color: #ffffff;
 }
 
-.overlay label{
+.checkbox{
   padding-left:5%;
   margin:5px 0px;
   display: inline-block;
   font-size: smaller;
 
 }
+.baselayers label{
+  font-size: small;
+}
+
+.uk-margin-top.base{
+  margin-top:-10px;
+  margin-left:2px;
+}
+
 
 
 .checkbox input {
   width: 1px;
   height: 1px;
   opacity: 0;
+}
+
+.checkbox.type1{
+  padding-left:0px;
+  postion:fixed;
 }
 
 .checkbox .outer {
@@ -1038,6 +1052,17 @@ canvas {
   background-repeat: no-repeat;
   background-position: center;
   box-shadow: none;
+}
+
+.baselayers input {
+  cursor: pointer;
+  box-shadow: inset 0px 0px 0px 3px #43A8EB;
+}
+
+
+.baselayers input:checked {
+  opacity:0
+  background-image: url(img/checked.svg)
 }
 
 .bnt-new{

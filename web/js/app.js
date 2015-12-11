@@ -126,6 +126,8 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
     $scope.check = function(val){
         return userServ.checkLevel(val); 
     }; 
+
+  
   
     configServ.getUrl('config/apps', $scope.success);
 });
@@ -172,4 +174,10 @@ app.controller('logoutController', function($scope, $location, userServ, userMes
 });
 
 
-
+// collapse données letier dans la légende
+app.controller('LegendCtrl', ['$scope', function ($scope) {
+    $scope.isExpanded = false;
+    $scope.togglePThemaData = function() {
+       $scope.isExpanded = !$scope.isExpanded;
+    };
+}]);

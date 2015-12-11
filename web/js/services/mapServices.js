@@ -90,7 +90,7 @@ app.directive('leafletMap', function(){
             // Tableau des couches métier             
             var tabThemaData = {
                 "zonessensibles" : L.featureGroup(), 
-                "mortalites" : L.markerClusterGroup(), 
+                "mortalites" : L.featureGroup(), 
                 "tronconserdf": L.featureGroup(),
                 "poteauxerdf": L.featureGroup(),
                 "eqtronconserdf": L.featureGroup(),

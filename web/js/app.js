@@ -1,37 +1,37 @@
-var app = angular.module('appCables', [ 'cablesGlobalCtrl', 'mortalitesCtrl', 'zonesSensiblesCtrl', 'tronconsErdfCtrl', 'eqTronconsErdfCtrl', 'eqPoteauxErdfCtrl','nidificationsCtrl','observationsCtrl', 'poteauxErdfCtrl', 'photosPoteauxErdfCtrl', 'photosTronconsErdfCtrl', 'cablesServices', 'colorServices', 'FormDirectives', 'DisplayDirectives', 'ui.router', 'ui.bootstrap', 'bootstrap.tabset', 'darthwade.loading', 'mapServices', 'LocalStorageModule']); //, 'ngTableResizableColumns' 
+var app = angular.module('appCables', [ 'cablesGlobalCtrl', 'mortalitesCtrl', 'zonesSensiblesCtrl', 'tronconsErdfCtrl', 'eqTronconsErdfCtrl', 'eqPoteauxErdfCtrl','nidificationsCtrl','observationsCtrl', 'poteauxErdfCtrl', 'photosPoteauxErdfCtrl', 'photosTronconsErdfCtrl', 'cablesServices', 'colorServices', 'FormDirectives', 'DisplayDirectives', 'ui.bootstrap', 'bootstrap.tabset', 'darthwade.loading', 'mapServices', 'LocalStorageModule']); //, 'ngTableResizableColumns' 
 
 // module de gestion de la page d'accueil
-angular.module('cablesGlobalCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
+angular.module('cablesGlobalCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
 
 // module de gestion des cas de mortalité
-angular.module('mortalitesCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
+angular.module('mortalitesCtrl', ['cablesServices', 'colorServices', 'mapServices','ngRoute', 'ngTable']);
 
 // module de gestion des zones sensibles
-angular.module('zonesSensiblesCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
+angular.module('zonesSensiblesCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
 
 // module de gestion des inventaires tronçons erdf
-angular.module('tronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
+angular.module('tronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ngRoute', 'ngTable']);
 
 // module de gestion des équipements tronçons erdf
-angular.module('eqTronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
+angular.module('eqTronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ngRoute', 'ngTable']);
 
 // module de gestion des équipements tronçons erdf
-angular.module('photosTronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router','ngRoute', 'ngTable']);
+angular.module('photosTronconsErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ngRoute', 'ngTable']);
 
 // module de gestion des inventaires poteaux erdf
-angular.module('poteauxErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ui.router', 'ngRoute', 'ngTable']);
+angular.module('poteauxErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
 
 // module de gestion des équipements poteaux erdf
-angular.module('eqPoteauxErdfCtrl', ['cablesServices', 'colorServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
+angular.module('eqPoteauxErdfCtrl', ['cablesServices', 'colorServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
 
 // module de gestion des équipements poteaux erdf
-angular.module('photosPoteauxErdfCtrl', ['cablesServices', 'colorServices', 'mapServices','ui.router', 'ngRoute', 'ngTable']);
+angular.module('photosPoteauxErdfCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
 
 // module de gestion des sites de nidifications erdf
-angular.module('nidificationsCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ui.router', 'ngRoute', 'ngTable']);
+angular.module('nidificationsCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
 
 // module de gestion des observations erdf
-angular.module('observationsCtrl', ['cablesServices', 'colorServices', 'mapServices','ui.router','ngRoute', 'ngTable']);
+angular.module('observationsCtrl', ['cablesServices', 'colorServices', 'mapServices','ngRoute', 'ngTable']);
 
 
 // services principaux de l'application

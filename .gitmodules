@@ -4,3 +4,6 @@
 [submodule "web/js/lib/jquery"]
 	path = web/js/lib/jquery
 	url = https://github.com/jquery/jquery.git
+[submodule "web/js/lib/Leaflet.Draw"]
+	path = web/js/lib/Leaflet.Draw
+	url = https://github.com/Leaflet/Leaflet.draw.git

@@ -6,19 +6,19 @@ app = angular.module('mapServices');
 app.factory('LeafletServices', ['$http', function($http) {
     return {
 
-    /* changement du nom de "layer" en "couche" 
+    /* changement du nom de "layer" en "couche"
     */
-      couche : {},  
-            
+      couche : {},
+
       loadData : function(layerdata) {
-        this.couche = {}; 
+        this.couche = {};
         this.couche.name = layerdata.name; // nom de la couche
         this.couche.active = layerdata.active; // true ou false pour activer le fond par default
-        
-        
+
+
         if (layerdata.type == 'tileLayer' || layerdata.type == 'ign') {
           if ( layerdata.type == 'ign') {
-            url = 'https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}'; 
+            url = 'https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}';
           }
           else {
             url = layerdata.url;
@@ -51,10 +51,10 @@ app.directive('leafletMap', function(){
         },
         templateUrl: 'js/templates/display/map.htm',
         controller: function($scope, $filter, $q, $rootScope, LeafletServices, mapService,  configServ, dataServ, $timeout, $loading, $routeParams, userServ, storeFlag, loadDataSymf, defaultColorService, changeColorService){
-                  
+
 
             // Variables globales dans la directive leafletMap
-            var map = null; // la carte 
+            var map = null; // la carte
             var zonessensibles = null; // couche de données "Zones sensibles"
             var mortalites = null; // couche de données "mortalités"
             var tronconserdf = null; // couche de données "Tronçons ERDF"
@@ -81,16 +81,16 @@ app.directive('leafletMap', function(){
             var rtepoteaux = null; // couche de référence ERDF
             var communes = null; // couche de référence ERDF
             var tileLayers = {}; // couche pour les fonds de référence
-            var geoms = []; // tableau des couches Leaflet GeoJSON créées 
+            var geoms = []; // tableau des couches Leaflet GeoJSON créées
             var geom = []; // couche Leaflet GeoJSON
             var currentSel = null; // la géometrie séléctionnée en détail
             var layerControl = null; // couches de contrôle pour la légende Leaflet
-            var resource = null;  // couches  de référence dans la carte                    
-            
-            // Tableau des couches métier             
+            var resource = null;  // couches  de référence dans la carte
+
+            // Tableau des couches métier
             var tabThemaData = {
-                "zonessensibles" : L.featureGroup(), 
-                "mortalites" : L.featureGroup(), 
+                "zonessensibles" : L.featureGroup(),
+                "mortalites" : L.featureGroup(),
                 "tronconserdf": L.featureGroup(),
                 "poteauxerdf": L.featureGroup(),
                 "eqtronconserdf": L.featureGroup(),
@@ -121,34 +121,34 @@ app.directive('leafletMap', function(){
                 "communes": L.featureGroup()
             };
             // Ajout du tableau dans le mapService pour la gestion de l'accrochage des couches ** voir FormDirectives **
-            mapService.tabThemaData = tabThemaData 
-            
-            //Initialisation de la carte et de ses contrôles            
-            var initializeCarte = function(configUrl){ 
+            mapService.tabThemaData = tabThemaData
+
+            //Initialisation de la carte et de ses contrôles
+            var initializeCarte = function(configUrl){
                 var dfd = $q.defer();
                 try{
-                    map = L.map('mapd', { 
+                    map = L.map('mapd', {
                             maxZoom: 18,
-                            fullscreenControl:true, 
-                            // Ajout de l'option plein écran 
+                            fullscreenControl:true,
+                            // Ajout de l'option plein écran
                             fullscreenControlOptions:{
                                 position:'topright',
                                 title: 'Afficher en plein écran !',
-                            }                           
+                            }
                           });
 
                     // Ajout des couches sur la carte
                     for(var key in tabThemaData){
                         tabThemaData[key].addTo(map);
-                    }    
+                    }
 
-                   
+
                     /* Récupération de l'url de données avec getUrl de configServ
                      * Url fourni dans les contôles des base (exemple : cablesControllers.js)
                      */
                     configServ.getUrl(configUrl, function(res){
                         resource = res[0];
-                        //Chargement des fonds de référence : layers ==> baselayers définis defaultMap.json                     
+                        //Chargement des fonds de référence : layers ==> baselayers définis defaultMap.json
                         var curlayer = null;
                         configServ.get('map:currentLayer', function(_curlayer){
                             curlayer = _curlayer
@@ -178,18 +178,18 @@ app.directive('leafletMap', function(){
                         });
 
                         // Vue par défaut de la carte
-                        var empriseInit = [resource.center.lat, resource.center.lng] 
-                        
+                        var empriseInit = [resource.center.lat, resource.center.lng]
+
                         // Vue au premier chargement de l'appli
                         map.setView(empriseInit, resource.center.zoom);
 
                         // Ajout d'un panneau de type sidebar pour contenir la légende
                         var sidebar = L.control.sidebar('legendblock', {
                             closeButton: true,
-                            position: 'left', 
+                            position: 'left',
                         });
                         map.addControl(sidebar);
-                        
+
                         // bouton pour revenir à l'emprise de départ
                         L.easyButton({
                             position:"topright",
@@ -199,32 +199,32 @@ app.directive('leafletMap', function(){
                                 onClick: function(control) {
                                   map.setView(empriseInit, 8);
                                 }
-                            }]                         
-                        }).addTo(map);                       
+                            }]
+                        }).addTo(map);
 
-                        // Mise en cache de la vue actuelle 
+                        // Mise en cache de la vue actuelle
                         if (!map.restoreView()) {
                             map.setView(empriseInit, resource.center.zoom);
-                        }          
+                        }
                         // Légende Leaflet
                         layerControl = L.control.layers(tileLayers, null, { collapsed: false});
-                        
-                       
+
+
                         // Ajout de la légende Leaflet sur la carte
-                        layerControl.addTo(map);  
+                        layerControl.addTo(map);
                         // Suppression du conteneur de la légande Leaflet par défaut
-                        layerControl._container.remove(); 
+                        layerControl._container.remove();
                         // Mise en place des couches dans la légende personnalisée : voir template-url ==> map.htm
                         document.getElementById('baselayers').appendChild(layerControl.onAdd(map));
-                                
-                        //Ajout d'une l'échelle 
-                        L.control.scale().addTo(map);                     
-                        
+
+                        //Ajout d'une l'échelle
+                        L.control.scale().addTo(map);
+
                         $timeout(function(){
                             $rootScope.$broadcast('map:ready');
                         }, 0);
 
-                        // Fonction qui rempplie le Flag de la couche en fonction de la légende                        
+                        // Fonction qui rempplie le Flag de la couche en fonction de la légende
                         $scope.layerToggle = function(){
                             layerClickedValue = event.currentTarget.value;
                             // NOUVELLE FONCTIONNALITE (NF1) : si décision mettre check ou oeil sur onglet dans bloc 'Tableau' pour gérer affichage couche dans carte
@@ -243,13 +243,13 @@ app.directive('leafletMap', function(){
                             else if (storeFlag.getFlagLayer(layerClickedValue) === "cacheUnchecked"){
                                 map.addLayer(tabThemaData[layerClickedValue]);
                                 storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
-                            } 
+                            }
                             // nouvelle méthode pour les sous couches
                             if (storeFlag.getFlagLayer(layerClickedValue) === "subLayer"){
                                 storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
-                            }                           
+                            }
                         };
-                       
+
 
 
                         dfd.resolve();
@@ -257,7 +257,7 @@ app.directive('leafletMap', function(){
 
                 }
                 catch(e){
-                                    
+
                     geoms.splice(0);
                     dfd.resolve();
                 }
@@ -284,7 +284,7 @@ app.directive('leafletMap', function(){
                             }
                         }
                     });
-                
+
                     return visibleItems;
                 };
                 mapService.getVisibleItems = getVisibleItems;
@@ -295,39 +295,39 @@ app.directive('leafletMap', function(){
                 };
                 mapService.getLayerControl = getLayerControl;
 
-                // Mise en service (mapService ) des couches métiers 
+                // Mise en service (mapService ) des couches métiers
                 var getLayer = function(couches){
                     return tabThemaData[couches];
                 };
                 mapService.getLayer = getLayer;
-              
+
                 // Mise en service (mapService ) de la carte
                 var getMap = function(){
                     return map;
                 }
                 mapService.getMap = getMap;
 
-                // Mise en service (mapService ) du tableau de couches Leaflet GeoJSON           
+                // Mise en service (mapService ) du tableau de couches Leaflet GeoJSON
                 var getGeoms = function(){
                     return geoms;
                 }
                 mapService.getGeoms = getGeoms;
 
                 // Filtres des données depuis tableau
-                // Affiche ou masque les couches 
+                // Affiche ou masque les couches
                 // var filterData = function(ids){
-                //     angular.forEach(geoms, function(geom){                     
-                //         if(ids.indexOf(geom.feature.properties.id) < 0){                                    
+                //     angular.forEach(geoms, function(geom){
+                //         if(ids.indexOf(geom.feature.properties.id) < 0){
                 //             geom.feature.$shown = false;
-                //             for(key in tabThemaData){ 
+                //             for(key in tabThemaData){
                 //                 if(geom.feature.properties.cat === key) {
                 //                     if(tabThemaData[key].hasLayer(geom)){
                 //                         tabThemaData[key].removeLayer(geom);
                 //                         geom.feature.leafletLayer = key;
                 //                     }
-                //                 }                                 
-                                
-                //             }                           
+                //                 }
+
+                //             }
                 //         }
                 //         else{
                 //             if(geom.feature.$shown === false){
@@ -351,8 +351,8 @@ app.directive('leafletMap', function(){
                         }
                         else{
                             return item.feature.properties.id == _id;
-                        } 
-                    });             
+                        }
+                    });
                     if(res){
                         try{
                             /*
@@ -370,64 +370,64 @@ app.directive('leafletMap', function(){
                         }
                     }
                     return null;
-                };               
+                };
                 mapService.getItem = getItem;
- 
+
                 // Changement de couleur lorsqu'un élément est sélectionné sur la carte et la liste
                 var changeColorItem = function(item, _status){
                     // Récupération des couleurs et icons initiales
                     var iconElec             = defaultColorService.iconElec();               // 1- mortalités par électrocution
                     var iconPerc             = defaultColorService.iconPerc();               // 2- mortalités par percussion
-                    var zs1                  = defaultColorService.zs1();                    // 3- zones sensibles : niveau  sensibilité 1 
-                    var zs2                  = defaultColorService.zs2();                    // 4- zones sensibles : niveau  sensibilité 2 
-                    var zs3                  = defaultColorService.zs3();                    // 5- zones sensibles : niveau  sensibilité 3 
+                    var zs1                  = defaultColorService.zs1();                    // 3- zones sensibles : niveau  sensibilité 1
+                    var zs2                  = defaultColorService.zs2();                    // 4- zones sensibles : niveau  sensibilité 2
+                    var zs3                  = defaultColorService.zs3();                    // 5- zones sensibles : niveau  sensibilité 3
                     var poRisqueEleve        = defaultColorService.poRisqueEleve();          // 6- poteaux à risques élevés
                     var poRisqueSecondaire   = defaultColorService.poRisqueSecondaire();     // 7- poteaux à risques secondaires
                     var poNonRisque          = defaultColorService.poNonRisque();            // 8- poteaux à non risques
                     var eqPoteau             = defaultColorService.eqPoteau();               // 9- équipements poteaux
                     var eqTroncon            = defaultColorService.eqTroncon();              // 10- équipements tronçons
-                    var tronRisqueEleve      = defaultColorService.tronRisqueEleve();        // 11- tronçons risques élevés 
+                    var tronRisqueEleve      = defaultColorService.tronRisqueEleve();        // 11- tronçons risques élevés
                     var tronRisqueSecondaire = defaultColorService.tronRisqueSecondaire();   // 12 - tronçons risques secondaires
                     var tronNonRisque        = defaultColorService.tronNonRisque();          // 13 - tronçons non risques
                     var zOffset              = 0;                                            // position de l'élément avant click
                     if(_status){
                         // Changement de couleurs et icons au click
-                        iconElec             = changeColorService.iconElec();                   
-                        iconPerc             = changeColorService.iconPerc();           
-                        zs1                  = changeColorService.zs1();                                            
-                        zs2                  = changeColorService.zs2();                                                     
-                        zs3                  = changeColorService.zs3();                                    
-                        poRisqueEleve        = changeColorService.poRisqueEleve();                              
-                        poRisqueSecondaire   = changeColorService.poRisqueSecondaire();                                    
+                        iconElec             = changeColorService.iconElec();
+                        iconPerc             = changeColorService.iconPerc();
+                        zs1                  = changeColorService.zs1();
+                        zs2                  = changeColorService.zs2();
+                        zs3                  = changeColorService.zs3();
+                        poRisqueEleve        = changeColorService.poRisqueEleve();
+                        poRisqueSecondaire   = changeColorService.poRisqueSecondaire();
                         poNonRisque          = changeColorService.poNonRisque();
-                        eqPoteau             = changeColorService.eqPoteau();                         
-                        eqTroncon            = changeColorService.eqTroncon();                              
-                        tronRisqueEleve      = changeColorService.tronRisqueEleve();        
-                        tronRisqueSecondaire = changeColorService.tronRisqueSecondaire();                               
-                        tronNonRisque        = changeColorService.tronNonRisque();  
-                        zOffset              = 1000; 
+                        eqPoteau             = changeColorService.eqPoteau();
+                        eqTroncon            = changeColorService.eqTroncon();
+                        tronRisqueEleve      = changeColorService.tronRisqueEleve();
+                        tronRisqueSecondaire = changeColorService.tronRisqueSecondaire();
+                        tronNonRisque        = changeColorService.tronNonRisque();
+                        zOffset              = 1000;
                     }
                     try{
                         if(item.feature.properties.cause_mortalite === 'électrocution'){
-                            item.setIcon(iconElec);  
+                            item.setIcon(iconElec);
                         }
                         else if(item.feature.properties.cause_mortalite === 'percussion'){
-                            item.setIcon(iconPerc); 
+                            item.setIcon(iconPerc);
                         }
                         else if(item.feature.properties.risquePoteau === 'Risque élevé'){
-                            item.setIcon(poRisqueEleve); 
+                            item.setIcon(poRisqueEleve);
                         }
                         else if(item.feature.properties.risquePoteau === 'Risque secondaire'){
-                            item.setIcon(poRisqueSecondaire); 
+                            item.setIcon(poRisqueSecondaire);
                         }
                         else if(item.feature.properties.risquePoteau === 'Peu ou pas de risque'){
-                            item.setIcon(poNonRisque); 
+                            item.setIcon(poNonRisque);
                         }
                         if(item.feature.properties.cat === 'eqpoteauxerdf'){
-                            item.setIcon(eqPoteau); 
+                            item.setIcon(eqPoteau);
                         }
                         if(item.feature.properties.cat === 'eqtronconserdf'){
-                            item.setStyle(eqTroncon); 
+                            item.setStyle(eqTroncon);
                         }
                         if(item.feature.properties.cat === 'zonessensibles'){
                             switch (item.feature.properties.niveau_sensibilite) {
@@ -441,20 +441,20 @@ app.directive('leafletMap', function(){
                                     item.setStyle(zs3);
                                 break;
                             }
-                        
-                        } 
+
+                        }
                         switch(item.feature.properties.risqueTroncon){
                             case 'Risque élevé':
-                                item.setStyle(tronRisqueEleve); 
-                            break; 
+                                item.setStyle(tronRisqueEleve);
+                            break;
                             case 'Risque secondaire':
-                                item.setStyle(tronRisqueSecondaire); 
-                            break; 
-                            case 'Peu ou pas de risque': 
-                                item.setStyle(tronNonRisque); 
-                            break; 
+                                item.setStyle(tronRisqueSecondaire);
+                            break;
+                            case 'Peu ou pas de risque':
+                                item.setStyle(tronNonRisque);
+                            break;
                         }
-                                
+
                         item.setZIndexOffset(zOffset);
                     }
                     catch(e){
@@ -466,11 +466,11 @@ app.directive('leafletMap', function(){
                 var selectItem = function(_id, pThemaData){
                     // alert("dans selectitem");
                     var sel = getItem(_id, pThemaData);
-                                        
+
                     if(currentSel){
                         changeColorItem(currentSel, false);
                     }
-                    
+
                     changeColorItem(sel, true);
                     currentSel = sel;
                     return sel;
@@ -481,13 +481,13 @@ app.directive('leafletMap', function(){
                 // Fonction pour créer les couches Leaflet GeoJSON
                 addGeom = function(jsonData, layer){
                     var geom = L.GeoJSON.geometryToLayer(jsonData); // la couche GeoJSON
-                    geom.feature = jsonData; 
+                    geom.feature = jsonData;
                     var cat = jsonData.properties.cat; // récupération de la catégorie
 
                     // Au click: Zoom et affiche le label de la couche s'il y'en a
                     geom.on('click', function(e){
                         $rootScope.$apply(
-                            $rootScope.$broadcast('mapService:itemClick', geom, cat)    
+                            $rootScope.$broadcast('mapService:itemClick', geom, cat)
                         );
                     });
                     if(jsonData.properties.geomLabel){
@@ -498,7 +498,7 @@ app.directive('leafletMap', function(){
                     }
                     catch(e){}
                     /*
-                     * Distribution des couleurs aux différentes couches 
+                     * Distribution des couleurs aux différentes couches
                      */
 
                      // Distributions des styles pour les couches non gérées
@@ -555,7 +555,7 @@ app.directive('leafletMap', function(){
                         geom.setIcon(defaultColorService.iconPerc());
                     }
 
-                    // Zones sensibles: Couleurs en fonctions du niveau de sensibilité                    
+                    // Zones sensibles: Couleurs en fonctions du niveau de sensibilité
                     if(jsonData.properties.cat === 'zonessensibles'){
                         switch (jsonData.properties.niveau_sensibilite) {
                             case 1:
@@ -569,7 +569,7 @@ app.directive('leafletMap', function(){
                             break;
                         }
                         geom.bindLabel(jsonData.properties.nom_zone_sensible, { noHide: true });
-                    } 
+                    }
 
                     // Tronçons à risque: Couleur en fonction du niveau de risque
                     if(jsonData.properties.cat === 'tronconserdf'){
@@ -610,12 +610,12 @@ app.directive('leafletMap', function(){
                         }
                     };
 
-                    // Sites de nidification: Couleur en fonction de l'espece        
+                    // Sites de nidification: Couleur en fonction de l'espece
                     if(jsonData.properties.cat === 'nidifications'){
                        switch (jsonData.properties.nom_espece) {
-                            
+
                             case 'Aigle royal':
-                                geom.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()))                    
+                                geom.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()))
                             break;
                             case 'Grand Duc d\'Europe':
                                 geom.setStyle(angular.extend({color:'#D400FF'}, defaultColorService.polyStyle()))
@@ -623,8 +623,8 @@ app.directive('leafletMap', function(){
                             case 'Faucon pélerin':
                                 geom.setStyle(angular.extend({color:'#EFA0FF'}, defaultColorService.polyStyle()))
                             break;
-                            case 'Gypaète barbu':                              
-                                geom.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()))                               
+                            case 'Gypaète barbu':
+                                geom.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()))
                             break;
                         }
                     }
@@ -657,7 +657,7 @@ app.directive('leafletMap', function(){
                 };
                 mapService.addGeom = addGeom;
 
-               
+
 
                 // Fonction qui vérifie et ajoute la couche si elle est cochée depuis la légende
                 var displayGeomData = function(pLayerThemaData, pDetails) {
@@ -685,7 +685,7 @@ app.directive('leafletMap', function(){
                                     document.getElementById(key2).checked = true;
                                     loadDataSymf.getThemaData(key2);
                                 }
-                                else if (tabFlagLayer[key2] === "cacheUnchecked"){                                
+                                else if (tabFlagLayer[key2] === "cacheUnchecked"){
                                     // console.log("dans displayGeomData - cacheUnchecked");
                                     loadDataSymf.getThemaData(key2);
                                     document.getElementById(key2).checked = false;
@@ -710,7 +710,7 @@ app.directive('leafletMap', function(){
                     }
                 };
                 mapService.displayGeomData = displayGeomData;
-                    
+
                 // Permet de créer rapidement une couche depuis un controleur ou une directive ::: Edition de données
                 var dataLoad = function(deferred, pThemaData){
                     return function(resp){
@@ -728,7 +728,7 @@ app.directive('leafletMap', function(){
                     dataServ.get(url, dataLoad(defd, pThemaData));
                     return defd.promise;
                 };
-                mapService.loadData = loadData;            
+                mapService.loadData = loadData;
 
                 return dfd.promise;
             };
@@ -742,7 +742,7 @@ app.directive('leafletMap', function(){
             }
             mapService.setTabThemaData = setTabThemaData;
 
-            // Destruction de la carte 
+            // Destruction de la carte
             $scope.$on('$destroy', function(evt){
                 if(map){
                     map.remove();
@@ -772,11 +772,11 @@ app.directive('maplist', function($rootScope, $timeout, mapService){
             scope.toolBoxOpened = true;
             var visibleItems = [];
             /*
-             * Initialisation des listeners d'évenements carte 
+             * Initialisation des listeners d'évenements carte
              */
             var connect = function(){
-                
-                // Click sur la carte                
+
+                // Click sur la carte
                 scope.$on('mapService:itemClick', function(ev, item, cat){
                     mapService.selectItem(item.feature.properties.id, cat);
                     $rootScope.$broadcast(target + ':select', item.feature.properties, cat);
@@ -790,7 +790,7 @@ app.directive('maplist', function($rootScope, $timeout, mapService){
                     visibleItems = mapService.getVisibleItems();
                     $rootScope.$broadcast(target + ':filterIds', visibleItems, scope.mapAsFilter);
                 }
-                
+
                 // Sélection dans la liste
                 scope.$on(target + ':ngTable:ItemSelected', function(ev, item, cat){
                     $timeout(function(){

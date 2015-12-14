@@ -660,7 +660,7 @@ app.directive('leafletMap', function(){
                
 
                 // Fonction qui vérifie et ajoute la couche si elle est cochée depuis la légende
-                displayGeomData = function(pLayerThemaData, pDetails) {
+                var displayGeomData = function(pLayerThemaData, pDetails) {
                     var tabFlagLayer = null;
                     tabFlagLayer = storeFlag.getTabFlagLayer();
                     if (pLayerThemaData === "allThemaDataLayer"){

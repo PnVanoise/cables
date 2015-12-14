@@ -82,60 +82,32 @@
 
         <title>Projet Câbles dangereux</title>
     </head>
-    <body>
-        <div>
-            <div ng-controller="baseController">
-
-                <!-- <div usermsg></div> -->
-                    <div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <!-- <a class="navbar-brand" href="#">Cables</a> -->
-                                <!-- <a href="#/cables" class="brand"><i class="icon-bolt">Cables</i></a> -->
-                                <a href="#/cables" class="brand"><i class="icon-bolt">Cables</i></a>
-                            </div>
-                            <!-- <ul class="nav navbar-nav navbar-left" role="menu"> 
-                                        <li ng-if="user" ng-class="{ active: isActive('/cables')}"><a href="#/cables">Accueil</a></li>
-                                        <li ng-if="user" ng-class="{ active: isActive('/cables/zonessensibles')}"><a href="#/cables/zonessensibles">Zones Sens</a></li>
-                                        <li ng-if="user" ng-class="{ active: isActive('/cables/mortalites')}"><a href="#/cables/mortalites">Mort Elec</a></li>
-                                        <li ng-if="user" ng-class="{ active: isActive('/cables/troncons')}"><a href="#/cables/troncons">Tron ERDF</a></li>
-                    
-                            </ul> -->
-
-                            <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li ng-if="user">
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href=""> <span class="glyphicon glyphicon-user"></span> {{user.nom_complet}}</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#/logout"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Se déconnecter</a></li>
-
-                                    </ul>
-                                        </li>
-                                    <li ng-if="!user"><a href="#/login"><span class="glyphicon glyphicon-lock"></span> Non connecté</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /container -->
-                    </div>
-
-
-                <div ng-view class="container-fluid full-screen">
-                    <div ui-view></div>  
+    <body ng-controller="baseController">
+    	<!-- message utilisateur -->
+        <div usermsg></div>
+        <!--  --> 
+        <div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="#/cables" class="brand"><i class="icon-bolt">Cables</i></a>
                 </div>
-              
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-if="user">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href=""> <span class="glyphicon glyphicon-user"></span> {{user.nom_complet}}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/logout"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Se déconnecter</a></li>
 
-    
-    
-  </body>
-         
-                    
+                        </ul>
+                            </li>
+                        <li ng-if="!user"><a href="#/login"><span class="glyphicon glyphicon-lock"></span> Non connecté</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    
-        <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>
-        
-        
-
-
-    </body>
+        <div ng-view class="container-fluid full-screen"></dsiv>  
+        <!-- spinner au chargement des données --> 
+        <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}">
+        </div>     
+	</body>
 </html>

@@ -1,31 +1,22 @@
-<div dw-loading="spinner-tableau" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>
+<!-- les onglets à droit-->
+<div class="padded float-right" ng-controller="TabsManagerCtrl">
+    <div dw-loading="spinner-tableau"
+         dw-loading-options="{text: 'Chargement des données'}"
+         ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>
+    <accueil class="nav with-nav-tabs panel-primary ">
 
+        <!-- Zones sensibles  -->
+        <montab   active="true" cat="zonessensibles"  title="Zones sensibles" template-url="js/templates/cables/zonesSensibles.htm" ng-click="displayLayer('zonessensibles')"></montab>
+        <!-- Cas de mortalités  -->
+        <montab cat="mortalites" title="Cas de mortalité" template-url="js/templates/cables/mortalites.htm"  ng-click="displayLayer('mortalites')"> </montab>
+        <!-- Inventaires tronçons erdf  -->
+        <montab cat="tronconserdf" title="Tronçons ERDF" template-url="js/templates/cables/tronconsErdf.htm" ng-click="displayLayer('tronconserdf')"> </montab>
+        <!-- Inventaires poteaux erdf  -->
+        <montab cat="poteauxerdf" title="Poteaux ERDF" template-url="js/templates/cables/poteauxErdf.htm" ng-click="displayLayer('poteauxerdf')"></montab>
+        <!-- Equipements tronçons erdf   -->
+        <montab cat="eqtronconserdf" title="Equipements tronçons ERDF" template-url="js/templates/cables/eqTronconsErdf.htm" ng-click="displayLayer('eqtronconserdf')"></montab>
+        <!-- Equipements poteaux erdf   -->
+        <montab cat="eqpoteauxerdf" title="Equipements poteaux ERDF" template-url="js/templates/cables/eqPoteauxErdf.htm"ng-click="displayLayer('eqpoteauxerdf')"></montab>
 
-<div >
-  <div>
-  <!-- la carte à gauche-->
-    <div class="col-md-7 fixed-map">
-        <div class="map large" leaflet-map data="geoms" ></div>
-    </div>
-  <!-- les onglets à droit-->
-    <div class="col-md-5 padded float-right" ng-controller="TabsManagerCtrl">
-      <accueil class="nav with-nav-tabs panel-primary ">
-
-          <!-- Zones sensibles  -->
-            <montab   active="true" cat="zonessensibles"  title="Zones sensibles" template-url="js/templates/cables/zonesSensibles.htm" ng-click="displayLayer('zonessensibles')"></montab> 
-          <!-- Cas de mortalités  -->  
-            <montab cat="mortalites" title="Cas de mortalité" template-url="js/templates/cables/mortalites.htm"  ng-click="displayLayer('mortalites')"> </montab>
-          <!-- Inventaires tronçons erdf  -->  
-            <montab cat="tronconserdf" title="Tronçons ERDF" template-url="js/templates/cables/tronconsErdf.htm" ng-click="displayLayer('tronconserdf')"> </montab>
-          <!-- Inventaires poteaux erdf  -->
-            <montab cat="poteauxerdf" title="Poteaux ERDF" template-url="js/templates/cables/poteauxErdf.htm" ng-click="displayLayer('poteauxerdf')"></montab>
-          <!-- Equipements tronçons erdf   --> 
-            <montab cat="eqtronconserdf" title="Equipements tronçons ERDF" template-url="js/templates/cables/eqTronconsErdf.htm" ng-click="displayLayer('eqtronconserdf')"></montab>
-          <!-- Equipements poteaux erdf   --> 
-            <montab cat="eqpoteauxerdf" title="Equipements poteaux ERDF" template-url="js/templates/cables/eqPoteauxErdf.htm"ng-click="displayLayer('eqpoteauxerdf')"></montab>
-      
-      </accueil> 
-
-    </div>
-  </div>
+    </accueil>
 </div>

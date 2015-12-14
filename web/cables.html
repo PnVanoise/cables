@@ -106,7 +106,13 @@
             </div>
         </div>
 
-        <div ng-view class="container-fluid full-screen"></div>
+        <div class="container-fluid full-screen">
+            <!-- la carte à gauche-->
+            <div class="col-md-7 fixed-map">
+                <div class="map large" leaflet-map data="geoms" ></div>
+            </div>
+            <div class="col-md-5 float-right padded" ng-view></div>
+        </div>
 
         <!-- spinner au chargement des données -->
         <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}"

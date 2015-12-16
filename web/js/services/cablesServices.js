@@ -260,8 +260,8 @@ app.service('loadDataSymf', function(dataServ, mapService, storeFlag){
                     });
                 }
             );
-        document.getElementById(pThemaData).checked = true;
-        storeFlag.setFlagLayer(pThemaData, "cacheChecked");
+        // document.getElementById(pThemaData).checked = true;
+        // storeFlag.setFlagLayer(pThemaData, "cacheChecked");
     };
 });
 

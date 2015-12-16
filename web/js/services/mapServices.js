@@ -36,7 +36,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
   * * #2 - Service cartographique
   */
-app.service('mapService', function(configServ, LeafletServices, defaultColorService) {
+app.service('mapService', function(configServ, LeafletServices, defaultColorService, storeFlag) {
     /*
      * Private variables or functions
      */
@@ -49,48 +49,7 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
 
     var empriseInit;
 
-    // Tableau des couches métier
-    tabThemaData = {
-        "zonessensibles" : L.featureGroup(),
-        "mortalites" : L.featureGroup(),
-        "tronconserdf": L.featureGroup(),
-        "poteauxerdf": L.featureGroup(),
-        "eqtronconserdf": L.featureGroup(),
-        "eqpoteauxerdf": L.featureGroup(),
-        "nidifications": L.featureGroup(),
-        "obsClasse2": L.featureGroup(),
-        "obsClasse3": L.featureGroup(),
-        "observations": L.featureGroup(),
-        "erdfappareilcoupure": L.featureGroup(),
-        "erdfconnexionaerienne": L.featureGroup(),
-        "erdfparafoudre": L.featureGroup(),
-        "erdfposteelectrique": L.featureGroup(),
-        "erdfremonteeaerosout": L.featureGroup(),
-        "erdftronconaerien": L.featureGroup(),
-        "ogmcablesremonteesmecaniques": L.featureGroup(),
-        "ogmdomainesskiables": L.featureGroup(),
-        "ogmtronconsdangereux": L.featureGroup(),
-        "ogmtronconsvisualises": L.featureGroup(),
-        "ogmtronconsvisualisesdangereux": L.featureGroup(),
-        "rtelignes": L.featureGroup(),
-        "rtepostes": L.featureGroup(),
-        "rtepoteaux": L.featureGroup(),
-        "communes": L.featureGroup()
-    };
-
-    this.tabThemaData = tabThemaData;
-
     var tileLayers = {}; // couche pour les fonds de référence
-
-
-    /**
-     * Ajout des couches métier
-     */
-    var addLayersToMap = function() {
-        for (var key in this.tabThemaData) {
-            tabThemaData[key].addTo(map);
-        }
-    };
 
     /**
      * Récupération de l'url de données avec getUrl de configServ
@@ -292,6 +251,35 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
         /*
          * Public properties or methods
          */
+        // Tableau des couches métier
+        tabThemaData : {
+            "zonessensibles" : L.featureGroup(),
+            "mortalites" : L.featureGroup(),
+            "tronconserdf": L.featureGroup(),
+            "poteauxerdf": L.featureGroup(),
+            "eqtronconserdf": L.featureGroup(),
+            "eqpoteauxerdf": L.featureGroup(),
+            "nidifications": L.featureGroup(),
+            "obsClasse2": L.featureGroup(),
+            "obsClasse3": L.featureGroup(),
+            "observations": L.featureGroup(),
+            "erdfappareilcoupure": L.featureGroup(),
+            "erdfconnexionaerienne": L.featureGroup(),
+            "erdfparafoudre": L.featureGroup(),
+            "erdfposteelectrique": L.featureGroup(),
+            "erdfremonteeaerosout": L.featureGroup(),
+            "erdftronconaerien": L.featureGroup(),
+            "ogmcablesremonteesmecaniques": L.featureGroup(),
+            "ogmdomainesskiables": L.featureGroup(),
+            "ogmtronconsdangereux": L.featureGroup(),
+            "ogmtronconsvisualises": L.featureGroup(),
+            "ogmtronconsvisualisesdangereux": L.featureGroup(),
+            "rtelignes": L.featureGroup(),
+            "rtepostes": L.featureGroup(),
+            "rtepoteaux": L.featureGroup(),
+            "communes": L.featureGroup()
+        },
+
         init: function(elementId) {
             map = L.map(elementId, {
                 maxZoom: 18,
@@ -302,7 +290,15 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
                     title: 'Afficher en plein écran !'
                 }
             });
-            addLayersToMap();
+
+            /**
+             * Ajout des couches métier
+             */
+            for (var key in this.tabThemaData) {
+                this.tabThemaData[key].addTo(map);
+            }
+            // console.log('tab in mapService', this.tabThemaData)
+
             loadMapConfig();
             addControls();
 
@@ -346,7 +342,7 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
 
         // Mise en service (mapService ) des couches métiers
         getLayer:  function(layer) {
-            return tabThemaData[layer];
+            return this.tabThemaData[layer];
         },
 
         // Mise en service (mapService ) de la carte
@@ -545,7 +541,8 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
             geoms.push(geom);
 
             // Ajout des couches GeoJSON dans les couches métiers
-            tabThemaData[layer].addLayer(geom);
+            this.tabThemaData[layer].addLayer(geom);
+
 
             return geom;
         },
@@ -627,6 +624,7 @@ app.directive('leafletMap', function(){
         templateUrl: 'js/templates/display/map.htm',
         controller: function($scope, mapService, storeFlag) {
             var map = mapService.init('mapd');
+
 
             // FIXME
             // vérifier intérêt de cette fonction

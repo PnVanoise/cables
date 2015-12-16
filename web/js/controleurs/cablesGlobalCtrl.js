@@ -13,104 +13,86 @@ app.config(function($routeProvider){
 });
 
 
-// #1 controleur pour le chargement par défault carte et données acceuil 
+// #1 controleur pour le chargement par défault carte et données acceuil
 app.controller('cablesGlobalMapCtrl',  function($rootScope, $scope, $location, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf, storeFlag, storeBreadcrumb){
-   
-    
-    
-    /*
-     * Spinner pour le premier chargement y compris les données tableau "Zones sensibles" : onglet par défaut ouvert
-     */
-    $loading.start('spinner-1');
-    var dfd = $q.defer(); 
-    var promise = dfd.promise; 
-    promise.then(function(result) {
-        $loading.finish('spinner-1');
-    });
-    
-    /* 
-     * Chargement des données géométriques sur la carte
-     * Chargement du bon onglet si on a cliqué sur le breadcrumb
-     */
-    $scope.$on('$viewContentLoaded', function(event) {
-        $timeout(function(){ 
-            // chargement de la carte et des données géométriques
-            configServ.getUrl('', // le configServ.getUrl a besoin d'une url de config et d'un success, on peut lui passer des ''. 
-                function($templateCache) {
-                    mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-                        // chargement des données géométriques
-                        mapService.displayGeomData("allThemaDataLayer");
-                    });
-            });            
-            /**
-             * Depuis le premier élément du breadcrumb correspondant à la catégorie métier
-             * quand on clique sur ce lien on revient dans le bloc tableau sur l'onglet ad hoc en surbrillance 
-             */
-            var catBreadcrumb = storeBreadcrumb.getCatBreadcrumb();
-            // quand on clique sur breadcrumb donc le service a récupéré la cat, donc l'onglet zs est déselectionné
-            if (catBreadcrumb !== null){
-                $rootScope.tabs[0].selected = false;
-            }
-            // suite au clic sur breadcrumb, bon onglet sélectionné suivant la cat récupérée
-            var tab = $rootScope.tabs
-            for(var key in tab){
-                if(catBreadcrumb === tab[key].cat){
-                    switch(tab[key].cat){
-                        case 'zonessensibles':
-                            $rootScope.tabs[0].selected = true;
-                        break;
-                        case 'mortalites':
-                            $rootScope.tabs[1].selected = true;
-                        break;
-                        case 'tronconserdf':
-                            $rootScope.tabs[2].selected = true;
-                        break;
-                        case 'poteauxerdf':
-                            $rootScope.tabs[3].selected = true;
-                        break;
-                        case 'eqtronconserdf':
-                            $rootScope.tabs[4].selected = true;
-                        break;
-                        case 'eqpoteauxerdf':
-                            $rootScope.tabs[5].selected = true;
-                        break;
-                    }
-                }
-            }       
-            dfd.resolve('loading data');
-        },0);
 
-        $rootScope.$on('breadcrumb', function(ev){
-            $location.url('/cables');
-            // console.log('breadcrumb dans cablesGlobalMapCtrl');
-            // $rootScope.tabs[1].selected = true;
-        });
-    });
 
-    
+
+    // /*
+    //  * Spinner pour le premier chargement y compris les données tableau "Zones sensibles" : onglet par défaut ouvert
+    //  */
+    // $loading.start('spinner-1');
+    // var dfd = $q.defer();
+    // var promise = dfd.promise;
+    // promise.then(function(result) {
+    //     $loading.finish('spinner-1');
+    // });
+
+    // /*
+    //  * Chargement des données géométriques sur la carte
+    //  * Chargement du bon onglet si on a cliqué sur le breadcrumb
+    //  */
+    // $scope.$on('$viewContentLoaded', function(event) {
+    //     $timeout(function(){
+    //         // chargement de la carte et des données géométriques
+    //         configServ.getUrl('', // le configServ.getUrl a besoin d'une url de config et d'un success, on peut lui passer des ''.
+    //             function($templateCache) {
+    //                 mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
+    //                     // chargement des données géométriques
+    //                     mapService.displayGeomData("allThemaDataLayer");
+    //                 });
+    //         });
+    //         /**
+    //          * Depuis le premier élément du breadcrumb correspondant à la catégorie métier
+    //          * quand on clique sur ce lien on revient dans le bloc tableau sur l'onglet ad hoc en surbrillance
+    //          */
+    //         var catBreadcrumb = storeBreadcrumb.getCatBreadcrumb();
+    //         // quand on clique sur breadcrumb donc le service a récupéré la cat, donc l'onglet zs est déselectionné
+    //         if (catBreadcrumb !== null){
+    //             $rootScope.tabs[0].selected = false;
+    //         }
+    //         // suite au clic sur breadcrumb, bon onglet sélectionné suivant la cat récupérée
+    //         var tab = $rootScope.tabs
+    //         for(var key in tab){
+    //             if(catBreadcrumb === tab[key].cat){
+    //                 switch(tab[key].cat){
+    //                     case 'zonessensibles':
+    //                         $rootScope.tabs[0].selected = true;
+    //                     break;
+    //                     case 'mortalites':
+    //                         $rootScope.tabs[1].selected = true;
+    //                     break;
+    //                     case 'tronconserdf':
+    //                         $rootScope.tabs[2].selected = true;
+    //                     break;
+    //                     case 'poteauxerdf':
+    //                         $rootScope.tabs[3].selected = true;
+    //                     break;
+    //                     case 'eqtronconserdf':
+    //                         $rootScope.tabs[4].selected = true;
+    //                     break;
+    //                     case 'eqpoteauxerdf':
+    //                         $rootScope.tabs[5].selected = true;
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //         dfd.resolve('loading data');
+    //     },0);
+
+    //     $rootScope.$on('breadcrumb', function(ev){
+    //         $location.url('/cables');
+    //         // console.log('breadcrumb dans cablesGlobalMapCtrl');
+    //         // $rootScope.tabs[1].selected = true;
+    //     });
+    // });
+
+
 
 });
 
 // Gestion des onglets dans la bloc tableau de données attributaires
-app.controller('TabsManagerCtrl', function ($rootScope, $scope, $location, loadDataSymf, storeFlag, mapService, $q) {
-    // alert("dans TabsManagerCtrl");
-    // $rootScope.tabs = [
-    //     {id:'zonessensibles', title:'Zones sensibles',content:'Dynamic content 1',disabled:false},
-    //     {id:'mortalites', title:'Cas de mortalité',content:'Dynamic content 1',disabled:false},
-    //     {id:'tronconserdf', title:'Tronçons ERDF',content:'Dynamic content 3',disabled:false},
-    //     {id:'poteauxerdf', title:'Poteaux ERDF', content:'Dynamic content 1', disabled:false},
-    //     {id:'eqtronconserdf', title:'Equipements tronçons ERDF', content:'Dynamic content 1', disabled:false},
-    //     {id:'eqpoteauxerdf', title:'Equipements poteaux ERDF', content:'Dynamic content 2', disabled:false},
-    //     {id:'nidifications', title:'Site de nidification', content:'Dynamic content 2', disabled:false},
-    //     {id:'observations', title:'Observations', content:'Dynamic content 2', disabled:false}
-    // ];
-
-    $scope.notSorted = function(obj){
-        if (!obj) {
-            return [];
-        }
-        return Object.keys(obj);
-    };
+app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, loadDataSymf, storeFlag, mapService, $q) {
 
     $scope.displayLayer = function(pTabClickedValue) {
 
@@ -169,7 +151,7 @@ app.controller('TabsManagerCtrl', function ($rootScope, $scope, $location, loadD
     //             $rootScope.$broadcast('breadcrumb');
     //         }
 
-    
+
 
   //   $scope.tabs = [
   //   { title:'Dynamic Title 1', content:'Dynamic content 1' },
@@ -184,37 +166,35 @@ app.controller('TabsManagerCtrl', function ($rootScope, $scope, $location, loadD
 });
 
 // #2 contrôleur tableau de données --- zones sensibles --- dans onglet
-app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf, storeFlag){
 
+    var data = [];
     $scope.title = 'Zones sensibles';
     $scope.data = [];
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
-     * param : $scope.data = tmp;
-     * voir js/templates/cables/zoneSensible.htm data=data
-     */
-    $scope.setZS = function(resp){
-        var tmp = [];
-        $scope.items = resp;
-        resp.forEach(function(item){
-            tmp.push(item.properties);
+    console.info('geoms', mapService.getGeoms());
+    window.geoms =  mapService.getGeoms()
 
+    var setTabData = function(){
+        tmp = mapService.getGeoms();
+        tmp.forEach(function(item){
+            data.push(item.feature.properties);
+            console.log(item.feature.properties)
         });
-        $scope.data = tmp;
-        
+        $scope.data = data;
+        console.info('$scope.data', JSON.stringify($scope.data));
     };
-    /* Récupération du Schéma du tableau ==> voir dans js/templates/cables/zoneSensible.htm schema = schema
-     * Chargement des données dans le tableau
-     * param : dataServ.get('url', callback);
-     */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/zonessensibles/list', 
-            function(schema) {
-                $scope.schema = schema;
-                dataServ.get('cables/zonessensibles', $scope.setZS);
-            });
-    },0);
+
+    configServ.getUrl('cables/config/zonessensibles/list',
+        function(schema) {
+            $scope.schema = schema;
+
+            if (storeFlag.getFlagLayer('zonessensibles') == "firstLoad"){
+                loadDataSymf.getThemaData('zonessensibles');
+                storeFlag.setFlagLayer('zonessensibles', "cacheChecked");
+            }
+            setTabData();
+        });
 });
 
 // #3 contrôleur tableau de données --- cas de mortalités --- dans onglet

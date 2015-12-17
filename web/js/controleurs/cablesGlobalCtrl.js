@@ -13,6 +13,18 @@ app.config(function($routeProvider){
         }, {
             id: 'mortalites',
             title: 'Cas de mortalités'
+        }, {
+            id: 'poteauxerdf',
+            title: 'Poteaux ERDF'
+        }, {
+            id: 'tronconserdf',
+            title: 'Tronçons ERDF'
+        }, {
+            id: 'eqpoteauxerdf',
+            title: 'Equipements poteaux ERDF'
+        }, {
+            id: 'eqtronconserdf',
+            title: 'Equipements tronçons ERDF'
         }
     ];
 

@@ -168,22 +168,8 @@ app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, loadDa
 // #2 contrôleur tableau de données --- zones sensibles --- dans onglet
 app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf, storeFlag){
 
-    var data = [];
     $scope.title = 'Zones sensibles';
     $scope.data = [];
-
-    console.info('geoms', mapService.getGeoms());
-    window.geoms =  mapService.getGeoms()
-
-    var setTabData = function(){
-        tmp = mapService.getGeoms();
-        tmp.forEach(function(item){
-            data.push(item.feature.properties);
-            console.log(item.feature.properties)
-        });
-        $scope.data = data;
-        console.info('$scope.data', JSON.stringify($scope.data));
-    };
 
     configServ.getUrl('cables/config/zonessensibles/list',
         function(schema) {
@@ -193,8 +179,21 @@ app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $route
                 loadDataSymf.getThemaData('zonessensibles');
                 storeFlag.setFlagLayer('zonessensibles', "cacheChecked");
             }
-            setTabData();
         });
+
+    $scope.$watchCollection(
+        function() {
+            return mapService.tabThemaData.zonessensibles.getLayers();
+        },
+        function(newVal, oldVal) {
+            var data = [];
+            // newVal = mapService.tabThemaData.zonessensibles.getLayers()
+            newVal.forEach(function(layer){
+                data.push(layer.feature.properties);
+            });
+            $scope.data = data;
+        }
+    );
 });
 
 // #3 contrôleur tableau de données --- cas de mortalités --- dans onglet

@@ -31,45 +31,57 @@ app.config(function($routeProvider){
     categories.forEach(function(category) {
         $routeProvider
             .when('/cables/' + category.id, {
-                controller: function($scope, mapService, configServ, dataServ, storeFlag) {
-                    $scope.categories = categories;
-                    $scope.category = category;
-
-                    $scope.title = category.title;
-                    $scope.data = [];
-
-                    configServ.getUrl('cables/config/' + category.id + '/list',
-                        function(schema) {
-                            $scope.schema = schema;
-
-                            if (!mapService.tabThemaData[category.id].getLayers().length) {
-                                dataServ.get("cables/" + category.id,
-                                    function(resp){
-                                        resp.forEach(function(item){
-                                            mapService.addGeom(item, category.id);
-                                        });
-                                    }
-                                );
-                            }
-                        });
-
-                    $scope.$watchCollection(
-                        function() {
-                            return mapService.tabThemaData[category.id].getLayers();
-                        },
-                        function(newVal, oldVal) {
-                            var data = [];
-                            // newVal equals to mapService.tabThemaData.zonessensibles.getLayers()
-                            newVal.forEach(function(layer){
-                                data.push(layer.feature.properties);
-                            });
-                            $scope.data = data;
-                        }
-                    );
-                },
-                templateUrl: 'js/templates/cables/category.htm'
+                controller: 'CategoryCtrl',
+                templateUrl: 'js/templates/cables/category.htm',
+                resolve: {
+                    categories: function() {
+                        return categories;
+                    },
+                    category: function() {
+                        return category;
+                    }
+                }
             });
     });
+});
+
+
+app.controller('CategoryCtrl', function($scope, categories, category, mapService, configServ,
+    dataServ, storeFlag) {
+    $scope.categories = categories;
+    $scope.category = category;
+
+    $scope.title = category.title;
+    $scope.data = [];
+
+    configServ.getUrl('cables/config/' + category.id + '/list',
+        function(schema) {
+            $scope.schema = schema;
+
+            if (!mapService.tabThemaData[category.id].getLayers().length) {
+                dataServ.get("cables/" + category.id,
+                    function(resp){
+                        resp.forEach(function(item){
+                            mapService.addGeom(item, category.id);
+                        });
+                    }
+                );
+            }
+        });
+
+    $scope.$watchCollection(
+        function() {
+            return mapService.tabThemaData[category.id].getLayers();
+        },
+        function(newVal, oldVal) {
+            var data = [];
+            // newVal equals to mapService.tabThemaData.zonessensibles.getLayers()
+            newVal.forEach(function(layer){
+                data.push(layer.feature.properties);
+            });
+            $scope.data = data;
+        }
+    );
 });
 
 

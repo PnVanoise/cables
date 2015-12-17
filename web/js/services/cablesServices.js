@@ -269,32 +269,31 @@ app.service('loadDataSymf', function(dataServ, mapService, storeFlag){
  * Déclaration du tableau pour la gestion de l'affichage des couches dans la légende
  */
 app.service('storeFlag', function(){
-    var tabFlagLayer = new Array;
-
-    tabFlagLayer["zonessensibles"] = "firstLoad";
-    tabFlagLayer["mortalites"] = "noLoaded";
-    tabFlagLayer["tronconserdf"] = "firstLoad";
-    tabFlagLayer["eqtronconserdf"] = "noLoaded";
-    tabFlagLayer["eqpoteauxerdf"] = "noLoaded";
-    tabFlagLayer["nidifications"] = "noLoaded";
-    tabFlagLayer["observations"] = "noLoaded";
-    tabFlagLayer["poteauxerdf"] = "noLoaded";
-    tabFlagLayer["erdfappareilcoupure"] = "noLoaded";
-    tabFlagLayer["erdfconnexionaerienne"] = "noLoaded";
-    tabFlagLayer["erdfparafoudre"] = "noLoaded";
-    tabFlagLayer["erdfposteelectrique"] = "noLoaded";
-    tabFlagLayer["erdfremonteeaerosout"] = "noLoaded";
-    tabFlagLayer["erdftronconaerien"] = "noLoaded";
-    tabFlagLayer["ogmcablesremonteesmecaniques"] = "noLoaded";
-    tabFlagLayer["ogmdomainesskiables"] = "noLoaded";
-    tabFlagLayer["ogmtronconsdangereux"] = "noLoaded";
-    tabFlagLayer["ogmtronconsvisualises"] = "noLoaded";
-    tabFlagLayer["ogmtronconsvisualisesdangereux"] = "noLoaded";
-    tabFlagLayer["rtelignes"] = "noLoaded";
-    tabFlagLayer["rtepostes"] = "noLoaded";
-    tabFlagLayer["rtepoteaux"] = "noLoaded";
-    tabFlagLayer["communes"] = "noLoaded";
-
+    var tabFlagLayer = {
+        "zonessensibles": "firstLoad",
+        "mortalites": "noLoaded",
+        "tronconserdf": "firstLoad",
+        "eqtronconserdf": "noLoaded",
+        "eqpoteauxerdf": "noLoaded",
+        "nidifications": "noLoaded",
+        "observations": "noLoaded",
+        "poteauxerdf": "noLoaded",
+        "erdfappareilcoupure": "noLoaded",
+        "erdfconnexionaerienne": "noLoaded",
+        "erdfparafoudre": "noLoaded",
+        "erdfposteelectrique": "noLoaded",
+        "erdfremonteeaerosout": "noLoaded",
+        "erdftronconaerien": "noLoaded",
+        "ogmcablesremonteesmecaniques": "noLoaded",
+        "ogmdomainesskiables": "noLoaded",
+        "ogmtronconsdangereux": "noLoaded",
+        "ogmtronconsvisualises": "noLoaded",
+        "ogmtronconsvisualisesdangereux": "noLoaded",
+        "rtelignes": "noLoaded",
+        "rtepostes": "noLoaded",
+        "rtepoteaux": "noLoaded",
+        "communes": "noLoaded"
+    };
 
     this.getFlagLayer = function(pFlagLayer){
         return tabFlagLayer[pFlagLayer];

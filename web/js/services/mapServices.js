@@ -558,10 +558,8 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
                 for(var key1 in tabFlagLayer){
                     if (tabFlagLayer[key1] === "firstLoad" || tabFlagLayer[key1] === "cacheChecked"){
                         document.getElementById(key1).checked = true;
-                        loadDataSymf.getThemaData(key1);
                     }
                     else if (tabFlagLayer[key1] === "cacheUnchecked"){
-                        loadDataSymf.getThemaData(key1);
                         document.getElementById(key1).checked = false;
                         map.removeLayer(tabThemaData[key1]);
                         storeFlag.setFlagLayer(key1, "cacheUnchecked");
@@ -573,11 +571,9 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
                         if (tabFlagLayer[key2] === "cacheChecked"){
                             // console.log("dans displayGeomData - cacheChecked");
                             document.getElementById(key2).checked = true;
-                            loadDataSymf.getThemaData(key2);
                         }
                         else if (tabFlagLayer[key2] === "cacheUnchecked"){
                             // console.log("dans displayGeomData - cacheUnchecked");
-                            loadDataSymf.getThemaData(key2);
                             document.getElementById(key2).checked = false;
                             map.removeLayer(tabThemaData[key2]);
                             storeFlag.setFlagLayer(key2, "cacheUnchecked");
@@ -589,12 +585,10 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
             if(pLayerThemaData === 'zonessensibles' && pDetails === 'details'){
                 // si la couche 'poteaux' n'est pas chargée, elle est chargée pour qu'elle apparaisse sur le détail d'une zone sensible
                 if (storeFlag.getFlagLayer("poteauxerdf") === "noLoaded" || "cacheUnchecked"){
-                    loadDataSymf.getThemaData('poteauxerdf');
                     map.addLayer(tabThemaData['poteauxerdf']);
                 };
                 // si la couche 'tronçons' n'est pas chargée, elle est chargée pour qu'elle apparaisse sur le détail d'une zone sensible
                 if (storeFlag.getFlagLayer("tronconserdf") === "noLoaded" || "cacheUnchecked"){
-                    loadDataSymf.getThemaData('tronconserdf');
                     map.addLayer(tabThemaData['tronconserdf']);
                 };
             }
@@ -635,7 +629,6 @@ app.directive('leafletMap', function(){
                 // Attention : Cette fonctionnalité est développée en partie
                 // var idCheckTab = layerClickedValue+"_tab";
                 if (storeFlag.getFlagLayer(layerClickedValue) === "noLoaded"){
-                    loadDataSymf.getThemaData(layerClickedValue);
                     storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
                 }
                 else if (storeFlag.getFlagLayer(layerClickedValue) === "cacheChecked"){

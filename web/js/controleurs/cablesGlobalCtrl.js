@@ -5,16 +5,64 @@ var app = angular.module('cablesGlobalCtrl');
  * configuration des routes
  */
 app.config(function($routeProvider){
-    $routeProvider
-        .when('/cables', {
-            controller: 'cablesGlobalMapCtrl',
-            templateUrl: 'js/templates/cables/cablesGlobalTab.htm'
-        });
+
+    var categories = [
+        {
+            id: 'zonessensibles',
+            title: 'Zones sensibles'
+        }, {
+            id: 'mortalites',
+            title: 'Cas de mortalités'
+        }
+    ];
+
+    categories.forEach(function(category) {
+        $routeProvider
+            .when('/cables/' + category.id, {
+                controller: function($scope, mapService, configServ, dataServ, storeFlag) {
+                    $scope.categories = categories;
+                    $scope.category = category;
+
+                    $scope.title = category.title;
+                    $scope.data = [];
+
+                    configServ.getUrl('cables/config/' + category.id + '/list',
+                        function(schema) {
+                            $scope.schema = schema;
+
+                            if (!mapService.tabThemaData[category.id].getLayers().length) {
+                                dataServ.get("cables/" + category.id,
+                                    function(resp){
+                                        resp.forEach(function(item){
+                                            mapService.addGeom(item, category.id);
+                                        });
+                                    }
+                                );
+                            }
+                        });
+
+                    $scope.$watchCollection(
+                        function() {
+                            return mapService.tabThemaData[category.id].getLayers();
+                        },
+                        function(newVal, oldVal) {
+                            var data = [];
+                            // newVal equals to mapService.tabThemaData.zonessensibles.getLayers()
+                            newVal.forEach(function(layer){
+                                data.push(layer.feature.properties);
+                            });
+                            $scope.data = data;
+                        }
+                    );
+                },
+                templateUrl: 'js/templates/cables/category.htm'
+            });
+    });
 });
 
 
 // #1 controleur pour le chargement par défault carte et données acceuil
-app.controller('cablesGlobalMapCtrl',  function($rootScope, $scope, $location, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf, storeFlag, storeBreadcrumb){
+app.controller('cablesGlobalMapCtrl',  function($rootScope, $scope, $location, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, storeFlag, storeBreadcrumb){
 
 
 
@@ -92,7 +140,7 @@ app.controller('cablesGlobalMapCtrl',  function($rootScope, $scope, $location, $
 });
 
 // Gestion des onglets dans la bloc tableau de données attributaires
-app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, loadDataSymf, storeFlag, mapService, $q) {
+app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, storeFlag, mapService, $q) {
 
     $scope.displayLayer = function(pTabClickedValue) {
 
@@ -101,7 +149,6 @@ app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, loadDa
 
         if (storeFlag.getFlagLayer(pTabClickedValue) == "noLoaded"){
             // alert("dans noloaded");
-            loadDataSymf.getThemaData(pTabClickedValue);
             storeFlag.setFlagLayer(pTabClickedValue, "cacheChecked");
             // NF1
             // document.getElementById(idCheckTab).checked = true;
@@ -166,7 +213,7 @@ app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, loadDa
 });
 
 // #2 contrôleur tableau de données --- zones sensibles --- dans onglet
-app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf, storeFlag){
+app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, storeFlag){
 
     $scope.title = 'Zones sensibles';
     $scope.data = [];
@@ -176,7 +223,6 @@ app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $route
             $scope.schema = schema;
 
             if (storeFlag.getFlagLayer('zonessensibles') == "firstLoad"){
-                loadDataSymf.getThemaData('zonessensibles');
                 storeFlag.setFlagLayer('zonessensibles', "cacheChecked");
             }
         });
@@ -197,7 +243,7 @@ app.controller('zonesSensiblesTabCtrl',  function($scope, $http, $filter, $route
 });
 
 // #3 contrôleur tableau de données --- cas de mortalités --- dans onglet
-app.controller('mortalitesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('mortalitesTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     $scope.createAccess = userServ.checkLevel(3);
     $scope.editAccess = userServ.checkLevel(3);
@@ -244,7 +290,7 @@ app.controller('mortalitesTabCtrl',  function($scope, $http, $filter, $routePara
 });
 
 // #4 contrôleur tableau de données --- Inventaires tronçons ERDF --- dans onglet
-app.controller('tronconsErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('tronconsErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     $scope.createAccess = userServ.checkLevel(3);
     $scope.editAccess = userServ.checkLevel(3);
@@ -291,7 +337,7 @@ app.controller('tronconsErdfTabCtrl',  function($scope, $http, $filter, $routePa
 });
 
 // #5 contrôleur tableau de données --- Inventaires poteaux ERDF ---  dans onglet
-app.controller('poteauxErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('poteauxErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     $scope.createAccess = userServ.checkLevel(3);
     $scope.editAccess = userServ.checkLevel(3);
@@ -338,7 +384,7 @@ app.controller('poteauxErdfTabCtrl',  function($scope, $http, $filter, $routePar
 });
 
 // #6 contrôleur tableau de données --- Equipements tronçons erdf --- dans onglet
-app.controller('eqTronconsErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('eqTronconsErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     $scope.title = 'Equipements tronçons erdf';
     $scope.data = [];
@@ -383,7 +429,7 @@ app.controller('eqTronconsErdfTabCtrl',  function($scope, $http, $filter, $route
 });
 
 // #7 contrôleur tableau de données --- Sites de nidifications --- dans onglet
-app.controller('nidificationsTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('nidificationsTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     $scope.title = 'Sites de nidification';
     $scope.data = [];
@@ -428,7 +474,7 @@ app.controller('nidificationsTabCtrl',  function($scope, $http, $filter, $routeP
 });
 
 // #8 contrôleur tableau de données --- Observations --- dans onglet
-app.controller('observationsTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('observationsTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     $scope.title = 'Observations';
     $scope.data = [];
@@ -473,7 +519,7 @@ app.controller('observationsTabCtrl',  function($scope, $http, $filter, $routePa
 });
 
 // #9 contrôleur tableau de données --- Equipements poteaux erdf --- dans onglet
-app.controller('eqPoteauxErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, loadDataSymf){
+app.controller('eqPoteauxErdfTabCtrl',  function($scope, $http, $filter, $routeParams, LeafletServices, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
 
     $scope.title = 'Equipements poteaux erdf';

@@ -56,16 +56,16 @@ angular.module('mapServices', ['cablesServices', 'colorServices']);
 app.config(function($routeProvider){
     $routeProvider
         .when('/', {
-            controller: 'baseController',
+            controller: 'baseController'
         })
         .when('/login', {
             controller: 'loginController',
-            templateUrl: 'js/templates/login.htm',
+            templateUrl: 'js/templates/login.htm'
         })
         .when('/logout', {
             controller: 'logoutController',
-            templateUrl: 'js/templates/login.htm',
-        })
+            templateUrl: 'js/templates/login.htm'
+        });
 });
 
 app.run(function($rootScope, $templateCache) {
@@ -91,7 +91,7 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
         }
         // retourne /cables si on tape juste pnv
         if($location.path() == '/'){
-            $location.url('/cables');
+            $location.url('/cables/zonessensibles');
         }
 
         $scope.data = resp;

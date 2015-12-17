@@ -24,7 +24,7 @@ app.config(function($routeProvider){
 /*
  * controleur pour l'affichage basique des détails
  */
-app.controller('zsDetailController', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag, loadDataSymf){
+app.controller('zsDetailController', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
 
     $scope._appName = $routeParams.appName;
     $scope.schemaUrl = $scope._appName + '/config/zonessensibles/detail';

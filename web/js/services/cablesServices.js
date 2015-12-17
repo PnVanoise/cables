@@ -240,31 +240,6 @@ app.service('userServ', function(dataServ, $rootScope, localStorageService){
 
 });
 
-
-/*
- * Service qui récupere l'url depuis Symf
- */
-app.service('loadDataSymf', function(dataServ, mapService, storeFlag){
-    var vSymfPath = null;
-    var geoms = null;
-    var tmp = [];
-    var data = [];
-    var flagInitMap = true;
-
-    this.getThemaData = function(pThemaData){
-        vSymfPath = "cables/"+pThemaData;
-            dataServ.get(vSymfPath,
-                function(resp){
-                    resp.forEach(function(item){
-                        mapService.addGeom(item, pThemaData);
-                    });
-                }
-            );
-        // document.getElementById(pThemaData).checked = true;
-        // storeFlag.setFlagLayer(pThemaData, "cacheChecked");
-    };
-});
-
 /**
  * Déclaration du tableau pour la gestion de l'affichage des couches dans la légende
  */

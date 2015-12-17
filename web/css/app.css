@@ -8,14 +8,14 @@
     -moz-transition: width 200ms ease-in;
     -ms-transition: width 200ms ease-in;
     -o-transition: width 200ms ease-in;
-    transition: width 200ms ease-in;  
+    transition: width 200ms ease-in;
 }
 
 .datablock {
     padding: 0 20px 20px 20px;
     display: inline-block;
     width:45%;
-   
+
 }
 
 
@@ -30,20 +30,20 @@
     -moz-transition: width 200ms ease-in;
     -ms-transition: width 200ms ease-in;
     -o-transition: width 200ms ease-in;
-    transition: width 200ms ease-in;  
+    transition: width 200ms ease-in;
 }
 
 .datablock.visibilite {
     display: none;
-  
+
 }
 .btn.btn-info {
    margin-top:0%;
- 
+
 }
 
 /********************************************************
- * Carte 
+ * Carte
  ********************************************************/
 #map{
     width: 100%;
@@ -66,7 +66,6 @@
 }
 
 .padded{
-    position:relative;
     padding-left:12px;
     padding-right:15px;
 }
@@ -99,7 +98,7 @@
 }
 
 .map.small{
-    height: 92vh; 
+    height: 92vh;
 }
 
 .content-panel {
@@ -152,7 +151,7 @@
  ********************************************************/
  /*Fixed Nav-bar*/
  body { padding-top: 52px; }
- 
+
 
 /*  Font Awesome
     */
@@ -280,7 +279,7 @@ ul.icons li .icon-large:before {
 .css-form input.ng-invalid{
     border-color: red;
 }
-select:invalid { 
+select:invalid {
     border: 2px solid red;
 }
 
@@ -384,6 +383,7 @@ table.tablewrapper>tbody>tr.active>td{
 
 .float-right {
     float: right;
+    position: relative;
 }
 
 .float-left {
@@ -731,7 +731,7 @@ background-color:  aliceblue
 }
 
 /*
- * Photos 
+ * Photos
  */
 .thumb-image{
   position: relative;
@@ -746,7 +746,7 @@ background-color:  aliceblue
 }
 
  .my-drop-zone { border: dotted 3px lightgray; }
- .nv-file-over { border: dotted 3px red; } 
+ .nv-file-over { border: dotted 3px red; }
  .another-file-over-class { border: dotted 3px green; }
 
  .btn-file {
@@ -781,7 +781,7 @@ canvas {
   margin: 6px 0 0 6px;
 }
 
-.modal-content {  
+.modal-content {
   max-width: 600px;
 }
 
@@ -847,7 +847,7 @@ canvas {
   overflow: hidden;
   z-index: 2000;
   opacity: 0.8;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65); 
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 /*   transition: width 500ms;
    transition: height 20ms; */
 }
@@ -862,18 +862,18 @@ canvas {
 
 @media (min-width: 1200px) {
  .sidebar {
-    width: 300px; } 
+    width: 300px; }
 }
 /*
  * Position par rapport au bord gauche
  */
 .sidebar-left {
-  left: 0; 
+  left: 0;
  }
 @media (min-width: 768px) {
     .sidebar-left {
-      top: 0px; 
-    } 
+      top: 0px;
+    }
  }
 
 /*
@@ -885,7 +885,7 @@ canvas {
   height: 100%;
   background-color: #212d39; }
   .sidebar-left .sidebar-tabs {
-    left: 0; 
+    left: 0;
     }
     .sidebar-right .sidebar-tabs {
       right: 0; }
@@ -921,7 +921,7 @@ canvas {
                 text-align: center; }
 
 .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
-    
+
     background-color: #FFF;
 }
 
@@ -935,7 +935,7 @@ canvas {
   background-color: #212d39;
   overflow-x: hidden;
   overflow-y: auto; }
-  
+
 
   .sidebar-left .sidebar-content {
     left: 40px;
@@ -1045,8 +1045,8 @@ canvas {
 }
 
 
-.checkbox input:checked + .outer { 
-  background-color: #43A8EB; 
+.checkbox input:checked + .outer {
+  background-color: #43A8EB;
   background-image: url(img/checked.svg);
   background-size: 15px 15px;
   background-repeat: no-repeat;
@@ -1176,7 +1176,7 @@ a.legendBlock-item {
 
 }
 
-.obsClasse1{ 
+.obsClasse1{
 
   background:#8A2908;
   opacity:0.9;
@@ -1186,7 +1186,7 @@ a.legendBlock-item {
   margin-bottom:-2px;
   margin-left:-2px;
   margin-top:-2px
-  
+
 }
 .obsClasse2{
 
@@ -1208,5 +1208,5 @@ a.legendBlock-item {
   width: 12px;
   margin-bottom:-6px;
   margin-left:-6px;
-  margin-top:-6px  
+  margin-top:-6px
 }

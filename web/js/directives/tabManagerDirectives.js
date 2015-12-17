@@ -6,24 +6,22 @@ angular.module('bootstrap.tabset', [])
     transclude: true,
     controller: function($scope, $rootScope) {
       $scope.templateUrl = '';
-      var tabs = $rootScope.tabs = [];
-      var controller = this;
+      var tabs = [];
 
       this.selectTab = function (montab) {
         angular.forEach(tabs, function (montab) {
           montab.selected = false;
-          // console.log('selectTab', montab)
         });
         montab.selected = true;
       };
 
       this.setTabTemplate = function (templateUrl) {
         $scope.templateUrl = templateUrl;
-      }
+      };
 
       this.addTab = function (montab) {
         if(montab.active === 'true') {
-          montab.selected = true
+          montab.selected = true;
         }
         tabs.push(montab);
       };
@@ -31,7 +29,7 @@ angular.module('bootstrap.tabset', [])
     template:
       '<div class="row-fluid">' +
         '<div class="row-fluid">' +
-          '<div class="nav nav-tabs" ng-transclude></div>' +
+          '<ul class="nav nav-tabs" ng-transclude></ul>' +
         '</div>' +
         '<div class="row-fluid">' +
           '<ng-include src="templateUrl"></ng-include>' +
@@ -51,11 +49,11 @@ angular.module('bootstrap.tabset', [])
       active:'@'
     },
     link: function(scope, element, attrs, accueilController) {
-      accueilController.addTab(scope);      
+      accueilController.addTab(scope);
 
       scope.select = function () {
         accueilController.selectTab(scope);
-      }
+      };
 
       scope.$watch('selected', function () {
         if (scope.selected) {

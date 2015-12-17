@@ -318,11 +318,11 @@ app.service('storeBreadcrumb', function(){
 
     this.getCatBreadcrumb = function(){
         return catBreadcrumb;
-    }
+    };
 
     this.setCatBreadcrumb = function(pCatBreadcrumb){
         catBreadcrumb = pCatBreadcrumb;
-    }
+    };
 
 });
 

@@ -82,9 +82,13 @@ app.config(function (localStorageServiceProvider) {
  * Controleur de base
  */
 app.controller('baseController', function($scope, $location, dataServ, configServ, mapService, userMessages, userServ){
+    var categoriesFirstLoad = [
+        "zonessensibles", "tronconserdf", "poteauxerdf"
+    ];
+
     $scope._appName = null; // pour une gestion factorisée des applications = pas utile pour le moment
     $scope.app = {name: "cables"};
-    $scope.success = function(resp){
+    var success = function(resp){
         $scope.user = userServ.getUser();
         if(!$scope.user){
             $location.url('login');
@@ -110,6 +114,17 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
             $scope.user = null;
         });
 
+        categoriesFirstLoad.forEach(
+            function(category) {
+                dataServ.get("cables/" + category,
+                    function(resp){
+                        resp.forEach(function(item){
+                            mapService.addGeom(item, category);
+                        });
+                    }
+                );
+            }
+        );
     };
 
 
@@ -129,7 +144,7 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
 
 
 
-    configServ.getUrl('config/apps', $scope.success);
+    configServ.getUrl('config/apps', success);
 });
 
 /*

@@ -204,11 +204,10 @@ app.controller('mortalitesTabCtrl',  function($scope, $http, $filter, $routePara
     $scope.editAccess = userServ.checkLevel(3);
     $scope.title = 'Cas de mortalités';
     $scope.data = [];
-
     /*
-     * Spinner pour le chargment des données tableau mortalités 
+     * Spinner pour le chargment des données tableau mortalités
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -216,8 +215,8 @@ app.controller('mortalitesTabCtrl',  function($scope, $http, $filter, $routePara
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/mortalites.htm data=data
      */
@@ -228,14 +227,15 @@ app.controller('mortalitesTabCtrl',  function($scope, $http, $filter, $routePara
             tmp.push(item.properties);
         });
         $scope.data = tmp;
+        // console.info('$scope.data', JSON.stringify($scope.data));
         dfd.resolve('loading data');
     };
     /* Récupération du Schéma du tableau ==> voir dans js/templates/cables/mortalites.htm schema = schema
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/mortalites/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/mortalites/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/mortalites', $scope.setMort);
@@ -255,7 +255,7 @@ app.controller('tronconsErdfTabCtrl',  function($scope, $http, $filter, $routePa
     /*
      * Spinner pour le chargment des données tableau Inventaires tronçons ERDF
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -263,8 +263,8 @@ app.controller('tronconsErdfTabCtrl',  function($scope, $http, $filter, $routePa
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/tronconErdf.htm data = data
      */
@@ -281,8 +281,8 @@ app.controller('tronconsErdfTabCtrl',  function($scope, $http, $filter, $routePa
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/tronconserdf/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/tronconserdf/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/tronconserdf', $scope.setTron);
@@ -302,7 +302,7 @@ app.controller('poteauxErdfTabCtrl',  function($scope, $http, $filter, $routePar
     /*
      * Spinner pour le chargment des données tableau Inventaires poteaux ERDF
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -310,8 +310,8 @@ app.controller('poteauxErdfTabCtrl',  function($scope, $http, $filter, $routePar
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/poteauxErdf.htm data = data
      */
@@ -328,8 +328,8 @@ app.controller('poteauxErdfTabCtrl',  function($scope, $http, $filter, $routePar
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/poteauxerdf/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/poteauxerdf/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/poteauxerdf', $scope.setPot);
@@ -347,7 +347,7 @@ app.controller('eqTronconsErdfTabCtrl',  function($scope, $http, $filter, $route
     /*
      * Spinner pour le chargment des données tableau Equipements tronçons erdf
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -355,8 +355,8 @@ app.controller('eqTronconsErdfTabCtrl',  function($scope, $http, $filter, $route
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/eqTronconsErdf.htm data = data
      */
@@ -373,8 +373,8 @@ app.controller('eqTronconsErdfTabCtrl',  function($scope, $http, $filter, $route
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/eqtronconserdf/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/eqtronconserdf/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/eqtronconserdf', $scope.setEqTron);
@@ -392,7 +392,7 @@ app.controller('nidificationsTabCtrl',  function($scope, $http, $filter, $routeP
     /*
      * Spinner pour le chargment des données tableau Sites de nidification
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -400,8 +400,8 @@ app.controller('nidificationsTabCtrl',  function($scope, $http, $filter, $routeP
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/nidifications.htm data = data
      */
@@ -418,8 +418,8 @@ app.controller('nidificationsTabCtrl',  function($scope, $http, $filter, $routeP
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/nidifications/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/nidifications/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/nidifications', $scope.setNid);
@@ -437,7 +437,7 @@ app.controller('observationsTabCtrl',  function($scope, $http, $filter, $routePa
     /*
      * Spinner pour le chargment des données tableau Observations
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -445,8 +445,8 @@ app.controller('observationsTabCtrl',  function($scope, $http, $filter, $routePa
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/observations.htm data = data
      */
@@ -463,8 +463,8 @@ app.controller('observationsTabCtrl',  function($scope, $http, $filter, $routePa
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/observations/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/observations/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/observations', $scope.setObs);
@@ -483,7 +483,7 @@ app.controller('eqPoteauxErdfTabCtrl',  function($scope, $http, $filter, $routeP
     /*
      * Spinner pour le chargment des données tableau Equipements poteaux erdf
      * */
-    
+
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
@@ -491,8 +491,8 @@ app.controller('eqPoteauxErdfTabCtrl',  function($scope, $http, $filter, $routeP
         $loading.finish('spinner-1');
     });
 
-    /* Initiation des données pour le tableau 
-     * remplissage du scope 
+    /* Initiation des données pour le tableau
+     * remplissage du scope
      * param : $scope.data = tmp;
      * voir js/templates/cables/eqPoteauxErdf.htm data = data
      */
@@ -509,8 +509,8 @@ app.controller('eqPoteauxErdfTabCtrl',  function($scope, $http, $filter, $routeP
      * Chargement des données dans le tableau
      * param : dataServ.get('url', callback);
      */
-    $timeout(function(){        
-        configServ.getUrl('cables/config/eqpoteauxerdf/list', 
+    $timeout(function(){
+        configServ.getUrl('cables/config/eqpoteauxerdf/list',
             function(schema) {
                 $scope.schema = schema;
                 dataServ.get('cables/eqpoteauxerdf', $scope.setEqPot);

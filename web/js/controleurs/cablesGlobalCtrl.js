@@ -46,8 +46,7 @@ app.config(function($routeProvider){
 });
 
 
-app.controller('CategoryCtrl', function($scope, categories, category, mapService, configServ,
-    themaDataServ, storeFlag) {
+app.controller('CategoryCtrl', function($scope, categories, category, mapService, configServ, storeFlag) {
     $scope.categories = categories;
     $scope.category = category;
 
@@ -57,7 +56,7 @@ app.controller('CategoryCtrl', function($scope, categories, category, mapService
     configServ.getUrl('cables/config/' + category.id + '/list',
         function(schema) {
             $scope.schema = schema;
-            themaDataServ.loadCategoryData(category.id);
+            mapService.showLayer(category.id);
         });
 
     $scope.$watchCollection(

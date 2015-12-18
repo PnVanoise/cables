@@ -82,7 +82,7 @@ app.config(function (localStorageServiceProvider) {
  * Controleur de base
  */
 app.controller('baseController', function($scope, $location, dataServ,
-    configServ, mapService, userMessages, userServ, themaDataServ){
+    configServ, mapService, userMessages, userServ){
     var categoriesFirstLoad = [
         "zonessensibles", "tronconserdf", "poteauxerdf"
     ];
@@ -117,7 +117,7 @@ app.controller('baseController', function($scope, $location, dataServ,
 
         categoriesFirstLoad.forEach(
             function(category) {
-                themaDataServ.loadCategoryData(category);
+                mapService.showLayer(category);
             }
         );
     };

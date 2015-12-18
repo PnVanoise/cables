@@ -108,23 +108,6 @@ app.service('dataServ', function($http, $filter, userMessages){
 
 });
 
-/**
- * Service de gestion des données thématiques
- */
-app.service('themaDataServ', function(dataServ, mapService) {
-
-    this.loadCategoryData = function(category) {
-        dataServ.get("cables/" + category,
-            function(resp) {
-                mapService.clear(category);
-                resp.forEach(function(item) {
-                    mapService.addGeom(item, category);
-                });
-            }
-        );
-    };
-});
-
 
 /**
  * Service de récupération et stockage des configurations

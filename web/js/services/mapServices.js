@@ -36,7 +36,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
   * * #2 - Service cartographique
   */
-app.service('mapService', function(configServ, LeafletServices, defaultColorService, storeFlag) {
+app.service('mapService', function(configServ, dataServ, LeafletServices, defaultColorService, storeFlag) {
     /*
      * Private variables or functions
      */
@@ -247,6 +247,34 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
         }
     };
 
+    /*
+     * parameters:
+     * - category : la categorie métier
+     *  - force : si on veut recharger la couche
+     */
+    var loadCategoryData = function(category, force) {
+        if (this.tabThemaData[category].loaded) {
+            return;
+        }
+        this.tabThemaData[category].loaded = true;
+        if (force) {
+            this.clear();
+        }
+        dataServ.get("cables/" + category,
+            angular.bind(this, function(resp) {
+                resp.forEach(angular.bind(this, function(item) {
+                    // the addGeom method could be private
+                    // in this case, the angular.bind should be removed
+                    this.addGeom(item, category);
+                }));
+            }),
+            function() {
+                // en cas d'erreur remettre le loaded à false
+            },
+            force
+        );
+    };
+
     return {
         /*
          * Public properties or methods
@@ -290,14 +318,6 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
                     title: 'Afficher en plein écran !'
                 }
             });
-
-            /**
-             * Ajout des couches métier
-             */
-            for (var key in this.tabThemaData) {
-                this.tabThemaData[key].addTo(map);
-            }
-            // console.log('tab in mapService', this.tabThemaData)
 
             loadMapConfig();
             addControls();
@@ -343,6 +363,19 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
         // Mise en service (mapService ) des couches métiers
         getLayer:  function(layer) {
             return this.tabThemaData[layer];
+        },
+
+        showLayer: function(layer) {
+            loadCategoryData.call(this, layer);
+            map.addLayer(this.tabThemaData[layer]);
+        },
+
+        hideLayer: function(layer) {
+            map.removeLayer(this.tabThemaData[layer]);
+        },
+
+        layerIsVisible: function(layer) {
+            return map.hasLayer(this.tabThemaData[layer]);
         },
 
         // Mise en service (mapService ) de la carte
@@ -593,8 +626,8 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
                 };
             }
         },
-
         /**
+         *
          */
         clear: function(category) {
             this.tabThemaData[category].clearLayers();
@@ -636,18 +669,17 @@ app.directive('legendLayer', function() {
             name: '='
         },
         templateUrl: 'js/templates/display/legendLayer.htm',
-        controller: function($scope, themaDataServ, mapService) {
-            var map = mapService.getMap();
+        controller: function($scope, mapService) {
             $scope.getSetActive = function(val) {
                 var layer = $scope.layer;
                 if (arguments.length) { // set
                     if (val) {
-                        themaDataServ.loadCategoryData(layer);
+                        mapService.showLayer(layer);
                     } else {
-                        mapService.clear(layer);
+                        mapService.hideLayer(layer);
                     }
                 } else { // get
-                    return mapService.tabThemaData[layer].getLayers().length > 0;
+                    return mapService.layerIsVisible(layer);
                 }
             };
         }

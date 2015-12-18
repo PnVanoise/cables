@@ -1,0 +1,14 @@
+<div class="row">
+    <ul class="nav nav-pills nav-justified">
+        <li ng-repeat="cat in ::categories" ng-class="{'active': cat.id == category.id}"><a href="#/cables/{{::cat.id}}">{{::cat.title}}</a></li>
+    </ul>
+    <div maplist="cables/{{::category.id}}">
+        <div class="bnt-new" ng-if="editAccess">
+            <a class="btn btn-success" style="margin-right: 1ex;" ng-href="{{schema.createUrl}}">{{schema.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
+        </div>
+        </br>
+        <div class="padded">
+            <div tablewrapper class="table" schema="schema" data="data" refname="cables/{{::category.id}}"></div>
+        </div>
+    </div>
+</div>

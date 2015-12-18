@@ -36,7 +36,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
   * * #2 - Service cartographique
   */
-app.service('mapService', function($rootScope, configServ, dataServ, LeafletServices, defaultColorService, storeFlag) {
+app.service('mapService', function($rootScope, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
 
     /*
      * Private variables or functions
@@ -51,6 +51,8 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
     var empriseInit;
 
     var tileLayers = {}; // couche pour les fonds de référence
+
+    var currentSel;
 
     /**
      * Récupération de l'url de données avec getUrl de configServ

@@ -33,16 +33,10 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
     $scope.updateUrl = '#/' + $scope._appName + '/edit/mortalites/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/mortalites', "mortalites").then(
-                function(){                    
-                    document.getElementById("mortalites").checked = true;
-                    mapService.displayGeomData("mortalites");
-                    storeFlag.setFlagLayer("mortalites", "cacheChecked");
-                    mapService.selectItem($routeParams.id, 'mortalites');
-                });
-            $scope.title = data.espece;
+        mapService.showLayer('mortalites').then(function() {
+            mapService.selectItem($routeParams.id, 'mortalites');
         });
+        $scope.title = data.espece;
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail

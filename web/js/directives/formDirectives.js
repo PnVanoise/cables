@@ -557,8 +557,7 @@ app.directive('geometry', function($timeout){
         scope: {
             geom: '=',
             options: '=',
-            origin: '=',
-            cat: '=',
+            origin: '='
         },
         templateUrl:  'js/templates/form/geometry.htm',
         controller: function($scope, $rootScope, $timeout, mapService, storeFlag){
@@ -582,128 +581,113 @@ app.directive('geometry', function($timeout){
                 $scope.configUrl = $scope.options.configUrl;
             }
 
-            mapService.initializeCarte($scope.configUrl).then(function(){
-                mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
-                mapService.loadData($scope.options.dataUrl, $scope.options.dataUrl.split("/")[1]).then(function(){
-                    
-                    // Chargement des couches cochées dans la légende sans celle en cours car elle est chargée depuis loadData
-                    var cat = $scope.options.dataUrl.split("/")[1];
-                    document.getElementById(cat).checked = true;
-                    mapService.displayGeomData(cat);
-                    storeFlag.setFlagLayer(cat, "cacheChecked");
-                                            
-                    if($scope.origin){
-                        $timeout(function(pThemaData){
-                            // var layer = selectEditItem($scope.origin);
-                            // var layer = mapService.selectItem($scope.origin, "false");
-                            var layer = mapService.selectItem($scope.origin);
-                            if(layer){
-                                setEditLayer(layer);
-                            }
-                        }, 0);
-                    }
-                    mapService.getMap().addLayer($scope.editLayer);
-                    // mapService.getMap().removeLayer(mapService.getLayer($scope.options.dataUrl.split("/")[1]));
-                });
-
-                /* Récupération des couches depuis mapServices pour les fonctionnalités
-                 *  d'accrochage en création d'objet geom
-                 * Pour l'instant, pas possibilités de factoriser pour rendre le tableau des couches dynamiques
-                 */
-                 //couches existantes sur la carte
-                var tabThemaData = mapService.tabThemaData;
-                couches = [
-                    tabThemaData['zonessensibles'], 
-                    tabThemaData['mortalites'],
-                    tabThemaData['tronconserdf'],
-                    tabThemaData['poteauxerdf'],
-                    tabThemaData['eqtronconserdf'], 
-                    tabThemaData['eqpoteauxerdf'],
-                    tabThemaData['nidifications'],
-                    tabThemaData['observations'],
-                    tabThemaData['erdfappareilcoupure'],
-                    tabThemaData['erdfconnexionaerienne'],
-                    tabThemaData['erdfparafoudre'],
-                    tabThemaData['erdfposteelectrique'],
-                    tabThemaData['erdfremonteeaerosout'],
-                    tabThemaData['erdftronconaerien'],
-                    tabThemaData['ogmcablesremonteesmecaniques'],
-                    tabThemaData['ogmdomainesskiables'],
-                    tabThemaData['ogmtronconsdangereux'],
-                    tabThemaData['ogmtronconsvisualises'],
-                    tabThemaData['ogmtronconsvisualisesdangereux'],
-                    tabThemaData['rtelignes'],
-                    tabThemaData['rtepostes'],
-                    tabThemaData['rtepoteaux']
-                ]
-
-                // on passe les couches au controle de l'édition 
-                var guideLayers = couches;
-                // console.log(couches) // couches OK 
-                $scope.controls = new L.Control.Draw({
-                    edit: {
-                        featureGroup: $scope.editLayer},
-                    draw: {
-                        moveMarkers: false, // options pour déplacer en entier et facilement polygone et polyline en édition
-                        rectangle: false,
-                        circle: false,
-                        marker: $scope.options.geometryType == 'point',
-                        polyline: $scope.options.geometryType == 'linestring',
-                        polygon: $scope.options.geometryType == 'polygon',
-                    },
-                });
-                mapService.getMap().addControl($scope.controls);
-
-                /*Options d'accrochage couches en mode édit*/
-                $scope.controls.setDrawingOptions({
-                    polygon: { guideLayers: guideLayers, snapDistance: 5 },
-                    polyline: { guideLayers: guideLayers},
-                    marker: { guideLayers: guideLayers, snapVertices: true },
-                });
-                
-                /*
-                 * affichage coords curseur en edition 
-                 * TODO confirmer le maintien
-                 */
-                coordsDisplay = L.control({position: 'bottomright'});
-                coordsDisplay.onAdd = function(map){
-                    this._dsp = L.DomUtil.create('div', 'coords-dsp');
-                    return this._dsp;
-                };
-                coordsDisplay.update = function(evt){
-                    this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
-                };
-                mapService.getMap().on('mousemove', function(e){
-                    coordsDisplay.update(e);
-                });
-                coordsDisplay.addTo(mapService.getMap());
-                /*
-                 * ---------------------------------------
-                 */             
-                mapService.getMap().on('draw:created', function(e){
-                    if(!current){
-                        $scope.editLayer.addLayer(e.layer);
-                        current = e.layer;
-                        guideLayers.push(current); // options d'accrochage des couches en mode create
-                        $rootScope.$apply($scope.updateCoords(current));
-                    }
-                });
-                mapService.getMap().on('draw:edited', function(e){
-                     if(!current){
-                        current = e.layer;
-                        guideLayers.push(current); // options d'accrochage des couches en mode édit
-                        $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
-                    }
-                });
-                mapService.getMap().on('draw:deleted', function(e){
-                    current = null;
-                    $rootScope.$apply($scope.updateCoords(current));
-                });
-                $timeout(function() {
-                    mapService.getMap().invalidateSize();
-                }, 0 );
-            
+            var cat = $scope.options.dataUrl.split("/")[1];
+            mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
+            mapService.showLayer(cat).then(function(){
+                var layer = mapService.selectItem($scope.origin, cat);
+                if(layer){
+                    setEditLayer(layer);
+                }
+                mapService.getMap().addLayer($scope.editLayer);
             });
+
+            /* Récupération des couches depuis mapServices pour les fonctionnalités
+             *  d'accrochage en création d'objet geom
+             * Pour l'instant, pas possibilités de factoriser pour rendre le tableau des couches dynamiques
+             */
+             //couches existantes sur la carte
+            var tabThemaData = mapService.tabThemaData;
+            couches = [
+                tabThemaData['zonessensibles'], 
+                tabThemaData['mortalites'],
+                tabThemaData['tronconserdf'],
+                tabThemaData['poteauxerdf'],
+                tabThemaData['eqtronconserdf'], 
+                tabThemaData['eqpoteauxerdf'],
+                tabThemaData['nidifications'],
+                tabThemaData['observations'],
+                tabThemaData['erdfappareilcoupure'],
+                tabThemaData['erdfconnexionaerienne'],
+                tabThemaData['erdfparafoudre'],
+                tabThemaData['erdfposteelectrique'],
+                tabThemaData['erdfremonteeaerosout'],
+                tabThemaData['erdftronconaerien'],
+                tabThemaData['ogmcablesremonteesmecaniques'],
+                tabThemaData['ogmdomainesskiables'],
+                tabThemaData['ogmtronconsdangereux'],
+                tabThemaData['ogmtronconsvisualises'],
+                tabThemaData['ogmtronconsvisualisesdangereux'],
+                tabThemaData['rtelignes'],
+                tabThemaData['rtepostes'],
+                tabThemaData['rtepoteaux']
+            ]
+
+            // on passe les couches au controle de l'édition 
+            var guideLayers = couches;
+            // console.log(couches) // couches OK 
+            $scope.controls = new L.Control.Draw({
+                edit: {
+                    featureGroup: $scope.editLayer},
+                draw: {
+                    moveMarkers: false, // options pour déplacer en entier et facilement polygone et polyline en édition
+                    rectangle: false,
+                    circle: false,
+                    marker: $scope.options.geometryType == 'point',
+                    polyline: $scope.options.geometryType == 'linestring',
+                    polygon: $scope.options.geometryType == 'polygon',
+                },
+            });
+            mapService.getMap().addControl($scope.controls);
+
+            /*Options d'accrochage couches en mode édit*/
+            $scope.controls.setDrawingOptions({
+                polygon: { guideLayers: guideLayers, snapDistance: 5 },
+                polyline: { guideLayers: guideLayers},
+                marker: { guideLayers: guideLayers, snapVertices: true },
+            });
+            
+            /*
+             * affichage coords curseur en edition 
+             * TODO confirmer le maintien
+             */
+            coordsDisplay = L.control({position: 'bottomright'});
+            coordsDisplay.onAdd = function(map){
+                this._dsp = L.DomUtil.create('div', 'coords-dsp');
+                return this._dsp;
+            };
+            coordsDisplay.update = function(evt){
+                this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
+            };
+            mapService.getMap().on('mousemove', function(e){
+                coordsDisplay.update(e);
+            });
+            coordsDisplay.addTo(mapService.getMap());
+            /*
+             * ---------------------------------------
+             */
+            mapService.getMap().on('draw:created', function(e){
+                if(!current){
+                    $scope.editLayer.addLayer(e.layer);
+                    current = e.layer;
+                    guideLayers.push(current); // options d'accrochage des couches en mode create
+                    $rootScope.$apply($scope.updateCoords(current));
+                }
+            });
+            mapService.getMap().on('draw:edited', function(e){
+                 if(!current){
+                    current = e.layer;
+                    guideLayers.push(current); // options d'accrochage des couches en mode édit
+                    $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
+                }
+            });
+            mapService.getMap().on('draw:deleted', function(e){
+                current = null;
+                $rootScope.$apply($scope.updateCoords(current));
+            });
+            $timeout(function() {
+                mapService.getMap().invalidateSize();
+            }, 0 );
+
 
             $scope.geom = $scope.geom || [];
 

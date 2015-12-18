@@ -34,7 +34,7 @@ var app = angular.module('FormDirectives');
 //             $scope.find = function(txt){
 //                 if(txt){
 //                     return $http.get($scope.url + txt).then(function(resp){
-//                         return resp.data;    
+//                         return resp.data;
 //                     });
 //                 }
 //             };
@@ -170,7 +170,7 @@ app.directive('dynform', function(){
 // });
 
 
-/* photoupload *** 
+/* photoupload ***
  * Directive qui permet d'avoir un champ de formulaire de type input  photo et qui l'envoie au serveur
  * params:
  *  chemin: la valeur du cheminPhoto
@@ -184,44 +184,44 @@ app.directive('photoupload', function(){
         },
         templateUrl: 'js/templates/form/photoUpload.htm',
         controller: function($scope, $rootScope, dataServ, userMessages, FileUploader){
-            
-            if($scope.options.id === 'photosPoteauxErdf'){            
+
+            if($scope.options.id === 'photosPoteauxErdf'){
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'upload_photos_poteaux',
                 })
-            } 
-            if($scope.options.id === 'photosTronconsErdf'){            
+            }
+            if($scope.options.id === 'photosTronconsErdf'){
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'upload_photos_troncons',
                 })
-            } 
-                   
+            }
+
             // CALLBACKS
             uploader.onWhenAddingFileFailed = function() {
-                userMessages.infoMessage = "Le chargement de la photo a échoué.";   
+                userMessages.infoMessage = "Le chargement de la photo a échoué.";
             };
             uploader.onErrorItem = function() {
                 userMessages.errorMessage ="Une erreur s'est produite pendant l'envoi de la photo. Veuillez réessayer svp!";
             };
             uploader.onCancelItem = function() {
-                userMessages.infoMessage = "L'envoi a été annulé.";           
+                userMessages.infoMessage = "L'envoi a été annulé.";
             };
             uploader.onProgressItem = function(fileItem, progress) {
-                userMessages.infoMessage = "Chargement en cours..."; 
+                userMessages.infoMessage = "Chargement en cours...";
             };
             uploader.onCompleteItem = function(fileItem, response) {
                 $scope.chemin = 'img/photos/' + response.cheminPhoto; // si le chargement est bon, on remplit cheminPhoto avec la réponse
                 // console.log(response.cheminPhoto)
-                userMessages.successMessage = "Photo chargée avec succès.";               
+                userMessages.successMessage = "Photo chargée avec succès.";
             };
         }
     }
 });
 
-/* photoThumb *** 
+/* photoThumb ***
 * Directive pour créér des miniatures de photos
 * Regarde si le fichier chargé est une image pour en créer
-* les format d'images acceptés sont |jpg|png|jpeg|bmp|gif| 
+* les format d'images acceptés sont |jpg|png|jpeg|bmp|gif|
 */
 app.directive('photoThumb', ['$window', function($window) {
     var helper = {
@@ -269,7 +269,7 @@ app.directive('photoThumb', ['$window', function($window) {
 
 /**
  * Directive qui permet d'avoir un champ de formulaire de type valeur calculée modifiable
- * params: 
+ * params:
  *  data: la source de données du champ (une liste de références aux champs servant au calcul)
  *  refs: une liste du nom des champs à surveiller
  *  model: la source/cible du champ (eq. ng-model)
@@ -310,7 +310,7 @@ app.directive('photoThumb', ['$window', function($window) {
 
 /*
  * directive pour l'affichage simple d'un formulaire
- * params: 
+ * params:
  *  saveurl : l'url à laquelle seront envoyées les données
  *  schemaUrl : l'url du schéma descripteur du formulaire
  *  dataurl : url pour récupérer les données en édition
@@ -332,13 +332,13 @@ app.directive('simpleform', function(){
             $scope.errors = {};
             $scope.currentPage = 0;
             $scope.addSubSchema = false;
-            // groupe d'accordion 
+            // groupe d'accordion
             $scope.status = {
                 uneALaFois: false,
                 isOpen: [true]
             };
             configServ.get('debug', function(value){
-                $scope.debug = value;   
+                $scope.debug = value;
             });
 
             /*
@@ -351,7 +351,7 @@ app.directive('simpleform', function(){
                 $loading.finish('spinner-form');
             });
 
-            // ouverture de modal pour confirmation 
+            // ouverture de modal pour confirmation
             $scope.openConfirm = function(txt){
                 var modInstance = $modal.open({
                     templateUrl: 'js/templates/modalConfirmation.htm',
@@ -368,10 +368,10 @@ app.directive('simpleform', function(){
                 });
                 return modInstance.result;
             }
-                          
+
             $scope.setSchema = function(resp){
                 $scope.schema = angular.copy(resp);
-                
+
                 // mise en place tabulation formulaire
                 // groups permet de regrouper des infos dans des goroupes définis dans Symfony dans .yml pour être utilisé dans Anguler
                 $scope.schema.groups.forEach(function(group){
@@ -433,7 +433,7 @@ app.directive('simpleform', function(){
                 promise.then(function(result) {
                     $loading.finish('spinner-form');
                 });
-                
+
                 if($scope.dataUrl){
                     dataServ.post($scope.saveUrl, $scope.data, $scope.updated(dfd), $scope.error(dfd));
                 }
@@ -557,11 +557,11 @@ app.directive('geometry', function($timeout){
         scope: {
             geom: '=',
             options: '=',
-            origin: '=',
-            cat: '=',
+            origin: '='
         },
         templateUrl:  'js/templates/form/geometry.htm',
         controller: function($scope, $rootScope, $timeout, mapService, storeFlag){
+            var map = mapService.getMap();
             $scope.editLayer = new L.FeatureGroup();
             var current = null;
             var couches = null;
@@ -582,128 +582,113 @@ app.directive('geometry', function($timeout){
                 $scope.configUrl = $scope.options.configUrl;
             }
 
-            mapService.initializeCarte($scope.configUrl).then(function(){
-                mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
-                mapService.loadData($scope.options.dataUrl, $scope.options.dataUrl.split("/")[1]).then(function(){
-                    
-                    // Chargement des couches cochées dans la légende sans celle en cours car elle est chargée depuis loadData
-                    var cat = $scope.options.dataUrl.split("/")[1];
-                    document.getElementById(cat).checked = true;
-                    mapService.displayGeomData(cat);
-                    storeFlag.setFlagLayer(cat, "cacheChecked");
-                                            
-                    if($scope.origin){
-                        $timeout(function(pThemaData){
-                            // var layer = selectEditItem($scope.origin);
-                            // var layer = mapService.selectItem($scope.origin, "false");
-                            var layer = mapService.selectItem($scope.origin);
-                            if(layer){
-                                setEditLayer(layer);
-                            }
-                        }, 0);
-                    }
-                    mapService.getMap().addLayer($scope.editLayer);
-                    // mapService.getMap().removeLayer(mapService.getLayer($scope.options.dataUrl.split("/")[1]));
-                });
-
-                /* Récupération des couches depuis mapServices pour les fonctionnalités
-                 *  d'accrochage en création d'objet geom
-                 * Pour l'instant, pas possibilités de factoriser pour rendre le tableau des couches dynamiques
-                 */
-                 //couches existantes sur la carte
-                var tabThemaData = mapService.tabThemaData;
-                couches = [
-                    tabThemaData['zonessensibles'], 
-                    tabThemaData['mortalites'],
-                    tabThemaData['tronconserdf'],
-                    tabThemaData['poteauxerdf'],
-                    tabThemaData['eqtronconserdf'], 
-                    tabThemaData['eqpoteauxerdf'],
-                    tabThemaData['nidifications'],
-                    tabThemaData['observations'],
-                    tabThemaData['erdfappareilcoupure'],
-                    tabThemaData['erdfconnexionaerienne'],
-                    tabThemaData['erdfparafoudre'],
-                    tabThemaData['erdfposteelectrique'],
-                    tabThemaData['erdfremonteeaerosout'],
-                    tabThemaData['erdftronconaerien'],
-                    tabThemaData['ogmcablesremonteesmecaniques'],
-                    tabThemaData['ogmdomainesskiables'],
-                    tabThemaData['ogmtronconsdangereux'],
-                    tabThemaData['ogmtronconsvisualises'],
-                    tabThemaData['ogmtronconsvisualisesdangereux'],
-                    tabThemaData['rtelignes'],
-                    tabThemaData['rtepostes'],
-                    tabThemaData['rtepoteaux']
-                ]
-
-                // on passe les couches au controle de l'édition 
-                var guideLayers = couches;
-                // console.log(couches) // couches OK 
-                $scope.controls = new L.Control.Draw({
-                    edit: {
-                        featureGroup: $scope.editLayer},
-                    draw: {
-                        moveMarkers: false, // options pour déplacer en entier et facilement polygone et polyline en édition
-                        rectangle: false,
-                        circle: false,
-                        marker: $scope.options.geometryType == 'point',
-                        polyline: $scope.options.geometryType == 'linestring',
-                        polygon: $scope.options.geometryType == 'polygon',
-                    },
-                });
-                mapService.getMap().addControl($scope.controls);
-
-                /*Options d'accrochage couches en mode édit*/
-                $scope.controls.setDrawingOptions({
-                    polygon: { guideLayers: guideLayers, snapDistance: 5 },
-                    polyline: { guideLayers: guideLayers},
-                    marker: { guideLayers: guideLayers, snapVertices: true },
-                });
-                
-                /*
-                 * affichage coords curseur en edition 
-                 * TODO confirmer le maintien
-                 */
-                coordsDisplay = L.control({position: 'bottomright'});
-                coordsDisplay.onAdd = function(map){
-                    this._dsp = L.DomUtil.create('div', 'coords-dsp');
-                    return this._dsp;
-                };
-                coordsDisplay.update = function(evt){
-                    this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
-                };
-                mapService.getMap().on('mousemove', function(e){
-                    coordsDisplay.update(e);
-                });
-                coordsDisplay.addTo(mapService.getMap());
-                /*
-                 * ---------------------------------------
-                 */             
-                mapService.getMap().on('draw:created', function(e){
-                    if(!current){
-                        $scope.editLayer.addLayer(e.layer);
-                        current = e.layer;
-                        guideLayers.push(current); // options d'accrochage des couches en mode create
-                        $rootScope.$apply($scope.updateCoords(current));
-                    }
-                });
-                mapService.getMap().on('draw:edited', function(e){
-                     if(!current){
-                        current = e.layer;
-                        guideLayers.push(current); // options d'accrochage des couches en mode édit
-                        $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
-                    }
-                });
-                mapService.getMap().on('draw:deleted', function(e){
-                    current = null;
-                    $rootScope.$apply($scope.updateCoords(current));
-                });
-                $timeout(function() {
-                    mapService.getMap().invalidateSize();
-                }, 0 );
-            
+            var cat = $scope.options.dataUrl.split("/")[1];
+            mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
+            mapService.showLayer(cat).then(function(){
+                var layer = mapService.selectItem($scope.origin, cat);
+                if(layer){
+                    setEditLayer(layer);
+                }
+                mapService.getMap().addLayer($scope.editLayer);
             });
+
+            /* Récupération des couches depuis mapServices pour les fonctionnalités
+             *  d'accrochage en création d'objet geom
+             * Pour l'instant, pas possibilités de factoriser pour rendre le tableau des couches dynamiques
+             */
+             //couches existantes sur la carte
+            var tabThemaData = mapService.tabThemaData;
+            couches = [
+                tabThemaData['zonessensibles'],
+                tabThemaData['mortalites'],
+                tabThemaData['tronconserdf'],
+                tabThemaData['poteauxerdf'],
+                tabThemaData['eqtronconserdf'],
+                tabThemaData['eqpoteauxerdf'],
+                tabThemaData['nidifications'],
+                tabThemaData['observations'],
+                tabThemaData['erdfappareilcoupure'],
+                tabThemaData['erdfconnexionaerienne'],
+                tabThemaData['erdfparafoudre'],
+                tabThemaData['erdfposteelectrique'],
+                tabThemaData['erdfremonteeaerosout'],
+                tabThemaData['erdftronconaerien'],
+                tabThemaData['ogmcablesremonteesmecaniques'],
+                tabThemaData['ogmdomainesskiables'],
+                tabThemaData['ogmtronconsdangereux'],
+                tabThemaData['ogmtronconsvisualises'],
+                tabThemaData['ogmtronconsvisualisesdangereux'],
+                tabThemaData['rtelignes'],
+                tabThemaData['rtepostes'],
+                tabThemaData['rtepoteaux']
+            ]
+
+            // on passe les couches au controle de l'édition
+            var guideLayers = couches;
+            // console.log(couches) // couches OK
+            var controls = new L.Control.Draw({
+                edit: {
+                    featureGroup: $scope.editLayer},
+                draw: {
+                    moveMarkers: false, // options pour déplacer en entier et facilement polygone et polyline en édition
+                    rectangle: false,
+                    circle: false,
+                    marker: $scope.options.geometryType == 'point',
+                    polyline: $scope.options.geometryType == 'linestring',
+                    polygon: $scope.options.geometryType == 'polygon',
+                },
+            });
+            mapService.getMap().addControl(controls);
+
+            /*Options d'accrochage couches en mode édit*/
+            controls.setDrawingOptions({
+                polygon: { guideLayers: guideLayers, snapDistance: 5 },
+                polyline: { guideLayers: guideLayers},
+                marker: { guideLayers: guideLayers, snapVertices: true },
+            });
+
+            /*
+             * affichage coords curseur en edition
+             * TODO confirmer le maintien
+             */
+            coordsDisplay = L.control({position: 'bottomright'});
+            coordsDisplay.onAdd = function(map){
+                this._dsp = L.DomUtil.create('div', 'coords-dsp');
+                return this._dsp;
+            };
+            coordsDisplay.update = function(evt){
+                this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
+            };
+            mapService.getMap().on('mousemove', function(e){
+                coordsDisplay.update(e);
+            });
+            coordsDisplay.addTo(mapService.getMap());
+            /*
+             * ---------------------------------------
+             */
+            mapService.getMap().on('draw:created', function(e){
+                if(!current){
+                    $scope.editLayer.addLayer(e.layer);
+                    current = e.layer;
+                    guideLayers.push(current); // options d'accrochage des couches en mode create
+                    $rootScope.$apply($scope.updateCoords(current));
+                }
+            });
+            mapService.getMap().on('draw:edited', function(e){
+                 if(!current){
+                    current = e.layer;
+                    guideLayers.push(current); // options d'accrochage des couches en mode édit
+                    $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
+                }
+            });
+            mapService.getMap().on('draw:deleted', function(e){
+                current = null;
+                $rootScope.$apply($scope.updateCoords(current));
+            });
+            $timeout(function() {
+                mapService.getMap().invalidateSize();
+            }, 0 );
+
 
             $scope.geom = $scope.geom || [];
 
@@ -721,6 +706,11 @@ app.directive('geometry', function($timeout){
                     }
                 }
             };
+
+            $scope.$on('$destroy', function() {
+                map.removeControl(controls);
+                map.removeControl(coordsDisplay);
+            });
         },
     };
 });
@@ -778,7 +768,7 @@ app.directive('datepick', function(){
 
 /**
  * Directive pour l'affichage d'un tableau de saisie rapide style feuille de calcul
- * params : 
+ * params :
  *  schemaurl -> url du schema descripteur du tableau
  *  data -> reference vers le dictionnaire de données du formulaire parent
  *  dataref -> champ à utiliser pour stocker les données
@@ -801,7 +791,7 @@ app.directive('datepick', function(){
 //             $scope.$watch(
 //                 function(){
 //                     return $scope.schemaUrl;
-//                 }, 
+//                 },
 //                 function(newval){
 //                     if(newval){
 //                         configServ.getUrl(newval, $scope.setSchema);
@@ -903,9 +893,9 @@ app.directive('datepick', function(){
 //                     userMessages.errorMessage = SpreadSheet.errorMessage[$scope.dataRef];
 //                 }
 //                 else{
-                    
+
 //                      * Spinner
-//                      * 
+//                      *
 //                     $loading.start('spinner-detail');
 //                     var dfd = $q.defer();
 //                     var promise = dfd.promise;

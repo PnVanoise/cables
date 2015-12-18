@@ -36,7 +36,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
   * * #2 - Service cartographique
   */
-app.service('mapService', function($rootScope, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
+app.service('mapService', function($rootScope, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
 
     /*
      * Private variables or functions
@@ -258,26 +258,34 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
      *  - force : si on veut recharger la couche
      */
     var loadCategoryData = function(category, force) {
+        var deferred = $q.defer();
         if (this.tabThemaData[category].loaded) {
-            return;
+            // ensure that the function has returned the promise before the
+            // promise is resolved
+            $timeout(function() {
+                deferred.resolve();
+            }, 0);
+        } else {
+            this.tabThemaData[category].loaded = true;
+            if (force) {
+                this.clear();
+            }
+            dataServ.get("cables/" + category,
+                angular.bind(this, function(resp) {
+                    resp.forEach(angular.bind(this, function(item) {
+                        // the addGeom method could be private
+                        // in this case, the angular.bind should be removed
+                        this.addGeom(item, category);
+                    }));
+                    deferred.resolve();
+                }),
+                function() {
+                    // en cas d'erreur remettre le loaded à false
+                },
+                force
+            );
         }
-        this.tabThemaData[category].loaded = true;
-        if (force) {
-            this.clear();
-        }
-        dataServ.get("cables/" + category,
-            angular.bind(this, function(resp) {
-                resp.forEach(angular.bind(this, function(item) {
-                    // the addGeom method could be private
-                    // in this case, the angular.bind should be removed
-                    this.addGeom(item, category);
-                }));
-            }),
-            function() {
-                // en cas d'erreur remettre le loaded à false
-            },
-            force
-        );
+        return deferred.promise;
     };
 
     return {
@@ -376,8 +384,17 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
         },
 
         showLayer: function(layer) {
-            loadCategoryData.call(this, layer);
-            map.addLayer(this.tabThemaData[layer]);
+            var deferred = $q.defer();
+
+            var promise = loadCategoryData.call(this, layer);
+            promise.then(
+                angular.bind(this, function() {
+                    map.addLayer(this.tabThemaData[layer]);
+                    deferred.resolve();
+                })
+            );
+
+            return deferred.promise;
         },
 
         hideLayer: function(layer) {

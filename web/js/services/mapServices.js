@@ -54,6 +54,8 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
 
     var currentSel;
 
+    var currentBaseLayer = null;
+
     /**
      * Récupération de l'url de données avec getUrl de configServ
      * Url fourni dans les contôles des base (exemple : cablesControllers.js)
@@ -62,22 +64,22 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
         configServ.getUrl('js/resources/defaultMap.json', function(res) {
             resource = res[0];
             //Chargement des fonds de référence : layers ==> baselayers définis defaultMap.json
-            var curlayer = null;
             configServ.get('map:currentLayer', function(_curlayer){
-                curlayer = _curlayer
+                currentBaseLayer = _curlayer;
             });
 
             // Ajout des couches sur la carte
             resource.layers.baselayers.forEach(function(_layer, name){
                 var layerData = LeafletServices.loadData(_layer);
                 tileLayers[layerData.name] = layerData.map;
-                if(curlayer){
-                    if(layerData.name == curlayer){
+                if(currentBaseLayer){
+                    if(layerData.name == currentBaseLayer){
                         layerData.map.addTo(map);
                     }
                 } else {
                     if(layerData.active){
                         layerData.map.addTo(map);
+                        currentBaseLayer = layerData.map;
                     }
                 }
             });
@@ -330,6 +332,11 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
 
         initializeCarte: function() {
             console.debug("initializeCarte to be removed");
+        },
+
+
+        getTileLayers: function() {
+            return tileLayers;
         },
 
         // Récupération des couches visibles après filtre depuis tableau de données
@@ -643,6 +650,14 @@ app.service('mapService', function($rootScope, configServ, dataServ, LeafletServ
         setTabThemaData: function(pTabClickedValue){
             map.addLayer(tabThemaData[pTabClickedValue]);
             document.getElementById(pTabClickedValue).checked = true;
+        },
+
+        setBaseLayer: function(layer) {
+            if (currentBaseLayer) {
+                map.removeLayer(currentBaseLayer);
+            }
+            currentBaseLayer = layer;
+            layer.addTo(map);
         }
     };
 });
@@ -660,6 +675,12 @@ app.directive('leafletMap', function(){
         controller: function($scope, mapService, storeFlag) {
             var map = mapService.init('mapd');
             var tabThemaData = mapService.tabThemaData;
+
+            $scope.tileLayers = mapService.getTileLayers();
+
+            $scope.selectBaseLayer = function(layer) {
+                mapService.setBaseLayer(layer);
+            }
         }
     };
 });

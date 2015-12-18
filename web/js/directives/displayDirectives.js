@@ -281,21 +281,16 @@ app.directive('fieldDisplay', function(){
     };
 });
 
-
 app.directive('breadcrumbs', function(){
     return {
         restrict: 'A',
         scope: {},
         templateUrl: 'js/templates/display/breadcrumbs.htm',
-        controller: function($scope, $rootScope, configServ, $location, $q, storeBreadcrumb){
+        controller: function($scope, configServ, $location){
             $scope.bc = [];
             $scope._edit = false;
             $scope._create = false;
             var _url = null;
-
-            // $location.path() = cables/[cat]/[id data cat]
-            // $location.path().slice(1) = $location.path()
-            // params = tableau de valeurs séparées par /
             var params = $location.path().slice(1).split('/');
             if(params.indexOf('edit') >= 0){
                 params.splice(params.indexOf('edit'), 1);
@@ -306,7 +301,7 @@ app.directive('breadcrumbs', function(){
             }
             if(params.length == 4){
                 if(!parseInt(params[3])){
-                    url = params[0] + '/config/breadcrumb?view=' + params[1];
+                    url = params[0] + '/config/breadcrumb?view=' + params[1]
                 }
                 else{
                     if($scope._edit){
@@ -319,7 +314,7 @@ app.directive('breadcrumbs', function(){
             }
             else if(params.length == 3){
                 if(!parseInt(params[2])){
-                    url = params[0] + '/config/breadcrumb?view=' + params[1];
+                    url = params[0] + '/config/breadcrumb?view=' + params[1]
                 }
                 else{
                     url = params[0] + '/config/breadcrumb?view=' + params[1]+ '&id=' + params[2];           
@@ -328,51 +323,9 @@ app.directive('breadcrumbs', function(){
             else if(params.length == 2){
                 url = params[0] + '/config/breadcrumb?view=' + params[1];
             }
-
             configServ.getUrl(url, function(resp){
                 $scope.bc = resp;
-                $scope.bc[1].link = "#/cables";
             });
-
-            // DEBUT : Code pour promise => voir si cette méthode pourrait marcher
-            // function asyncGreet(name) {
-            //   var deferred = $q.defer();
-
-            //   var accueil = $location.url('/cables');
-            //   // accueil;
-            //   // setTimeout(function() {
-            //     deferred.notify('About to greet ' + name + '.');
-
-            //     if (accueil) {
-            //       deferred.resolve('Hello, ' + name + '!');
-            //   } else {
-            //       deferred.reject('Greeting ' + name + ' is not allowed.');
-            //   }
-            // // }, 1000);
-
-            //   return deferred.promise;
-            // }
-
-            // $scope.fct = function(){
-            //     var promise = asyncGreet('Robin Hood');
-            //     promise.then(function(greeting) {
-            //         $rootScope.$broadcast('breadcrumb');
-            //       // alert('Success: ' + greeting);
-            //       // console.log("selectedccc : "+JSON.stringify($rootScope.tabs[1]));
-            //       $rootScope.tabs[1].selected = true;
-            //     }, function(reason) {
-            //       alert('Failed: ' + reason);
-            //     }, function(update) {
-            //       alert('Got notification: ' + update);
-            //     });
-            // }
-            // FIN
-
-            // Fonction qui récupère la valeur du premier élément du breadcrumb quand on clique dessus = catégorie métier
-            $scope.getValCatBreadcrumb = function(){
-                storeBreadcrumb.setCatBreadcrumb(params[1]);
-                $rootScope.$broadcast('breadcrumb');
-            }
         },
     };
 });

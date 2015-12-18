@@ -29,11 +29,7 @@
                             </li>
                         </ul>
                     </div>
-                        <div class="checkbox">
-                            <label>
-                                <input id="communes" type="checkbox" ng-click="layerToggle()" value="communes"> Communes
-                            </label>
-                        </div>
+                        <div legend-layer layer="'communes'" name="'communes'"></div>
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i>  ERDF</a>
                         <div id="erdf" class="sublinks collapse ">
                             <div legend-layer layer="'erdfappareilcoupure'" name="'Appareil de coupure'"></div>

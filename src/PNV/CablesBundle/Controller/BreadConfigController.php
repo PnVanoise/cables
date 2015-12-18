@@ -27,7 +27,7 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out[] = array('id'=>$res['id_cas_mortalite'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/mortalites/'.$id);
-                $out[] = array('id_cas_mortalite'=>null, 'label'=>'Cas de mortalites', 'link'=>'');
+                $out[] = array('id_cas_mortalite'=>null, 'label'=>'Cas de mortalites', 'link'=>'#/cables/mortalites');
                 // $out[] = array('id_cas_mortalite'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_espece'];
         return new JsonResponse(array_reverse($out));
@@ -39,7 +39,7 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out2[] = array('id'=>$res['id_inventaire_troncon_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/tronconserdf/'.$id);
-                $out2[] = array('id_inventaire_troncon_erdf'=>null, 'label'=>'Inventaires tronçons ERDF');
+                $out2[] = array('id_inventaire_troncon_erdf'=>null, 'label'=>'Inventaires tronçons ERDF', 'link'=>'#/cables/tronconserdf');
                 // $out2[] = array('id_inventaire_troncon_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_inventaire_troncon_erdf'];
         return new JsonResponse(array_reverse($out2));
@@ -51,7 +51,7 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out3[] = array('id'=>$res['id_inventaire_poteau_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/poteauxerdf/'.$id);
-                $out3[] = array('id_inventaire_poteau_erdf'=>null, 'label'=>'Inventaires poteaux ERDF', 'link'=>'');
+                $out3[] = array('id_inventaire_poteau_erdf'=>null, 'label'=>'Inventaires poteaux ERDF', 'link'=>'#/cables/poteauxerdf');
                 // $out3[] = array('id_inventaire_poteau_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_inventaire_poteau_erdf'];
         return new JsonResponse(array_reverse($out3));
@@ -63,7 +63,7 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out4[] = array('id'=>$res['id_equipement_poteau_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/eqpoteauxerdf/'.$id);
-                $out4[] = array('id_equipement_poteau_erdf'=>null, 'label'=>'Equipements poteaux ERDF', 'link'=>'');
+                $out4[] = array('id_equipement_poteau_erdf'=>null, 'label'=>'Equipements poteaux ERDF', 'link'=>'#/cables/eqpoteauxerdf');
                 // $out4[] = array('id_equipement_poteau_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_equipement_poteau_erdf'];
         return new JsonResponse(array_reverse($out4));
@@ -75,7 +75,7 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out5[] = array('id'=>$res['id_equipement_troncon_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/eqtronconserdf/'.$id);
-                $out5[] = array('id_equipement_troncon_erdf'=>null, 'label'=>'Equipements tronçons ERDF', 'link'=>'');
+                $out5[] = array('id_equipement_troncon_erdf'=>null, 'label'=>'Equipements tronçons ERDF', 'link'=>'#/cables/eqtronconserdf');
                 // $out5[] = array('id_equipement_troncon_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_equipement_troncon_erdf'];
         return new JsonResponse(array_reverse($out5));
@@ -111,7 +111,7 @@ class BreadConfigController extends Controller{
                 $res1 = $req->fetchAll();
                 $res1 = $res1[0];
                 $out1[] = array('id'=>$res1['id_zone_sensible'], 'label'=>$res1['label'], 'link'=>'#/cables/zonessensibles/'.$id);
-                $out1[] = array('id_cas_mortalite'=>null, 'label'=>'Zones sensibles', 'link'=>'');
+                $out1[] = array('id_cas_mortalite'=>null, 'label'=>'Zones sensibles', 'link'=>'#/cables/zonessensibles');
                 // $out1[] = array('id_zone_sensible'=>null, 'label'=>'Cables', 'link'=>'#/cables');
           		$id = $res['id_zone_sensible'];
         }

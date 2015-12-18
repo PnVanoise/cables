@@ -1,11 +1,9 @@
-<!-- si diff _edit dans dir breadcrumbs => le premier bloc ol est affiché -->
 <ol class="breadcrumb" ng-if="!_edit">
     <li ng-repeat="item in bc">
-        <a ng-if="$index<bc.length-1 && $index>0" href="" ng-click="getValCatBreadcrumb()"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
-        <span class="text-muted" ng-if="$index==bc.length-1 && $index>0">{{item.label}}</span>
+        <a ng-if="$index<bc.length-1" ng-href="{{item.link}}"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
+        <span class="text-muted" ng-if="$index==bc.length-1">{{item.label}}</span>
     </li>
 </ol>
-<!-- si = _edit dans dir breadcrumbs => le 2e bloc ol est affiché -->
 <ol class="breadcrumb" ng-if="_edit">
     <li ng-repeat="item in bc">
         <a ng-href="{{item.link}}"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
@@ -14,4 +12,3 @@
         <span class="text-muted">Edition</span>
     </li>
 </ol>
-<div id="fondTableau"></div>

@@ -1,4 +1,4 @@
-var app = angular.module('appCables', [ 'cablesGlobalCtrl', 'mortalitesCtrl', 'zonesSensiblesCtrl', 'tronconsErdfCtrl', 'eqTronconsErdfCtrl', 'eqPoteauxErdfCtrl','nidificationsCtrl','observationsCtrl', 'poteauxErdfCtrl', 'photosPoteauxErdfCtrl', 'photosTronconsErdfCtrl', 'cablesServices', 'colorServices', 'FormDirectives', 'DisplayDirectives', 'ui.bootstrap', 'bootstrap.tabset', 'darthwade.loading', 'mapServices', 'LocalStorageModule']); //, 'ngTableResizableColumns' 
+var app = angular.module('appCables', [ 'cablesGlobalCtrl', 'mortalitesCtrl', 'zonesSensiblesCtrl', 'tronconsErdfCtrl', 'eqTronconsErdfCtrl', 'eqPoteauxErdfCtrl','nidificationsCtrl','observationsCtrl', 'poteauxErdfCtrl', 'photosPoteauxErdfCtrl', 'photosTronconsErdfCtrl', 'cablesServices', 'colorServices', 'FormDirectives', 'DisplayDirectives', 'ui.bootstrap', 'bootstrap.tabset', 'darthwade.loading', 'mapServices', 'LocalStorageModule']); //, 'ngTableResizableColumns'
 
 // module de gestion de la page d'accueil
 angular.module('cablesGlobalCtrl', ['cablesServices', 'colorServices', 'mapServices', 'ngRoute', 'ngTable']);
@@ -56,16 +56,16 @@ angular.module('mapServices', ['cablesServices', 'colorServices']);
 app.config(function($routeProvider){
     $routeProvider
         .when('/', {
-            controller: 'baseController',
+            controller: 'baseController'
         })
         .when('/login', {
             controller: 'loginController',
-            templateUrl: 'js/templates/login.htm',      
+            templateUrl: 'js/templates/login.htm'
         })
         .when('/logout', {
             controller: 'logoutController',
-            templateUrl: 'js/templates/login.htm',   
-        })
+            templateUrl: 'js/templates/login.htm'
+        });
 });
 
 app.run(function($rootScope, $templateCache) {
@@ -81,55 +81,65 @@ app.config(function (localStorageServiceProvider) {
 /*
  * Controleur de base
  */
-app.controller('baseController', function($scope, $location, dataServ, configServ, mapService, userMessages, userServ){
+app.controller('baseController', function($scope, $location, dataServ,
+    configServ, mapService, userMessages, userServ){
+    var categoriesFirstLoad = [
+        "zonessensibles", "tronconserdf", "poteauxerdf"
+    ];
+
     $scope._appName = null; // pour une gestion factorisée des applications = pas utile pour le moment
     $scope.app = {name: "cables"};
-    $scope.success = function(resp){
+    var success = function(resp){
         $scope.user = userServ.getUser();
         if(!$scope.user){
             $location.url('login');
         }
         // retourne /cables si on tape juste pnv
         if($location.path() == '/'){
-            $location.url('/cables');
+            $location.url('/cables/zonessensibles');
         }
-        
+
         $scope.data = resp;
 
         // FIXME DEBUG
         configServ.put('debug', true);
-        
+
         userMessages.infoMessage = "bienvenue !";
 
         $scope.$on('user:login', function(ev, user){
             $scope.user = user;
-        });    
+        });
 
         $scope.$on('user:logout', function(ev){
             $scope.app = {name: "Cables"};
             $scope.user = null;
         });
 
+        categoriesFirstLoad.forEach(
+            function(category) {
+                mapService.showLayer(category);
+            }
+        );
     };
 
-    
+
 
     // gestion des menus dans le bandeau
-    $scope.isActive = function (viewLocation) { 
+    $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
-   // collapsed tableau de données 
+   // collapsed tableau de données
     $scope.toggle = function() {
        $scope.affiche = !$scope.affiche;
     } ;
 
     $scope.check = function(val){
-        return userServ.checkLevel(val); 
-    }; 
+        return userServ.checkLevel(val);
+    };
 
-  
-  
-    configServ.getUrl('config/apps', $scope.success);
+
+
+    configServ.getUrl('config/apps', success);
 });
 
 /*
@@ -139,7 +149,7 @@ app.controller('loginController', function($scope, $location, $rootScope, userSe
     if(userServ.getUser()){
         $scope.data = {
             login: userServ.getUser().identifiant,
-            pass: userServ.getUser().pass, 
+            pass: userServ.getUser().pass,
         };
     }
     else{
@@ -148,7 +158,7 @@ app.controller('loginController', function($scope, $location, $rootScope, userSe
 
     $scope.$on('user:login', function(ev, user){
         userMessages.infoMessage = user.nom_complet.replace(/(\w+) (\w+)/, 'Bienvenue $2 $1 !');
-        $location.url('/cables'); 
+        $location.url('/cables');
     });
 
     $scope.$on('user:error', function(ev){

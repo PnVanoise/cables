@@ -22,9 +22,9 @@ app.config(function($routeProvider){
 
 
 /*
- * controleur pour l'affichage basique des détails 
+ * controleur pour l'affichage basique des détails
  */
-app.controller('zsDetailController', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag, loadDataSymf){
+app.controller('zsDetailController', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
 
     $scope._appName = $routeParams.appName;
     $scope.schemaUrl = $scope._appName + '/config/zonessensibles/detail';
@@ -63,7 +63,7 @@ app.controller('zsDetailController', function($scope, $rootScope, $routeParams, 
     else{
         $scope.saveUrl = $scope._appName + '/zonessensibles';
         $scope.data = {}
-    } 
+    }
     $scope.$on('form:delete', function(ev, data){
 
         userMessages.successMessage = 'la zone sensible  ' + data.nom_zone_sensible + ' a été supprimé.'
@@ -74,7 +74,7 @@ app.controller('zsDetailController', function($scope, $rootScope, $routeParams, 
 });
 
 /*
- * controleur pour l'édition 
+ * controleur pour l'édition
  */
 app.controller('zsEditController', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
 

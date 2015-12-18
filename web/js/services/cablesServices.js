@@ -13,7 +13,7 @@ app.service('dataServ', function($http, $filter, userMessages){
 
     /*
      * contacte le serveur en GET et met en cache les données renvoyées
-     * Si les données sont déja en cache, retourne le données directement, à moins 
+     * Si les données sont déja en cache, retourne le données directement, à moins
      * que le flag forceReload ou le paramtre "force" soient true, auquel cas le serveur
      * est recontacté et les données renvoyées écrasent le cache.
      * retourne les données via la callback success
@@ -27,16 +27,16 @@ app.service('dataServ', function($http, $filter, userMessages){
      */
     this.getCache = function(url){
       // console.log(JSON.stringify(json));
-        return cache[url]; 
+        return cache[url];
     };
 
     this.getAllCache = function(){
       // console.log(JSON.stringify(json));
-        return cache; 
+        return cache;
     };
 
     this.get = function(url, success, error, force){
-        // ne recharger les données du serveur que si le cache est vide ou 
+        // ne recharger les données du serveur que si le cache est vide ou
         // si l'option force est true
         if(!error){
             error = function(err){console.log(err)};
@@ -50,16 +50,16 @@ app.service('dataServ', function($http, $filter, userMessages){
                 },
                 function(err){
                     switch(err.status){
-                        case 500: 
+                        case 500:
                             userMessages.errorMessage = "Erreur serveur ! Si cette erreur se reproduit, contactez un administrateur.";
                             break;
-                        case 404: 
+                        case 404:
                             userMessages.errorMessage = "Erreur : Donnée inexistante";
                             break;
-                        case 403: 
+                        case 403:
                             userMessages.errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
                             break;
-                        case 400: 
+                        case 400:
                             userMessages.errorMessage = "Données inutilisables";
                             break;
                         default: userMessages.errorMessage = "Erreur !";
@@ -76,7 +76,7 @@ app.service('dataServ', function($http, $filter, userMessages){
     /*
      * contacte le serveur en POST et renvoie le résultat via la callback success
      * aucune donnée n'est mise en cache
-     * params: 
+     * params:
      *  url: l'url à contacter
      *  data: les données POST
      *  success: la callback de traitement de la réponse du serveur
@@ -118,7 +118,7 @@ app.service('configServ', function(dataServ){
 
     /*
      * charge des informations depuis une url si elles ne sont pas déja en cache
-     * et les retourne via une callback. Si les variables sont déjà en cache, les 
+     * et les retourne via une callback. Si les variables sont déjà en cache, les
      * retourne directement.
      * params:
      *  serv: l'url du serveur
@@ -188,7 +188,7 @@ app.service('userServ', function(dataServ, $rootScope, localStorageService){
     this.setUser = function(){
         localStorageService.set('user', _user);
     };
-    
+
     this.checkLevel = angular.bind(this, function(level){
         try{
             return _user.maxdroit >= level;
@@ -214,9 +214,9 @@ app.service('userServ', function(dataServ, $rootScope, localStorageService){
     };
 
     this.logout = function(){
-        dataServ.get('users/logout', 
-                this.disconnected, 
-                function(){}, 
+        dataServ.get('users/logout',
+                this.disconnected,
+                function(){},
                 true);
     };
 
@@ -237,65 +237,39 @@ app.service('userServ', function(dataServ, $rootScope, localStorageService){
         $rootScope.$broadcast('user:error');
     };
 
-    
-});
 
-
-/*
- * Service qui récupere l'url depuis Symf
- */
-app.service('loadDataSymf', function(dataServ, mapService, storeFlag){
-    var vSymfPath = null;
-    var geoms = null;
-    var tmp = [];
-    var data = [];
-    var flagInitMap = true;
-
-    this.getThemaData = function(pThemaData){
-        vSymfPath = "cables/"+pThemaData;
-            dataServ.get(vSymfPath,
-                function(resp){
-                    resp.forEach(function(item){
-                        mapService.addGeom(item, pThemaData);
-                    });
-                }
-            );
-        document.getElementById(pThemaData).checked = true;
-        storeFlag.setFlagLayer(pThemaData, "cacheChecked");
-    };
 });
 
 /**
  * Déclaration du tableau pour la gestion de l'affichage des couches dans la légende
  */
 app.service('storeFlag', function(){
-    var tabFlagLayer = new Array;
+    var tabFlagLayer = {
+        "zonessensibles": "firstLoad",
+        "mortalites": "noLoaded",
+        "tronconserdf": "firstLoad",
+        "eqtronconserdf": "noLoaded",
+        "eqpoteauxerdf": "noLoaded",
+        "nidifications": "noLoaded",
+        "observations": "noLoaded",
+        "poteauxerdf": "noLoaded",
+        "erdfappareilcoupure": "noLoaded",
+        "erdfconnexionaerienne": "noLoaded",
+        "erdfparafoudre": "noLoaded",
+        "erdfposteelectrique": "noLoaded",
+        "erdfremonteeaerosout": "noLoaded",
+        "erdftronconaerien": "noLoaded",
+        "ogmcablesremonteesmecaniques": "noLoaded",
+        "ogmdomainesskiables": "noLoaded",
+        "ogmtronconsdangereux": "noLoaded",
+        "ogmtronconsvisualises": "noLoaded",
+        "ogmtronconsvisualisesdangereux": "noLoaded",
+        "rtelignes": "noLoaded",
+        "rtepostes": "noLoaded",
+        "rtepoteaux": "noLoaded",
+        "communes": "noLoaded"
+    };
 
-    tabFlagLayer["zonessensibles"] = "firstLoad";
-    tabFlagLayer["mortalites"] = "noLoaded";
-    tabFlagLayer["tronconserdf"] = "firstLoad";
-    tabFlagLayer["eqtronconserdf"] = "noLoaded";
-    tabFlagLayer["eqpoteauxerdf"] = "noLoaded";
-    tabFlagLayer["nidifications"] = "noLoaded";
-    tabFlagLayer["observations"] = "noLoaded";
-    tabFlagLayer["poteauxerdf"] = "noLoaded";
-    tabFlagLayer["erdfappareilcoupure"] = "noLoaded";
-    tabFlagLayer["erdfconnexionaerienne"] = "noLoaded";
-    tabFlagLayer["erdfparafoudre"] = "noLoaded";
-    tabFlagLayer["erdfposteelectrique"] = "noLoaded";
-    tabFlagLayer["erdfremonteeaerosout"] = "noLoaded";
-    tabFlagLayer["erdftronconaerien"] = "noLoaded";
-    tabFlagLayer["ogmcablesremonteesmecaniques"] = "noLoaded";
-    tabFlagLayer["ogmdomainesskiables"] = "noLoaded";
-    tabFlagLayer["ogmtronconsdangereux"] = "noLoaded";
-    tabFlagLayer["ogmtronconsvisualises"] = "noLoaded";
-    tabFlagLayer["ogmtronconsvisualisesdangereux"] = "noLoaded";
-    tabFlagLayer["rtelignes"] = "noLoaded";
-    tabFlagLayer["rtepostes"] = "noLoaded";
-    tabFlagLayer["rtepoteaux"] = "noLoaded";
-    tabFlagLayer["communes"] = "noLoaded";
-    
-    
     this.getFlagLayer = function(pFlagLayer){
         return tabFlagLayer[pFlagLayer];
     }
@@ -314,15 +288,15 @@ app.service('storeFlag', function(){
  * Méthode qui enregistre la valeur du premier élément du breadcrumb qui correspond à la catégorie métier dans laquelle on se trouve
  */
 app.service('storeBreadcrumb', function(){
-    var catBreadcrumb = null;  
-    
+    var catBreadcrumb = null;
+
     this.getCatBreadcrumb = function(){
         return catBreadcrumb;
-    }
+    };
 
     this.setCatBreadcrumb = function(pCatBreadcrumb){
         catBreadcrumb = pCatBreadcrumb;
-    }
+    };
 
 });
 

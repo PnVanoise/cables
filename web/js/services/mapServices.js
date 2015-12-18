@@ -594,6 +594,11 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
             }
         },
 
+        /**
+         */
+        clear: function(category) {
+            this.tabThemaData[category].clearLayers();
+        },
 
         /**
          * Chargement des couches sur la carte depuis tableau de données (clique sur onglet)

@@ -81,7 +81,8 @@ app.config(function (localStorageServiceProvider) {
 /*
  * Controleur de base
  */
-app.controller('baseController', function($scope, $location, dataServ, configServ, mapService, userMessages, userServ){
+app.controller('baseController', function($scope, $location, dataServ,
+    configServ, mapService, userMessages, userServ, themaDataServ){
     var categoriesFirstLoad = [
         "zonessensibles", "tronconserdf", "poteauxerdf"
     ];
@@ -116,13 +117,7 @@ app.controller('baseController', function($scope, $location, dataServ, configSer
 
         categoriesFirstLoad.forEach(
             function(category) {
-                dataServ.get("cables/" + category,
-                    function(resp){
-                        resp.forEach(function(item){
-                            mapService.addGeom(item, category);
-                        });
-                    }
-                );
+                themaDataServ.loadCategoryData(category);
             }
         );
     };

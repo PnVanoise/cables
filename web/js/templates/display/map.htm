@@ -24,57 +24,28 @@
                         </label>
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i>  ERDF</a>
                         <div id="erdf" class="sublinks collapse ">
-
                             <div legend-layer layer="'erdfappareilcoupure'" name="'Appareil de coupure'"></div>
                             <div legend-layer layer="'erdfconnexionaerienne'" name="'Connexion aérienne'"></div>
-
-                            <label class="checkbox">
-                                <input id="erdfconnexionaerienne" type="checkbox" ng-click="layerToggle()" value="erdfconnexionaerienne"><span class="outer"></span>Connexion aérienne
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="erdfparafoudre" type="checkbox" ng-click="layerToggle()" value="erdfparafoudre"><span class="outer"></span>Parafoudre
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="erdfposteelectrique" type="checkbox" ng-click="layerToggle()" value="erdfposteelectrique"><span class="outer"></span>Poste électrique
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="erdfremonteeaerosout" type="checkbox" ng-click="layerToggle()" value="erdfremonteeaerosout"><span class="outer"></span>Remontée aérosouterraine
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="erdftronconaerien" type="checkbox" ng-click="layerToggle()" value="erdftronconaerien"><span class="outer"></span>Tronçon aérien
-                            </label></br>
+                            <div legend-layer layer="'erdfparafoudre'" name="'Parafoudre'"></div>
+                            <div legend-layer layer="'erdfposteelectrique'" name="'Poste électrique'"></div>
+                            <div legend-layer layer="'erdfremonteeaerosout'" name="'Remontée aérosouterraine'"></div>
+                            <div legend-layer layer="'erdftronconaerien'" name="'Tronçon aérien'"></div>
                         </div>
 
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#ogm" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> OGM</a>
                         <div id="ogm" class="sublinks collapse">
-                            <label class="checkbox">
-                            <input id="ogmcablesremonteesmecaniques" type="checkbox" ng-click="layerToggle()" value="ogmcablesremonteesmecaniques"><span class="outer"></span>Remontées mécaniques
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="ogmdomainesskiables" type="checkbox" ng-click="layerToggle()" value="ogmdomainesskiables"><span class="outer"></span>Domaines skiable
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="ogmtronconsdangereux" type="checkbox" ng-click="layerToggle()" value="ogmtronconsdangereux"><span class="outer"></span>Tronçons dangereux
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="ogmtronconsvisualises" type="checkbox" ng-click="layerToggle()" value="ogmtronconsvisualises"><span class="outer"></span>Tronçons visualisés
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="ogmtronconsvisualisesdangereux" type="checkbox" ng-click="layerToggle()" value="ogmtronconsvisualisesdangereux"><span class="outer"></span>Tronçons visualisés dangereu
-                            </label></br>
+                            <div legend-layer layer="'ogmcablesremonteesmecaniques'" name="'Remontées mécaniques'"></div>
+                            <div legend-layer layer="'ogmdomainesskiables'" name="'Domaines skiable'"></div>
+                            <div legend-layer layer="'ogmtronconsdangereux'" name="'Tronçons dangereux'"></div>
+                            <div legend-layer layer="'ogmtronconsvisualises'" name="'Tronçons visualisés'"></div>
+                            <div legend-layer layer="'ogmtronconsvisualisesdangereux'" name="'Tronçons visualisés dangereux'"></div>
                         </div>
 
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#rte" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> RTE</a>
                         <div id="rte" class="sublinks collapse">
-                           <label class="checkbox">
-                            <input id="rtelignes" type="checkbox" ng-click="layerToggle()" value="rtelignes"><span class="outer"></span>Lignes électriques
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="rtepostes" type="checkbox" ng-click="layerToggle()" value="rtepostes"><span class="outer"></span>Postes électrique
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="rtepoteaux" type="checkbox" ng-click="layerToggle()" value="rtepoteaux"><span class="outer"></span>Poteaux
-                            </label></br>
+                            <div legend-layer layer="'rtelignes'" name="'Lignes électriques'"></div>
+                            <div legend-layer layer="'rtepostes'" name="'Postes électrique'"></div>
+                            <div legend-layer layer="'rtepoteaux'" name="'Poteaux'"></div>
                         </div>
                         <div class="separateur"></div>
 
@@ -82,64 +53,36 @@
 
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#zs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i>  sensibles</a>
                         <div id="zs" class="sublinks collapse in">
-                            <label class="checkbox">
-                                <input id="zonessensibles" type="checkbox" ng-click="layerToggle()" value="zonessensibles"><span class="outer"></span> Zones sensibles
-                            </label></br>
+                            <div legend-layer layer="'zonessensibles'" name="'Zones sensibles'"></div>
                         </div>
 
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#mort" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Cas de mortalité</a>
                         <div id="mort" class="sublinks collapse">
-                           <label class="checkbox">
-                                <input id="mortalites" type="checkbox" ng-click="layerToggle()" value="mortalites"><span class="outer"></span>  Cas de mortalité
-                            </label></br>
+                           <div legend-layer layer="'mortalites'" name="'Cas de mortalité'"></div>
                         </div>
 
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Tronçons ERDF à risque</a>
                         <div id="tr" class="sublinks collapse in">
-                           <label class="checkbox">
-                                <input id="tronconserdf" type="checkbox" ng-click="layerToggle()" value="tronconserdf"><span class="outer"></span> Tronçons ERDF à risque
-                            </label></br>
+                            <div legend-layer layer="'tronconserdf'" name="'Tronçons ERDF à risque'"></div>
                         </div>
 
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#pt" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Poteaux ERDF à risque </a>
                         <div id="pt" class="sublinks collapse">
-                            <label class="checkbox">
-                                <input id="poteauxerdf" type="checkbox" ng-click="layerToggle()" value="poteauxerdf"><span class="outer"></span> Poteaux ERDF à risque
-                            </label></br>
+                            <div legend-layer layer="'poteauxerdf'" name="'Poteaux ERDF à risque'"></div>
                         </div>
 
-                        <label class="checkbox type1">
-                            <input id="eqtronconserdf" type="checkbox" ng-click="layerToggle()" value="eqtronconserdf"><span class="outer"></span> Equipement tronçons ERDF
-                        </label>
-
-                        <label class="checkbox type1">
-                            <input id="eqpoteauxerdf" type="checkbox" ng-click="layerToggle()" value="eqpoteauxerdf"><span class="outer"></span> Equipement poteaux ERDF
-                        </label></br>
-
+                        <div legend-layer layer="'eqtronconserdf'" name="'Equipements tronçons ERDF'"></div>
+                        <div legend-layer layer="'eqpoteauxerdf'" name="'Equipement poteaux ERDF'"></div>
+                        
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#nid" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Sites de nidification </a>
                         <div id="nid" class="sublinks collapse">
-                            <label class="checkbox">
-                                <input id="nidifications" type="checkbox" ng-click="layerToggle()" value="nidifications"><span class="outer"></span> Sites de nidification
-                            </label></br>
+                            <div legend-layer layer="'nidifications'" name="'Sites de nidification'"></div>
                         </div>
 
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#obs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Observations (  d'individus)</a>
+                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#obs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Observations de vautours (nb d'individus)</a>
                         <div id="obs" class="sublinks collapse">
-                            <label class="checkbox">
-                                <input id="observations" type="checkbox" ng-click="layerToggle()" value="observations"><span class="outer"></span> moins de 20 individus
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="observations" type="checkbox" ng-click="layerToggle()" value="observations"><span class="outer"></span> entre 20 et 40 individus
-                            </label></br>
-                            <label class="checkbox">
-                                <input id="observations" type="checkbox" ng-click="layerToggle()" value="observations"><span class="outer"></span> plus de 40 individus
-                            </label></br>
+                            <div legend-layer layer="'observations'" name="'Observations de vautours'"></div>
                         </div>
-                        <label class="checkbox">
-                            <input id="test" type="checkbox" value="test" ng-click="layerToggle()" checked><span class="outer"></span> Test
-                        </label></br>
-
-
                     </div>
             </div>
 

@@ -95,7 +95,7 @@ app.service('mapService', function(configServ, LeafletServices, defaultColorServ
         // Ajout d'un panneau de type sidebar pour contenir la légende
         var sidebar = L.control.sidebar('legendblock', {
             closeButton: true,
-            position: 'left',
+            position: 'left'
         });
         map.addControl(sidebar);
 

@@ -24,9 +24,10 @@
                         </label>
                         <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i>  ERDF</a>
                         <div id="erdf" class="sublinks collapse ">
-                           <label class="checkbox">
-                            <input id="erdfappareilcoupure" type="checkbox" ng-click="layerToggle()" value="erdfappareilcoupure"><span class="outer"></span>Appareil de coupure
-                            </label></br>
+
+                            <div legend-layer layer="'erdfappareilcoupure'" name="'Appareil de coupure'"></div>
+                            <div legend-layer layer="'erdfconnexionaerienne'" name="'Connexion aérienne'"></div>
+
                             <label class="checkbox">
                                 <input id="erdfconnexionaerienne" type="checkbox" ng-click="layerToggle()" value="erdfconnexionaerienne"><span class="outer"></span>Connexion aérienne
                             </label></br>

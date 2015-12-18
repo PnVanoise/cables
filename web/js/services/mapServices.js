@@ -623,32 +623,31 @@ app.directive('leafletMap', function(){
         templateUrl: 'js/templates/display/map.htm',
         controller: function($scope, mapService, storeFlag) {
             var map = mapService.init('mapd');
+            var tabThemaData = mapService.tabThemaData;
+        }
+    };
+});
 
-
-            // FIXME
-            // vérifier intérêt de cette fonction
-            // Fonction qui rempplie le Flag de la couche en fonction de la légende
-            $scope.layerToggle = function() {
-                layerClickedValue = event.currentTarget.value;
-                // NOUVELLE FONCTIONNALITE (NF1) : si décision mettre check ou oeil sur onglet dans bloc 'Tableau' pour gérer affichage couche dans carte
-                // Attention : Cette fonctionnalité est développée en partie
-                // var idCheckTab = layerClickedValue+"_tab";
-                if (storeFlag.getFlagLayer(layerClickedValue) === "noLoaded"){
-                    storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
-                }
-                else if (storeFlag.getFlagLayer(layerClickedValue) === "cacheChecked"){
-                    map.removeLayer(tabThemaData[layerClickedValue]);
-                    storeFlag.setFlagLayer(layerClickedValue, "cacheUnchecked");
-                    // NF1
-                    // document.getElementById(idCheckTab).checked = false;
-                }
-                else if (storeFlag.getFlagLayer(layerClickedValue) === "cacheUnchecked"){
-                    map.addLayer(tabThemaData[layerClickedValue]);
-                    storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
-                }
-                // nouvelle méthode pour les sous couches
-                if (storeFlag.getFlagLayer(layerClickedValue) === "subLayer"){
-                    storeFlag.setFlagLayer(layerClickedValue, "cacheChecked");
+app.directive('legendLayer', function() {
+    return {
+        restrict: 'A',
+        scope: {
+            layer: '=',
+            name: '='
+        },
+        templateUrl: 'js/templates/display/legendLayer.htm',
+        controller: function($scope, themaDataServ, mapService) {
+            var map = mapService.getMap();
+            $scope.getSetActive = function(val) {
+                var layer = $scope.layer;
+                if (arguments.length) { // set
+                    if (val) {
+                        themaDataServ.loadCategoryData(layer);
+                    } else {
+                        mapService.clear(layer);
+                    }
+                } else { // get
+                    return mapService.tabThemaData[layer].getLayers().length > 0;
                 }
             };
         }

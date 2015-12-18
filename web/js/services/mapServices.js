@@ -36,7 +36,8 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
   * * #2 - Service cartographique
   */
-app.service('mapService', function(configServ, dataServ, LeafletServices, defaultColorService, storeFlag) {
+app.service('mapService', function($rootScope, configServ, dataServ, LeafletServices, defaultColorService, storeFlag) {
+
     /*
      * Private variables or functions
      */

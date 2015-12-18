@@ -561,6 +561,7 @@ app.directive('geometry', function($timeout){
         },
         templateUrl:  'js/templates/form/geometry.htm',
         controller: function($scope, $rootScope, $timeout, mapService, storeFlag){
+            var map = mapService.getMap();
             $scope.editLayer = new L.FeatureGroup();
             var current = null;
             var couches = null;
@@ -625,7 +626,7 @@ app.directive('geometry', function($timeout){
             // on passe les couches au controle de l'édition 
             var guideLayers = couches;
             // console.log(couches) // couches OK 
-            $scope.controls = new L.Control.Draw({
+            var controls = new L.Control.Draw({
                 edit: {
                     featureGroup: $scope.editLayer},
                 draw: {
@@ -637,10 +638,10 @@ app.directive('geometry', function($timeout){
                     polygon: $scope.options.geometryType == 'polygon',
                 },
             });
-            mapService.getMap().addControl($scope.controls);
+            mapService.getMap().addControl(controls);
 
             /*Options d'accrochage couches en mode édit*/
-            $scope.controls.setDrawingOptions({
+            controls.setDrawingOptions({
                 polygon: { guideLayers: guideLayers, snapDistance: 5 },
                 polyline: { guideLayers: guideLayers},
                 marker: { guideLayers: guideLayers, snapVertices: true },
@@ -705,6 +706,11 @@ app.directive('geometry', function($timeout){
                     }
                 }
             };
+
+            $scope.$on('$destroy', function() {
+                map.removeControl(controls);
+                map.removeControl(coordsDisplay);
+            });
         },
     };
 });

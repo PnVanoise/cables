@@ -1045,26 +1045,6 @@ canvas {
 }
 
 
-.checkbox input:checked + .outer { 
-  background-color: #43A8EB; 
-  background-image: url(img/checked.svg);
-  background-size: 15px 15px;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-shadow: none;
-}
-
-.baselayers input {
-  cursor: pointer;
-  box-shadow: inset 0px 0px 0px 3px #43A8EB;
-}
-
-
-.baselayers input:checked {
-  opacity:0
-  background-image: url(img/checked.svg)
-}
-
 .bnt-new{
   position: absolute;
   padding-top: 5px;

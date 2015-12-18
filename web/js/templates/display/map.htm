@@ -18,6 +18,16 @@
                 <div class="overlay">
                     <div id="baselayers" class="baselayers">
                         <h4 class="uk-margin-top base">Fonds de référence</h4>
+                        <ul>
+                            <li ng-repeat="(name, layer) in tileLayers">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="baselayers" ng-click="selectBaseLayer(layer)">
+                                        {{name}}
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                         <label class="checkbox type1">
                             <input id="communes" type="checkbox" ng-click="layerToggle()" value="communes"><span class="outer"></span> Communes

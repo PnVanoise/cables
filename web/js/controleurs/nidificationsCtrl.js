@@ -33,18 +33,12 @@ app.controller('nidificationsDetailCtrl', function($scope, $rootScope, $routePar
     $scope.updateUrl = '#/' + $scope._appName + '/edit/nidifications/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/nidifications', "nidifications").then(
-                function(){
-                    mapService.selectItem($routeParams.id, 'nidifications');
-                    document.getElementById("nidifications").checked = true;
-                    mapService.displayGeomData("nidifications");
-                    storeFlag.setFlagLayer("nidifications", "cacheChecked");
-                });
-            $scope.title = data.nom_espece;
+        mapService.showLayer('nidifications').then(function() {
+            mapService.selectItem($routeParams.id, 'nidifications');
         });
+        $scope.title = data.espece;
     });
-
+    
     // Ajout la possibilité de supprimer un élément en mode détail
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/nidifications/' + $routeParams.id;

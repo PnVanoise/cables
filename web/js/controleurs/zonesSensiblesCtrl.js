@@ -33,27 +33,10 @@ app.controller('zsDetailController', function($scope, $rootScope, $routeParams, 
     $scope.updateUrl = '#/' + $scope._appName + '/edit/zonessensibles/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(
-            function(){
-                mapService.loadData($scope._appName + '/zonessensibles', "zonessensibles").then(
-                    function(){
-                        mapService.selectItem($routeParams.id, 'zonessensibles');
-                        document.getElementById("zonessensibles").checked = true;
-                        mapService.displayGeomData("zonessensibles", "details");
-                        storeFlag.setFlagLayer("zonessensibles", "cacheChecked");
-                        
-                        // var tabFlagLayer = storeFlag.getTabFlagLayer();
-                        // if (storeFlag.getFlagLayer("poteauxerdf") === "noLoaded" || "cacheUnchecked"){
-                        //     alert("dans init zsdetailctrl");
-                        //     loadDataSymf.getThemaData("poteauxerdf");
-                        // };
-                        // if (storeFlag.getFlagLayer("tronconserdf") === "noLoaded" || "cacheUnchecked"){
-                        //     alert("dans init zsdetailctrl");
-                        //     loadDataSymf.getThemaData("tronconserdf");
-                        // };
-                    });
-                $scope.title = data.nom_zone_sensible;
-            });
+        mapService.showLayer('zonessensibles').then(function() {
+            mapService.selectItem($routeParams.id, 'zonessensibles');
+        });
+        $scope.title = data.nom_zone_sensible;
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail

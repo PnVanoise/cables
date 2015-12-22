@@ -33,16 +33,10 @@ app.controller('observationsDetailCtrl', function($scope, $rootScope, $routePara
     $scope.updateUrl = '#/' + $scope._appName + '/edit/observations/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/observations', "observations").then(
-                function(){
-                    mapService.selectItem($routeParams.id, 'observations');
-                    document.getElementById("observations").checked = true;
-                    mapService.displayGeomData("observations");
-                    storeFlag.setFlagLayer("observations", "cacheChecked");
-                });
-            $scope.title = data.espece;
+        mapService.showLayer('observations').then(function() {
+            mapService.selectItem($routeParams.id, 'observations');
         });
+        $scope.title = data.espece;
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail

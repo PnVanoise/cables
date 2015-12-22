@@ -46,16 +46,20 @@ app.config(function($routeProvider){
 });
 
 
-app.controller('CategoryCtrl', function($scope, categories, category, mapService, configServ, storeFlag) {
+app.controller('CategoryCtrl', function($scope, categories, category, mapService, configServ, userServ, storeFlag) {
     $scope.categories = categories;
     $scope.category = category;
-
     $scope.title = category.title;
     $scope.data = [];
-
+    
     configServ.getUrl('cables/config/' + category.id + '/list',
         function(schema) {
             $scope.schema = schema;
+            // adding createAcces and EditAcces
+            if (schema.createUrl){
+                $scope.createAccess = userServ.checkLevel(3);
+                $scope.editAccess = userServ.checkLevel(3);
+            }
             mapService.showLayer(category.id);
         });
 

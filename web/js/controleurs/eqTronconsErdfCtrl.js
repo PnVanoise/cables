@@ -37,16 +37,10 @@ app.controller('eqTronconsErdfDetailCtrl', function($scope, $rootScope, $routePa
     $scope.updateUrl = '#/' + $scope._appName + '/edit/eqtronconserdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/eqtronconserdf', "eqtronconserdf").then(
-                function(){
-                    mapService.selectItem($routeParams.id, 'eqtronconserdf');
-                    document.getElementById("eqtronconserdf").checked = true;
-                    mapService.displayGeomData("eqtronconserdf");
-                    storeFlag.setFlagLayer("eqtronconserdf", "cacheChecked");
-                });
-            $scope.title = data.type_equipement_troncon;
+        mapService.showLayer('eqtronconserdf').then(function() {
+            mapService.selectItem($routeParams.id, 'eqtronconserdf');
         });
+        $scope.title = 'Equipement tronçon de type ' + data.type_equipement_troncon;
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail

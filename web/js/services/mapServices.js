@@ -36,7 +36,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
   * * #2 - Service cartographique
   */
-app.service('mapService', function($rootScope, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
+app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
 
     /*
      * Private variables or functions
@@ -258,6 +258,7 @@ app.service('mapService', function($rootScope, $q, $timeout, configServ, dataSer
      *  - force : si on veut recharger la couche
      */
     var loadCategoryData = function(category, force) {
+        $loading.start('map-loading');
         var deferred = $q.defer();
         if (this.tabThemaData[category].loaded) {
             // ensure that the function has returned the promise before the
@@ -284,6 +285,7 @@ app.service('mapService', function($rootScope, $q, $timeout, configServ, dataSer
                 },
                 force
             );
+
         }
         return deferred.promise;
     };
@@ -391,9 +393,9 @@ app.service('mapService', function($rootScope, $q, $timeout, configServ, dataSer
                 angular.bind(this, function() {
                     map.addLayer(this.tabThemaData[layer]);
                     deferred.resolve();
+                    $loading.finish('map-loading');
                 })
             );
-
             return deferred.promise;
         },
 

@@ -46,11 +46,19 @@ app.config(function($routeProvider){
 });
 
 
-app.controller('CategoryCtrl', function($scope, categories, category, mapService, configServ, userServ, storeFlag) {
+app.controller('CategoryCtrl', function($scope, $loading, $q, categories, category, mapService, configServ, userServ, storeFlag) {
     $scope.categories = categories;
     $scope.category = category;
     $scope.title = category.title;
     $scope.data = [];
+
+    // Spinner 
+    $loading.start('spinner-1');
+    var dfd = $q.defer();
+    var promise = dfd.promise;
+    promise.then(function(result) {
+        $loading.finish('spinner-1');
+    });
     
     configServ.getUrl('cables/config/' + category.id + '/list',
         function(schema) {
@@ -61,6 +69,7 @@ app.controller('CategoryCtrl', function($scope, categories, category, mapService
                 $scope.editAccess = userServ.checkLevel(3);
             }
             mapService.showLayer(category.id);
+            dfd.resolve('loading data');
         });
 
     $scope.$watchCollection(

@@ -33,18 +33,11 @@ app.controller('poteauxErdfDetailCtrl', function($scope, $rootScope, $routeParam
     $scope.updateUrl = '#/' + $scope._appName + '/edit/poteauxerdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/poteauxerdf', "poteauxerdf").then(
-                function(){
-                    mapService.selectItem($routeParams.id, 'poteauxerdf');
-                    document.getElementById("poteauxerdf").checked = true;
-                    mapService.displayGeomData("poteauxerdf");
-                    storeFlag.setFlagLayer("poteauxerdf", "cacheChecked");
-                });
-            $scope.title = 'Poteau ' + data.id;
+        mapService.showLayer('poteauxerdf').then(function() {
+            mapService.selectItem($routeParams.id, 'poteauxerdf');
         });
+        $scope.title = 'Poteau ' + data.id;
     });
-
 
     // Ajout la possibilité de supprimer un élément en mode détail
     if($routeParams.id){

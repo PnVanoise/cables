@@ -1,4 +1,4 @@
-<div class="row">
+<div ng-show="user" class="row">
     <ul class="nav nav-pills nav-justified">
         <li ng-repeat="cat in ::categories" ng-class="{'active': cat.id == category.id}"><a href="#/cables/{{::cat.id}}">{{::cat.title}}</a></li>
     </ul>

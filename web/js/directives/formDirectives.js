@@ -583,7 +583,9 @@ app.directive('geometry', function($timeout){
             }
 
             var cat = $scope.options.dataUrl.split("/")[1];
-            mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
+            // NF 2 : la ligne ci-dessous permet d'avoir la couche en édition présente dans la légende
+            // afin de jouer avec la visibilité
+            // mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
             mapService.showLayer(cat).then(function(){
                 var layer = mapService.selectItem($scope.origin, cat);
                 if(layer){

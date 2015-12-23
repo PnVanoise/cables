@@ -158,8 +158,10 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 /*
                  * centre la carte sur la figure sélectionnée
                  */
-                map.fitBounds(res[0].getBounds());
-                return res[0];
+                if (_id !== undefined) {
+                    map.fitBounds(res[0].getBounds());
+                    return res[0];
+                }
             }
         }
         return null;

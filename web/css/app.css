@@ -69,6 +69,8 @@
     position:relative;
     padding-left:12px;
     padding-right:15px;
+    
+    overflow:hidden;
 }
 
 .coords-dsp{
@@ -272,6 +274,7 @@ ul.icons li .icon-large:before {
  */
 .text-info{
   color:#554A0A;
+  
 }
 
 /*******************************************************
@@ -348,6 +351,7 @@ select:invalid {
 
 .detail-display{
     clear: both;
+
 }
 
 .tab-content{
@@ -355,6 +359,7 @@ select:invalid {
     border-bottom: 1px solid #DDD;
     border-left: 1px solid #DDD;
     border-right: 1px solid #DDD;
+    
 }
 
 
@@ -789,14 +794,10 @@ canvas {
  * DÃ©tail tableau
  */
 .dl-horizontal dt {
-    float: left;
-    margin-right: 10px;
-    width: 300px;
     overflow: hidden;
     clear: right;
     text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space:pre-line;
 }
 
 /******Css tableau **********************************/
@@ -830,6 +831,7 @@ canvas {
 }
 .panel-info{
   border-color:#FFF;
+  
 }
 
 

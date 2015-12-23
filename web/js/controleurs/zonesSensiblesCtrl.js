@@ -75,20 +75,12 @@ app.controller('zsEditController', function($scope, $rootScope, $routeParams, $l
     }
 
     $scope.$on('form:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/zonessensibles', "zonessensibles").then(
-                function(){
-                    document.getElementById("zonessensibles").checked = true;
-                    mapService.displayGeomData("zonessensibles");
-                    storeFlag.setFlagLayer("zonessensibles", "cacheChecked");
-                });
-            if(data.espece){
-            $scope.title = 'Modification de la zone sensible ' + data.nom_zone_sensible;
-            }
-            else{
-                $scope.title = 'Nouveau site';
-            }
-        });
+        if(data.espece){
+        $scope.title = 'Modification de la zone sensible ' + data.nom_zone_sensible;
+        }
+        else{
+            $scope.title = 'Nouveau site';
+        }
     });
 
     $scope.$on('form:cancel', function(ev, data){

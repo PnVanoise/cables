@@ -72,22 +72,13 @@ app.controller('photosPoteauxErdfEditCtrl', function($scope, $rootScope, $routeP
     }    
     
     $scope.$on('form:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/poteauxerdf', "poteauxerdf").then(
-                function(){
-                    mapService.selectItem($routeParams.id_inventaire_poteau_erdf, 'poteauxerdf');
-                    document.getElementById("poteauxerdf").checked = true;
-                    mapService.displayGeomData("poteauxerdf");
-                    storeFlag.setFlagLayer("poteauxerdf", "cacheChecked");
-                });
-            if(data.id){
-            $scope.title = "Modifications de la photo" + data.id;
-            
-            }
-            else{
-                $scope.title = "Ajout d'une nouvelle photo";
-            }
-        });
+        if(data.id){
+        $scope.title = "Modifications de la photo" + data.id;
+        
+        }
+        else{
+            $scope.title = "Ajout d'une nouvelle photo";
+        }
     });
 
     $scope.$on('form:cancel', function(ev, data){

@@ -77,22 +77,13 @@ app.controller('photosTronconsErdfEditCtrl', function($scope, $rootScope, $route
     }
 
    $scope.$on('form:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/tronconserdf', "tronconserdf").then(
-                function(){
-                    mapService.selectItem($routeParams.id_inventaire_troncon_erdf, 'tronconserdf');
-                    document.getElementById("tronconserdf").checked = true;
-                    mapService.displayGeomData("tronconserdf");
-                    storeFlag.setFlagLayer("tronconserdf", "cacheChecked");
-                });
-            if(data.id){
-            $scope.title = "Modifications de la photo" + data.id;
-            
-            }
-            else{
-                $scope.title = "Ajout d'une nouvelle photo";
-            }
-        });
+        if(data.id){
+        $scope.title = "Modifications de la photo" + data.id;
+        
+        }
+        else{
+            $scope.title = "Ajout d'une nouvelle photo";
+        }
     });
 
     $scope.$on('form:cancel', function(ev, data){

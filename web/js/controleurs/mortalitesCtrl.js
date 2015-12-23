@@ -77,12 +77,8 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
     }
 
     $scope.$on('form:init', function(ev, data){
-        // document.getElementById("mortalites").checked = true;
-        // mapService.displayGeomData("mortalites");
-        // storeFlag.setFlagLayer("mortalites", "cacheChecked");
         if(data.espece){
         $scope.title = 'Modification du cas de mortalité de ' + data.espece;
-        // alert(data.nb_cas);
         }
         else{
             $scope.title = 'Nouveau cas';

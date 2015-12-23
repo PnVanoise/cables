@@ -79,20 +79,12 @@ app.controller('eqTronconsErdfEditCtrl', function($scope, $rootScope, $routePara
     }
 
     $scope.$on('form:init', function(ev, data){
-        mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-            mapService.loadData($scope._appName + '/tronconserdf', "tronconserdf").then(
-                function(){
-                    if($routeParams.id_inventaire_troncon_erdf){
-                        mapService.selectItem($routeParams.id_inventaire_troncon_erdf, 'tronconserdf');
-                    }                 
-                });
-            if(data.type_equipement_troncon){
-            $scope.title = 'Modification de l\'équipement tronçon ' + data.type_equipement_troncon;
-            }
-            else{
-                $scope.title = 'Nouvel équipement';
-            }
-        });
+        if(data.type_equipement_troncon){
+        $scope.title = 'Modification de l\'équipement tronçon ' + data.type_equipement_troncon;
+        }
+        else{
+            $scope.title = 'Nouvel équipement';
+        }
     });
 
     $scope.$on('form:cancel', function(ev, data){

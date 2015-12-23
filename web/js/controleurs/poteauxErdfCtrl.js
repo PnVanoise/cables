@@ -75,20 +75,12 @@ app.controller('poteauxErdfEditCtrl', function($scope, $rootScope, $routeParams,
     }
 
     $scope.$on('form:init', function(ev, data){
-        // mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-        //     mapService.loadData($scope._appName + '/poteauxerdf', "poteauxerdf").then(
-        //         function(){
-        //             document.getElementById("poteauxerdf").checked = true;
-        //             mapService.displayGeomData("poteauxerdf");
-        //             storeFlag.setFlagLayer("poteauxerdf", "cacheChecked");
-        //         });
-            if(data.espece){
-            $scope.title = "Modification du poteau " + data.id;
-            }
-            else{
-                $scope.title = "Nouveau poteau";
-            }
-        // });
+        if(data.espece){
+        $scope.title = "Modification du poteau " + data.id;
+        }
+        else{
+            $scope.title = "Nouveau poteau";
+        }
     });
 
     $scope.$on('form:cancel', function(ev, data){

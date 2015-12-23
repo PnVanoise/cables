@@ -75,20 +75,12 @@ app.controller('tronconsErdfEditCtrl', function($scope, $rootScope, $routeParams
     }
 
     $scope.$on('form:init', function(ev, data){
-        // mapService.initializeCarte('js/resources/defaultMap.json').then(function(){
-        //     mapService.loadData($scope._appName + '/tronconserdf', "tronconserdf").then(
-        //         function(){
-        //             document.getElementById("tronconserdf").checked = true;
-        //             mapService.displayGeomData("tronconserdf");
-        //             storeFlag.setFlagLayer("tronconserdf", "cacheChecked");
-        //         });
-            if(data.espece){
-            $scope.title = 'Modification du tronçon' + data.id;
-            }
-            else{
-                $scope.title = 'Nouveau tronçon';
-            }
-        // });
+        if(data.espece){
+        $scope.title = 'Modification du tronçon' + data.id;
+        }
+        else{
+            $scope.title = 'Nouveau tronçon';
+        }
     });
 
     $scope.$on('form:cancel', function(ev, data){

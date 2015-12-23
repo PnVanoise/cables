@@ -52,14 +52,14 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
     $scope.title = category.title;
     $scope.data = [];
 
-    // Spinner 
+    // Spinner
     $loading.start('spinner-1');
     var dfd = $q.defer();
     var promise = dfd.promise;
     promise.then(function(result) {
         $loading.finish('spinner-1');
     });
-    
+
     configServ.getUrl('cables/config/' + category.id + '/list',
         function(schema) {
             $scope.schema = schema;

@@ -137,8 +137,6 @@ app.controller('baseController', function($scope, $location, dataServ,
         return userServ.checkLevel(val);
     };
 
-
-
     configServ.getUrl('config/apps', success);
 });
 
@@ -158,7 +156,7 @@ app.controller('loginController', function($scope, $location, $rootScope, userSe
 
     $scope.$on('user:login', function(ev, user){
         userMessages.infoMessage = user.nom_complet.replace(/(\w+) (\w+)/, 'Bienvenue $2 $1 !');
-        $location.url('/cables');
+        $location.url('/cables/zonessensibles');
     });
 
     $scope.$on('user:error', function(ev){

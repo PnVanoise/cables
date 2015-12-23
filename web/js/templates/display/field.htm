@@ -1,4 +1,4 @@
-<div ng-if="field.type=='string'" style="white-space: pre">{{data}}</div>
+<div ng-if="field.type=='string'">{{data}}</div>
 <div ng-if="field.type=='num'">{{data}}</div>
 <div ng-if="field.type=='date'">{{data|datefr}}</div>
 <div ng-if="field.type=='select'">{{field.options.choices|tselect:data}}</div>

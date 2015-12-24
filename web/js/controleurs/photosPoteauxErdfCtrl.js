@@ -33,7 +33,8 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
 
     $scope.$on('display:init', function(ev, data){
         $scope.title = 'Photo n°' + data.id + '  du poteaux ERDF ' + data.inventaire_poteau_erdf;
-        $scope.cheminPhoto = data.cheminPhoto; 
+        $scope.cheminPhoto = data.cheminPhoto;
+        $('#detailModal').modal('show');
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail
@@ -45,7 +46,6 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-
         userMessages.successMessage = "la photo du poteau" + data.idInventairePoteauErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/photospoteauxerdf/');

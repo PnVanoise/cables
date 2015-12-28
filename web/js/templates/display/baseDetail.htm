@@ -16,7 +16,7 @@
         <tab ng-repeat="group in schema.groups" heading="{{group.name}}">
             <dl class="dl-horizontal"  ng-repeat="field in group.fields">
                 <dt ng-if="field.type != 'hidden'" tooltip="{{field.help}}">{{field.label}}</dt>
-                <dd class="text-info" ng-if="field.type != 'hidden' && !field.options.multi" field-display field="field" data="data[field.name]"></dd>
+                <dd class="text-info" ng-if="field.type != 'hidden' && !field.options.multi" field-display field="field" data="data[field.name]" dataid="data[field.id]"></dd>
                 <dd class="text-info" ng-if="field.type != 'hidden' && field.options.multi" field-display field="field" ng-repeat="item in data[field.name] track by $index" data="item"></dd>
             </dl>
         </tab>

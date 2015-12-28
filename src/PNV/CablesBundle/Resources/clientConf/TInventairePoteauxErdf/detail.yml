@@ -12,13 +12,13 @@ groups:
                 label: "Date inventaire"
                 type: date
             -   name: remarques
-                label: "Remarques" 
-                type: string 
+                label: "Remarques"
+                type: string
             -   name: etatPoteau
-                label: "Etat poteau" 
+                label: "Etat poteau"
                 type: string
             -   name: risquePoteau
-                label: Risque poteau 
+                label: Risque poteau
                 type: string
             -   name: dejaNeutralise
                 label: Déjà neutralisé
@@ -55,9 +55,12 @@ groups:
                 help: Type d'équipement ERDF secondaire
                 type: string
             -   name: zone_sensible
+                id: id_zone_sensible
+                glyphicon: "glyphicon glyphicon-info-sign"
                 label: Zone sensible
                 help: Nom de la zone sensible
-                type: string
+                type: clickablestring
+                urlpart: "cables/zonessensibles/"
             -   name: attractivite
                 label: Attractivité
                 type: string

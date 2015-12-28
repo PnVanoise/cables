@@ -1,13 +1,25 @@
-
-<div class="col-md-6 col-sm-12 fixed-map">
-  <div class="map large col-md-5 col-sm-12">
-  	<img class="large-image" ng-src="{{cheminPhoto}}"/>
-  </div>
-</div>
-<div class="col-md-6  col-md-offset-6 col-sm-12">
-  <div breadcrumbs appname="cables"></div>
-  <div class="padded" detail-display schemaurl="schemaUrl" dataurl="dataUrl" dataid="dataId" updateurl="updateUrl"
+<div breadcrumbs appname="cables"></div>
+<div class="padded" detail-display schemaurl="schemaUrl" dataurl="dataUrl" dataid="dataId" updateurl="updateUrl"
   saveurl="saveUrl" redirectto="#/cables/photostronconserdf/"  data="data">
     <h1>{{title}}</h1>
-  </div>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailModal">Voir la photo</button>
 </div>
+  <!-- Modal de la photo -->
+  <div class="modal fade bs-example-modal-lg" id="detailModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content detail">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body">
+         
+        <img  class="img-responsive"  ng-src="{{cheminPhoto}}"/>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>

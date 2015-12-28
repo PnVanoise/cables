@@ -69,8 +69,6 @@
     position:relative;
     padding-left:12px;
     padding-right:15px;
-    
-    overflow:hidden;
 }
 
 .coords-dsp{
@@ -274,7 +272,6 @@ ul.icons li .icon-large:before {
  */
 .text-info{
   color:#554A0A;
-  
 }
 
 /*******************************************************
@@ -351,7 +348,6 @@ select:invalid {
 
 .detail-display{
     clear: both;
-
 }
 
 .tab-content{
@@ -359,7 +355,6 @@ select:invalid {
     border-bottom: 1px solid #DDD;
     border-left: 1px solid #DDD;
     border-right: 1px solid #DDD;
-    
 }
 
 
@@ -786,19 +781,25 @@ canvas {
   margin: 6px 0 0 6px;
 }
 
-.modal-content {  
-  max-width: 600px;
+.modal-content.detail {  
+  max-width: 700px;
 }
 
 /*
  * DÃ©tail tableau
  */
 .dl-horizontal dt {
+    float: left;
+    margin-right: 10px;
+    width: 300px;
     overflow: hidden;
     clear: right;
     text-align: left;
-    white-space:pre-line;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+
 
 /******Css tableau **********************************/
 .with-nav-tabs.panel-primary .nav-tabs > li > a,
@@ -831,7 +832,6 @@ canvas {
 }
 .panel-info{
   border-color:#FFF;
-  
 }
 
 
@@ -1153,4 +1153,8 @@ a.legendBlock-item {
   margin-bottom:-6px;
   margin-left:-6px;
   margin-top:-6px  
+}
+
+.detail-photo{
+  position:fixed;
 }

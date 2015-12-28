@@ -39,6 +39,7 @@ app.controller('photosTronconsErdfDetailCtrl', function($scope, $rootScope, $rou
     $scope.$on('display:init', function(ev, data){
         $scope.title = 'Photo n°' + data.id + '  du tronçon ERDF ' + data.inventaire_troncon_erdf;
         $scope.cheminPhoto = data.cheminPhoto; 
+        $('#detailModal').modal('show');
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail
@@ -50,7 +51,6 @@ app.controller('photosTronconsErdfDetailCtrl', function($scope, $rootScope, $rou
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-
         userMessages.successMessage = "la photo du tronçon" + data.idInventaireTronconErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/photostronconserdf/');

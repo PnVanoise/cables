@@ -7,7 +7,7 @@ groups:
                 type: geom
                 options:
                     geometryType: point
-                    dataUrl: cables/poteauxerdf 
+                    dataUrl: cables/poteauxerdf
     -   name: Informations
         fields:
             -   name: id
@@ -19,7 +19,7 @@ groups:
                 options:
                     maxlength: 250
             -   name: dateInventaire
-                label: Date 
+                label: Date
                 help: Date Inventaire
                 type: date
             -   name: etatPoteau
@@ -49,16 +49,20 @@ groups:
             -   name: id_type_poteau_erdf_secondaire
                 label: Type poteau secondaire
                 help: Type poteau ERDF secondaire
-                type: select 
+                type: select
             -   name: id_zone_sensible
                 label: Zone sensible
                 options:
                     obligatoire: true
                 help: Nom de la zone sensible
-                type: select 
+                type: select
             -   name: id_attractivite
                 label: Attractivité
-                type: select 
+                type: select
+                options:
+                    obligatoire: true
             -   name: id_dangerosite
                 label: Dangerosité
                 type: select
+                options:
+                    obligatoire: true

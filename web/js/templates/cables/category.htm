@@ -4,7 +4,7 @@
     </ul>
     <div maplist="cables/{{::category.id}}">
         <div class="bnt-new" ng-if="editAccess">
-            <a class="btn btn-success" style="margin-right: 1ex;" ng-href="{{schema.createUrl}}">{{schema.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
+            <a class="btn btn-success" style="margin-right: 1ex;" ng-href="{{schema.createUrl}}" ng-if="category.id!='eqtronconserdf' && category.id!='eqpoteauxerdf'">{{schema.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
         </div>
         </br>
         <div class="padded">

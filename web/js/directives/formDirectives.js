@@ -591,7 +591,7 @@ app.directive('geometry', function($timeout){
                 if(layer){
                     setEditLayer(layer);
                 }
-                mapService.getMap().addLayer($scope.editLayer);
+                map.addLayer($scope.editLayer);
             });
 
             /* Récupération des couches depuis mapServices pour les fonctionnalités
@@ -640,7 +640,7 @@ app.directive('geometry', function($timeout){
                     polygon: $scope.options.geometryType == 'polygon',
                 },
             });
-            mapService.getMap().addControl(controls);
+            map.addControl(controls);
 
             /*Options d'accrochage couches en mode édit*/
             controls.setDrawingOptions({
@@ -661,14 +661,14 @@ app.directive('geometry', function($timeout){
             coordsDisplay.update = function(evt){
                 this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
             };
-            mapService.getMap().on('mousemove', function(e){
+            map.on('mousemove', function(e){
                 coordsDisplay.update(e);
             });
-            coordsDisplay.addTo(mapService.getMap());
+            coordsDisplay.addTo(map);
             /*
              * ---------------------------------------
              */
-            mapService.getMap().on('draw:created', function(e){
+            map.on('draw:created', function(e){
                 if(!current){
                     $scope.editLayer.addLayer(e.layer);
                     current = e.layer;
@@ -676,19 +676,19 @@ app.directive('geometry', function($timeout){
                     $rootScope.$apply($scope.updateCoords(current));
                 }
             });
-            mapService.getMap().on('draw:edited', function(e){
+            map.on('draw:edited', function(e){
                  if(!current){
                     current = e.layer;
                     guideLayers.push(current); // options d'accrochage des couches en mode édit
                     $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
                 }
             });
-            mapService.getMap().on('draw:deleted', function(e){
+            map.on('draw:deleted', function(e){
                 current = null;
                 $rootScope.$apply($scope.updateCoords(current));
             });
             $timeout(function() {
-                mapService.getMap().invalidateSize();
+                map.invalidateSize();
             }, 0 );
 
 

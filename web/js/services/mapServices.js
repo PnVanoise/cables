@@ -325,7 +325,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             "communes": L.featureGroup()
         },
 
-        init: function(elementId) {
+        initmap: function(elementId) {
             map = L.map(elementId, {
                 maxZoom: 18,
                 fullscreenControl:true,
@@ -341,11 +341,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
 
             return map;
         },
-
-        initializeCarte: function() {
-            console.debug("initializeCarte to be removed");
-        },
-
 
         getTileLayers: function() {
             return tileLayers;
@@ -694,7 +689,7 @@ app.directive('leafletMap', function(){
         },
         templateUrl: 'js/templates/display/map.htm',
         controller: function($scope, mapService, storeFlag) {
-            var map = mapService.init('mapd');
+            var map = mapService.initmap('mapd');
             var tabThemaData = mapService.tabThemaData;
 
             $scope.tileLayers = mapService.getTileLayers();

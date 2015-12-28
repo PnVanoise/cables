@@ -7,7 +7,7 @@ groups:
                 type: geom
                 options:
                     geometryType: linestring
-                    dataUrl: cables/tronconserdf 
+                    dataUrl: cables/tronconserdf
     -   name: Informations
         fields:
             -   name: id
@@ -17,7 +17,7 @@ groups:
                 label: Remarques
                 type: string
             -   name: dateInventaire
-                label: Date 
+                label: Date
                 help: Date Inventaire
                 type: date
             -   name: dejaNeutralise
@@ -25,16 +25,24 @@ groups:
                 type: bool
             -   name: id_risque_integration_bati
                 label: "Risque integration bâti"
-                type: select 
+                type: select
+                options:
+                    obligatoire: true
             -   name: id_risque_deplacement
                 label: Risque déplacement
                 type: select
+                options:
+                    obligatoire: true
             -   name: id_risque_integration_topo
-                label: Risque intégration topo 
-                type: select 
+                label: Risque intégration topo
+                type: select
+                options:
+                    obligatoire: true
             -   name: id_risque_integration_vegetation
                 label: Risque intégration végetation
-                type: select 
+                type: select
+                options:
+                    obligatoire: true
             -   name: id_zone_sensible
                 label: Zone sensible
                 options:

@@ -587,7 +587,8 @@ app.directive('geometry', function($timeout){
             // afin de jouer avec la visibilité
             // mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
             mapService.showLayer(cat).then(function(){
-                var layer = mapService.selectItem($scope.origin, cat);
+                // $scope.origin est un string, parsé pour être utilisé dans selectItem
+                var layer = mapService.selectItem(parseInt($scope.origin), cat);
                 if(layer){
                     setEditLayer(layer);
                 }

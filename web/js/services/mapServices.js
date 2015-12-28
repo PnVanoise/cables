@@ -56,6 +56,8 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
 
     var currentBaseLayer = null;
 
+    var self;
+
     /**
      * Récupération de l'url de données avec getUrl de configServ
      * Url fourni dans les contôles des base (exemple : cablesControllers.js)
@@ -128,43 +130,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
 
         //Ajout d'une l'échelle
         L.control.scale().addTo(map);
-    };
-
-
-    /**
-     * Recentrage des objets (emprise et zoom) quand on clique sur un objet
-     * sur la carte
-     */
-    var zoomToItem = function(_id, pThemaData) {
-        var res = geoms.filter(function(item) {
-            if (pThemaData !== undefined) {
-                if (item.feature.properties.cat == pThemaData){
-                    return item.feature.properties.id == _id;
-                }
-            }
-            else{
-                return item.feature.properties.id == _id;
-            }
-        });
-        if (res) {
-            try {
-                /*
-                 * centre la carte sur le point sélectionné
-                 */
-                map.setView(res[0].getLatLng(), Math.max(map.getZoom(), 13));
-                return res[0];
-            }
-            catch(e) {
-                /*
-                 * centre la carte sur la figure sélectionnée
-                 */
-                if (_id !== undefined) {
-                    map.fitBounds(res[0].getBounds());
-                    return res[0];
-                }
-            }
-        }
-        return null;
     };
 
     // Changement de couleur lorsqu'un élément est sélectionné sur la carte et la liste
@@ -414,16 +379,36 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             return geoms;
         },
 
+        // Permet de zoomer sur un objets quel que soit son type (point, ligne et polygone)
+        // Voir avec angular.bind plutot que self        
+        zoomToItem: function(item) {
+            try {
+                // centre la carte sur l'objet point sélectionné
+                map.setView(item.getLatLng(), Math.max(map.getZoom(), 13));
+            }
+            catch(e) {
+                // centre la carte sur l'objet ligneou polygone sélectionné
+                map.fitBounds(item.getBounds());
+            }
+        },
+
         // Applique le changement de couleur (changeColorItem) et le recentrage (zoomToItem)
         selectItem: function(_id, pThemaData) {
-            var sel = zoomToItem(_id, pThemaData);
+            var sel;
+            self = this;
+            var res = this.tabThemaData[pThemaData].getLayers();
+            res.forEach(function(item) {
+                if (item.feature.properties.id === _id){
+                    self.zoomToItem(item);                    
+                    if (currentSel) {
+                        changeColorItem(currentSel, false);
+                    }
 
-            if (currentSel) {
-                changeColorItem(currentSel, false);
-            }
-
-            changeColorItem(sel, true);
-            currentSel = sel;
+                    changeColorItem(item, true);
+                    currentSel = item;
+                    sel = item;
+                }
+            });
             return sel;
         },
 

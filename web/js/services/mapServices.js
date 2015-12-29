@@ -645,55 +645,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         },
 
         /*
-         * Fonction qui vérifie et ajoute (cache) ou charge (Json Symfony) la couche si elle est cochée depuis la légende
-         * Parameters :
-         * - pLayerThemaData : nom de la catégorie métier utilisée pour la vérification
-         * - pDetails : pour savoir on est sur la page de détail d'une catégorie métier
-         */
-        displayGeomData: function(pLayerThemaData, pDetails) {
-            var tabFlagLayer = null;
-            tabFlagLayer = storeFlag.getTabFlagLayer();
-            if (pLayerThemaData === "allThemaDataLayer"){
-                for(var key1 in tabFlagLayer){
-                    if (tabFlagLayer[key1] === "firstLoad" || tabFlagLayer[key1] === "cacheChecked"){
-                        document.getElementById(key1).checked = true;
-                    }
-                    else if (tabFlagLayer[key1] === "cacheUnchecked"){
-                        document.getElementById(key1).checked = false;
-                        map.removeLayer(tabThemaData[key1]);
-                        storeFlag.setFlagLayer(key1, "cacheUnchecked");
-                    }
-                };
-            } else {
-                for(var key2 in tabFlagLayer){
-                    if (key2 !== pLayerThemaData){
-                        if (tabFlagLayer[key2] === "cacheChecked"){
-                            // console.log("dans displayGeomData - cacheChecked");
-                            document.getElementById(key2).checked = true;
-                        }
-                        else if (tabFlagLayer[key2] === "cacheUnchecked"){
-                            // console.log("dans displayGeomData - cacheUnchecked");
-                            document.getElementById(key2).checked = false;
-                            map.removeLayer(tabThemaData[key2]);
-                            storeFlag.setFlagLayer(key2, "cacheUnchecked");
-                        }
-                    }
-                };
-            }
-            // quand on clique sur le détail d'une zone sensible
-            if(pLayerThemaData === 'zonessensibles' && pDetails === 'details'){
-                // si la couche 'poteaux' n'est pas chargée, elle est chargée pour qu'elle apparaisse sur le détail d'une zone sensible
-                if (storeFlag.getFlagLayer("poteauxerdf") === "noLoaded" || "cacheUnchecked"){
-                    map.addLayer(tabThemaData['poteauxerdf']);
-                };
-                // si la couche 'tronçons' n'est pas chargée, elle est chargée pour qu'elle apparaisse sur le détail d'une zone sensible
-                if (storeFlag.getFlagLayer("tronconserdf") === "noLoaded" || "cacheUnchecked"){
-                    map.addLayer(tabThemaData['tronconserdf']);
-                };
-            }
-        },
-
-        /*
          * Suppression de tous les objets dans un featureGroup donné
          * Parameters :
          * - category : nom de la catégorie métier utilisée pour la suppression des objets associés

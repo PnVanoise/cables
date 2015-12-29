@@ -6,36 +6,34 @@ app = angular.module('mapServices');
 app.factory('LeafletServices', ['$http', function($http) {
     return {
 
-    /* changement du nom de "layer" en "couche"
-    */
-      couche : {},
+        // changement du nom de "layer" en "couche"
+        couche : {},
 
-      loadData : function(layerdata) {
-        this.couche = {};
-        this.couche.name = layerdata.name; // nom de la couche
-        this.couche.active = layerdata.active; // true ou false pour activer le fond par default
+        loadData : function(layerdata) {
+            this.couche = {};
+            this.couche.name = layerdata.name; // nom de la couche
+            this.couche.active = layerdata.active; // true ou false pour activer le fond par default
 
-
-        if (layerdata.type == 'tileLayer' || layerdata.type == 'ign') {
-          if ( layerdata.type == 'ign') {
-            url = 'https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}';
-          }
-          else {
-            url = layerdata.url;
-          }
-          this.couche.map = new L.TileLayer(url,layerdata.options);
+            if (layerdata.type == 'tileLayer' || layerdata.type == 'ign') {
+                if ( layerdata.type == 'ign') {
+                    url = 'https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}';
+                }
+                else {
+                    url = layerdata.url;
+                }
+                this.couche.map = new L.TileLayer(url,layerdata.options);
+            }
+            else if (layerdata.type == 'wms') {
+                this.couche.map = L.tileLayer.wms(layerdata.url,layerdata.options);
+            }
+            return this.couche;
         }
-        else if (layerdata.type == 'wms') {
-          this.couche.map = L.tileLayer.wms(layerdata.url,layerdata.options);
-        }
-        return this.couche;
-      }
-   };
+    };
 }]);
 
 /*
-  * * #2 - Service cartographique
-  */
+ * * #2 - Service cartographique
+ */
 app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
 
     /*
@@ -58,7 +56,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
 
     var self;
 
-    /**
+    /*
      * Récupération de l'url de données avec getUrl de configServ
      * Url fourni dans les contôles des base (exemple : cablesControllers.js)
      */
@@ -94,7 +92,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         });
     };
 
-    /**
+    /*
      * Ajout des controls (zoom, scale, etc.) à la carte.
      */
     var addControls = function() {
@@ -132,7 +130,12 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         L.control.scale().addTo(map);
     };
 
-    // Changement de couleur lorsqu'un élément est sélectionné sur la carte et la liste
+    /*
+     * Changement de couleur lorsqu'un élément est sélectionné sur la carte et la liste
+     * Parameters :
+     * - item : un élément (géométrique et attributaire) d'un ensemble de données métier
+     * - _status : booléen pour changement de couleur et d'icônes sur sélection de l'objet
+     */
     var changeColorItem = function(item, _status) {
         // Récupération des couleurs et icons initiales
         var iconElec             = defaultColorService.iconElec();               // 1- mortalités par électrocution
@@ -220,9 +223,10 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
     };
 
     /*
-     * parameters:
-     * - category : la categorie métier
-     *  - force : si on veut recharger la couche
+     * Chargement des données métiers
+     * Parameters:
+     * - category : la catégorie métier
+     * - force : si on veut forcer le rechargement de la couche métier
      */
     var loadCategoryData = function(category, force) {
         $loading.start('map-loading');
@@ -261,7 +265,10 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         /*
          * Public properties or methods
          */
-        // Tableau des couches métier
+
+        /*
+         * Tableau des couches métier
+         */
         tabThemaData : {
             "zonessensibles" : L.featureGroup(),
             "mortalites" : L.featureGroup(),
@@ -290,7 +297,12 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             "communes": L.featureGroup()
         },
 
-        initmap: function(elementId) {
+        /*
+         * Initialisation et affichage de la carte avec tout ce qu'elle contient
+         * Parameters :
+         * - elementId : nom de la div contenant la carte
+         */
+        initMap: function(elementId) {
             map = L.map(elementId, {
                 maxZoom: 18,
                 fullscreenControl:true,
@@ -307,11 +319,9 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             return map;
         },
 
-        getTileLayers: function() {
-            return tileLayers;
-        },
-
-        // Récupération des couches visibles après filtre depuis tableau de données
+        /*
+         * Récupération des couches visibles après filtre depuis tableau de données
+         */
         getVisibleItems: function() {
             var bounds = map.getBounds();
             var visibleItems = [];
@@ -337,16 +347,47 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             return visibleItems;
         },
 
-        // Mise en service (mapService ) des contrôles de la carte
-        getLayerControl: function() {
-            return layerControl;
+        /*
+         * Mise en service des couches de référence raster
+         */
+        getTileLayers: function() {
+            return tileLayers;
         },
 
-        // Mise en service (mapService ) des couches métiers
+        /*
+         * Mise en service des couches métiers
+         */
         getLayer:  function(layer) {
             return this.tabThemaData[layer];
         },
 
+        /*
+         * Mise en service des contrôles de la carte
+         */
+        getLayerControl: function() {
+            return layerControl;
+        },
+
+        /*
+         * Mise en service de la carte
+         */
+        getMap: function() {
+            return map;
+        },
+
+        /*
+         * Mise en service du tableau de couches Leaflet GeoJSON
+         * *** A SUPPRIMER *** => voir issue #110
+         */
+        getGeoms: function() {
+            return geoms;
+        },
+
+        /*
+         * Ajout (affichage) des couches métiers sur la carte
+         * Parameters :
+         * - layer : Couche métier
+         */
         showLayer: function(layer) {
             var deferred = $q.defer();
 
@@ -361,26 +402,29 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             return deferred.promise;
         },
 
+        /*
+         * Suppression (désaffichage) des couches métiers sur la carte
+         * Parameters :
+         * - layer : Couche métier
+         */
         hideLayer: function(layer) {
             map.removeLayer(this.tabThemaData[layer]);
         },
 
+        /*
+         * Vérification de l'affichage des couches métiers sur la carte
+         * Parameters :
+         * - layer : Couche métier
+         */
         layerIsVisible: function(layer) {
             return map.hasLayer(this.tabThemaData[layer]);
         },
 
-        // Mise en service (mapService ) de la carte
-        getMap: function() {
-            return map;
-        },
-
-        // Mise en service (mapService ) du tableau de couches Leaflet GeoJSON
-        getGeoms: function() {
-            return geoms;
-        },
-
-        // Permet de zoomer sur un objets quel que soit son type (point, ligne et polygone)
-        // Voir avec angular.bind plutot que self        
+        /*
+         * Permet de zoomer sur un objets quel que soit son type (point, ligne et polygone)
+         * Parameters :
+         * - item : un élément (géométrique et attributaire) d'un ensemble de données métier
+         */    
         zoomToItem: function(item) {
             try {
                 // centre la carte sur l'objet point sélectionné
@@ -392,18 +436,24 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             }
         },
 
-        // Applique le changement de couleur (changeColorItem) et le recentrage (zoomToItem)
-        selectItem: function(_id, pThemaData) {
+        /*
+         * Actions faites (zoom et couleur de sélection) sur la sélection d'un élément sur la carte ou dans un tableau
+         * Parameters :
+         * - id : id de l'élément (géométrique et attributaire) d'un ensemble de données métier sélectionné
+         * - categoryData : nom de la catégorie métier utilisée pour la recherche sur l'id
+         */
+        selectItem: function(id, categoryData) {
             var sel;
-            self = this;
-            var res = this.tabThemaData[pThemaData].getLayers();
+            self = this; // voir comment utiliser angular.bind plutôt que self
+            var res = this.tabThemaData[categoryData].getLayers();
             res.forEach(function(item) {
-                if (item.feature.properties.id === _id){
+                if (item.feature.properties.id === id){
                     self.zoomToItem(item);                    
+                    // sélection courante = pas de changement de couleur
                     if (currentSel) {
                         changeColorItem(currentSel, false);
                     }
-
+                    // changement de couleur sur item sélectionné
                     changeColorItem(item, true);
                     currentSel = item;
                     sel = item;
@@ -412,8 +462,13 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             return sel;
         },
 
-        // Fonction pour créer les couches Leaflet GeoJSON
-        addGeom: function(jsonData, layer) {
+        /*
+         * Création des couches Leaflet (featureGroup) depuis le json renvoyé par Symfony pour une catégorie métier
+         * Parameters :
+         * - jsonData : Json utilisé pour créer la couche métier Leaflet
+         * - categoryData : nom de la catégorie métier utilisée qui va être créée
+         */
+        addGeom: function(jsonData, categoryData) {
             var geom = L.GeoJSON.geometryToLayer(jsonData); // la couche GeoJSON
             geom.feature = jsonData;
             var cat = jsonData.properties.cat; // récupération de la catégorie
@@ -564,7 +619,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             }
 
             // observations : classes en fonction du nb d'individus
-
             if(jsonData.properties.cat === 'observations'){
                 var nb = jsonData.properties.nombre;
                 switch (true) {
@@ -580,20 +634,21 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 }
             };
 
-
             // Ajout des couches dans le tableau des couches geoms
+            // A SUPPRIMER A TERME => voir issue #110
             geoms.push(geom);
 
             // Ajout des couches GeoJSON dans les couches métiers
-            this.tabThemaData[layer].addLayer(geom);
-
+            this.tabThemaData[categoryData].addLayer(geom);
 
             return geom;
         },
 
-        /**
-         * Fonction qui vérifie et ajoute la couche si elle est cochée depuis
-         * la légende
+        /*
+         * Fonction qui vérifie et ajoute (cache) ou charge (Json Symfony) la couche si elle est cochée depuis la légende
+         * Parameters :
+         * - pLayerThemaData : nom de la catégorie métier utilisée pour la vérification
+         * - pDetails : pour savoir on est sur la page de détail d'une catégorie métier
          */
         displayGeomData: function(pLayerThemaData, pDetails) {
             var tabFlagLayer = null;
@@ -637,34 +692,45 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 };
             }
         },
-        /**
-         *
+
+        /*
+         * Suppression de tous les objets dans un featureGroup donné
+         * Parameters :
+         * - category : nom de la catégorie métier utilisée pour la suppression des objets associés
          */
         clear: function(category) {
             this.tabThemaData[category].clearLayers();
         },
 
-        /**
+        /*
          * Chargement des couches sur la carte depuis tableau de données (clique sur onglet)
          * FIXME
+         * Parameters :
+         * - pTabClickedValue : valeur de l'nglet sur lequel on a cliqué (=catégorie donnée métier)
          */
         setTabThemaData: function(pTabClickedValue){
             map.addLayer(tabThemaData[pTabClickedValue]);
             document.getElementById(pTabClickedValue).checked = true;
         },
 
-        setBaseLayer: function(layer) {
+        /*
+         * Gestion des couches de référence raster
+         * FIXME
+         * Parameters :
+         * - baseLayer : valeur de l'nglet sur lequel on a cliqué (=catégorie donnée métier)
+         */
+        setBaseLayer: function(baseLayer) {
             if (currentBaseLayer) {
                 map.removeLayer(currentBaseLayer);
             }
-            currentBaseLayer = layer;
-            layer.addTo(map);
+            currentBaseLayer = baseLayer;
+            baseLayer.addTo(map);
         }
     };
 });
 
  /*
-  * * #3 - Directive pour la gestion de la carte Leaflet et des couches s
+  * * #3 - Directive pour la gestion de la carte Leaflet et des couches
   */
 app.directive('leafletMap', function(){
     return {
@@ -674,7 +740,7 @@ app.directive('leafletMap', function(){
         },
         templateUrl: 'js/templates/display/map.htm',
         controller: function($scope, mapService, storeFlag) {
-            var map = mapService.initmap('mapd');
+            var map = mapService.initMap('mapd');
             var tabThemaData = mapService.tabThemaData;
 
             $scope.tileLayers = mapService.getTileLayers();
@@ -686,6 +752,9 @@ app.directive('leafletMap', function(){
     };
 });
 
+ /*
+  * * #4 - Directive pour la gestion de la légende customisée sur la carte
+  */
 app.directive('legendLayer', function() {
     return {
         restrict: 'A',
@@ -712,7 +781,7 @@ app.directive('legendLayer', function() {
 });
 
 /*
- * * #4 - Directive qui gère les évenements entre la carte et le tableau de données
+ * * #5 - Directive qui gère les évenements entre la carte et le tableau de données métier
  */
 app.directive('maplist', function($rootScope, $timeout, mapService){
     return {

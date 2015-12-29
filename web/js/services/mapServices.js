@@ -231,22 +231,22 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
     var loadCategoryData = function(category, force) {
         $loading.start('map-loading');
         var deferred = $q.defer();
-        if (this.tabThemaData[category].loaded) {
-            // ensure that the function has returned the promise before the
-            // promise is resolved
+        window.donnee = this.tabThemaData[category];
+        if (this.tabThemaData[category].loaded) { // loaded est une propriété booléenne du feature
+            // s'assurer que la fonction a retourné la promise avant que la promise soit résolue = $timeout
             $timeout(function() {
                 deferred.resolve();
             }, 0);
         } else {
             this.tabThemaData[category].loaded = true;
             if (force) {
+                // suppression de toutes les layers dans un featureGroup donné
                 this.clear();
             }
             dataServ.get("cables/" + category,
                 angular.bind(this, function(resp) {
                     resp.forEach(angular.bind(this, function(item) {
-                        // the addGeom method could be private
-                        // in this case, the angular.bind should be removed
+                        // addGeom est une fn publique. Si privée supprimé le angular.bind
                         this.addGeom(item, category);
                     }));
                     deferred.resolve();

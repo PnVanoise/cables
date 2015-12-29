@@ -28,6 +28,7 @@ app.config(function($routeProvider){
         }
     ];
 
+    // selon la catégorie métier dans l'URL le template category reçoit les titre ad hoc
     categories.forEach(function(category) {
         $routeProvider
             .when('/cables/' + category.id, {
@@ -68,15 +69,19 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
                 $scope.createAccess = userServ.checkLevel(3);
                 $scope.editAccess = userServ.checkLevel(3);
             }
+            // chargement des données sur la carte et sur dans le tableau des données métier ad hoc
             mapService.showLayer(category.id);
             dfd.resolve('loading data');
         });
 
     $scope.$watchCollection(
+        // ce qui est écouté = getLayer renvoie les objets dans un featureGroup, donc le nombre
         function() {
             return mapService.tabThemaData[category.id].getLayers();
         },
-        function(newVal, oldVal) {
+        // ce qiu est déclenché quand ce qui est écouté change
+        // newVal = mapService.tabThemaData.[category.id].getLayers() nouvellement modifié
+        function(newVal) {
             var data = [];
             // newVal equals to mapService.tabThemaData.zonessensibles.getLayers()
             newVal.forEach(function(layer){
@@ -111,53 +116,4 @@ app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, storeF
             // document.getElementById(idCheckTab).checked = true;
         }
     };
-
-    // function asyncGreet(name) {
-    //           var deferred = $q.defer();
-
-    //           var accueil = $location.url('/cables');
-    //           accueil;
-    //           // setTimeout(function() {
-    //             deferred.notify('About to greet ' + name + '.');
-
-    //             if (accueil) {
-    //               deferred.resolve('Hello, ' + name + '!');
-    //           } else {
-    //               deferred.reject('Greeting ' + name + ' is not allowed.');
-    //           }
-    //         // }, 1000);
-
-    //           return deferred.promise;
-    //         }
-
-    //         $scope.fct = function(){
-    //             var promise = asyncGreet('Robin Hood');
-    //             promise.then(function(greeting) {
-    //               alert('Success: ' + greeting);
-    //               console.log("selected : "+$rootScope.tabs[1]);
-    //               $rootScope.tabs[1].selected = true;
-    //             }, function(reason) {
-    //               alert('Failed: ' + reason);
-    //             }, function(update) {
-    //               alert('Got notification: ' + update);
-    //             });
-    //         }
-
-    // $scope.fct = function(){
-    //             $location.url('/cables');
-    //             $rootScope.$broadcast('breadcrumb');
-    //         }
-
-
-
-  //   $scope.tabs = [
-  //   { title:'Dynamic Title 1', content:'Dynamic content 1' },
-  //   { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
-  // ];
-
-  // $scope.alertMe = function() {
-  //   setTimeout(function() {
-  //     $window.alert('You\'ve selected the alert tab!');
-  //   });
-  // };
 });

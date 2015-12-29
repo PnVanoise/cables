@@ -231,22 +231,22 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
     var loadCategoryData = function(category, force) {
         $loading.start('map-loading');
         var deferred = $q.defer();
-        if (this.tabThemaData[category].loaded) {
-            // ensure that the function has returned the promise before the
-            // promise is resolved
+        window.donnee = this.tabThemaData[category];
+        if (this.tabThemaData[category].loaded) { // loaded est une propriété booléenne du feature
+            // s'assurer que la fonction a retourné la promise avant que la promise soit résolue = $timeout
             $timeout(function() {
                 deferred.resolve();
             }, 0);
         } else {
             this.tabThemaData[category].loaded = true;
             if (force) {
+                // suppression de toutes les layers dans un featureGroup donné
                 this.clear();
             }
             dataServ.get("cables/" + category,
                 angular.bind(this, function(resp) {
                     resp.forEach(angular.bind(this, function(item) {
-                        // the addGeom method could be private
-                        // in this case, the angular.bind should be removed
+                        // addGeom est une fn publique. Si privée supprimé le angular.bind
                         this.addGeom(item, category);
                     }));
                     deferred.resolve();
@@ -642,55 +642,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             this.tabThemaData[categoryData].addLayer(geom);
 
             return geom;
-        },
-
-        /*
-         * Fonction qui vérifie et ajoute (cache) ou charge (Json Symfony) la couche si elle est cochée depuis la légende
-         * Parameters :
-         * - pLayerThemaData : nom de la catégorie métier utilisée pour la vérification
-         * - pDetails : pour savoir on est sur la page de détail d'une catégorie métier
-         */
-        displayGeomData: function(pLayerThemaData, pDetails) {
-            var tabFlagLayer = null;
-            tabFlagLayer = storeFlag.getTabFlagLayer();
-            if (pLayerThemaData === "allThemaDataLayer"){
-                for(var key1 in tabFlagLayer){
-                    if (tabFlagLayer[key1] === "firstLoad" || tabFlagLayer[key1] === "cacheChecked"){
-                        document.getElementById(key1).checked = true;
-                    }
-                    else if (tabFlagLayer[key1] === "cacheUnchecked"){
-                        document.getElementById(key1).checked = false;
-                        map.removeLayer(tabThemaData[key1]);
-                        storeFlag.setFlagLayer(key1, "cacheUnchecked");
-                    }
-                };
-            } else {
-                for(var key2 in tabFlagLayer){
-                    if (key2 !== pLayerThemaData){
-                        if (tabFlagLayer[key2] === "cacheChecked"){
-                            // console.log("dans displayGeomData - cacheChecked");
-                            document.getElementById(key2).checked = true;
-                        }
-                        else if (tabFlagLayer[key2] === "cacheUnchecked"){
-                            // console.log("dans displayGeomData - cacheUnchecked");
-                            document.getElementById(key2).checked = false;
-                            map.removeLayer(tabThemaData[key2]);
-                            storeFlag.setFlagLayer(key2, "cacheUnchecked");
-                        }
-                    }
-                };
-            }
-            // quand on clique sur le détail d'une zone sensible
-            if(pLayerThemaData === 'zonessensibles' && pDetails === 'details'){
-                // si la couche 'poteaux' n'est pas chargée, elle est chargée pour qu'elle apparaisse sur le détail d'une zone sensible
-                if (storeFlag.getFlagLayer("poteauxerdf") === "noLoaded" || "cacheUnchecked"){
-                    map.addLayer(tabThemaData['poteauxerdf']);
-                };
-                // si la couche 'tronçons' n'est pas chargée, elle est chargée pour qu'elle apparaisse sur le détail d'une zone sensible
-                if (storeFlag.getFlagLayer("tronconserdf") === "noLoaded" || "cacheUnchecked"){
-                    map.addLayer(tabThemaData['tronconserdf']);
-                };
-            }
         },
 
         /*

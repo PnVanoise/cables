@@ -1,102 +1,104 @@
 <div dw-loading="map-loading" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}">
 </div>
-<!-- Initialisation de légende -->
- <div id="legendblock" class="sidebar collapsed uk-grid uk-margin-remove">
-        <!-- Nav tabs -->
-        <div class="sidebar-tabs">
-            <ul role="tablist">
-                <li><a ng-href="#home" role="tab"><i class="glyphicon glyphicon-th-list"></i></a></li>
-            </ul>
-        </div>
 
-        <!-- Tab panes -->
-        <div class="sidebar-content">
+<!-- GENERATION DE LA LEGENDE -->
+<div id="legendblock" class="sidebar collapsed uk-grid uk-margin-remove">
 
-            <div class="sidebar-pane" id="home">
-
-            </div>
-                <div class="overlay">
-                    <div id="baselayers" class="baselayers">
-                        <h4 class="uk-margin-top base">Fonds de référence</h4>
-                        <ul>
-                            <li ng-repeat="(name, layer) in tileLayers">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="baselayers" ng-click="selectBaseLayer(layer)">
-                                        {{name}}
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                        <div legend-layer layer="'communes'" name="'communes'"></div>
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i>  ERDF</a>
-                        <div id="erdf" class="sublinks collapse ">
-                            <div legend-layer layer="'erdfappareilcoupure'" name="'Appareil de coupure'"></div>
-                            <div legend-layer layer="'erdfconnexionaerienne'" name="'Connexion aérienne'"></div>
-                            <div legend-layer layer="'erdfparafoudre'" name="'Parafoudre'"></div>
-                            <div legend-layer layer="'erdfposteelectrique'" name="'Poste électrique'"></div>
-                            <div legend-layer layer="'erdfremonteeaerosout'" name="'Remontée aérosouterraine'"></div>
-                            <div legend-layer layer="'erdftronconaerien'" name="'Tronçon aérien'"></div>
-                        </div>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#ogm" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> OGM</a>
-                        <div id="ogm" class="sublinks collapse">
-                            <div legend-layer layer="'ogmcablesremonteesmecaniques'" name="'Remontées mécaniques'"></div>
-                            <div legend-layer layer="'ogmdomainesskiables'" name="'Domaines skiable'"></div>
-                            <div legend-layer layer="'ogmtronconsdangereux'" name="'Tronçons dangereux'"></div>
-                            <div legend-layer layer="'ogmtronconsvisualises'" name="'Tronçons visualisés'"></div>
-                            <div legend-layer layer="'ogmtronconsvisualisesdangereux'" name="'Tronçons visualisés dangereux'"></div>
-                        </div>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#rte" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> RTE</a>
-                        <div id="rte" class="sublinks collapse">
-                            <div legend-layer layer="'rtelignes'" name="'Lignes électriques'"></div>
-                            <div legend-layer layer="'rtepostes'" name="'Postes électrique'"></div>
-                            <div legend-layer layer="'rtepoteaux'" name="'Poteaux'"></div>
-                        </div>
-                        <div class="separateur"></div>
-
-                        <h4  class="uk-margin-top metier">Données métier</h4>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#zs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i>Zones sensibles</a>
-                        <div id="zs" class="sublinks collapse in">
-                            <div legend-layer layer="'zonessensibles'" name="'Zones sensibles'"></div>
-                        </div>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#mort" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Cas de mortalité</a>
-                        <div id="mort" class="sublinks collapse">
-                           <div legend-layer layer="'mortalites'" name="'Cas de mortalité'"></div>
-                        </div>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Tronçons ERDF à risque</a>
-                        <div id="tr" class="sublinks collapse in">
-                            <div legend-layer layer="'tronconserdf'" name="'Tronçons ERDF à risque'"></div>
-                        </div>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#pt" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Poteaux ERDF à risque </a>
-                        <div id="pt" class="sublinks collapse in">
-                            <div legend-layer layer="'poteauxerdf'" name="'Poteaux ERDF à risque'"></div>
-                        </div>
-
-                        <div legend-layer layer="'eqtronconserdf'" name="'Equipements tronçons ERDF'"></div>
-                        <div legend-layer layer="'eqpoteauxerdf'" name="'Equipement poteaux ERDF'"></div>
-                        
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#nid" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Sites de nidification </a>
-                        <div id="nid" class="sublinks collapse">
-                            <div legend-layer layer="'nidifications'" name="'Sites de nidification'"></div>
-                        </div>
-
-                        <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#obs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Observations de vautours (nb d'individus)</a>
-                        <div id="obs" class="sublinks collapse">
-                            <div legend-layer layer="'observations'" name="'Observations de vautours'"></div>
-                        </div>
-                    </div>
-            </div>
-
+    <!-- Nav tabs -->
+    <div class="sidebar-tabs">
+        <ul role="tablist">
+            <li><a ng-href="#home" role="tab"><i class="glyphicon glyphicon-th-list"></i></a></li>
+        </ul>
     </div>
- </div>
 
+    <!-- Tab panes -->
+    <div class="sidebar-content">
+        <div class="sidebar-pane" id="home">
+        </div>
+        <div class="overlay">
+            <div id="baselayers" class="baselayers">
+                <h4 class="uk-margin-top base">Fonds de référence</h4>
+                <ul>
+                    <li ng-repeat="(name, layer) in tileLayers">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="baselayers" ng-click="selectBaseLayer(layer)">
+                                {{name}}
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div legend-layer layer="'communes'" name="'communes'">
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i>  ERDF</a>
+            <div id="erdf" class="sublinks collapse ">
+                <div legend-layer layer="'erdfappareilcoupure'" name="'Appareil de coupure'"></div>
+                <div legend-layer layer="'erdfconnexionaerienne'" name="'Connexion aérienne'"></div>
+                <div legend-layer layer="'erdfparafoudre'" name="'Parafoudre'"></div>
+                <div legend-layer layer="'erdfposteelectrique'" name="'Poste électrique'"></div>
+                <div legend-layer layer="'erdfremonteeaerosout'" name="'Remontée aérosouterraine'"></div>
+                <div legend-layer layer="'erdftronconaerien'" name="'Tronçon aérien'"></div>
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#ogm" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> OGM</a>
+            <div id="ogm" class="sublinks collapse">
+                <div legend-layer layer="'ogmcablesremonteesmecaniques'" name="'Remontées mécaniques'"></div>
+                <div legend-layer layer="'ogmdomainesskiables'" name="'Domaines skiable'"></div>
+                <div legend-layer layer="'ogmtronconsdangereux'" name="'Tronçons dangereux'"></div>
+                <div legend-layer layer="'ogmtronconsvisualises'" name="'Tronçons visualisés'"></div>
+                <div legend-layer layer="'ogmtronconsvisualisesdangereux'" name="'Tronçons visualisés dangereux'"></div>
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#rte" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> RTE</a>
+            <div id="rte" class="sublinks collapse">
+                <div legend-layer layer="'rtelignes'" name="'Lignes électriques'"></div>
+                <div legend-layer layer="'rtepostes'" name="'Postes électrique'"></div>
+                <div legend-layer layer="'rtepoteaux'" name="'Poteaux'"></div>
+            </div>
+            <div class="separateur">
+            </div>
+
+            <h4  class="uk-margin-top metier">Données métier</h4>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#zs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i>Zones sensibles</a>
+            <div id="zs" class="sublinks collapse in">
+                <div legend-layer layer="'zonessensibles'" name="'Zones sensibles'"></div>
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#mort" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Cas de mortalité</a>
+            <div id="mort" class="sublinks collapse">
+               <div legend-layer layer="'mortalites'" name="'Cas de mortalité'"></div>
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Tronçons ERDF à risque</a>
+            <div id="tr" class="sublinks collapse in">
+                <div legend-layer layer="'tronconserdf'" name="'Tronçons ERDF à risque'"></div>
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#pt" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Poteaux ERDF à risque </a>
+            <div id="pt" class="sublinks collapse in">
+                <div legend-layer layer="'poteauxerdf'" name="'Poteaux ERDF à risque'"></div>
+            </div>
+
+            <div legend-layer layer="'eqtronconserdf'" name="'Equipements tronçons ERDF'">
+            </div>
+            <div legend-layer layer="'eqpoteauxerdf'" name="'Equipement poteaux ERDF'">
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#nid" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Sites de nidification </a>
+            <div id="nid" class="sublinks collapse">
+                <div legend-layer layer="'nidifications'" name="'Sites de nidification'"></div>
+            </div>
+
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#obs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Observations de vautours (nb d'individus)</a>
+            <div id="obs" class="sublinks collapse">
+                <div legend-layer layer="'observations'" name="'Observations de vautours'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GENERATION DE LA CARTE -->
 <div id="mapd"></div>
-
-

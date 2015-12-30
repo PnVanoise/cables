@@ -102,7 +102,7 @@ app.controller('baseController', function($scope, $location, dataServ,
         $scope.data = resp;
 
         // FIXME DEBUG
-        configServ.put('debug', true);
+        configServ.put('debug', false);
 
         userMessages.infoMessage = "bienvenue !";
 

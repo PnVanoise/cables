@@ -4,12 +4,17 @@ deleteAccess: 5
 groups:
     -   name: Informations
         fields:
+            -   name: idInventaireTronconErdf
+                label: Tronçon ERDF
+                help: Tronçon ERDF concerné
+                type: clickableinteger
+                urlpart: "cables/tronconserdf/"
             -   name: commentaire
                 label: Commentaire
                 type: string
             -   name: neutralise
                 label: Neutralisé
-                type: string 
+                type: string
             -   name: auteur
                 label: Auteur
                 type: string

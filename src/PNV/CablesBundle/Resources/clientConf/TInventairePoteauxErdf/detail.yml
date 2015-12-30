@@ -8,31 +8,39 @@ subDataPhotosUrl: cables/poteauxerdf/photospoteauxerdf/ # récupération des don
 groups:
     -   name: Informations
         fields:
+            -   name: zone_sensible
+                id: id_zone_sensible
+                label: Zone sensible
+                help: Nom de la zone sensible
+                type: clickablestring
+                urlpart: "cables/zonessensibles/"
             -   name: dateInventaire
-                label: "Date inventaire"
+                label: "Date d'inventaire"
                 type: date
-            -   name: remarques
-                label: "Remarques"
-                type: string
             -   name: etatPoteau
-                label: "Etat poteau"
+                label: "Etat du poteau"
                 type: string
-            -   name: risquePoteau
-                label: Risque poteau
+            -   name: type_poteau_erdf
+                label: Type d'armement
+                help: Type d'armement du poteau
                 type: string
-            -   name: dejaNeutralise
-                label: Déjà neutralisé
-                type: bool
+            -   name: type_poteau_erdf_secondaire
+                label: Type d'armement secondaire
+                help: Type d'armement du poteau secondaire
+                type: string
             -   name: commune
                 label: Commune
                 type: string
+            -   name: remarques
+                label: "Remarques"
+                type: string
             -   name: nb_equipement
-                label: Nombre d'équipement
+                label: Nombre d'équipements
                 type: string
             -   name: nbPhotos
                 label: Nombre de photos
                 type: string
-    -   name: Détails
+    -   name: Risque
         fields:
             -   name: neutralisationPrevueIsolation
                 label: "Neutralisation isolation"
@@ -46,24 +54,15 @@ groups:
                 label: Neutralisation attraction
                 help: Neutralisation prévue attraction
                 type: string
-            -   name: type_poteau_erdf
-                label: "Poteau ERDF"
-                help: Type de poteau ERDF
-                type: string
-            -   name: type_poteau_erdf_secondaire
-                label: équipement secondaire
-                help: Type d'équipement ERDF secondaire
-                type: string
-            -   name: zone_sensible
-                id: id_zone_sensible
-                glyphicon: "glyphicon glyphicon-info-sign"
-                label: Zone sensible
-                help: Nom de la zone sensible
-                type: clickablestring
-                urlpart: "cables/zonessensibles/"
             -   name: attractivite
                 label: Attractivité
                 type: string
             -   name: dangerosite
                 label: Dangerosité
                 type: string
+            -   name: risquePoteau
+                label: Risque du poteau
+                type: string
+            -   name: dejaNeutralise
+                label: Poteau déjà neutralisé
+                type: bool

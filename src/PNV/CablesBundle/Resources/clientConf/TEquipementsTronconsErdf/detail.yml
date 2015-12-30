@@ -4,10 +4,15 @@ deleteAccess: 5
 groups:
     -   name: Informations
         fields:
+            -   name: idInventaireTronconErdf
+                label: Tronçon ERDF
+                help: Tronçon ERDF concerné
+                type: clickableinteger
+                urlpart: "cables/tronconserdf/"
             -   name: dateEquipementTroncon
-                label: "Date "
+                label: "Date d'équipement"
                 type: date
             -   name: type_equipement_troncon
-                label: Type d'équipement tronçon
-                help: Type d'équipement tronçon
+                label: Type d'équipement
+                help: Type d'équipement du tronçon
                 type: string

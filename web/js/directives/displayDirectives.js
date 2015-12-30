@@ -77,7 +77,7 @@ app.directive('usermsg', function(userMessages, $timeout){
 
 /**
  * fonction qui renvoie le label associé à un identifiant
- * paramètres : 
+ * paramètres :
  *  xhrurl ->url du  service web
  *  inputid -> identifiant de l'élément
  */
@@ -127,7 +127,7 @@ app.directive('detailDisplay', function(){
             promise.then(function(result) {
                 $loading.finish('spinner-detail');
             });
-            
+
             $scope.openConfirm = function(txt){
                 var modInstance = $modal.open({
                     templateUrl: 'js/templates/modalConfirmation.htm',
@@ -194,7 +194,7 @@ app.directive('detailDisplay', function(){
 
             $scope.setSubSchema = function(resp){
                 $scope.subSchema = angular.copy(resp);
-                // récupération des données liées au sous-schéma 
+                // récupération des données liées au sous-schéma
                 dataServ.get($scope.schema.subDataUrl + $scope.dataId, $scope.setSubData);
             }
             $scope.setSubData = function(resp){
@@ -205,7 +205,7 @@ app.directive('detailDisplay', function(){
                 $scope.subSchemaPhotos = angular.copy(resp);
                 // récupération des données liées au sous-schéma photos
                 dataServ.get($scope.schema.subDataPhotosUrl + $scope.dataId, $scope.setSubDataPhotos);
-            }            
+            }
             $scope.setSubDataPhotos = function(resp){
                 $scope.subDataPhotos = angular.copy(resp);
                 dfd.resolve('loading data');
@@ -214,7 +214,7 @@ app.directive('detailDisplay', function(){
                 $scope.subSchemaPoteaux = angular.copy(resp);
                 // récupération des données liées au sous-schéma photos
                 dataServ.get($scope.schema.subDataPoteauxUrl + $scope.dataId, $scope.setSubDataPoteaux);
-            }            
+            }
             $scope.setSubDataPoteaux = function(resp){
                 $scope.subDataPoteaux = angular.copy(resp);
                 dfd.resolve('loading data');
@@ -223,12 +223,12 @@ app.directive('detailDisplay', function(){
                 $scope.subSchemaTroncons = angular.copy(resp);
                 // récupération des données liées au sous-schéma photos
                 dataServ.get($scope.schema.subDataTronconsUrl + $scope.dataId, $scope.setSubDataTroncons);
-            }            
+            }
             $scope.setSubDataTroncons = function(resp){
                 $scope.subDataTroncons = angular.copy(resp);
                 dfd.resolve('loading data');
             }
-            // 
+            //
             $scope.$on('subEdit:dataAdded', function(evt, data){
                 $scope.subEditing = false;
                 dataServ.forceReload = true;
@@ -275,6 +275,7 @@ app.directive('fieldDisplay', function(){
         scope: {
             field: '=',
             data: '=',
+            dataid: '='
         },
         templateUrl: 'js/templates/display/field.htm',
         controller: function(){}
@@ -319,7 +320,7 @@ app.directive('breadcrumbs', function(){
                     url = params[0] + '/config/breadcrumb?view=' + params[1]
                 }
                 else{
-                    url = params[0] + '/config/breadcrumb?view=' + params[1]+ '&id=' + params[2];           
+                    url = params[0] + '/config/breadcrumb?view=' + params[1]+ '&id=' + params[2];
                 }
             }
             else if(params.length == 2){
@@ -349,7 +350,7 @@ app.directive('tablewrapper', function(){
             filterIds = [];
             extFilter = false;
             var orderedData;
-            
+
             $scope.filterZero = function(x){
                 if(x.id == 0){
                     x.id = '';
@@ -364,22 +365,22 @@ app.directive('tablewrapper', function(){
                     var image = $(event.relatedTarget) // récuperation de l'évenement sur la photo
                     var id = image.data('test') // Extraction des données : ID de la photo
                     var cheminPhoto = image.data('chemin') //                    : chemin de la photo
-                
-                    var title = 'Aperçu de la photo #' + id // Titre du modal avec l'ID
-                    var modal = $(this) 
-                    modal.find('.modal-title').text(title)                                  
 
-                    var img = $('<img />', {            // Création de la photo d'aperçu 
+                    var title = 'Aperçu de la photo #' + id // Titre du modal avec l'ID
+                    var modal = $(this)
+                    modal.find('.modal-title').text(title)
+
+                    var img = $('<img />', {            // Création de la photo d'aperçu
                         id: id,
-                        src: cheminPhoto,                     
-                        width: 595,                    
-                        height: 500,                    
+                        src: cheminPhoto,
+                        width: 595,
+                        height: 500,
                     });
-                    $('#photo').html(img);             // Initialisation de la photo dans la div #photo du #modalPhoto                
+                    $('#photo').html(img);             // Initialisation de la photo dans la div #photo du #modalPhoto
                 })
             });
 
-            
+
             var filterFuncs = {
                 starting: function(key, filterTxt){
                     if(filterTxt == ''){
@@ -402,11 +403,11 @@ app.directive('tablewrapper', function(){
                     }
                     return function(filtered){
                         //Abscence de filtre quand uniquement = > ou <
-                        if (filterTxt.length <2 ) return true; 
-                        
-                        var nbr = parseFloat(filterTxt.slice(1, filterTxt.length)); 
+                        if (filterTxt.length <2 ) return true;
+
+                        var nbr = parseFloat(filterTxt.slice(1, filterTxt.length));
                         if (isNaN(nbr)) return false;
-                        
+
                         if (filterTxt.indexOf('>') === 0){
                             return filtered[key] > nbr;
                         }
@@ -500,17 +501,17 @@ app.directive('tablewrapper', function(){
 
                     var curPg = params.page() || 1;
                     $defer.resolve(orderedData.slice((curPg - 1) * params.count(), curPg * params.count()));
-                } 
+                }
             });
-            
 
 
-            // récupération des filtres utilisés sur le tableau 
+
+            // récupération des filtres utilisés sur le tableau
             configServ.get($scope.refName + ':ngTable:Filter', function(filter){
                 $scope.tableParams.filter(filter);
             });
 
-            // récupération du tri utilisé sur le tableau 
+            // récupération du tri utilisé sur le tableau
             configServ.get($scope.refName + ':ngTable:Sorting', function(sorting){
                 $scope.tableParams.sorting(sorting);
             });
@@ -555,16 +556,16 @@ app.directive('tablewrapper', function(){
                 }
                 item.$selected = true;
                 $scope.currentItem = item;
-                var idx = null; 
+                var idx = null;
                 for (var key in orderedData){
                     if (orderedData[key].id === item.id){
-                        idx = orderedData.indexOf(orderedData[key]); 
+                        idx = orderedData.indexOf(orderedData[key]);
                     }
                 }
-                var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count()); 
+                var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
                 $scope.tableParams.page(pgnum);
                 if(broadcast){
-                    $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item, cat);                    
+                    $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item, cat);
                 }
             };
 
@@ -578,7 +579,7 @@ app.directive('tablewrapper', function(){
                     });
                     $scope.tableParams.reload();
                 }
-            });      
+            });
 
             /*
              * Listeners
@@ -603,8 +604,8 @@ app.directive('modalPhoto', function () {
             angular.element(e.currentTarget).siblings('.thumb-image').trigger('click');
             var img = angular.element(e.currentTarget.ddf)
             console.log(img)
-            return angular.element(e.currentTarget); 
-            
+            return angular.element(e.currentTarget);
+
         });
       }
     };

@@ -8,31 +8,31 @@ subDataPhotosUrl: cables/tronconserdf/photostronconserdf/ # récupération des d
 groups:
     -   name: Informations
         fields:
+            -   name: zone_sensible
+                id: id_zone_sensible
+                label: Zone sensible
+                help: Nom de la zone sensible
+                type: clickablestring
+                urlpart: "cables/zonessensibles/"
             -   name: dateInventaire
-                label: "Date inventaire"
+                label: "Date d'inventaire"
                 type: date
-            -   name: remarques
-                label: "Remarques" 
-                type: string 
-            -   name: risqueTroncon
-                label: Risque tronçon
-                type: string
-            -   name: dejaNeutralise
-                label: Déjà neutralisé
-                type: bool
             -   name: commune
                 label: Commune
                 type: string
             -   name: nbPhotos
-                label: Nb photos
-                type: string 
+                label: Nombre de photos
+                type: string
             -   name: lgEquipee
-                label: Lg équipée
+                label: Longueur équipée
                 type: string
             -   name: longueur
-                label: Longueur
+                label: Longueur du tronçon
                 type: string
-    -   name: Détails
+            -   name: remarques
+                label: "Remarques"
+                type: string
+    -   name: Risque
         fields:
             -   name: risque_integration_bati
                 label: "Risque integration bâti"
@@ -43,23 +43,20 @@ groups:
                 help: Risque déplacement
                 type: string
             -   name: risque_integration_topo
-                label: Risque intégration topo 
-                help: Risque intégration topo 
+                label: Risque intégration topo
+                help: Risque intégration topo
                 type: string
             -   name: risque_integration_vegetation
                 label: Risque intégration végetation
                 help: Risque intégration végetation
                 type: string
-    -   name: Plus
-        fields:
-            -   name: zone_sensible
-                label: "Zone sensible"
-                help: Nom de la zone sensible
+            -   name: risqueTroncon
+                label: Risque tronçon
                 type: string
+            -   name: dejaNeutralise
+                label: Tronçon déjà neutralisé
+                type: bool
             -   name: equipements_troncons_erdf_inventaire
                 label: Equipements inventaire
-                help: Type d'équipement troncons ERDF
+                help: Type d'équipement
                 type: string
-            -   name: photos_troncons
-                label: Photos
-                type: string # à définir 

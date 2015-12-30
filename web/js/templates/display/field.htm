@@ -1,4 +1,6 @@
 <div ng-if="field.type=='string'">{{data}}</div>
+<div ng-if="field.type=='clickablestring'">{{data}}  <a ng-href= #/{{field.urlpart}}{{dataid}}><span class="glyphicon glyphicon-info-sign" tooltip="Voir le détail"></span></a></div>
+<div ng-if="field.type=='clickableinteger'">{{data}}  <a ng-href= #/{{field.urlpart}}{{data}}><span class="glyphicon glyphicon-info-sign" tooltip="Voir le détail"></span></a></div>
 <div ng-if="field.type=='num'">{{data}}</div>
 <div ng-if="field.type=='date'">{{data|datefr}}</div>
 <div ng-if="field.type=='select'">{{field.options.choices|tselect:data}}</div>

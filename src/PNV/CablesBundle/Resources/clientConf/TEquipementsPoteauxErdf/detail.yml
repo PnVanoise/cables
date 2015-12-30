@@ -4,12 +4,14 @@ deleteAccess: 5
 groups:
     -   name: Informations
         fields:
+            -   name: idInventairePoteauErdf
+                label: Poteau ERDF
+                help: Poteau ERDF concerné
+                type: clickableinteger
+                urlpart: "cables/poteauxerdf/"
             -   name: type_equipement_poteau
-                label: Type équipement poteau
-                help: Type équipement poteau
-                type: string
-            -   name: misEnPlace
-                label: Mise en place
+                label: Type d'équipement
+                help: Type d'équipement du poteau
                 type: string
             -   name: dateEquipement
                 label: Date d'équipement

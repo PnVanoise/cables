@@ -4,12 +4,17 @@ deleteAccess: 5
 groups:
     -   name: Informations
         fields:
+            -   name: idInventairePoteauErdf
+                label: Poteau ERDF
+                help: Poteau ERDF concerné
+                type: clickableinteger
+                urlpart: "cables/poteauxerdf/"
             -   name: commentaire
                 label: Commentaire
                 type: string
             -   name: neutralise
                 label: Neutralisé
-                type: string 
+                type: string
             -   name: auteur
                 label: Auteur
                 type: string

@@ -327,7 +327,7 @@ app.directive('simpleform', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/simpleForm.htm',
-        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, $modal, $location, $timeout, FileUploader){
+        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, $modal, $location, $timeout, FileUploader, mapService){
             var dirty = true;
             $scope.errors = {};
             $scope.currentPage = 0;
@@ -428,6 +428,7 @@ app.directive('simpleform', function(){
             // action sur bouton sauver
             $scope.saveConfirmed = function(){
                 $loading.start('spinner-send');
+                var category;
                 var dfd = $q.defer();
                 var promise = dfd.promise;
                 promise.then(function(result) {
@@ -439,6 +440,9 @@ app.directive('simpleform', function(){
                 }
                 else{
                     dataServ.put($scope.saveUrl, $scope.data, $scope.created(dfd), $scope.error(dfd));
+                    category = $scope.saveUrl.split("/")[1];
+                    mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(category, 'force');
                 }
             };
 

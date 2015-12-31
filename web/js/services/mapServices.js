@@ -239,9 +239,9 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             }, 0);
         } else {
             this.tabThemaData[category].loaded = true;
-            if (force) {
+            if (force !== undefined) {
                 // suppression de toutes les layers dans un featureGroup donné
-                this.clear();
+                this.clear(category);
             }
             dataServ.get("cables/" + category,
                 angular.bind(this, function(resp) {
@@ -388,10 +388,10 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          * Parameters :
          * - layer : Couche métier
          */
-        showLayer: function(layer) {
+        showLayer: function(layer, force) {
             var deferred = $q.defer();
 
-            var promise = loadCategoryData.call(this, layer);
+            var promise = loadCategoryData.call(this, layer, force);
             promise.then(
                 angular.bind(this, function() {
                     map.addLayer(this.tabThemaData[layer]);

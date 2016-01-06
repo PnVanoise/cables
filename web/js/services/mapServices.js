@@ -659,7 +659,10 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          * Parameters :
          */
         clearEditLayer: function() {
-            map.removeLayer(editLayer);
+            if(editLayer)
+            {
+                map.removeLayer(editLayer);
+            }
         },
 
         /*

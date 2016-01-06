@@ -33,9 +33,7 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
     $scope.updateUrl = '#/' + $scope._appName + '/edit/mortalites/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.showLayer('mortalites').then(function() {
-            mapService.selectItem($routeParams.id, 'mortalites');
-        });
+        mapService.selectItem(parseInt($routeParams.id), 'mortalites');
         $scope.title = data.espece;
     });
 
@@ -61,8 +59,6 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
  * controleur pour l'édition et suppression d'un cas
  */
 app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
-
-    // $scope.themadata = "mortalites";
     $scope._appName = $routeParams.appName;
     $scope.configUrl = $scope._appName + '/config/mortalites/form';
 
@@ -95,13 +91,11 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
     });
 
     $scope.$on('form:update', function(ev, data){
-
         userMessages.successMessage = 'le cas de ' + data.espece + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/mortalites/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-
         userMessages.successMessage = 'le cas ' + data.espece + ' a été supprimé.'
         dataServ.forceReload = true;
         $location.url($scope._appName );

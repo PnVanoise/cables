@@ -33,9 +33,7 @@ app.controller('poteauxErdfDetailCtrl', function($scope, $rootScope, $routeParam
     $scope.updateUrl = '#/' + $scope._appName + '/edit/poteauxerdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.showLayer('poteauxerdf').then(function() {
-            mapService.selectItem($routeParams.id, 'poteauxerdf');
-        });
+        mapService.selectItem(parseInt($routeParams.id), 'poteauxerdf');
         $scope.title = 'Poteau de type ' + data.type_poteau_erdf;
     });
 

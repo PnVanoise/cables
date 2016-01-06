@@ -654,12 +654,21 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             this.tabThemaData[category].clearLayers();
         },
 
+        /*
+         * Suppression de la couche temporaire d'édition des objets des différentes catégories métier
+         * Parameters :
+         */
         clearEditLayer: function() {
             map.removeLayer(editLayer);
         },
 
-        setEditLayer: function(pEditLayer) {
-            editLayer = pEditLayer;
+        /*
+         * Récupération de la catégorie de la couche temporaire d'édition en cours
+         * Parameters :
+         * - EditLayerCat : nom de la catégorie métier en cours d'édition
+         */
+        setEditLayer: function(EditLayerCat) {
+            editLayer = EditLayerCat;
         },
 
         /*

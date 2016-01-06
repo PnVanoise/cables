@@ -78,98 +78,6 @@ app.directive('dynform', function(){
     };
 });
 
-// app.directive('tableFieldset', function(){
-//     return {
-//         restrict: 'E',
-//         scope: {
-//             group: '=',
-//             data: '=',
-//             errors: '=',
-//         },
-//         templateUrl: 'js/templates/form/tableFieldset.htm',
-//         controller: function($scope){},
-//     };
-// });
-
-/**
- * génération d'un champ formulaire de type multivalué
- * params:
- *  refer: la valeur source/cible du champ (une liste)
- *  schema: le schema descripteur du champ (cf. doc schemas)
- */
-// app.directive('multi', function(userMessages, $timeout){
-//     return {
-//         restrict: 'E',
-//         scope: {
-//             refer: '=',
-//             schema: '=',
-//         },
-//         templateUrl: 'js/templates/form/multi.htm',
-//         link: function($scope, elem){
-//             $scope.addDisabled = true;
-//             if(!$scope.refer){
-//                 $scope.refer = [];
-//             }
-//             $scope.data = $scope.refer;
-//             $scope.$watch(function(){return $scope.refer;}, function(newval, oldval){
-//                 if(newval){
-//                     $scope.data = $scope.refer;
-//                     if(newval.length == 0){
-//                         $scope.add(null);
-//                         $scope.addDisabled = true;
-//                     }
-//                     else{
-//                         $scope.addDisabled = false;
-//                     }
-//                 }
-//             });
-//             $scope.add = function(item){
-//                 $scope.data.push(item || null);
-//                 $scope.$watch(
-//                     function(){
-//                         return $scope.data[$scope.data.length-1]
-//                     },
-//                     function(newval){
-//                         if(newval){
-//                             // protection doublons
-//                             if($scope.data.indexOf(newval)<$scope.data.length-1){
-//                                 userMessages.errorMessage = "Il y a un doublon dans votre saisie !";
-//                                 $scope.data.pop();
-//                             }
-//                             $scope.addDisabled = false;
-//                         }
-//                         else{
-//                             $scope.addDisabled = true;
-//                         }
-//                     }
-//                 );
-//                 $timeout(function(){
-//                     // passage du focus à la ligne créée
-//                     var name = $scope.schema.name+($scope.data.length-1);
-//                     try{
-//                         //cas angucomplete
-//                         document.getElementById(name).children[0].children[1].focus();
-//                     }
-//                     catch(e){
-//                         document.getElementById(name).focus();
-//                     }
-//                 }, 0);
-//             };
-//             $scope.remove = function(idx){
-//                 $scope.data.splice(idx, 1);
-//             };
-//             if($scope.refer && $scope.refer.length==0){
-//                 $scope.add(null);
-//             }
-//             else{
-//             //if($scope.data && $scope.data.length>0){
-//                 $scope.addDisabled = false;
-//             }
-//         }
-//     }
-// });
-
-
 /* photoupload ***
  * Directive qui permet d'avoir un champ de formulaire de type input  photo et qui l'envoie au serveur
  * params:
@@ -264,48 +172,6 @@ app.directive('photoThumb', ['$window', function($window) {
         }
     };
 }]);
-
-
-/**
- * Directive qui permet d'avoir un champ de formulaire de type valeur calculée modifiable
- * params:
- *  data: la source de données du champ (une liste de références aux champs servant au calcul)
- *  refs: une liste du nom des champs à surveiller
- *  model: la source/cible du champ (eq. ng-model)
- *  modifiable: bool -> indique si le champ est modifiable ou en lecture seule
- */
-// app.directive('calculated', function(){
-//     return {
-//         restrict: 'E',
-//         scope: {
-//             id: "@",
-//             ngclass: "@",
-//             ngBlur: "=",
-//             min: '=',
-//             max: '=',
-//             data: '=',
-//             refs: '=',
-//             model: '=',
-//             modifiable: '=',
-//         },
-//         template: '<input id="{{id}}" ng-blur="ngBlur" class="{{ngclass}}" type="number" min="{{min}}" max="{{max}}" ng-model="model" ng-disabled="!modifiable"/>',
-//         controller: function($scope){
-//             angular.forEach($scope.refs, function(elem){
-//                 $scope.$watch(function(){
-//                     return $scope.data[elem];
-//                 }, function(newval, oldval){
-//                     //$scope.model += newval-oldval;
-//                     //if($scope.model<0) $scope.model=0;
-//                     $scope.model = 0;
-//                     angular.forEach($scope.refs, function(elem){
-//                         $scope.model += $scope.data[elem];
-//                     }, $scope);
-//                 });
-//             }, $scope);
-//         }
-//     }
-// });
-
 
 /*
  * directive pour l'affichage simple d'un formulaire
@@ -440,7 +306,6 @@ app.directive('simpleform', function(){
                 });
 
                 if($scope.dataUrl){
-                    console.log("$scope.data : "+$scope.data);
                     window.data = $scope.data;
                     dataServ.post($scope.saveUrl, $scope.data, $scope.updated(dfd), $scope.error(dfd));
                     category = $scope.saveUrl.split("/")[1];
@@ -616,7 +481,6 @@ app.directive('geometry', function($timeout){
                 if(layer){
                     setEditLayer(layer);
                 }
-                
                 map.addLayer($scope.editLayer);
             });
 
@@ -703,7 +567,6 @@ app.directive('geometry', function($timeout){
             });
             // déclenchement sur clic sur btn Enregistrer édition sur carte
             map.on('draw:edited', function(e){
-                current = null;
                  if(!current){
                     current = e.layer;
                     guideLayers.push(current); // options d'accrochage des couches en mode édit

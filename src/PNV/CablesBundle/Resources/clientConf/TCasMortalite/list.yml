@@ -9,7 +9,7 @@ fields:
     -   name: id
         label: ID
         filter: 
-            id_cas_mortalite: text
+            id: text
         options: 
             visible: false
     -   name: espece

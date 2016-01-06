@@ -560,6 +560,7 @@ app.directive('geometry', function($timeout){
             map.on('draw:created', function(e){
                 if(!current){
                     $scope.editLayer.addLayer(e.layer);
+                    mapService.setEditLayer($scope.editLayer);
                     current = e.layer;
                     guideLayers.push(current); // options d'accrochage des couches en mode create
                     $rootScope.$apply($scope.updateCoords(current));

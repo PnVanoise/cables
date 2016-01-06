@@ -54,6 +54,8 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
 
     var currentBaseLayer = null;
 
+    var editLayer;
+
     var self;
 
     /*
@@ -390,7 +392,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          */
         showLayer: function(layer, force) {
             var deferred = $q.defer();
-
             var promise = loadCategoryData.call(this, layer, force);
             promise.then(
                 angular.bind(this, function() {
@@ -651,6 +652,14 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          */
         clear: function(category) {
             this.tabThemaData[category].clearLayers();
+        },
+
+        clearEditLayer: function() {
+            map.removeLayer(editLayer);
+        },
+
+        setEditLayer: function(pEditLayer) {
+            editLayer = pEditLayer;
         },
 
         /*

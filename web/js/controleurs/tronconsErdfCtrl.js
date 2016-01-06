@@ -33,9 +33,7 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
     $scope.updateUrl = '#/' + $scope._appName + '/edit/tronconserdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.showLayer('tronconserdf').then(function() {
-            mapService.selectItem($routeParams.id, 'tronconserdf');
-        });
+        mapService.selectItem(parseInt($routeParams.id), 'tronconserdf');
         $scope.title = 'Tronçon ' + data.id;
     });
 

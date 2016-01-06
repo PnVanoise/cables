@@ -211,7 +211,6 @@ app.directive('photoupload', function(){
             };
             uploader.onCompleteItem = function(fileItem, response) {
                 $scope.chemin = 'img/photos/' + response.cheminPhoto; // si le chargement est bon, on remplit cheminPhoto avec la réponse
-                // console.log(response.cheminPhoto)
                 userMessages.successMessage = "Photo chargée avec succès.";
             };
         }
@@ -329,6 +328,7 @@ app.directive('simpleform', function(){
         templateUrl: 'js/templates/simpleForm.htm',
         controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, $modal, $location, $timeout, FileUploader, mapService){
             var dirty = true;
+
             $scope.errors = {};
             $scope.currentPage = 0;
             $scope.addSubSchema = false;
@@ -340,6 +340,7 @@ app.directive('simpleform', function(){
             configServ.get('debug', function(value){
                 $scope.debug = value;
             });
+
 
             /*
              * Spinner
@@ -427,6 +428,9 @@ app.directive('simpleform', function(){
 
             // action sur bouton sauver
             $scope.saveConfirmed = function(){
+                // Suppression de l'objet en édition
+                mapService.clearEditLayer();
+                
                 $loading.start('spinner-send');
                 var category;
                 var dfd = $q.defer();
@@ -436,13 +440,29 @@ app.directive('simpleform', function(){
                 });
 
                 if($scope.dataUrl){
+                    console.log("$scope.data : "+$scope.data);
+                    window.data = $scope.data;
                     dataServ.post($scope.saveUrl, $scope.data, $scope.updated(dfd), $scope.error(dfd));
+                    category = $scope.saveUrl.split("/")[1];
+                    mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(category, 'force');
+                    if (category === 'poteauxerdf' || 'tronconserdf')
+                    {
+                        mapService.tabThemaData['zonessensibles'].loaded = false;
+                        mapService.showLayer('zonessensibles', 'force');
+                    };
+                    
                 }
                 else{
                     dataServ.put($scope.saveUrl, $scope.data, $scope.created(dfd), $scope.error(dfd));
                     category = $scope.saveUrl.split("/")[1];
                     mapService.tabThemaData[category].loaded = false;
                     mapService.showLayer(category, 'force');
+                    if (category === 'poteauxerdf' || 'tronconserdf')
+                    {
+                        mapService.tabThemaData['zonessensibles'].loaded = false;
+                        mapService.showLayer('zonessensibles', 'force');
+                    };
                 }
             };
 
@@ -521,9 +541,6 @@ app.directive('simpleform', function(){
                 };
             };
 
-
-
-
             var locationBlock = $scope.$on('$locationChangeStart', function(ev, newUrl){
                 if(!dirty){
                     locationBlock();
@@ -561,7 +578,7 @@ app.directive('geometry', function($timeout){
         scope: {
             geom: '=',
             options: '=',
-            origin: '='
+            origin: '=',
         },
         templateUrl:  'js/templates/form/geometry.htm',
         controller: function($scope, $rootScope, $timeout, mapService, storeFlag){
@@ -574,6 +591,8 @@ app.directive('geometry', function($timeout){
                 mapService.getLayer($scope.options.dataUrl.split("/")[1]).removeLayer(layer);
                 $scope.updateCoords(layer);
                 $scope.editLayer.addLayer(layer);
+                // Récupération du feature de la couche en édition pour le supprimer une fois enregistrer
+                mapService.setEditLayer($scope.editLayer);
                 current = layer;
             };
 
@@ -589,13 +608,15 @@ app.directive('geometry', function($timeout){
             var cat = $scope.options.dataUrl.split("/")[1];
             // NF 2 : la ligne ci-dessous permet d'avoir la couche en édition présente dans la légende
             // afin de jouer avec la visibilité
-            // mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
-            mapService.showLayer(cat).then(function(){
+            //mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
+            mapService.tabThemaData[cat].loaded = false;
+            mapService.showLayer(cat, 'forceedit').then(function(){
                 // $scope.origin est un string, parsé pour être utilisé dans selectItem
                 var layer = mapService.selectItem(parseInt($scope.origin), cat);
                 if(layer){
                     setEditLayer(layer);
                 }
+                
                 map.addLayer($scope.editLayer);
             });
 
@@ -632,7 +653,6 @@ app.directive('geometry', function($timeout){
 
             // on passe les couches au controle de l'édition
             var guideLayers = couches;
-            // console.log(couches) // couches OK
             var controls = new L.Control.Draw({
                 edit: {
                     featureGroup: $scope.editLayer},
@@ -681,13 +701,16 @@ app.directive('geometry', function($timeout){
                     $rootScope.$apply($scope.updateCoords(current));
                 }
             });
+            // déclenchement sur clic sur btn Enregistrer édition sur carte
             map.on('draw:edited', function(e){
+                current = null;
                  if(!current){
                     current = e.layer;
                     guideLayers.push(current); // options d'accrochage des couches en mode édit
-                    $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
                 }
+                $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
             });
+
             map.on('draw:deleted', function(e){
                 current = null;
                 $rootScope.$apply($scope.updateCoords(current));
@@ -714,6 +737,7 @@ app.directive('geometry', function($timeout){
                 }
             };
 
+            // Sorti du contexte d'édition les controls pour le dessin et le bloc affichant les coordonnées sont supprimés de la carte
             $scope.$on('$destroy', function() {
                 map.removeControl(controls);
                 map.removeControl(coordsDisplay);

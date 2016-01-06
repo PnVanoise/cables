@@ -79,7 +79,7 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
         function() {
             return mapService.tabThemaData[category.id].getLayers();
         },
-        // ce qiu est déclenché quand ce qui est écouté change
+        // ce qui est déclenché quand ce qui est écouté change
         // newVal = mapService.tabThemaData.[category.id].getLayers() nouvellement modifié
         function(newVal) {
             var data = [];

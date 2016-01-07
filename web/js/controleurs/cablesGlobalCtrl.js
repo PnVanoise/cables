@@ -91,29 +91,3 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
         }
     );
 });
-
-
-
-// Gestion des onglets dans la bloc tableau de données attributaires
-app.controller('TabsManagerCtrl', function($rootScope, $scope, $location, storeFlag, mapService, $q) {
-
-    $scope.displayLayer = function(pTabClickedValue) {
-
-        // NF1 : voir layerToggle dans mapServices.js
-        // var idCheckTab = pTabClickedValue+"_tab";
-
-        if (storeFlag.getFlagLayer(pTabClickedValue) == "noLoaded"){
-            // alert("dans noloaded");
-            storeFlag.setFlagLayer(pTabClickedValue, "cacheChecked");
-            // NF1
-            // document.getElementById(idCheckTab).checked = true;
-        }
-        else if (storeFlag.getFlagLayer(pTabClickedValue) === "cacheUnchecked"){
-            // alert("dans noloaded");
-            mapService.setTabThemaData(pTabClickedValue);
-            storeFlag.setFlagLayer(pTabClickedValue, "cacheChecked");
-            // NF1
-            // document.getElementById(idCheckTab).checked = true;
-        }
-    };
-});

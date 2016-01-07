@@ -175,17 +175,14 @@ app.directive('detailDisplay', function(){
                 //récupération du sous-schema des photos
                 if($scope.schema.subSchemaPhotosUrl){
                     configServ.getUrl($scope.schema.subSchemaPhotosUrl, $scope.setSubSchemaPhotos);
-                    // console.log($scope.schema.subSchemaPhotosUrl)
                 }
                 //récupération du sous-schema poteaux erdf
                 if($scope.schema.subSchemaPoteauxUrl){
                     configServ.getUrl($scope.schema.subSchemaPoteauxUrl, $scope.setSubSchemaPoteaux);
-                    // console.log($scope.schema.subSchemaPoteauxUrl)
                 }
                 //récupération du sous-schema troncons erdf
                 if($scope.schema.subSchemaTronconsUrl){
                     configServ.getUrl($scope.schema.subSchemaTronconsUrl, $scope.setSubSchemaTroncons);
-                    // console.log($scope.schema.subSchemaTronconsUrl)
                 }
                 else {
                   dfd.resolve('loading data');
@@ -493,6 +490,7 @@ app.directive('tablewrapper', function(){
                             $scope.data;
                     configServ.put($scope.refName + ':ngTable:Filter', params.filter());
                     configServ.put($scope.refName + ':ngTable:Sorting', params.sorting());
+                    configServ.put($scope.refName + ':ngTable:Page', params.page());
                     $rootScope.$broadcast($scope.refName + ':ngTable:Filtered', orderedData);
 
 
@@ -503,9 +501,7 @@ app.directive('tablewrapper', function(){
                     $defer.resolve(orderedData.slice((curPg - 1) * params.count(), curPg * params.count()));
                 }
             });
-
-
-
+            
             // récupération des filtres utilisés sur le tableau
             configServ.get($scope.refName + ':ngTable:Filter', function(filter){
                 $scope.tableParams.filter(filter);
@@ -516,33 +512,10 @@ app.directive('tablewrapper', function(){
                 $scope.tableParams.sorting(sorting);
             });
 
-
-            // $scope.checkItem = function(item){
-            //     $rootScope.$broadcast($scope.refName + ':ngTable:itemChecked', item);
-            // };
-
-            // // selection case à cocher
-            // $scope.checkAll = function(){
-            //     $scope._checkall = !$scope._checkall;
-
-            //     var page = $scope.tableParams.page();
-            //     var count = $scope.tableParams.count();
-            //     var to_check = orderedData.slice((page-1) * count, page * count);
-            //     to_check.forEach(function(item){
-            //         item._checked = $scope._checkall;
-            //         $scope.checkItem(item);
-            //     });
-            // }
-
-            // $scope.clearChecked = function(){
-            //     $scope.data.forEach(function(item){
-            //         $scope._checkall = false;
-            //         if(item._checked){
-            //             item._checked = false;
-            //         }
-            //     });
-            //     $rootScope.$broadcast($scope.refName + ':cleared');
-            // };
+            // récupération du tri utilisé sur le tableau
+            configServ.get($scope.refName + ':ngTable:Page', function(page){
+                $scope.tableParams.page(page);
+            });
 
             /*
              * Fonctions

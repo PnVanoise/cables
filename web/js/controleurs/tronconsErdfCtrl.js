@@ -48,7 +48,7 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
     $scope.$on('form:delete', function(ev, data){
 
         userMessages.successMessage = 'le tronçon' + data.id + ' a été supprimé.'
-        dataServ.forceReload = true;
+        // dataServ.forceReload = true;
         $location.url($scope._appName + '/tronconserdf/');
     });
 

@@ -6,7 +6,6 @@ var app = angular.module('cablesServices');
 app.service('dataServ', function($http, $filter, userMessages){
     //cache de données pour ne pas recharger systématiquement les données du serveur
     var cache = {};
-    // console.log("dans dataserv cache : "+JSON.stringify(cache));
 
     //flag ordonnant la recharge des données plutôt que l'utilisation du cache
     this.forceReload = false;
@@ -26,12 +25,10 @@ app.service('dataServ', function($http, $filter, userMessages){
      *         du cache
      */
     this.getCache = function(url){
-      // console.log(JSON.stringify(json));
         return cache[url];
     };
 
     this.getAllCache = function(){
-      // console.log(JSON.stringify(json));
         return cache;
     };
 
@@ -127,18 +124,11 @@ app.service('configServ', function(dataServ){
     this.getUrl = function(serv, success){
         // alert("dans configserv");
         if(cache[serv]){
-            // console.log(cache[serv]);
-            // console.log("configserv : dans cache");
-            // alert("dans configserv cache");
-            // console.log("configserv dans cache : "+JSON.stringify(cache[serv]));
             success(cache[serv]);
         }
         else{
             dataServ.get(serv, function(resp){
                 cache[serv] = resp;
-                // console.log(cache[serv]);
-                // alert("dans configserv symf");
-                // console.log("configserv dans dataserv : "+JSON.stringify(cache[serv]));
                 success(cache[serv]);
             });
         }

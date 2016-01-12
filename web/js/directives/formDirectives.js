@@ -452,7 +452,6 @@ app.directive('geometry', function($timeout){
             var couches = null;
 
             var setEditLayer = function(layer){
-                // mapService.getLayer($scope.options.dataUrl.split("/")[1]).removeLayer(layer);
                 $scope.updateCoords(layer);
                 $scope.editLayer.addLayer(layer);
                 // Récupération du feature de la couche en édition pour le supprimer une fois enregistrer

@@ -576,7 +576,6 @@ app.directive('modalPhoto', function () {
         element.bind('click', function(e) {
             angular.element(e.currentTarget).siblings('.thumb-image').trigger('click');
             var img = angular.element(e.currentTarget.ddf)
-            console.log(img)
             return angular.element(e.currentTarget);
 
         });

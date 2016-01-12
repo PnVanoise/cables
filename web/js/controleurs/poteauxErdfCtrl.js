@@ -48,7 +48,7 @@ app.controller('poteauxErdfDetailCtrl', function($scope, $rootScope, $routeParam
     $scope.$on('form:delete', function(ev, data){
 
         userMessages.successMessage = 'le poteau  ' + data.id + ' a été supprimé.'
-        dataServ.forceReload = true;
+        // dataServ.forceReload = true;
         $location.url($scope._appName + '/poteauxerdf/');
     });
 
@@ -97,7 +97,6 @@ app.controller('poteauxErdfEditCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.$on('form:delete', function(ev, data){
         userMessages.successMessage = 'le poteau ERDF ' + data.type_poteau_erdf + ' a été supprimé.'
-        dataServ.forceReload = true;
         $location.url($scope._appName + '/poteauxerdf/');
     });
 });

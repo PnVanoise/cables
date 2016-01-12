@@ -116,7 +116,7 @@ app.directive('detailDisplay', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/baseDetail.htm',
-        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q,  $modal, $location, $timeout){
+        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q,  $modal, $location, $timeout, mapService){
             $scope.subEditing = false;
             /*
              * Spinner
@@ -255,6 +255,14 @@ app.directive('detailDisplay', function(){
                 return function(resp){
                     dirty = false;
                     dfd.resolve('removed');
+                    var category = $scope.dataUrl.split('/')[1];
+                    mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(category, 'force');
+                    if (category === 'poteauxerdf' || 'tronconserdf')
+                    {
+                        mapService.tabThemaData['zonessensibles'].loaded = false;
+                        mapService.showLayer('zonessensibles', 'force');
+                    };
                     $rootScope.$broadcast('form:delete', $scope.data);
                 };
             };

@@ -188,7 +188,7 @@ app.directive('simpleform', function(){
             saveUrl: '=saveurl',
             schemaUrl: '=schemaurl',
             dataUrl: '=dataurl',
-            data: '='
+            data: '=',
         },
         transclude: true,
         templateUrl: 'js/templates/simpleForm.htm',
@@ -417,8 +417,7 @@ app.directive('simpleform', function(){
                     function(){
                         locationBlock();
                         $location.path(newUrl.slice(newUrl.indexOf('#')+1));
-                    }
-                    );
+                    });
             });
 
             $timeout(function(){
@@ -453,7 +452,7 @@ app.directive('geometry', function($timeout){
             var couches = null;
 
             var setEditLayer = function(layer){
-                mapService.getLayer($scope.options.dataUrl.split("/")[1]).removeLayer(layer);
+                // mapService.getLayer($scope.options.dataUrl.split("/")[1]).removeLayer(layer);
                 $scope.updateCoords(layer);
                 $scope.editLayer.addLayer(layer);
                 // Récupération du feature de la couche en édition pour le supprimer une fois enregistrer

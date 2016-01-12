@@ -91,15 +91,12 @@ app.controller('tronconsErdfEditCtrl', function($scope, $rootScope, $routeParams
     });
 
     $scope.$on('form:update', function(ev, data){
-
         userMessages.successMessage = 'le site de tronconserdf' + data.remarques + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/tronconserdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-
         userMessages.successMessage = 'le site de tronconserdf ' + data.remarques + ' a été supprimé.'
-        dataServ.forceReload = true;
         $location.url($scope._appName + '/tronconserdf/');
     });
 });

@@ -97,8 +97,7 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
 
     $scope.$on('form:delete', function(ev, data){
         userMessages.successMessage = 'le cas ' + data.espece + ' a été supprimé.'
-        dataServ.forceReload = true;
-        $location.url($scope._appName );
+        $location.url($scope._appName + '/mortalites/');
     });
 });
 

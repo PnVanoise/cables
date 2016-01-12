@@ -402,7 +402,16 @@ app.directive('simpleform', function(){
                 return function(resp){
                     dirty = false;
                     dfd.resolve('removed');
+                    var category = $scope.dataUrl.split('/')[1];
+                    mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(category, 'force');
+                    if (category === 'poteauxerdf' || 'tronconserdf')
+                    {
+                        mapService.tabThemaData['zonessensibles'].loaded = false;
+                        mapService.showLayer('zonessensibles', 'force');
+                    };
                     $rootScope.$broadcast('form:delete', $scope.data);
+
                 };
             };
 

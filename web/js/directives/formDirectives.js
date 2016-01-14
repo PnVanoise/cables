@@ -426,8 +426,12 @@ app.directive('simpleform', function(){
                     function(){
                         locationBlock();
                         $location.path(newUrl.slice(newUrl.indexOf('#')+1));
+                        mapService.clearEditLayer();
+                        var category = newUrl.slice(newUrl.indexOf('#')+1).split('/')[2];
+                        mapService.tabThemaData[category].loaded = false;
+                        mapService.showLayer(category, 'force');
                     });
-            });
+            });     
 
             $timeout(function(){
                 configServ.getUrl($scope.schemaUrl, $scope.setSchema);

@@ -1,21 +1,21 @@
 var app = angular.module('colorServices');
 
 /*
- * Service pour la gestion des couleurs et styles par défault des couches géométriques 
+ * Service pour la gestion des couleurs et styles par défault des couches géométriques
  */
-app.service('defaultColorService', function () {   
-    
-    // Styles des zones sensibles 
+app.service('defaultColorService', function () {
+
+    // Styles des zones sensibles
     this.zsStyle = function(){
         zsStyle = {
             weight: 3,
             opacity: 1,
             fillOpacity: 0.3
         }
-    return zsStyle;      
+    return zsStyle;
     }
 
-    //  zones sensibles : niveau  sensibilité 1 
+    //  zones sensibles : niveau  sensibilité 1
     this.zs1 = function(){
         zs1 = {
             color: "#FF9300",
@@ -24,7 +24,7 @@ app.service('defaultColorService', function () {
     return zs1;
     }
 
-    //  zones sensibles : niveau  sensibilité 2 
+    //  zones sensibles : niveau  sensibilité 2
     this.zs2 = function(){
         zs2 = {
             color: "#FF5900",
@@ -33,7 +33,7 @@ app.service('defaultColorService', function () {
     return zs2;
     }
 
-    //  zones sensibles : niveau  sensibilité 3 
+    //  zones sensibles : niveau  sensibilité 3
     this.zs3 = function(){
         zs3 = {
             color: "#FF0000",
@@ -42,7 +42,7 @@ app.service('defaultColorService', function () {
     return zs3;
     }
 
-    //Style pour les polygones ; nidifications 
+    //Style pour les polygones ; nidifications
     this.polyStyle = function(){
         polyStyle = {
             weight: 2,
@@ -50,7 +50,7 @@ app.service('defaultColorService', function () {
             fillOpacity: 0.5
         }
     return polyStyle;
-    }  
+    }
 
     // style pour les lignes
     this.lineStyle = function(){
@@ -63,9 +63,9 @@ app.service('defaultColorService', function () {
     // Tronçons à risque : élevé
     this.tronRisqueEleve = function(){
         tronRisqueEleve = angular.extend({
-            color:'#DE0101', 
+            color:'#DE0101',
             weight: 7
-        } 
+        }
         //, lineStyle()
         )
     return tronRisqueEleve;
@@ -74,7 +74,7 @@ app.service('defaultColorService', function () {
     // Tronçons à risque : secondaire
     this.tronRisqueSecondaire = function(){
         tronRisqueSecondaire = angular.extend({
-            color:'#ECA500', 
+            color:'#ECA500',
             weight: 7
         }//, lineStyle()
         )
@@ -84,7 +84,7 @@ app.service('defaultColorService', function () {
     // Tronçons à risque : pas de risque
     this.tronNonRisque = function(){
         tronNonRisque = angular.extend({
-            color:'#2B4EDC', 
+            color:'#2B4EDC',
             weight: 7
         }
         //, lineStyle()
@@ -98,7 +98,7 @@ app.service('defaultColorService', function () {
             icon: 'glyphicon-certificate',
             markerColor: 'cadetblue',
             iconColor: '#FFF'
-        });        
+        });
     return iconPerc;
     }
 
@@ -117,7 +117,7 @@ app.service('defaultColorService', function () {
     this.poRisqueEleve = function(){
         poRisqueEleve = L.icon({
             className : 'poRisqueEleve',
-            iconUrl: 'css/lib/images/marker-poteau.png', 
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return poRisqueEleve;
     }
@@ -126,16 +126,16 @@ app.service('defaultColorService', function () {
     this.poRisqueSecondaire = function(){
         poRisqueSecondaire = L.icon({
             className : 'poRisqueSecondaire',
-            iconUrl: 'css/lib/images/marker-poteau.png',  
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return poRisqueSecondaire;
     }
 
-    //Style pour les poteaux à non risque 
+    //Style pour les poteaux à non risque
     this.poNonRisque = function(){
         poNonRisque = L.icon({
             className : 'poNonRisque',
-            iconUrl: 'css/lib/images/marker-poteau.png', 
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return poNonRisque;
     }
@@ -144,7 +144,7 @@ app.service('defaultColorService', function () {
     this.eqPoteau = function(){
         eqPoteau = L.icon({
             className : 'eqPoteau',
-            iconUrl: 'css/lib/images/marker-poteau.png', 
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return eqPoteau;
     }
@@ -157,7 +157,7 @@ app.service('defaultColorService', function () {
             opacity:0.8
         };
     return eqTroncon;
-    } 
+    }
 
     // Appareils de coupure ERDF
     this.erdfac = function(){
@@ -345,58 +345,58 @@ app.service('defaultColorService', function () {
     }
 });
 
-/* 
- * Changement des couleurs et styles des couches géométriques  quand on clique dessus 
+/*
+ * Changement des couleurs et styles des couches géométriques  quand on clique dessus
  */
-app.service('changeColorService', function () {   
-    
-    // Styles des zones sensibles 
+app.service('changeColorService', function () {
+
+    // Styles des zones sensibles
     this.zsStyle = function(){
         zsStyle = {
             weight: 3,
             opacity: 1,
             fillOpacity: 0.3
         }
-    return zsStyle;      
+    return zsStyle;
     }
 
-    //  zones sensibles : niveau  sensibilité 1 
+    //  zones sensibles : niveau  sensibilité 1
     this.zs1 = function(){
         zs1 = {
             weight: 2,
-            color: "#45AB00",
+            color: "#F400DC",
             opacity: 0.5,
-            fillColor: "#45AB00",
+            fillColor: "#F400DC",
             fillOpacity: 0.5
         }
     return zs1;
     }
 
-    //  zones sensibles : niveau  sensibilité 2 
+    //  zones sensibles : niveau  sensibilité 2
     this.zs2 = function(){
         zs2 = {
            weight: 2,
-            color: "#45AB00",
+            color: "#F400DC",
             opacity: 0.5,
-            fillColor: "#45AB00",
+            fillColor: "#F400DC",
             fillOpacity: 0.5
         }
     return zs2;
     }
 
-    //  zones sensibles : niveau  sensibilité 3 
+    //  zones sensibles : niveau  sensibilité 3
     this.zs3 = function(){
         zs3 = {
             weight: 2,
-            color: "#45AB00",
+            color: "#F400DC",
             opacity: 0.5,
-            fillColor: "#45AB00",
+            fillColor: "#F400DC",
             fillOpacity: 0.5
         }
     return zs3;
     }
 
-    //Style pour les polygones ; nidifications 
+    //Style pour les polygones ; nidifications
     this.polyStyle = function(){
         polyStyle = {
             weight: 2,
@@ -404,7 +404,7 @@ app.service('changeColorService', function () {
             fillOpacity: 0.5
         }
     return polyStyle;
-    }  
+    }
 
     // style pour les lignes
     this.lineStyle = function(){
@@ -417,7 +417,7 @@ app.service('changeColorService', function () {
     // Tronçons à risque : élevé
     this.tronRisqueEleve = function(){
         tronRisqueEleve = angular.extend({
-            color:'#F400DC', 
+            color:'#F400DC',
             weight: 7
         })
     return tronRisqueEleve;
@@ -426,7 +426,7 @@ app.service('changeColorService', function () {
     // Tronçons à risque : secondaire
     this.tronRisqueSecondaire = function(){
         tronRisqueSecondaire = angular.extend({
-            color:'#F400DC', 
+            color:'#F400DC',
             weight: 7
         })
     return tronRisqueSecondaire;
@@ -435,7 +435,7 @@ app.service('changeColorService', function () {
     // Tronçons à risque : pas de risque
     this.tronNonRisque = function(){
         tronNonRisque = angular.extend({
-            color:'#F400DC', 
+            color:'#F400DC',
             weight: 7
         })
     return tronNonRisque;
@@ -445,9 +445,9 @@ app.service('changeColorService', function () {
     this.iconPerc = function(){
         iconPerc = L.AwesomeMarkers.icon({
             icon: 'glyphicon-certificate',
-            markerColor: 'red',
+            markerColor: 'pink',
             iconColor: '#FFF'
-        });        
+        });
     return iconPerc;
     }
 
@@ -456,7 +456,7 @@ app.service('changeColorService', function () {
         iconElec = L.AwesomeMarkers.icon({
             prefix: 'fa',
             icon: 'bolt',
-            markerColor: 'red',
+            markerColor: 'pink',
             iconColor: '#FFF'
         });
     return iconElec;
@@ -475,16 +475,16 @@ app.service('changeColorService', function () {
     this.poRisqueSecondaire = function(){
         poRisqueSecondaire = L.icon({
             className : 'poRisqueClick',
-            iconUrl: 'css/lib/images/marker-poteau.png', 
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return poRisqueSecondaire;
     }
 
-    //Style pour les poteaux à non risque 
+    //Style pour les poteaux à non risque
     this.poNonRisque = function(){
         poNonRisque = L.icon({
             className : 'poRisqueClick',
-            iconUrl: 'css/lib/images/marker-poteau.png', 
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return poNonRisque;
     }
@@ -493,7 +493,7 @@ app.service('changeColorService', function () {
     this.eqPoteau = function(){
         eqPoteau = L.icon({
             className : 'eqPoteauClick',
-            iconUrl: 'css/lib/images/marker-poteau.png', 
+            iconUrl: 'css/lib/images/marker-poteau.png',
         });
     return eqPoteau;
     }
@@ -501,10 +501,10 @@ app.service('changeColorService', function () {
     //Style pour les équipements tronçons
     this.eqTroncon = function(){
         eqTroncon = {
-            color:'#F70101',
+            color:'#F400DC',
             width:1,
             opacity:0.8
         };
     return eqTroncon;
-    } 
+    }
 });

@@ -371,7 +371,7 @@ table.tablewrapper>tbody>tr.odd>td {
 }
 
 table.tablewrapper>tbody>tr.active>td{
-    background-color: rgb(117, 227, 118);
+    background-color: rgb(255, 112, 255);
 }
 
 .glyphicon-pencil:before {

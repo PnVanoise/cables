@@ -456,7 +456,7 @@ app.directive('tablewrapper', function(){
                 page: 1,
                 count: 10,
                 filter: {},
-                sorting: {}
+                sorting: {id: 'asc'}
             },
             {
                 counts: [10, 25, 50, 100, 1000],

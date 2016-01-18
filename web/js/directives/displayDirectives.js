@@ -349,7 +349,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -537,6 +537,7 @@ app.directive('tablewrapper', function(){
                 }
                 item.$selected = true;
                 $scope.currentItem = item;
+                configServ.put($scope.refName + ':itemId:selected', item.id);
                 var idx = null;
                 for (var key in orderedData){
                     if (orderedData[key].id === item.id){
@@ -550,11 +551,28 @@ app.directive('tablewrapper', function(){
                 }
             };
 
+
+
             $scope.$watch('data', function(newval){
+                configServ.get($scope.refName + ':itemId:selected', function(itemId){
+                    if (itemId !== undefined) {
+                        window.servdata = $scope.data;
+                        for(itemIdKey in $scope.data){
+                            if($scope.data[itemIdKey].id === itemId){
+                                $scope.data[itemIdKey].$selected = true;
+                                var category = $scope.refName.split('/')[1];
+                                mapService.selectItem(itemId, category);
+                            }
+                        };                      
+                    };
+                });
+                
                 if(newval){
                     $scope.data.forEach(function(item){
                         if(item.$selected){
+                            console.log('dans if data');
                             $scope.currentItem = item;
+                            window.itemsel = item;
                             $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
                         }
                     });

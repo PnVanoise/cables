@@ -426,8 +426,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 if (newVal == oldVal) {
                     return;
                 }
-                this.zoomAndHighlightItem(selectedItemService[0].id,
-                    selectedItemService[0].category);
+                this.zoomAndHighlightItem(selectedItemService[0]);
             }));
 
             return map;
@@ -753,27 +752,18 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         /*
          * Actions faites (zoom et couleur de sélection) sur la sélection d'un élément sur la carte ou dans un tableau
          * Parameters :
-         * - id : id de l'élément (géométrique et attributaire) d'un ensemble de données métier sélectionné
-         * - categoryData : nom de la catégorie métier utilisée pour la recherche sur l'id
+         * - item : la géométrie à mettre en évidence dans la carte
          */
-        zoomAndHighlightItem: function(id, categoryData) {
-            var sel;
-            self = this; // voir comment utiliser angular.bind plutôt que self
-            var res = this.tabThemaData[categoryData].getLayers();
-            res.forEach(function(item) {
-                if (item.feature.properties.id === id){
-                    self.zoomToItem(item);                    
-                    // sélection courante = pas de changement de couleur
-                    if (currentSel) {
-                        changeColorItem(currentSel, false);
-                    }
-                    // changement de couleur sur item sélectionné
-                    changeColorItem(item, true);
-                    currentSel = item;
-                    sel = item;
-                }
-            });
-            return sel;
+        zoomAndHighlightItem: function(item) {
+            // sélection courante = pas de changement de couleur
+            if (currentSel) {
+                changeColorItem(currentSel, false);
+            }
+            currentSel = item;
+
+            this.zoomToItem(item);
+            // changement de couleur sur item sélectionné
+            changeColorItem(item, true);
         },
 
         /*
@@ -791,10 +781,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             geom.on('click', function(e){
                 $rootScope.$apply(function() {
                     selectedItemService.length = 0;
-                    selectedItemService.push({
-                        category: cat,
-                        id: geom.feature.properties.id
-                    });
+                    selectedItemService.push(geom);
                 });
             });
             if(jsonData.properties.geomLabel){

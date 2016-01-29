@@ -540,10 +540,13 @@ app.directive('tablewrapper', function(){
                 configServ.put($scope.refName + ':itemId:selected', item.id);
                 if(broadcast){
                     selectedItemService.length = 0;
-                    selectedItemService.push({
-                        id: item.id,
-                        category: cat
-                    })
+                    angular.forEach(mapService.tabThemaData[cat].getLayers(),
+                        function(geom) {
+                            if (geom.feature.properties.id == item.id) {
+                                selectedItemService.push(geom);
+                            }
+                        }
+                    );
                 }
             };
 
@@ -556,17 +559,17 @@ app.directive('tablewrapper', function(){
                 if (newVal == oldVal) {
                     return;
                 }
-                var selectedItem = selectedItemService[0];
+                var selectedItem = selectedItemService[0].feature.properties;
                 var category = $scope.refName.split('/')[1];
                 angular.forEach($scope.data, function(item) {
                     if (item.id == selectedItem.id &&
-                        selectedItem.category == category) {
+                        selectedItem.cat == category) {
                         item.$selected = true;
                     } else {
                         item.$selected = false;
                     }
                 });
-                if (selectedItem && selectedItem.category == category) {
+                if (selectedItem && selectedItem.cat == category) {
                     var idx = null;
                     for (var key in orderedData){
                         if (orderedData[key].id === selectedItem.id){

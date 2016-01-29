@@ -458,7 +458,7 @@ app.directive('geometry', function($timeout){
             origin: '=',
         },
         templateUrl:  'js/templates/form/geometry.htm',
-        controller: function($scope, $rootScope, $timeout, mapService, storeFlag){
+        controller: function($scope, $rootScope, $timeout, mapService, storeFlag, selectedItemService) {
             var map = mapService.getMap();
             $scope.editLayer = new L.FeatureGroup();
             var current = null;
@@ -488,11 +488,18 @@ app.directive('geometry', function($timeout){
             mapService.tabThemaData[cat].loaded = false;
             mapService.showLayer(null, cat, 'forceedit').then(function(){
                 // $scope.origin est un string, parsé pour être utilisé dans selectItem
-                var layer = mapService.selectItem(parseInt($scope.origin), cat);
-                if(layer){
-                    setEditLayer(layer);
-                }
-                map.addLayer($scope.editLayer);
+                var itemId = parseInt($scope.origin);
+                angular.forEach(mapService.tabThemaData[cat].getLayers(),
+                    function(geom) {
+                        if (geom.feature.properties.id == itemId) {
+                            setEditLayer(geom);
+                            map.addLayer($scope.editLayer);
+
+                            selectedItemService.length = 0;
+                            selectedItemService.push(geom);
+                        }
+                    }
+                );
             });
 
             /* Récupération des couches depuis mapServices pour les fonctionnalités

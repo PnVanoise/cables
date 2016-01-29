@@ -42,6 +42,16 @@ app.service('defaultColorService', function () {
     return zs3;
     }
 
+    //Style pour les polygones ; nidifications non visible
+    this.noPolyStyle = function(){
+        polyStyle = {
+            weight: 0,
+            // opacity: 0,
+            fillOpacity: 0
+        }
+    return polyStyle;
+    }
+
     //Style pour les polygones ; nidifications
     this.polyStyle = function(){
         polyStyle = {
@@ -58,6 +68,17 @@ app.service('defaultColorService', function () {
             opacity: 0.8
         }
     return lineStyle;
+    }
+
+    // Tronçons à risque : non visible
+    this.tronNoVisible = function(){
+        tronRisqueEleve = angular.extend({
+            // color:'#DE0101',
+            weight: 0
+        }
+        //, lineStyle()
+        )
+    return tronRisqueEleve;
     }
 
     // Tronçons à risque : élevé
@@ -102,6 +123,15 @@ app.service('defaultColorService', function () {
     return iconPerc;
     }
 
+    //Style pour les mortalités par pércussion
+    // this.iconPerc = function(){
+    //     iconPerc = L.icon({
+    //         className : 'mortalitesPerc',
+    //         iconUrl: 'css/lib/images/icone_mortalites_percussion.png',
+    //     });
+    // return iconPerc;
+    // }
+
     //Style pour les mortalités par électrocution
     this.iconElec = function(){
         iconElec = L.AwesomeMarkers.icon({
@@ -113,8 +143,17 @@ app.service('defaultColorService', function () {
     return iconElec;
     }
 
+    //Style pour les poteaux non visible
+    this.poNoVisible = function(){
+        poNoVisible = L.icon({
+            className : 'poNoVisible',
+            iconUrl: 'css/lib/images/marker-poteau-novisible.png',
+        });
+    return poNoVisible;
+    }
+
     //Style pour les poteaux à risque élevé
-    this.poRisqueEleve = function(){
+    this.poteauxErdfRisqueEleve = function(){
         poRisqueEleve = L.icon({
             className : 'poRisqueEleve',
             iconUrl: 'css/lib/images/marker-poteau.png',
@@ -123,7 +162,7 @@ app.service('defaultColorService', function () {
     }
 
     //Style pour les poteaux à risque secondaire
-    this.poRisqueSecondaire = function(){
+    this.poteauxErdfRisqueSecondaire = function(){
         poRisqueSecondaire = L.icon({
             className : 'poRisqueSecondaire',
             iconUrl: 'css/lib/images/marker-poteau.png',
@@ -132,7 +171,7 @@ app.service('defaultColorService', function () {
     }
 
     //Style pour les poteaux à non risque
-    this.poNonRisque = function(){
+    this.poteauxErdfPeuPasRisque = function(){
         poNonRisque = L.icon({
             className : 'poNonRisque',
             iconUrl: 'css/lib/images/marker-poteau.png',
@@ -316,6 +355,15 @@ app.service('defaultColorService', function () {
             fillOpacity: 0.1
         }
     return com;
+    }
+
+    // Observations : non visible
+    this.noObs = function(){
+        noObs = L.icon({
+            className : 'noObs',
+            iconUrl: 'css/lib/images/marker-poteau-novisible.png'
+        });
+    return noObs;
     }
 
     // Observations : classes en fonction du nombre d'obs

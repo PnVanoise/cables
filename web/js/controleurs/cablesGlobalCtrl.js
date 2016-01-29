@@ -70,7 +70,7 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
                 $scope.editAccess = userServ.checkLevel(3);
             }
             // chargement des données sur la carte et sur dans le tableau des données métier ad hoc
-            mapService.showLayer(category.id);
+            mapService.showLayer(null, category.id);
             dfd.resolve('loading data');
         });
 

@@ -257,11 +257,11 @@ app.directive('detailDisplay', function(){
                     dfd.resolve('removed');
                     var category = $scope.dataUrl.split('/')[1];
                     mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(category, 'force');
+                    mapService.showLayer(null, category, 'force');
                     if (category === 'poteauxerdf' || 'tronconserdf')
                     {
                         mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer('zonessensibles', 'force');
+                        mapService.showLayer(null, 'zonessensibles', 'force');
                     };
                     $rootScope.$broadcast('form:delete', $scope.data);
                 };

@@ -310,11 +310,11 @@ app.directive('simpleform', function(){
                     dataServ.post($scope.saveUrl, $scope.data, $scope.updated(dfd), $scope.error(dfd));
                     category = $scope.saveUrl.split("/")[1];
                     mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(category, 'force');
+                    mapService.showLayer(null, category, 'force');
                     if (category === 'poteauxerdf' || 'tronconserdf')
                     {
                         mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer('zonessensibles', 'force');
+                        mapService.showLayer(null, 'zonessensibles', 'force');
                     };
                     
                 }
@@ -322,11 +322,11 @@ app.directive('simpleform', function(){
                     dataServ.put($scope.saveUrl, $scope.data, $scope.created(dfd), $scope.error(dfd));
                     category = $scope.saveUrl.split("/")[1];
                     mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(category, 'force');
+                    mapService.showLayer(null, category, 'force');
                     if (category === 'poteauxerdf' || 'tronconserdf')
                     {
                         mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer('zonessensibles', 'force');
+                        mapService.showLayer(null, 'zonessensibles', 'force');
                     };
                 }
             };
@@ -404,11 +404,11 @@ app.directive('simpleform', function(){
                     dfd.resolve('removed');
                     var category = $scope.dataUrl.split('/')[1];
                     mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(category, 'force');
+                    mapService.showLayer(null, category, 'force');
                     if (category === 'poteauxerdf' || 'tronconserdf')
                     {
                         mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer('zonessensibles', 'force');
+                        mapService.showLayer(null, 'zonessensibles', 'force');
                     };
                     $rootScope.$broadcast('form:delete', $scope.data);
 
@@ -429,7 +429,7 @@ app.directive('simpleform', function(){
                         mapService.clearEditLayer();
                         var category = newUrl.slice(newUrl.indexOf('#')+1).split('/')[2];
                         mapService.tabThemaData[category].loaded = false;
-                        mapService.showLayer(category, 'force');
+                        mapService.showLayer(null, category, 'force');
                     });
             });     
 
@@ -486,7 +486,7 @@ app.directive('geometry', function($timeout){
             // afin de jouer avec la visibilité
             //mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
             mapService.tabThemaData[cat].loaded = false;
-            mapService.showLayer(cat, 'forceedit').then(function(){
+            mapService.showLayer(null, cat, 'forceedit').then(function(){
                 // $scope.origin est un string, parsé pour être utilisé dans selectItem
                 var layer = mapService.selectItem(parseInt($scope.origin), cat);
                 if(layer){

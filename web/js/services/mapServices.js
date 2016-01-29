@@ -34,7 +34,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
  * * #2 - Service cartographique
  */
-app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
+app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItem) {
 
     /*
      * Private variables or functions
@@ -417,6 +417,19 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             loadMapConfig();
             addControls();
 
+            // detect any change in selection, then zoom on item and highlight
+            // it
+            $rootScope.$watchCollection(function() {
+                return selectedItem;
+            }, angular.bind(this, function(newVal, oldVal) {
+                // don't take first call into account
+                if (newVal == oldVal) {
+                    return;
+                }
+                this.zoomAndHighlightItem(selectedItem[0].id,
+                    selectedItem[0].category);
+            }));
+
             return map;
         },
 
@@ -743,7 +756,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          * - id : id de l'élément (géométrique et attributaire) d'un ensemble de données métier sélectionné
          * - categoryData : nom de la catégorie métier utilisée pour la recherche sur l'id
          */
-        selectItem: function(id, categoryData) {
+        zoomAndHighlightItem: function(id, categoryData) {
             var sel;
             self = this; // voir comment utiliser angular.bind plutôt que self
             var res = this.tabThemaData[categoryData].getLayers();
@@ -776,9 +789,13 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
 
             // Au click: Zoom et affiche le label de la couche s'il y'en a
             geom.on('click', function(e){
-                $rootScope.$apply(
-                    $rootScope.$broadcast('mapService:itemClick', geom, cat)
-                );
+                $rootScope.$apply(function() {
+                    selectedItem.length = 0;
+                    selectedItem.push({
+                        category: cat,
+                        id: geom.feature.properties.id
+                    });
+                });
             });
             if(jsonData.properties.geomLabel){
                 geom.bindPopup(jsonData.properties.geomLabel);
@@ -1104,7 +1121,7 @@ app.directive('leafletMap', function(){
  /*
  * * #5 - Directive qui gère les évenements entre la carte et le tableau de données métier
  */
-app.directive('maplist', function($rootScope, $timeout, mapService){
+app.directive('maplist', function($rootScope, $timeout, mapService) {
     return {
         restrict: 'A',
         transclude: true,
@@ -1123,12 +1140,6 @@ app.directive('maplist', function($rootScope, $timeout, mapService){
              * Initialisation des listeners d'évenements carte
              */
             var connect = function(){
-
-                // Click sur la carte
-                scope.$on('mapService:itemClick', function(ev, item, cat){
-                    mapService.selectItem(item.feature.properties.id, cat);
-                    $rootScope.$broadcast(target + ':select', item.feature.properties, cat);
-                });
 
                 scope.$on('mapService:pan', function(ev){
                     scope.filter();

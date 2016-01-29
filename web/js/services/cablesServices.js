@@ -291,6 +291,9 @@ app.service('storeBreadcrumb', function(){
 });
 
 
+app.value('selectedItem', []);
+
+
 /**
  * filtre basique - transforme une date yyyy-mm-dd en dd/mm/yyyy pour l'affichage
  * Utilisé comme un formateur de date

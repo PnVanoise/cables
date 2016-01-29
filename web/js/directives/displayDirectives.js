@@ -538,14 +538,6 @@ app.directive('tablewrapper', function(){
                 item.$selected = true;
                 $scope.currentItem = item;
                 configServ.put($scope.refName + ':itemId:selected', item.id);
-                var idx = null;
-                for (var key in orderedData){
-                    if (orderedData[key].id === item.id){
-                        idx = orderedData.indexOf(orderedData[key]);
-                    }
-                }
-                var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
-                $scope.tableParams.page(pgnum);
                 if(broadcast){
                     selectedItemService.length = 0;
                     selectedItemService.push({
@@ -555,31 +547,51 @@ app.directive('tablewrapper', function(){
                 }
             };
 
-
-
-            $scope.$watch('data', function(newval){
-                configServ.get($scope.refName + ':itemId:selected', function(itemId){
-                    if (itemId !== undefined) {
-                        for(itemIdKey in $scope.data){
-                            if($scope.data[itemIdKey].id === itemId){
-                                $scope.data[itemIdKey].$selected = true;
-                                var category = $scope.refName.split('/')[1];
-                                mapService.selectItem(itemId, category);
-                            }
-                        };                      
-                    };
+            // detect any change in selection, then zoom on item and highlight
+            // it
+            $rootScope.$watchCollection(function() {
+                return selectedItemService;
+            }, function(newVal, oldVal) {
+                // don't take first call into account
+                if (newVal == oldVal) {
+                    return;
+                }
+                var selectedItem = selectedItemService[0];
+                var category = $scope.refName.split('/')[1];
+                angular.forEach($scope.data, function(item) {
+                    if (item.id == selectedItem.id &&
+                        selectedItem.category == category) {
+                        item.$selected = true;
+                    } else {
+                        item.$selected = false;
+                    }
                 });
-                
-                if(newval){
-                    $scope.data.forEach(function(item){
-                        if(item.$selected){
-                            $scope.currentItem = item;
-                            $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
+                if (selectedItem && selectedItem.category == category) {
+                    var idx = null;
+                    for (var key in orderedData){
+                        if (orderedData[key].id === selectedItem.id){
+                            idx = orderedData.indexOf(orderedData[key]);
                         }
-                    });
-                    $scope.tableParams.reload();
+                    }
+                    var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
+                    $scope.tableParams.page(pgnum);
                 }
             });
+
+            //$scope.$watch('data', function(newval){
+                
+                //if(newval){
+                    //$scope.data.forEach(function(item){
+                        //if(item.$selected){
+                            //console.log('dans if data');
+                            //$scope.currentItem = item;
+                            //window.itemsel = item;
+                            //$rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
+                        //}
+                    //});
+                    //$scope.tableParams.reload();
+                //}
+            //});
 
             /*
              * Listeners

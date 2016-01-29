@@ -349,7 +349,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItem){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -547,7 +547,11 @@ app.directive('tablewrapper', function(){
                 var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
                 $scope.tableParams.page(pgnum);
                 if(broadcast){
-                    $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item, cat);
+                    selectedItem.length = 0;
+                    selectedItem.push({
+                        id: item.id,
+                        category: cat
+                    })
                 }
             };
 

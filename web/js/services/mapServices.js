@@ -34,7 +34,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
  * * #2 - Service cartographique
  */
-app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItem) {
+app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItemService) {
 
     /*
      * Private variables or functions
@@ -420,14 +420,14 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             // detect any change in selection, then zoom on item and highlight
             // it
             $rootScope.$watchCollection(function() {
-                return selectedItem;
+                return selectedItemService;
             }, angular.bind(this, function(newVal, oldVal) {
                 // don't take first call into account
                 if (newVal == oldVal) {
                     return;
                 }
-                this.zoomAndHighlightItem(selectedItem[0].id,
-                    selectedItem[0].category);
+                this.zoomAndHighlightItem(selectedItemService[0].id,
+                    selectedItemService[0].category);
             }));
 
             return map;
@@ -790,8 +790,8 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             // Au click: Zoom et affiche le label de la couche s'il y'en a
             geom.on('click', function(e){
                 $rootScope.$apply(function() {
-                    selectedItem.length = 0;
-                    selectedItem.push({
+                    selectedItemService.length = 0;
+                    selectedItemService.push({
                         category: cat,
                         id: geom.feature.properties.id
                     });

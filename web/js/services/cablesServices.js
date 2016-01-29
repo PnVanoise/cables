@@ -291,7 +291,7 @@ app.service('storeBreadcrumb', function(){
 });
 
 
-app.value('selectedItem', []);
+app.value('selectedItemService', []);
 
 
 /**

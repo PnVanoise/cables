@@ -655,12 +655,14 @@ background-color:  aliceblue
 .awesome-marker-icon-black {
   background-position: +682px 0;
 }
-
+/* css pour icone non visible */
+.poNoVisible{
+}
 .poRisqueEleve{
   background:red;
   border-radius:100%;
   height: 15px;
-    margin-bottom:-7.5px;
+  margin-bottom:-7.5px;
   margin-left:-7.5px;
   margin-top:-7.5px
 }
@@ -668,7 +670,7 @@ background-color:  aliceblue
   background:#F0AD4E;
   border-radius:100%;
   height: 15px;
-    margin-bottom:-7.5px;
+  margin-bottom:-7.5px;
   margin-left:-7.5px;
   margin-top:-7.5px
 }
@@ -1120,6 +1122,18 @@ a.legendBlock-item {
 
 }
 
+.noObs{
+
+  /*background:#8A2908;*/
+  opacity:0;
+  border-radius:100%;
+  height: 4px;
+  width: 4px;
+  margin-bottom:-2px;
+  margin-left:-2px;
+  margin-top:-2px
+
+}
 .obsClasse1{
 
   background:#8A2908;

@@ -230,7 +230,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
      * - category : la catégorie métier
      * - force : si on veut forcer le rechargement de la couche métier
      */
-    var loadCategoryData = function(category, force) {
+    var loadCategoryData = function(subLayer, category, force) {
         $loading.start('map-loading');
         var deferred = $q.defer();
         window.donnee = this.tabThemaData[category];
@@ -249,7 +249,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 angular.bind(this, function(resp) {
                     resp.forEach(angular.bind(this, function(item) {
                         // addGeom est une fn publique. Si privée supprimé le angular.bind
-                        this.addGeom(item, category);
+                        this.addGeom(item, subLayer, category);
                     }));
                     deferred.resolve();
                 }),
@@ -390,12 +390,15 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          * Parameters :
          * - layer : Couche métier
          */
-        showLayer: function(layer, force) {
+        showLayer: function(subLayer, category, force) {
             var deferred = $q.defer();
-            var promise = loadCategoryData.call(this, layer, force);
+            var promise = loadCategoryData.call(this, subLayer, category, force);
             promise.then(
                 angular.bind(this, function() {
-                    map.addLayer(this.tabThemaData[layer]);
+                    if (subLayer === 'mortalites' || 'poteauxerdf' || 'tronconserdf' || 'nidifications' || 'observations') {
+                        this.changeVisibilityLayer(category, subLayer);
+                    }
+                    map.addLayer(this.tabThemaData[category]);
                     deferred.resolve();
                     $loading.finish('map-loading');
                 })
@@ -419,6 +422,189 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          */
         layerIsVisible: function(layer) {
             return map.hasLayer(this.tabThemaData[layer]);
+        },
+
+        /*
+         * Visibilité - Interaction entre les objets sur la carte et les sous-couches dans la légende
+         * La visibilité des objets est appliquée au niveau des styles des objets
+         * Parameters :
+         * - category : nom de la catégorie métier de chaque sous-couche
+         * - subLayer : nom de la sous-couche sur laquelle joue la visibilité des objets associés
+         */
+        changeVisibilityLayer: function(category, subLayer) {
+            self = this;
+            var res = this.tabThemaData[category].getLayers();
+            res.forEach(function(item) {
+                // MORTALITES
+                switch (item.feature.properties.cause_mortalite) {
+                    case 'percussion':
+                        configServ.get('legendLayer:mortalites:mortalitesPercussions:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.poNoVisible());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.iconPerc());
+                            }
+                        });
+                    break;
+                    case 'électrocution':
+                    // item.setIcon(defaultColorService.iconElec());
+                        configServ.get('legendLayer:mortalites:mortalitesElectrocutions:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.poNoVisible());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.iconElec());
+                            }
+                        });
+                    break;
+                }
+
+                // TRONCONS ERDF
+                switch(item.feature.properties.risqueTroncon){
+                    case 'Risque élevé':
+                        configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueEleve:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.tronNoVisible());
+                            }
+                            else {
+                                item.setStyle(defaultColorService.tronRisqueEleve());
+                            }
+                        });
+                    break;
+                    case 'Risque secondaire':
+                        configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueSecondaire:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.tronNoVisible());
+                            }
+                            else {
+                                item.setStyle(defaultColorService.tronRisqueSecondaire());
+                            }
+                        });
+                    break;
+                    case 'Peu ou pas de risque':
+                        configServ.get('legendLayer:tronconserdf:tronconsErdfPeuPasRisque:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.tronNoVisible());
+                            }
+                            else {
+                                item.setStyle(defaultColorService.tronNonRisque());
+                            }
+                        });
+                    break;
+                }
+                // POTEAUX ERDF
+                switch (item.feature.properties.risquePoteau) {
+                    case 'Risque élevé':
+                        configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueEleve:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.poNoVisible());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.poteauxErdfRisqueEleve());
+                            }
+                        });
+                    break;
+                    case 'Risque secondaire':
+                        configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueSecondaire:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.poNoVisible());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.poteauxErdfRisqueSecondaire());
+                            }
+                        });
+                    break;
+                    case 'Peu ou pas de risque':
+                        configServ.get('legendLayer:poteauxerdf:poteauxErdfPeuPasRisque:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.poNoVisible());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.poteauxErdfPeuPasRisque());
+                            }
+                        });
+                    break;
+                }
+                // NIDIFICATIONS RAPACES
+                switch (item.feature.properties.nom_espece) {
+                    case 'Gypaète barbu':
+                        configServ.get('legendLayer:nidifications:nidificationsGypaete:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.noPolyStyle());
+                            }
+                            else {
+                                item.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()));
+                            }
+                        });
+                    break;
+                    case 'Aigle royal':
+                        configServ.get('legendLayer:nidifications:nidificationsAigle:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.noPolyStyle());
+                            }
+                            else {
+                                item.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()));
+                            }
+                        });
+                    break;
+                    case 'Grand Duc d\'Europe':
+                        configServ.get('legendLayer:nidifications:nidificationsGrandDuc:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.noPolyStyle());
+                            }
+                            else {
+                                item.setStyle(angular.extend({color:'#D400FF'}, defaultColorService.polyStyle()));
+                            }
+                        });
+                    break;
+            		   case 'Faucon pélerin':
+                        configServ.get('legendLayer:nidifications:nidificationsFaucon:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setStyle(defaultColorService.noPolyStyle());
+                            }
+                            else {
+                                item.setStyle(angular.extend({color:'#EFA0FF'}, defaultColorService.polyStyle()));
+                            }
+                        });
+                    break;
+                }
+
+                // OBSERVATIONS VAUTOURS
+                var nb = item.feature.properties.nombre;
+                switch (true) {
+                    case (nb<20):
+                        configServ.get('legendLayer:observations:observationsNombre020:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.noObs());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.obsClasse1());
+                            }
+                        });
+                    break;
+                    case (nb>=20 && nb<40):
+                        configServ.get('legendLayer:observations:observationsNombre2040:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.noObs());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.obsClasse2());
+                            }
+                        });
+                    break;
+                    case (nb>=40):
+                        configServ.get('legendLayer:observations:observationsSup40:visibility', function(visibility){
+                            if(visibility === 'novisible'){
+                                item.setIcon(defaultColorService.noObs());
+                            }
+                            else {
+                                item.setIcon(defaultColorService.obsClasse3());
+                            }
+                        });
+                    break;
+                }
+            });
         },
 
         /*
@@ -469,7 +655,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          * - jsonData : Json utilisé pour créer la couche métier Leaflet
          * - categoryData : nom de la catégorie métier utilisée qui va être créée
          */
-        addGeom: function(jsonData, categoryData) {
+        addGeom: function(jsonData, filter, categoryData) {
             var geom = L.GeoJSON.geometryToLayer(jsonData); // la couche GeoJSON
             geom.feature = jsonData;
             var cat = jsonData.properties.cat; // récupération de la catégorie
@@ -537,14 +723,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                     break;
              }
 
-            // Mortalités: Couleur des especes en fonction de la cause mortalité
-            if(jsonData.properties.cause_mortalite === 'électrocution'){
-                geom.setIcon(defaultColorService.iconElec());
-            }
-            else if(jsonData.properties.cause_mortalite === 'percussion'){
-                geom.setIcon(defaultColorService.iconPerc());
-            }
-
             // Zones sensibles: Couleurs en fonctions du niveau de sensibilité
             if(jsonData.properties.cat === 'zonessensibles'){
                 switch (jsonData.properties.niveau_sensibilite) {
@@ -561,6 +739,14 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 geom.bindLabel(jsonData.properties.nom_zone_sensible, { noHide: true });
             }
 
+            // Mortalités: Couleur des especes en fonction de la cause mortalité
+            if(jsonData.properties.cause_mortalite === 'électrocution'){
+                geom.setIcon(defaultColorService.iconElec());
+            }
+            else if(jsonData.properties.cause_mortalite === 'percussion'){
+                geom.setIcon(defaultColorService.iconPerc());
+            }
+
             // Tronçons à risque: Couleur en fonction du niveau de risque
             if(jsonData.properties.cat === 'tronconserdf'){
                 switch (jsonData.properties.risqueTroncon) {
@@ -575,6 +761,20 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                     break;
                 }
             };
+            // Poteaux à risque: Couleur en fonction du niveau de risque
+            if(jsonData.properties.cat === 'poteauxerdf'){
+                switch (jsonData.properties.risquePoteau) {
+                    case 'Risque élevé':
+                        geom.setIcon(defaultColorService.poteauxErdfRisqueEleve())
+                    break;
+                    case 'Risque secondaire':
+                        geom.setIcon(defaultColorService.poteauxErdfRisqueSecondaire())
+                    break;
+                    case 'Peu ou pas de risque':
+                        geom.setIcon(defaultColorService.poteauxErdfPeuPasRisque())
+                    break;
+                }
+            };
 
            // Equipements tronçons
             if(jsonData.properties.cat === 'eqtronconserdf'){
@@ -584,21 +784,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             if(jsonData.properties.cat === 'eqpoteauxerdf'){
                 geom.setIcon(defaultColorService.eqPoteau())
             }
-
-            // Poteaux à risque: Couleur en fonction du niveau de risque
-            if(jsonData.properties.cat === 'poteauxerdf'){
-                switch (jsonData.properties.risquePoteau) {
-                    case 'Risque élevé':
-                        geom.setIcon(defaultColorService.poRisqueEleve())
-                    break;
-                    case 'Risque secondaire':
-                        geom.setIcon(defaultColorService.poRisqueSecondaire())
-                    break;
-                    case 'Peu ou pas de risque':
-                        geom.setIcon(defaultColorService.poNonRisque())
-                    break;
-                }
-            };
 
             // Sites de nidification: Couleur en fonction de l'espece
             if(jsonData.properties.cat === 'nidifications'){
@@ -709,9 +894,10 @@ app.directive('leafletMap', function(){
         restrict: 'A',
         scope: {
             data: '=',
+            name: '='
         },
         templateUrl: 'js/templates/display/map.htm',
-        controller: function($scope, mapService, storeFlag) {
+        controller: function($scope, configServ, mapService, storeFlag) {
             var map = mapService.initMap('mapd');
             var tabThemaData = mapService.tabThemaData;
 
@@ -720,6 +906,177 @@ app.directive('leafletMap', function(){
             $scope.selectBaseLayer = function(layer) {
                 mapService.setBaseLayer(layer);
             }
+
+            var pictoLayerVisible = "css/img/couche_visible.png";
+            var pictoLayerNoVisible = "css/img/couche_non_visible.png";
+            var category = $scope.category;
+            var filter = $scope.filter;
+            
+            $scope.pictoLayer = {
+            	"communes": {
+                	"mainLayer": pictoLayerNoVisible
+                },
+                "erdfappareilcoupure": {
+                	"mainLayer": pictoLayerNoVisible
+                },
+                "erdfconnexionaerienne": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "erdfparafoudre": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "erdfposteelectrique": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "erdfremonteeaerosout": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "erdftronconaerien": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "ogmcablesremonteesmecaniques": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "ogmdomainesskiables": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "ogmtronconsdangereux": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "ogmtronconsvisualises": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "ogmtronconsvisualisesdangereux": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "rtelignes": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "rtepostes": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "rtepoteaux": {
+                    "mainLayer": pictoLayerNoVisible
+                },
+                "zonessensibles": {
+                	"mainLayer": pictoLayerVisible
+                },
+                "mortalites": {
+                	"mainLayer": pictoLayerNoVisible,
+                	"subLayer": {
+                		"mortalitesPercussions": pictoLayerNoVisible,
+                		"mortalitesElectrocutions": pictoLayerNoVisible
+                	}
+                },
+                "tronconserdf": {
+                	"mainLayer": pictoLayerNoVisible,
+                	"subLayer": {
+                		"tronconsErdfRisqueEleve": pictoLayerVisible,
+                		"tronconsErdfRisqueSecondaire": pictoLayerVisible,
+                		"tronconsErdfPeuPasRisque": pictoLayerVisible
+                	}
+                },
+                "poteauxerdf": {
+                	"mainLayer": pictoLayerVisible,
+                	"subLayer": {
+                		"poteauxErdfRisqueEleve": pictoLayerVisible,
+                		"poteauxErdfRisqueSecondaire": pictoLayerVisible,
+                		"poteauxErdfPeuPasRisque": pictoLayerVisible
+                	}
+                },
+                "equipementstronconserdf": {
+                	"mainLayer": pictoLayerVisible
+                },
+                "equipementspoteauxerdf": {
+                	"mainLayer": pictoLayerVisible
+                },
+                "nidifications": {
+                	"mainLayer": pictoLayerNoVisible,
+                	"subLayer": {
+                		"nidificationsGypaete": pictoLayerNoVisible,
+                		"nidificationsAigle": pictoLayerNoVisible,
+                		"nidificationsGrandDuc": pictoLayerNoVisible,
+                		"nidificationsFaucon": pictoLayerNoVisible
+                	}
+                },
+                "observations": {
+                	"mainLayer": pictoLayerNoVisible,
+                	"subLayer": {
+                		"observationsNombre020": pictoLayerNoVisible,
+                		"observationsNombre2040": pictoLayerNoVisible,
+                		"observationsSup40": pictoLayerNoVisible
+                	}
+                }
+            };
+
+            // gestion affichage des couches et des pictos associés
+            $scope.getVisibility = function(category, subLayer){
+                // Clic sur le picto oeil VISIBLE de la couche principale (métier) = Passage oeil NON VISIBLE
+                if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerVisible) {
+                	// Passage couche principale en NON VISIBLE
+                	$scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+                    configServ.put('legendLayer:'+category+':main:visibility', "novisible");
+                	mapService.hideLayer(category);
+
+                	// Passage toutes les sous-couches de la catégorie en NON VISIBLE
+                    var subLayer = $scope.pictoLayer[category]["subLayer"];
+                    for(item in subLayer) {
+                        $scope.pictoLayer[category]["subLayer"][item] = pictoLayerNoVisible;
+                        configServ.put('legendLayer:'+category+':'+item+':visibility', "novisible");
+                    };
+                }
+
+                // Clic sur le picto oeil NON VISIBLE de la couche principale (métier) => Passage oeil VISIBLE
+                else if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerNoVisible) {
+                	// Passage couche principale en VISIBLE
+                	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
+                    configServ.put('legendLayer:'+category+':main:visibility', "visible");
+                	mapService.showLayer(null, category);
+
+                	// Passage toutes les sous-couches de la catégorie en VISIBLE
+                    var subLayer = $scope.pictoLayer[category]["subLayer"];
+                    for(item in subLayer) {
+                        $scope.pictoLayer[category]["subLayer"][item] = pictoLayerVisible;
+                        configServ.put('legendLayer:'+category+':'+item+':visibility', "visible");
+                    };
+                }
+
+                // Clic sur le picto oeil VISIBLE d'une sous-couche' = Passage oeil NON VISIBLE
+                else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerVisible){
+                    $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+                    configServ.put('legendLayer:'+category+':main:visibility', "novisible");
+                    // mapService.hideLayer(category);
+                    $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerNoVisible;
+                    configServ.put('legendLayer:'+category+':'+subLayer+':visibility', "novisible");
+                    mapService.showLayer(subLayer, category);
+                    // configServ.put('cables/'+category+':ngTable:Filter', '{risquePoteau: "Risque secondaire"}');
+                }
+
+                // Clic sur le picto oeil NON VISIBLE d'une sous-couche' = Passage oeil VISIBLE
+                else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerNoVisible){
+                    $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerVisible;
+                    configServ.put('legendLayer:'+category+':'+subLayer+':visibility', "visible");
+                    mapService.showLayer(null, category);
+
+                    var i = true;
+                    var subLayer2 = $scope.pictoLayer[category]["subLayer"];
+                    for (item in subLayer2) {
+                        if ($scope.pictoLayer[category]["subLayer"][item] !== pictoLayerVisible) {
+                            i = false;
+                            break;
+                        }
+                    }
+                    // S'il reste une sous-couche non visible la couche principale reste non visible sinon elle s'affiche
+                    if (i === false){
+                        $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+                        configServ.put('legendLayer:'+category+':main:visibility', "novisible");
+                    }
+                    else {
+                    	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
+                        configServ.put('legendLayer:'+category+':main:visibility', "visible");
+                    }                  
+                }
+            }
         }
     };
 });
@@ -727,30 +1084,157 @@ app.directive('leafletMap', function(){
  /*
   * * #4 - Directive pour la gestion de la légende customisée sur la carte
   */
-app.directive('legendLayer', function() {
-    return {
-        restrict: 'A',
-        scope: {
-            layer: '=',
-            name: '='
-        },
-        templateUrl: 'js/templates/display/legendLayer.htm',
-        controller: function($scope, mapService) {
-            $scope.getSetActive = function(val) {
-                var layer = $scope.layer;
-                if (arguments.length) { // set
-                    if (val) {
-                        mapService.showLayer(layer);
-                    } else {
-                        mapService.hideLayer(layer);
-                    }
-                } else { // get
-                    return mapService.layerIsVisible(layer);
-                }
-            };
-        }
-    };
-});
+// app.directive('legendLayer', function() {
+//     return {
+//         restrict: 'AEC',
+//         scope: {
+//             category: '=',
+//             subLayer: '=',
+//             name: '=',
+//             pictoLayer: '='
+//         },
+//         templateUrl: 'js/templates/display/legendLayer.htm',
+//         controller: function($scope, mapService) {
+//         	var pictoLayerVisible = "css/img/couche_visible.png";
+//             var pictoLayerNoVisible = "css/img/couche_non_visible.png";
+
+//         	$scope.pictoLayer = {
+//             	"communes": {
+//                 	"mainLayer": pictoLayerNoVisible
+//                 },
+//                 "erdf": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"erdfAppareilsCoupure": pictoLayerNoVisible,
+//                 		"erdfConnexionsAeriennes": pictoLayerNoVisible,
+//                 		"erdfParafoudres": pictoLayerNoVisible,
+//                 		"erdfPostesElectriques": pictoLayerNoVisible,
+//                 		"erdfRemonteesAeroSouterraines": pictoLayerNoVisible,
+//                 		"erdfTronconsAeriens": pictoLayerNoVisible
+//                 	}
+//                 },
+//                 "ogm": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"ogmRemonteesMecaniques": pictoLayerNoVisible,
+//                 		"ogmDomainesSkiables": pictoLayerNoVisible,
+//                 		"ogmTronconsDangereux": pictoLayerNoVisible,
+//                 		"ogmTronconsVisualises": pictoLayerNoVisible,
+//                 		"ogmTronconsVisualisesDangereux": pictoLayerNoVisible
+//                 	}
+//                 },
+//                 "rte": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"rteLignesElectriques": pictoLayerNoVisible,
+//                 		"rtePostesElectriques": pictoLayerNoVisible,
+//                 		"rtePoteaux": pictoLayerNoVisible
+//                 	}
+//                 },
+//                 "zonessensibles": {
+//                 	"mainLayer": pictoLayerVisible
+//                 },
+//                 "mortalites": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"mortalitesPercussions": pictoLayerNoVisible,
+//                 		"mortalitesElectrocutions": pictoLayerNoVisible
+//                 	}
+//                 },
+//                 "tronconserdf": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"tronconsErdfRisqueEleve": pictoLayerNoVisible,
+//                 		"tronconsErdfRisqueSecondaire": pictoLayerNoVisible,
+//                 		"tronconsErdfPeuPasRisque": pictoLayerNoVisible
+//                 	}
+//                 },
+//                 "poteauxerdf": {
+//                 	"mainLayer": pictoLayerVisible,
+//                 	"subLayer": {
+//                 		"pictoPoteauxErdfRisqueEleve": pictoLayerVisible,
+//                 		"pictoPoteauxErdfRisqueSecondaire": pictoLayerVisible,
+//                 		"pictoPoteauxErdfPeuPasRisque": pictoLayerVisible
+//                 	}
+//                 },
+//                 "equipementstronconserdf": {
+//                 	"mainLayer": pictoLayerVisible
+//                 },
+//                 "equipementspoteauxerdf": {
+//                 	"mainLayer": pictoLayerVisible
+//                 },
+//                 "nidifications": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"nidificationsGypaete": pictoLayerNoVisible,
+//                 		"nidificationsAigle": pictoLayerNoVisible,
+//                 		"nidificationsGrandDuc": pictoLayerNoVisible,
+//                 		"nidificationsFaucon": pictoLayerNoVisible
+//                 	}
+//                 },
+//                 "observations": {
+//                 	"mainLayer": pictoLayerNoVisible,
+//                 	"subLayer": {
+//                 		"observationsNombre020": pictoLayerNoVisible,
+//                 		"observationsNombre2040": pictoLayerNoVisible,
+//                 		"observationsSup40": pictoLayerNoVisible
+//                 	}
+//                 }
+//             };
+
+//             // gestion affichage des couches et des pictos associés
+//             $scope.getVisibility = function(category, subLayer){
+//                 // Clic sur le picto oeil de la couche principale (métier) = oeil VISIBLE
+//                 if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerVisible) {
+//                 	// Couche principale non visible
+//                 	$scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+
+//                 	// Toutes les sous-couches de la catégorie non visible
+//                     var subLayer = $scope.pictoLayer[category]["subLayer"];
+//                     for(item in subLayer) {
+//                         $scope.pictoLayer[category]["subLayer"][item] = pictoLayerNoVisible;
+//                     };
+//                 }
+//                 // Clic sur le picto oeil de la couche principale (métier) = oeil NON VISIBLE
+//                 else if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerNoVisible) {
+//                 	// Couche principale non visible
+//                 	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
+
+//                 	// Toutes les sous-couches de la catégorie non visible
+//                     var subLayer = $scope.pictoLayer[category]["subLayer"];
+//                     for(item in subLayer) {
+//                         $scope.pictoLayer[category]["subLayer"][item] = pictoLayerVisible;
+//                     };
+//                 }
+//                 // Clic sur le picto oeil d'une sous-couche' = oeil VISIBLE
+//                 else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerVisible){
+//                     $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+//                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerNoVisible;
+//                 }
+//                 // Clic sur le picto oeil d'une sous-couche' = oeil NON VISIBLE
+//                 else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerNoVisible){
+//                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerVisible;
+
+//                     var i = true;
+//                     var subLayer2 = $scope.pictoLayer[category]["subLayer"];
+//                     for (item in subLayer2) {
+//                         if ($scope.pictoLayer[category]["subLayer"][item] !== pictoLayerVisible) {
+//                             i = false;
+//                             break;
+//                         }
+//                     }
+//                     // S'il reste une sous-couche non visible la couche principale reste non visible sinon elle s'affiche
+//                     if (i === false){
+//                         $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+//                     }
+//                     else {
+//                     	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
+//                     }                  
+//                 }
+//             }
+//         }
+//     };
+// });
 
 /*
  * * #5 - Directive qui gère les évenements entre la carte et le tableau de données métier

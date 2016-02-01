@@ -556,7 +556,6 @@ app.directive('tablewrapper', function(){
             $scope.$watch('data', function(newval){
                 configServ.get($scope.refName + ':itemId:selected', function(itemId){
                     if (itemId !== undefined) {
-                        window.servdata = $scope.data;
                         for(itemIdKey in $scope.data){
                             if($scope.data[itemIdKey].id === itemId){
                                 $scope.data[itemIdKey].$selected = true;
@@ -570,9 +569,7 @@ app.directive('tablewrapper', function(){
                 if(newval){
                     $scope.data.forEach(function(item){
                         if(item.$selected){
-                            console.log('dans if data');
                             $scope.currentItem = item;
-                            window.itemsel = item;
                             $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
                         }
                     });

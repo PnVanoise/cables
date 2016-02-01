@@ -145,9 +145,9 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         var zs1                  = defaultColorService.zs1();                    // 3- zones sensibles : niveau  sensibilité 1
         var zs2                  = defaultColorService.zs2();                    // 4- zones sensibles : niveau  sensibilité 2
         var zs3                  = defaultColorService.zs3();                    // 5- zones sensibles : niveau  sensibilité 3
-        var poRisqueEleve        = defaultColorService.poRisqueEleve();          // 6- poteaux à risques élevés
-        var poRisqueSecondaire   = defaultColorService.poRisqueSecondaire();     // 7- poteaux à risques secondaires
-        var poNonRisque          = defaultColorService.poNonRisque();            // 8- poteaux à non risques
+        var poRisqueEleve        = defaultColorService.poteauxErdfRisqueEleve();          // 6- poteaux à risques élevés
+        var poRisqueSecondaire   = defaultColorService.poteauxErdfRisqueSecondaire();     // 7- poteaux à risques secondaires
+        var poNonRisque          = defaultColorService.poteauxErdfPeuPasRisque();            // 8- poteaux à non risques
         var eqPoteau             = defaultColorService.eqPoteau();               // 9- équipements poteaux
         var eqTroncon            = defaultColorService.eqTroncon();              // 10- équipements tronçons
         var tronRisqueEleve      = defaultColorService.tronRisqueEleve();        // 11- tronçons risques élevés
@@ -233,7 +233,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
     var loadCategoryData = function(subLayer, category, force) {
         $loading.start('map-loading');
         var deferred = $q.defer();
-        window.donnee = this.tabThemaData[category];
         if (this.tabThemaData[category].loaded) { // loaded est une propriété booléenne du feature
             // s'assurer que la fonction a retourné la promise avant que la promise soit résolue = $timeout
             $timeout(function() {
@@ -298,6 +297,106 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             "rtepoteaux": L.featureGroup(),
             "communes": L.featureGroup()
         },
+
+        /*
+         * Tableau de gestion de la visibilité des couches et sous-couches dans légende
+         */
+        pictoLayer : {
+                "communes": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "erdfappareilcoupure": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "erdfconnexionaerienne": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "erdfparafoudre": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "erdfposteelectrique": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "erdfremonteeaerosout": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "erdftronconaerien": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "ogmcablesremonteesmecaniques": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "ogmdomainesskiables": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "ogmtronconsdangereux": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "ogmtronconsvisualises": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "ogmtronconsvisualisesdangereux": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "rtelignes": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "rtepostes": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "rtepoteaux": {
+                    "mainLayer": "css/img/couche_non_visible.png"
+                },
+                "zonessensibles": {
+                    "mainLayer": "css/img/couche_visible.png"
+                },
+                "mortalites": {
+                    "mainLayer": "css/img/couche_non_visible.png",
+                    "subLayer": {
+                        "mortalitesPercussions": "css/img/couche_non_visible.png",
+                        "mortalitesElectrocutions": "css/img/couche_non_visible.png"
+                    }
+                },
+                "tronconserdf": {
+                    "mainLayer": "css/img/couche_visible.png",
+                    "subLayer": {
+                        "tronconsErdfRisqueEleve": "css/img/couche_visible.png",
+                        "tronconsErdfRisqueSecondaire": "css/img/couche_visible.png",
+                        "tronconsErdfPeuPasRisque": "css/img/couche_visible.png"
+                    }
+                },
+                "poteauxerdf": {
+                    "mainLayer": "css/img/couche_visible.png",
+                    "subLayer": {
+                        "poteauxErdfRisqueEleve": "css/img/couche_visible.png",
+                        "poteauxErdfRisqueSecondaire": "css/img/couche_visible.png",
+                        "poteauxErdfPeuPasRisque": "css/img/couche_visible.png"
+                    }
+                },
+                "equipementstronconserdf": {
+                    "mainLayer": "css/img/couche_visible.png"
+                },
+                "equipementspoteauxerdf": {
+                    "mainLayer": "css/img/couche_visible.png"
+                },
+                "nidifications": {
+                    "mainLayer": "css/img/couche_visible.png",
+                    "subLayer": {
+                        "nidificationsGypaete": "css/img/couche_non_visible.png",
+                        "nidificationsAigle": "css/img/couche_non_visible.png",
+                        "nidificationsGrandDuc": "css/img/couche_non_visible.png",
+                        "nidificationsFaucon": "css/img/couche_non_visible.png"
+                    }
+                },
+                "observations": {
+                    "mainLayer": "css/img/couche_non_visible.png",
+                    "subLayer": {
+                        "observationsNombre020": "css/img/couche_non_visible.png",
+                        "observationsNombre2040": "css/img/couche_non_visible.png",
+                        "observationsSup40": "css/img/couche_non_visible.png"
+                    }
+                }
+            },
 
         /*
          * Initialisation et affichage de la carte avec tout ce qu'elle contient
@@ -441,6 +540,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:mortalites:mortalitesPercussions:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.iconPerc());
@@ -452,6 +552,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:mortalites:mortalitesElectrocutions:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.iconElec());
@@ -466,6 +567,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueEleve:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.tronNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(defaultColorService.tronRisqueEleve());
@@ -476,6 +578,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueSecondaire:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.tronNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(defaultColorService.tronRisqueSecondaire());
@@ -486,6 +589,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:tronconserdf:tronconsErdfPeuPasRisque:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.tronNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(defaultColorService.tronNonRisque());
@@ -499,6 +603,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueEleve:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.poteauxErdfRisqueEleve());
@@ -509,6 +614,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueSecondaire:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.poteauxErdfRisqueSecondaire());
@@ -519,6 +625,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:poteauxerdf:poteauxErdfPeuPasRisque:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.poteauxErdfPeuPasRisque());
@@ -532,6 +639,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsGypaete:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()));
@@ -542,6 +650,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsAigle:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()));
@@ -552,6 +661,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsGrandDuc:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#D400FF'}, defaultColorService.polyStyle()));
@@ -562,6 +672,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsFaucon:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#EFA0FF'}, defaultColorService.polyStyle()));
@@ -577,6 +688,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:observations:observationsNombre020:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.noObs());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.obsClasse1());
@@ -587,6 +699,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:observations:observationsNombre2040:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.noObs());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.obsClasse2());
@@ -597,6 +710,7 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:observations:observationsSup40:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.noObs());
+                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.obsClasse3());
@@ -911,104 +1025,10 @@ app.directive('leafletMap', function(){
             var pictoLayerNoVisible = "css/img/couche_non_visible.png";
             var category = $scope.category;
             var filter = $scope.filter;
-            
-            $scope.pictoLayer = {
-            	"communes": {
-                	"mainLayer": pictoLayerNoVisible
-                },
-                "erdfappareilcoupure": {
-                	"mainLayer": pictoLayerNoVisible
-                },
-                "erdfconnexionaerienne": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "erdfparafoudre": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "erdfposteelectrique": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "erdfremonteeaerosout": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "erdftronconaerien": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "ogmcablesremonteesmecaniques": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "ogmdomainesskiables": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "ogmtronconsdangereux": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "ogmtronconsvisualises": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "ogmtronconsvisualisesdangereux": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "rtelignes": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "rtepostes": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "rtepoteaux": {
-                    "mainLayer": pictoLayerNoVisible
-                },
-                "zonessensibles": {
-                	"mainLayer": pictoLayerVisible
-                },
-                "mortalites": {
-                	"mainLayer": pictoLayerNoVisible,
-                	"subLayer": {
-                		"mortalitesPercussions": pictoLayerNoVisible,
-                		"mortalitesElectrocutions": pictoLayerNoVisible
-                	}
-                },
-                "tronconserdf": {
-                	"mainLayer": pictoLayerNoVisible,
-                	"subLayer": {
-                		"tronconsErdfRisqueEleve": pictoLayerVisible,
-                		"tronconsErdfRisqueSecondaire": pictoLayerVisible,
-                		"tronconsErdfPeuPasRisque": pictoLayerVisible
-                	}
-                },
-                "poteauxerdf": {
-                	"mainLayer": pictoLayerVisible,
-                	"subLayer": {
-                		"poteauxErdfRisqueEleve": pictoLayerVisible,
-                		"poteauxErdfRisqueSecondaire": pictoLayerVisible,
-                		"poteauxErdfPeuPasRisque": pictoLayerVisible
-                	}
-                },
-                "equipementstronconserdf": {
-                	"mainLayer": pictoLayerVisible
-                },
-                "equipementspoteauxerdf": {
-                	"mainLayer": pictoLayerVisible
-                },
-                "nidifications": {
-                	"mainLayer": pictoLayerNoVisible,
-                	"subLayer": {
-                		"nidificationsGypaete": pictoLayerNoVisible,
-                		"nidificationsAigle": pictoLayerNoVisible,
-                		"nidificationsGrandDuc": pictoLayerNoVisible,
-                		"nidificationsFaucon": pictoLayerNoVisible
-                	}
-                },
-                "observations": {
-                	"mainLayer": pictoLayerNoVisible,
-                	"subLayer": {
-                		"observationsNombre020": pictoLayerNoVisible,
-                		"observationsNombre2040": pictoLayerNoVisible,
-                		"observationsSup40": pictoLayerNoVisible
-                	}
-                }
-            };
 
+            // Affectation des pictos de chaque couche à un objet du scope qui sera utilisé dans le template
+            $scope.pictoLayer = mapService.pictoLayer;
+            
             // gestion affichage des couches et des pictos associés
             $scope.getVisibility = function(category, subLayer){
                 // Clic sur le picto oeil VISIBLE de la couche principale (métier) = Passage oeil NON VISIBLE
@@ -1082,161 +1102,6 @@ app.directive('leafletMap', function(){
 });
 
  /*
-  * * #4 - Directive pour la gestion de la légende customisée sur la carte
-  */
-// app.directive('legendLayer', function() {
-//     return {
-//         restrict: 'AEC',
-//         scope: {
-//             category: '=',
-//             subLayer: '=',
-//             name: '=',
-//             pictoLayer: '='
-//         },
-//         templateUrl: 'js/templates/display/legendLayer.htm',
-//         controller: function($scope, mapService) {
-//         	var pictoLayerVisible = "css/img/couche_visible.png";
-//             var pictoLayerNoVisible = "css/img/couche_non_visible.png";
-
-//         	$scope.pictoLayer = {
-//             	"communes": {
-//                 	"mainLayer": pictoLayerNoVisible
-//                 },
-//                 "erdf": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"erdfAppareilsCoupure": pictoLayerNoVisible,
-//                 		"erdfConnexionsAeriennes": pictoLayerNoVisible,
-//                 		"erdfParafoudres": pictoLayerNoVisible,
-//                 		"erdfPostesElectriques": pictoLayerNoVisible,
-//                 		"erdfRemonteesAeroSouterraines": pictoLayerNoVisible,
-//                 		"erdfTronconsAeriens": pictoLayerNoVisible
-//                 	}
-//                 },
-//                 "ogm": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"ogmRemonteesMecaniques": pictoLayerNoVisible,
-//                 		"ogmDomainesSkiables": pictoLayerNoVisible,
-//                 		"ogmTronconsDangereux": pictoLayerNoVisible,
-//                 		"ogmTronconsVisualises": pictoLayerNoVisible,
-//                 		"ogmTronconsVisualisesDangereux": pictoLayerNoVisible
-//                 	}
-//                 },
-//                 "rte": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"rteLignesElectriques": pictoLayerNoVisible,
-//                 		"rtePostesElectriques": pictoLayerNoVisible,
-//                 		"rtePoteaux": pictoLayerNoVisible
-//                 	}
-//                 },
-//                 "zonessensibles": {
-//                 	"mainLayer": pictoLayerVisible
-//                 },
-//                 "mortalites": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"mortalitesPercussions": pictoLayerNoVisible,
-//                 		"mortalitesElectrocutions": pictoLayerNoVisible
-//                 	}
-//                 },
-//                 "tronconserdf": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"tronconsErdfRisqueEleve": pictoLayerNoVisible,
-//                 		"tronconsErdfRisqueSecondaire": pictoLayerNoVisible,
-//                 		"tronconsErdfPeuPasRisque": pictoLayerNoVisible
-//                 	}
-//                 },
-//                 "poteauxerdf": {
-//                 	"mainLayer": pictoLayerVisible,
-//                 	"subLayer": {
-//                 		"pictoPoteauxErdfRisqueEleve": pictoLayerVisible,
-//                 		"pictoPoteauxErdfRisqueSecondaire": pictoLayerVisible,
-//                 		"pictoPoteauxErdfPeuPasRisque": pictoLayerVisible
-//                 	}
-//                 },
-//                 "equipementstronconserdf": {
-//                 	"mainLayer": pictoLayerVisible
-//                 },
-//                 "equipementspoteauxerdf": {
-//                 	"mainLayer": pictoLayerVisible
-//                 },
-//                 "nidifications": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"nidificationsGypaete": pictoLayerNoVisible,
-//                 		"nidificationsAigle": pictoLayerNoVisible,
-//                 		"nidificationsGrandDuc": pictoLayerNoVisible,
-//                 		"nidificationsFaucon": pictoLayerNoVisible
-//                 	}
-//                 },
-//                 "observations": {
-//                 	"mainLayer": pictoLayerNoVisible,
-//                 	"subLayer": {
-//                 		"observationsNombre020": pictoLayerNoVisible,
-//                 		"observationsNombre2040": pictoLayerNoVisible,
-//                 		"observationsSup40": pictoLayerNoVisible
-//                 	}
-//                 }
-//             };
-
-//             // gestion affichage des couches et des pictos associés
-//             $scope.getVisibility = function(category, subLayer){
-//                 // Clic sur le picto oeil de la couche principale (métier) = oeil VISIBLE
-//                 if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerVisible) {
-//                 	// Couche principale non visible
-//                 	$scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
-
-//                 	// Toutes les sous-couches de la catégorie non visible
-//                     var subLayer = $scope.pictoLayer[category]["subLayer"];
-//                     for(item in subLayer) {
-//                         $scope.pictoLayer[category]["subLayer"][item] = pictoLayerNoVisible;
-//                     };
-//                 }
-//                 // Clic sur le picto oeil de la couche principale (métier) = oeil NON VISIBLE
-//                 else if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerNoVisible) {
-//                 	// Couche principale non visible
-//                 	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
-
-//                 	// Toutes les sous-couches de la catégorie non visible
-//                     var subLayer = $scope.pictoLayer[category]["subLayer"];
-//                     for(item in subLayer) {
-//                         $scope.pictoLayer[category]["subLayer"][item] = pictoLayerVisible;
-//                     };
-//                 }
-//                 // Clic sur le picto oeil d'une sous-couche' = oeil VISIBLE
-//                 else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerVisible){
-//                     $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
-//                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerNoVisible;
-//                 }
-//                 // Clic sur le picto oeil d'une sous-couche' = oeil NON VISIBLE
-//                 else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerNoVisible){
-//                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerVisible;
-
-//                     var i = true;
-//                     var subLayer2 = $scope.pictoLayer[category]["subLayer"];
-//                     for (item in subLayer2) {
-//                         if ($scope.pictoLayer[category]["subLayer"][item] !== pictoLayerVisible) {
-//                             i = false;
-//                             break;
-//                         }
-//                     }
-//                     // S'il reste une sous-couche non visible la couche principale reste non visible sinon elle s'affiche
-//                     if (i === false){
-//                         $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
-//                     }
-//                     else {
-//                     	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
-//                     }                  
-//                 }
-//             }
-//         }
-//     };
-// });
-
-/*
  * * #5 - Directive qui gère les évenements entre la carte et le tableau de données métier
  */
 app.directive('maplist', function($rootScope, $timeout, mapService){

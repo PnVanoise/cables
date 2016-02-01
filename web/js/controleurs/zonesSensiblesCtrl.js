@@ -33,7 +33,7 @@ app.controller('zsDetailController', function($scope, $rootScope, $routeParams, 
     $scope.updateUrl = '#/' + $scope._appName + '/edit/zonessensibles/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.showLayer('zonessensibles').then(function() {
+        mapService.showLayer(null, 'zonessensibles').then(function() {
             mapService.selectItem($routeParams.id, 'zonessensibles');
         });
         $scope.title = data.nom_zone_sensible;

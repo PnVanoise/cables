@@ -83,9 +83,25 @@ app.config(function (localStorageServiceProvider) {
  */
 app.controller('baseController', function($scope, $location, dataServ,
     configServ, mapService, userMessages, userServ){
+    
+    // Définition des couches qui sont chargées au démarrage de l'application
     var categoriesFirstLoad = [
-        "zonessensibles", "tronconserdf", "poteauxerdf"
+       "zonessensibles", "poteauxerdf", "tronconserdf", "eqtronconserdf", "eqpoteauxerdf"
     ];
+
+    // Mise en cache des couches et sous-couches non visibles donc non chargées au démarrage de l'application
+    configServ.put('legendLayer:mortalites:main:visibility', "novisible");
+    configServ.put('legendLayer:mortalites:mortalitesPercussions:visibility', "novisible");
+    configServ.put('legendLayer:mortalites:mortalitesElectrocutions:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:main:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsGypaete:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsAigle:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsGrandDuc:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsFaucon:visibility', "novisible");
+    configServ.put('legendLayer:observations:main:visibility', "novisible");
+    configServ.put('legendLayer:observations:observationsNombre020:visibility', "novisible");
+    configServ.put('legendLayer:observations:observationsNombre2040:visibility', "novisible");
+    configServ.put('legendLayer:observations:observationsSup40:visibility', "novisible");
 
     $scope._appName = null; // pour une gestion factorisée des applications = pas utile pour le moment
     $scope.app = {name: "cables"};
@@ -117,7 +133,7 @@ app.controller('baseController', function($scope, $location, dataServ,
 
         categoriesFirstLoad.forEach(
             function(category) {
-                mapService.showLayer(category);
+                mapService.showLayer(null, category);
             }
         );
     };

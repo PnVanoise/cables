@@ -70,7 +70,31 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
                 $scope.editAccess = userServ.checkLevel(3);
             }
             // chargement des données sur la carte et sur dans le tableau des données métier ad hoc
-            mapService.showLayer(category.id);
+            // Actions sur légende quand on clique sur l'onglet Mortalités
+            if (!mapService.tabThemaData[category.id].loaded) {
+                if (category.id === "mortalites") {
+                    configServ.put('legendLayer:mortalites:main:visibility', "visible");
+                    configServ.put('legendLayer:mortalites:mortalitesPercussions:visibility', "visible");
+                    configServ.put('legendLayer:mortalites:mortalitesElectrocutions:visibility', "visible");
+
+                    mapService.pictoLayer.mortalites.mainLayer = "css/img/couche_visible.png";
+                    mapService.pictoLayer.mortalites.subLayer.mortalitesPercussions = "css/img/couche_visible.png";
+                    mapService.pictoLayer.mortalites.subLayer.mortalitesElectrocutions = "css/img/couche_visible.png";
+                }
+            }
+
+            // Zones sensibles : interaction entre carte, légende et onglet
+            if (category.id === "zonessensibles") {
+                configServ.get('legendLayer:zonessensibles:main:visibility', function(visibility){
+                    if(visibility === 'visible'){
+                        mapService.showLayer(null, category.id);
+                    }
+                });
+            }
+            else {
+                mapService.showLayer(null, category.id);
+            }
+            
             dfd.resolve('loading data');
         });
 

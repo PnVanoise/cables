@@ -94,8 +94,8 @@ app.controller('baseController', function($scope, $location, dataServ,
         if(!$scope.user){
             $location.url('login');
         }
-        // retourne /cables si on tape juste pnv
-        if($location.path() == '/'){
+        // retourne /cables/zonessensibles si on tape juste pnv ou pnv/cables
+        if($location.path() == '/' || $location.path() == '/cables/'){
             $location.url('/cables/zonessensibles');
         }
 

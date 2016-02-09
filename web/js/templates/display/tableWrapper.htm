@@ -11,7 +11,7 @@
 <div ng-if="data.length">
     <div class="btn-group float-right" style="margin-bottom: 1ex;">
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="glyphicon glyphicon-th-list"> Colonnes <span class="caret"></button>
-            <!-- boutons export -->
+        <!-- BOUTON EXPORTER -->
         <div class="btn-group">
             <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-share"> Exporter <span></button>
             <ul class="dropdown-menu " role="menu">
@@ -21,6 +21,7 @@
                 <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'doc',escape:'false'});"> <img src='css/img/icons/word.png' width='24px'> Word</a></li>
             </ul>
         </div> 
+        <!-- FIN -->
         <ul class="dropdown-menu select-column" role="menu">
             <li ng-repeat="column in schema.fields"><input style="margin-right: 5px;" id="sel[{{$index}}]" type="checkbox" ng-model="column.options.visible" ng-disabled="column.options.type=='checkable'" /><label for="sel[{{$index}}]">{{column.label}}</label></li>
         </ul>
@@ -37,6 +38,7 @@
                         <button type="button" class="btn btn-xs" ng-click="checkAll(_checkall)" tooltip="Tout cocher/décocher"><span class="glyphicon glyphicon-check"></span></button>
                         <span class="glyphicon glyphicon-check" style="cursor: pointer;" ng-click="checkAll(_checkall)" tooltip="Tout cocher/décocher"></span>
                     </th>
+                    <!-- ENTETE DE COLONNE + TRI SUR VALEURS CHAMPS -->
                     <th ng-repeat="column in schema.fields" 
                         ng-show="column.options.visible && column.options.type!='checkable'" 
                         class="text-center sortable"
@@ -53,7 +55,9 @@
                         >
                         {{column.label}}
                     </th>
+                    <!-- FIN -->
                 </tr>
+                <!-- FILTRE SUR CHAMPS -->
                 <tr class="ng-table-filters" ng-init="tableParams">
                     <th class=actionbouton><ng-transclude></ng-transclude> {{currentSel.current}}/{{currentSel.total}}</th>
                     <th ng-repeat="column in schema.fields" ng-show="column.options.visible" class="filter">
@@ -63,7 +67,9 @@
                         </div>
                     </th>
                 </tr>
+                <!-- FIN -->
             </thead>
+            <!-- AFFICHAGE DES DONNEES -->
             <tbody>
                 <tr ng-repeat="item in $data" ng-click="selectItem(item, true, item.cat)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
 
@@ -77,28 +83,26 @@
                         <input type="checkbox" ng-click="checkItem(item)" ng-model="item._checked" ng-if="column.options.type=='checkable'"></input>
                         <span ng-if="column.options.type=='date'">{{item[column.name]|datefr}}</span>
                         <span ng-if="column.options.type=='select'">{{column.options.choices|tselect:item[column.name]}}</span>
-                        <!-- Initialisation de la photo  s'il y'a en -->
+                        <!-- INITIALISATION DE LA PHOTO SI PRESENTE -->
                         <div ng-if="column.options.type=='image'">
                             <span >
-                                <!-- la photo en miniature --> 
-                              <img  id="min" class="thumb-image" data-toggle="modal"  data-target="#modalPhoto" data-test="{{item.id}}" data-chemin="{{item.cheminPhoto}}" ng-src="{{item.cheminPhoto}}"/>                                                           
+                                <!-- MINIATURE DE LA PHOTO --> 
+                              <img  id="min" class="thumb-image" data-toggle="modal"  data-target="#modalPhoto" data-test="{{item.id}}" data-chemin="{{item.cheminPhoto}}" ng-src="{{item.cheminPhoto}}"/>                  
                             </span>
-                        </div>                        
+                        </div>
+                        <!-- FIN -->                       
                         <ul ng-if="column.options.type=='list'" class="list list-inline">
                             <li ng-repeat="name in item[column.name]">{{name}}</li>
                         </ul>
                         <span ng-if="!column.options.type || column.options.type=='text'">{{item[column.name]}}</span>
-
                     </td>
-
                 </tr>
             </tbody>
-
+            <!-- FIN -->
         </table>
-
     </div>
 </div>
-<!-- modal d'aperçu de la photo -->
+<!-- MODAL POUR APERCU DE LA PHOTO -->
 <div class="modal fade" id="modalPhoto">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -106,13 +110,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"></h4>
       </div>
-
       <div id="photo" class="modal-body-photo"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>      
       </div>
-    
+    </div>
   </div>
 </div>
-</div>
-
+<!-- FIN -->

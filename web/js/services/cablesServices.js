@@ -290,9 +290,15 @@ app.service('storeBreadcrumb', function(){
 
 });
 
-
+/**
+ * Service qui enregistre l'objet (feature = objet geom + attrib) sélectionné dans la carte ou dans la tableau
+ */
 app.value('selectedItemService', []);
 
+/**
+ * Service qui enregistre le numéro de la page de l'objet sélectionné
+ */
+app.value('selectedPage', []);
 
 /**
  * filtre basique - transforme une date yyyy-mm-dd en dd/mm/yyyy pour l'affichage

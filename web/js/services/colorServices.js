@@ -115,6 +115,7 @@ app.service('defaultColorService', function () {
 
     //Style pour les mortalités par pércussion
     this.iconPerc = function(){
+        // console.log('dans defaultColorService iconPerc');
         iconPerc = L.AwesomeMarkers.icon({
             icon: 'glyphicon-certificate',
             markerColor: 'cadetblue',
@@ -123,17 +124,9 @@ app.service('defaultColorService', function () {
     return iconPerc;
     }
 
-    //Style pour les mortalités par pércussion
-    // this.iconPerc = function(){
-    //     iconPerc = L.icon({
-    //         className : 'mortalitesPerc',
-    //         iconUrl: 'css/lib/images/icone_mortalites_percussion.png',
-    //     });
-    // return iconPerc;
-    // }
-
     //Style pour les mortalités par électrocution
     this.iconElec = function(){
+        // console.log('dans defaultColorService iconElec');
         iconElec = L.AwesomeMarkers.icon({
             prefix: 'fa',
             icon: 'bolt',
@@ -397,7 +390,7 @@ app.service('defaultColorService', function () {
  * Changement des couleurs et styles des couches géométriques  quand on clique dessus
  */
 app.service('changeColorService', function () {
-
+// console.log('dans changeColorService');
     // Styles des zones sensibles
     this.zsStyle = function(){
         zsStyle = {
@@ -491,6 +484,7 @@ app.service('changeColorService', function () {
 
     //Style pour les mortalités par pércussion
     this.iconPerc = function(){
+        // console.log('dans changeColorService iconElec');
         iconPerc = L.AwesomeMarkers.icon({
             icon: 'glyphicon-certificate',
             markerColor: 'pink',
@@ -501,6 +495,7 @@ app.service('changeColorService', function () {
 
     //Style pour les mortalités par électrocution
     this.iconElec = function(){
+        // console.log('dans changeColorService iconElec');
         iconElec = L.AwesomeMarkers.icon({
             prefix: 'fa',
             icon: 'bolt',

@@ -116,7 +116,7 @@ app.directive('detailDisplay', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/baseDetail.htm',
-        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q,  $modal, $location, $timeout, mapService){
+        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q,  $modal, $location, $timeout, mapService, selectedItemService){
             $scope.subEditing = false;
             /*
              * Spinner
@@ -349,7 +349,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItemService){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItemService, selectedPage){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -540,28 +540,24 @@ app.directive('tablewrapper', function(){
                 configServ.put($scope.refName + ':itemId:selected', item.id);
                 if(broadcast){
                     selectedItemService.length = 0;
+
                     angular.forEach(mapService.tabThemaData[cat].getLayers(),
                         function(geom) {
                             if (geom.feature.properties.id == item.id) {
-                                selectedItemService.push(geom);
+							    selectedItemService.push(geom);
                             }
                         }
                     );
                 }
             };
 
-            // detect any change in selection, then zoom on item and highlight
-            // it
-            $rootScope.$watchCollection(function() {
-                return selectedItemService;
-            }, function(newVal, oldVal) {
-                // don't take first call into account
-                if (newVal == oldVal) {
-                    return;
-                }
+            var displaySelected = function() {
                 var selectedItem = selectedItemService[0].feature.properties;
                 var category = $scope.refName.split('/')[1];
+                // var data = mapService.tabThemaData[category];
+                
                 angular.forEach($scope.data, function(item) {
+                // angular.forEach(data, function(item) {
                     if (item.id == selectedItem.id &&
                         selectedItem.cat == category) {
                         item.$selected = true;
@@ -579,10 +575,44 @@ app.directive('tablewrapper', function(){
                     var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
                     $scope.tableParams.page(pgnum);
                 }
+            }
+
+            // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
+            $rootScope.$watchCollection(function() {
+                return selectedItemService;
+            }, function(newVal, oldVal) {
+                // Pour éviter un lancement à l'initial
+                if (newVal == oldVal) {
+                    return;
+                }
+
+                var selectedItem = selectedItemService[0].feature.properties;
+                var category = $scope.refName.split('/')[1];
+                angular.forEach($scope.data, function(item) {
+                    if (item.id == selectedItem.id &&
+                        selectedItem.cat == category) {
+                        item.$selected = true;
+                    } else {
+                        item.$selected = false;
+                    }
+                });
+                var page;
+                configServ.get($scope.refName + ':ngTable:Page', function(page){
+                    page = page;
+                    selectedPage.length = 0;
+                    selectedPage.push(page);
+                });
+                var idx = null;
+                for (var key in orderedData){
+                    if (orderedData[key].id === selectedItem.id){
+                        idx = orderedData.indexOf(orderedData[key]);
+                    }
+                }
+                var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
+                $scope.tableParams.page(pgnum);
             });
 
             //$scope.$watch('data', function(newval){
-                
                 //if(newval){
                     //$scope.data.forEach(function(item){
                         //if(item.$selected){
@@ -599,8 +629,9 @@ app.directive('tablewrapper', function(){
             /*
              * Listeners
              */
-            $scope.$on($scope.refName + ':select', function(evt, item){
-                $scope.selectItem(item, false, item.cat);
+            // Ecoute quand cablesGlobalCtrl > CategoryCtrl envoie le numéro de la page de l'objet sélectionné
+            $scope.$on('selectedPage', function(evt, pgnum){
+                $scope.tableParams.page(pgnum);
             });
 
         },

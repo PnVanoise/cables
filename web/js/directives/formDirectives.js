@@ -192,7 +192,7 @@ app.directive('simpleform', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/simpleForm.htm',
-        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, $modal, $location, $timeout, FileUploader, mapService){
+        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, $modal, $location, $timeout, FileUploader, mapService, selectedItemService){
             var dirty = true;
 
             $scope.errors = {};
@@ -306,28 +306,27 @@ app.directive('simpleform', function(){
                 });
 
                 if($scope.dataUrl){
-                    window.data = $scope.data;
                     dataServ.post($scope.saveUrl, $scope.data, $scope.updated(dfd), $scope.error(dfd));
-                    category = $scope.saveUrl.split("/")[1];
-                    mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(null, category, 'force');
-                    if (category === 'poteauxerdf' || 'tronconserdf')
-                    {
-                        mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer(null, 'zonessensibles', 'force');
-                    };
+                    // category = $scope.saveUrl.split("/")[1];
+                    // mapService.tabThemaData[category].loaded = false;
+                    // mapService.showLayer(null, category, 'force');
+                    // if (category === 'poteauxerdf' || 'tronconserdf')
+                    // {
+                    //     mapService.tabThemaData['zonessensibles'].loaded = false;
+                    //     mapService.showLayer(null, 'zonessensibles', 'force');
+                    // };
                     
                 }
                 else{
                     dataServ.put($scope.saveUrl, $scope.data, $scope.created(dfd), $scope.error(dfd));
-                    category = $scope.saveUrl.split("/")[1];
-                    mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(null, category, 'force');
-                    if (category === 'poteauxerdf' || 'tronconserdf')
-                    {
-                        mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer(null, 'zonessensibles', 'force');
-                    };
+                    // category = $scope.saveUrl.split("/")[1];
+                    // mapService.tabThemaData[category].loaded = false;
+                    // mapService.showLayer(null, category, 'force');
+                    // if (category === 'poteauxerdf' || 'tronconserdf')
+                    // {
+                    //     mapService.tabThemaData['zonessensibles'].loaded = false;
+                    //     mapService.showLayer(null, 'zonessensibles', 'force');
+                    // };
                 }
             };
 
@@ -427,9 +426,6 @@ app.directive('simpleform', function(){
                         locationBlock();
                         $location.path(newUrl.slice(newUrl.indexOf('#')+1));
                         mapService.clearEditLayer();
-                        var category = newUrl.slice(newUrl.indexOf('#')+1).split('/')[2];
-                        mapService.tabThemaData[category].loaded = false;
-                        mapService.showLayer(null, category, 'force');
                     });
             });     
 
@@ -449,6 +445,181 @@ app.directive('simpleform', function(){
  *  origin: identifiant du point à éditer
  *  Cette directive est appelé que sur l'édition
  */
+// app.directive('geometry', function($timeout){
+//     return {
+//         restrict: 'A',
+//         scope: {
+//             geom: '=',
+//             options: '=',
+//             origin: '=',
+//         },
+//         templateUrl:  'js/templates/form/geometry.htm',
+//         controller: function($scope, $rootScope, $timeout, mapService, storeFlag, selectedItemService) {
+//             var map = mapService.getMap();
+//             $scope.editLayer = new L.FeatureGroup();
+//             var current = null;
+//             var couches = null;
+
+//             var setEditLayer = function(layer){
+//                 $scope.updateCoords(layer);
+//                 $scope.editLayer.addLayer(layer);
+//                 // Récupération du feature de la couche en édition pour le supprimer une fois enregistrer
+//                 mapService.setEditLayer($scope.editLayer);
+//                 current = layer;
+//             };
+
+//             var coordsDisplay = null;
+
+//             if(!$scope.options.configUrl){
+//                 $scope.configUrl = 'js/resources/defaultMap.json';
+//             }
+//             else{
+//                 $scope.configUrl = $scope.options.configUrl;
+//             }
+
+//             var cat = $scope.options.dataUrl.split("/")[1];
+//             // NF 2 : la ligne ci-dessous permet d'avoir la couche en édition présente dans la légende
+//             // afin de jouer avec la visibilité
+//             //mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
+//             mapService.tabThemaData[cat].loaded = false;
+//             mapService.showLayer(null, cat, 'forceedit').then(function(){
+//                 var itemId = parseInt($scope.origin);
+//                 angular.forEach(mapService.tabThemaData[cat].getLayers(),
+//                     function(geom) {
+//                         if (geom.feature.properties.id == itemId) {
+//                             setEditLayer(geom);
+//                             selectedItemService.length = 0; // => voir si cela est nécessaire
+//                             selectedItemService.push(geom); // => voir si cela est nécessaire
+//                         map.addLayer($scope.editLayer);
+//                     }
+//             });
+
+//             /* Récupération des couches depuis mapServices pour les fonctionnalités
+//              *  d'accrochage en création d'objet geom
+//              * Pour l'instant, pas possibilités de factoriser pour rendre le tableau des couches dynamiques
+//              */
+//              //couches existantes sur la carte
+//             var tabThemaData = mapService.tabThemaData;
+//             couches = [
+//                 tabThemaData['zonessensibles'],
+//                 tabThemaData['mortalites'],
+//                 tabThemaData['tronconserdf'],
+//                 tabThemaData['poteauxerdf'],
+//                 tabThemaData['eqtronconserdf'],
+//                 tabThemaData['eqpoteauxerdf'],
+//                 tabThemaData['nidifications'],
+//                 tabThemaData['observations'],
+//                 tabThemaData['erdfappareilcoupure'],
+//                 tabThemaData['erdfconnexionaerienne'],
+//                 tabThemaData['erdfparafoudre'],
+//                 tabThemaData['erdfposteelectrique'],
+//                 tabThemaData['erdfremonteeaerosout'],
+//                 tabThemaData['erdftronconaerien'],
+//                 tabThemaData['ogmcablesremonteesmecaniques'],
+//                 tabThemaData['ogmdomainesskiables'],
+//                 tabThemaData['ogmtronconsdangereux'],
+//                 tabThemaData['ogmtronconsvisualises'],
+//                 tabThemaData['ogmtronconsvisualisesdangereux'],
+//                 tabThemaData['rtelignes'],
+//                 tabThemaData['rtepostes'],
+//                 tabThemaData['rtepoteaux']
+//             ]
+
+//             // on passe les couches au controle de l'édition
+//             var guideLayers = couches;
+//             var controls = new L.Control.Draw({
+//                 edit: {
+//                     featureGroup: $scope.editLayer},
+//                 draw: {
+//                     moveMarkers: false, // options pour déplacer en entier et facilement polygone et polyline en édition
+//                     rectangle: false,
+//                     circle: false,
+//                     marker: $scope.options.geometryType == 'point',
+//                     polyline: $scope.options.geometryType == 'linestring',
+//                     polygon: $scope.options.geometryType == 'polygon',
+//                 },
+//             });
+//             map.addControl(controls);
+
+//             /*Options d'accrochage couches en mode édit*/
+//             controls.setDrawingOptions({
+//                 polygon: { guideLayers: guideLayers, snapDistance: 5 },
+//                 polyline: { guideLayers: guideLayers},
+//                 marker: { guideLayers: guideLayers, snapVertices: true },
+//             });
+
+//             /*
+//              * affichage coords curseur en edition
+//              * TODO confirmer le maintien
+//              */
+//             coordsDisplay = L.control({position: 'bottomright'});
+//             coordsDisplay.onAdd = function(map){
+//                 this._dsp = L.DomUtil.create('div', 'coords-dsp');
+//                 return this._dsp;
+//             };
+//             coordsDisplay.update = function(evt){
+//                 this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
+//             };
+//             map.on('mousemove', function(e){
+//                 coordsDisplay.update(e);
+//             });
+//             coordsDisplay.addTo(map);
+//             /*
+//              * ---------------------------------------
+//              */
+//             map.on('draw:created', function(e){
+//                 if(!current){
+//                     $scope.editLayer.addLayer(e.layer);
+//                     mapService.setEditLayer($scope.editLayer);
+//                     current = e.layer;
+//                     guideLayers.push(current); // options d'accrochage des couches en mode create
+//                     $rootScope.$apply($scope.updateCoords(current));
+//                 }
+//             });
+//             // déclenchement sur clic sur btn Enregistrer édition sur carte
+//             map.on('draw:edited', function(e){
+//                  if(!current){
+//                     current = e.layer;
+//                     guideLayers.push(current); // options d'accrochage des couches en mode édit
+//                 }
+//                 $rootScope.$apply($scope.updateCoords(e.layers.getLayers()[0]));
+//             });
+
+//             map.on('draw:deleted', function(e){
+//                 current = null;
+//                 $rootScope.$apply($scope.updateCoords(current));
+//             });
+//             $timeout(function() {
+//                 map.invalidateSize();
+//             }, 0 );
+
+
+//             $scope.geom = $scope.geom || [];
+
+//             $scope.updateCoords = function(layer){
+//                 $scope.geom.splice(0);
+//                 if(layer){
+//                     try{
+//                         layer.getLatLngs().forEach(function(point){
+//                             $scope.geom.push([point.lng, point.lat]);
+//                         });
+//                     }
+//                     catch(e){
+//                         point = layer.getLatLng();
+//                         $scope.geom.push([point.lng, point.lat]);
+//                     }
+//                 }
+//             };
+
+//             // Sorti du contexte d'édition les controls pour le dessin et le bloc affichant les coordonnées sont supprimés de la carte
+//             $scope.$on('$destroy', function() {
+//                 map.removeControl(controls);
+//                 map.removeControl(coordsDisplay);
+//             });
+//         // },
+//     };
+// });
+
 app.directive('geometry', function($timeout){
     return {
         restrict: 'A',
@@ -458,7 +629,7 @@ app.directive('geometry', function($timeout){
             origin: '=',
         },
         templateUrl:  'js/templates/form/geometry.htm',
-        controller: function($scope, $rootScope, $timeout, mapService, storeFlag){
+        controller: function($scope, $rootScope, $timeout, mapService, storeFlag, selectedItemService){
             var map = mapService.getMap();
             $scope.editLayer = new L.FeatureGroup();
             var current = null;
@@ -487,12 +658,16 @@ app.directive('geometry', function($timeout){
             //mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
             mapService.tabThemaData[cat].loaded = false;
             mapService.showLayer(null, cat, 'forceedit').then(function(){
-                // $scope.origin est un string, parsé pour être utilisé dans selectItem
-                var layer = mapService.selectItem(parseInt($scope.origin), cat);
-                if(layer){
-                    setEditLayer(layer);
-                }
-                map.addLayer($scope.editLayer);
+                var itemId = parseInt($scope.origin);
+                angular.forEach(mapService.tabThemaData[cat].getLayers(),
+                    function(geom) {
+                        if (geom.feature.properties.id == itemId) {
+                            setEditLayer(geom);
+                            selectedItemService.length = 0; // => voir si cela est nécessaire
+                            selectedItemService.push(geom); // => voir si cela est nécessaire
+                    }
+                    map.addLayer($scope.editLayer);
+                });
             });
 
             /* Récupération des couches depuis mapServices pour les fonctionnalités

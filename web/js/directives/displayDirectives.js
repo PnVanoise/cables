@@ -116,7 +116,7 @@ app.directive('detailDisplay', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/baseDetail.htm',
-        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q,  $modal, $location, $timeout, mapService){
+        controller: function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q,  $modal, $location, $timeout, mapService, selectedItemService){
             $scope.subEditing = false;
             /*
              * Spinner
@@ -349,7 +349,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItemService, selectedPage){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -538,50 +538,100 @@ app.directive('tablewrapper', function(){
                 item.$selected = true;
                 $scope.currentItem = item;
                 configServ.put($scope.refName + ':itemId:selected', item.id);
+                if(broadcast){
+                    selectedItemService.length = 0;
+
+                    angular.forEach(mapService.tabThemaData[cat].getLayers(),
+                        function(geom) {
+                            if (geom.feature.properties.id == item.id) {
+							    selectedItemService.push(geom);
+                            }
+                        }
+                    );
+                }
+            };
+
+            var displaySelected = function() {
+                var selectedItem = selectedItemService[0].feature.properties;
+                var category = $scope.refName.split('/')[1];
+                // var data = mapService.tabThemaData[category];
+                
+                angular.forEach($scope.data, function(item) {
+                // angular.forEach(data, function(item) {
+                    if (item.id == selectedItem.id &&
+                        selectedItem.cat == category) {
+                        item.$selected = true;
+                    } else {
+                        item.$selected = false;
+                    }
+                });
+                if (selectedItem && selectedItem.cat == category) {
+                    var idx = null;
+                    for (var key in orderedData){
+                        if (orderedData[key].id === selectedItem.id){
+                            idx = orderedData.indexOf(orderedData[key]);
+                        }
+                    }
+                    var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
+                    $scope.tableParams.page(pgnum);
+                }
+            }
+
+            // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
+            $rootScope.$watchCollection(function() {
+                return selectedItemService;
+            }, function(newVal, oldVal) {
+                // Pour éviter un lancement à l'initial
+                if (newVal == oldVal) {
+                    return;
+                }
+
+                var selectedItem = selectedItemService[0].feature.properties;
+                var category = $scope.refName.split('/')[1];
+                angular.forEach($scope.data, function(item) {
+                    if (item.id == selectedItem.id &&
+                        selectedItem.cat == category) {
+                        item.$selected = true;
+                    } else {
+                        item.$selected = false;
+                    }
+                });
+                var page;
+                configServ.get($scope.refName + ':ngTable:Page', function(page){
+                    page = page;
+                    selectedPage.length = 0;
+                    selectedPage.push(page);
+                });
                 var idx = null;
                 for (var key in orderedData){
-                    if (orderedData[key].id === item.id){
+                    if (orderedData[key].id === selectedItem.id){
                         idx = orderedData.indexOf(orderedData[key]);
                     }
                 }
                 var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
                 $scope.tableParams.page(pgnum);
-                if(broadcast){
-                    $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item, cat);
-                }
-            };
-
-
-
-            $scope.$watch('data', function(newval){
-                configServ.get($scope.refName + ':itemId:selected', function(itemId){
-                    if (itemId !== undefined) {
-                        for(itemIdKey in $scope.data){
-                            if($scope.data[itemIdKey].id === itemId){
-                                $scope.data[itemIdKey].$selected = true;
-                                var category = $scope.refName.split('/')[1];
-                                mapService.selectItem(itemId, category);
-                            }
-                        };                      
-                    };
-                });
-                
-                if(newval){
-                    $scope.data.forEach(function(item){
-                        if(item.$selected){
-                            $scope.currentItem = item;
-                            $rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
-                        }
-                    });
-                    $scope.tableParams.reload();
-                }
             });
+
+            //$scope.$watch('data', function(newval){
+                //if(newval){
+                    //$scope.data.forEach(function(item){
+                        //if(item.$selected){
+                            //console.log('dans if data');
+                            //$scope.currentItem = item;
+                            //window.itemsel = item;
+                            //$rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
+                        //}
+                    //});
+                    //$scope.tableParams.reload();
+                //}
+            //});
 
             /*
              * Listeners
              */
-            $scope.$on($scope.refName + ':select', function(evt, item){
-                $scope.selectItem(item, false, item.cat);
+            // Ecoute quand cablesGlobalCtrl > CategoryCtrl envoie le numéro de la page de l'objet sélectionné
+            $scope.$on('selectedPage', function(evt, pgnum){
+                $scope.tableParams.page(pgnum);
             });
 
         },

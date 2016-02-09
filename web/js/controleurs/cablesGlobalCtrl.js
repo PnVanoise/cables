@@ -47,11 +47,12 @@ app.config(function($routeProvider){
 });
 
 
-app.controller('CategoryCtrl', function($scope, $loading, $q, categories, category, mapService, configServ, userServ, storeFlag) {
+app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, categories, category, mapService, configServ, userServ, storeFlag, selectedItemService, selectedPage) {
     $scope.categories = categories;
     $scope.category = category;
     $scope.title = category.title;
     $scope.data = [];
+    $scope.selectedpage;
 
     // Spinner
     $loading.start('spinner-1');
@@ -92,7 +93,8 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
                 });
             }
             else {
-                mapService.showLayer(null, category.id);
+                mapService.tabThemaData[category.id].loaded = false;
+                mapService.showLayer(null, category.id, 'force');
             }
             
             dfd.resolve('loading data');
@@ -105,13 +107,31 @@ app.controller('CategoryCtrl', function($scope, $loading, $q, categories, catego
         },
         // ce qui est déclenché quand ce qui est écouté change
         // newVal = mapService.tabThemaData.[category.id].getLayers() nouvellement modifié
-        function(newVal) {
+        function(newVal, oldVal) {
             var data = [];
             // newVal equals to mapService.tabThemaData.zonessensibles.getLayers()
             newVal.forEach(function(layer){
-                data.push(layer.feature.properties);
+                if (selectedItemService[0] !== undefined) {
+                    var selectedItem = selectedItemService[0].feature.properties;
+                    if (selectedItem.id === layer.feature.properties.id) {
+                        layer.feature.properties.$selected = true;
+                        data.push(layer.feature.properties);
+                    }
+                    else {
+                        data.push(layer.feature.properties);
+                    }
+                }
+                else {
+                    data.push(layer.feature.properties);
+                }
             });
+            $scope.data.length = 0;
             $scope.data = data;
+
+            // Envoi du numéro de la page de l'objet sélectionné
+            if (selectedPage[0] !== undefined) {
+                $rootScope.$broadcast('selectedPage', selectedPage[0]);
+            }
         }
     );
 });

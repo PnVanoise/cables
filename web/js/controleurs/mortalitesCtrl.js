@@ -24,7 +24,7 @@ app.config(function($routeProvider){
 /*
  * controleur pour l'affichage basique des détails d'un cas
  */
-app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
+app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag, selectedItemService){
 
     $scope._appName = $routeParams.appName;
     $scope.schemaUrl = $scope._appName + '/config/mortalites/detail';
@@ -33,9 +33,12 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
     $scope.updateUrl = '#/' + $scope._appName + '/edit/mortalites/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.selectItem(parseInt($routeParams.id), 'mortalites');
         $scope.title = data.espece;
     });
+
+    // Chargement des données
+    mapService.tabThemaData['mortalites'].loaded = false;
+    mapService.showLayer(null, 'mortalites', 'force');
 
     // Ajout la possibilité de supprimer un élément en mode détail
     if($routeParams.id){
@@ -52,7 +55,6 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
         // dataServ.forceReload = true;
         $location.url($scope._appName + '/mortalites/');
     });
-
 });
 
 /*
@@ -74,7 +76,7 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
 
     $scope.$on('form:init', function(ev, data){
         if(data.espece){
-        $scope.title = 'Modification du cas de mortalité de ' + data.espece;
+            $scope.title = 'Modification du cas de mortalité de ' + data.espece;
         }
         else{
             $scope.title = 'Nouveau cas';

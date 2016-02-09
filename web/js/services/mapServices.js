@@ -34,7 +34,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
  * * #2 - Service cartographique
  */
-app.service('mapService', function($rootScope, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag) {
+app.service('mapService', function($rootScope, $routeParams, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItemService) {
 
     /*
      * Private variables or functions
@@ -153,10 +153,14 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         var tronRisqueEleve      = defaultColorService.tronRisqueEleve();        // 11- tronçons risques élevés
         var tronRisqueSecondaire = defaultColorService.tronRisqueSecondaire();   // 12 - tronçons risques secondaires
         var tronNonRisque        = defaultColorService.tronNonRisque();          // 13 - tronçons non risques
-        var zOffset              = 0;                                            // position de l'élément avant click
+        var zOffset              = 0;
+
+var iconelecpink;
+                                                    // position de l'élément avant click
         if (_status) {
             // Changement de couleurs et icons au click
             iconElec             = changeColorService.iconElec();
+            // iconelecpink = iconElec;
             iconPerc             = changeColorService.iconPerc();
             zs1                  = changeColorService.zs1();
             zs2                  = changeColorService.zs2();
@@ -417,6 +421,20 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             loadMapConfig();
             addControls();
 
+            // detect any change in selection, then zoom on item and highlight
+            // it
+            $rootScope.$watchCollection(function() {
+                return selectedItemService;
+            }, angular.bind(this, function(newVal, oldVal) {
+                // don't take first call into account
+                if (newVal == oldVal) {
+                    return;
+                }
+                if (newVal) {
+                    this.zoomAndHighlightItem(selectedItemService[0]);
+                }
+            }));
+
             return map;
         },
 
@@ -494,10 +512,11 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
             var promise = loadCategoryData.call(this, subLayer, category, force);
             promise.then(
                 angular.bind(this, function() {
+                    map.addLayer(this.tabThemaData[category]);
                     if (subLayer === 'mortalites' || 'poteauxerdf' || 'tronconserdf' || 'nidifications' || 'observations') {
                         this.changeVisibilityLayer(category, subLayer);
                     }
-                    map.addLayer(this.tabThemaData[category]);
+                    // map.addLayer(this.tabThemaData[category]);
                     deferred.resolve();
                     $loading.finish('map-loading');
                 })
@@ -542,21 +561,32 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                                 item.setIcon(defaultColorService.poNoVisible());
                                 item.options.clickable = false;
                             }
-                            else {
-                                item.setIcon(defaultColorService.iconPerc());
-                            }
+                            // else {
+                            //     item.setIcon(defaultColorService.iconPerc());
+                            //     item.options.clickable = true;
+                            // }
                         });
                     break;
                     case 'électrocution':
-                    // item.setIcon(defaultColorService.iconElec());
                         configServ.get('legendLayer:mortalites:mortalitesElectrocutions:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
-                                item.options.clickable = false;
                             }
-                            else {
-                                item.setIcon(defaultColorService.iconElec());
-                            }
+                            // else {
+                            //     if (selectedItemService[0] !== undefined) {
+                            //         if (item.feature.properties.id === selectedItemService[0].feature.properties.id) {
+                            //             item.setIcon(changeColorService.iconElec());
+                            //         }
+                            //         else {
+                            //             console.log('dans électrocution 1e else');
+                            //             item.setIcon(defaultColorService.iconElec());
+                            //         }
+                            //     }
+                            //     else {
+                            //         console.log('dans électrocution 2e else');
+                            //         item.setIcon(defaultColorService.iconElec());
+                            //     }
+                            // }
                         });
                     break;
                 }
@@ -567,7 +597,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueEleve:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.tronNoVisible());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(defaultColorService.tronRisqueEleve());
@@ -578,7 +607,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueSecondaire:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.tronNoVisible());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(defaultColorService.tronRisqueSecondaire());
@@ -589,7 +617,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:tronconserdf:tronconsErdfPeuPasRisque:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.tronNoVisible());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(defaultColorService.tronNonRisque());
@@ -603,7 +630,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueEleve:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.poteauxErdfRisqueEleve());
@@ -614,7 +640,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueSecondaire:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.poteauxErdfRisqueSecondaire());
@@ -625,7 +650,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:poteauxerdf:poteauxErdfPeuPasRisque:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.poNoVisible());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.poteauxErdfPeuPasRisque());
@@ -639,7 +663,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsGypaete:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()));
@@ -650,7 +673,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsAigle:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()));
@@ -661,7 +683,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsGrandDuc:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#D400FF'}, defaultColorService.polyStyle()));
@@ -672,7 +693,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:nidifications:nidificationsFaucon:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setStyle(defaultColorService.noPolyStyle());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setStyle(angular.extend({color:'#EFA0FF'}, defaultColorService.polyStyle()));
@@ -688,7 +708,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:observations:observationsNombre020:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.noObs());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.obsClasse1());
@@ -699,7 +718,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:observations:observationsNombre2040:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.noObs());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.obsClasse2());
@@ -710,7 +728,6 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                         configServ.get('legendLayer:observations:observationsSup40:visibility', function(visibility){
                             if(visibility === 'novisible'){
                                 item.setIcon(defaultColorService.noObs());
-                                item.options.clickable = false;
                             }
                             else {
                                 item.setIcon(defaultColorService.obsClasse3());
@@ -740,27 +757,18 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
         /*
          * Actions faites (zoom et couleur de sélection) sur la sélection d'un élément sur la carte ou dans un tableau
          * Parameters :
-         * - id : id de l'élément (géométrique et attributaire) d'un ensemble de données métier sélectionné
-         * - categoryData : nom de la catégorie métier utilisée pour la recherche sur l'id
+         * - item : la géométrie à mettre en évidence dans la carte
          */
-        selectItem: function(id, categoryData) {
-            var sel;
-            self = this; // voir comment utiliser angular.bind plutôt que self
-            var res = this.tabThemaData[categoryData].getLayers();
-            res.forEach(function(item) {
-                if (item.feature.properties.id === id){
-                    self.zoomToItem(item);                    
-                    // sélection courante = pas de changement de couleur
-                    if (currentSel) {
-                        changeColorItem(currentSel, false);
-                    }
-                    // changement de couleur sur item sélectionné
-                    changeColorItem(item, true);
-                    currentSel = item;
-                    sel = item;
-                }
-            });
-            return sel;
+        zoomAndHighlightItem: function(item) {
+            // sélection courante = pas de changement de couleur
+            if (currentSel) {
+                changeColorItem(currentSel, false);
+            }
+            currentSel = item;
+            this.zoomToItem(item);
+            // changement de couleur sur item sélectionné
+            changeColorItem(item, true);
+            return item;
         },
 
         /*
@@ -770,15 +778,17 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
          * - categoryData : nom de la catégorie métier utilisée qui va être créée
          */
         addGeom: function(jsonData, filter, categoryData) {
+            // console.log('addgeom');
             var geom = L.GeoJSON.geometryToLayer(jsonData); // la couche GeoJSON
             geom.feature = jsonData;
             var cat = jsonData.properties.cat; // récupération de la catégorie
 
             // Au click: Zoom et affiche le label de la couche s'il y'en a
             geom.on('click', function(e){
-                $rootScope.$apply(
-                    $rootScope.$broadcast('mapService:itemClick', geom, cat)
-                );
+                $rootScope.$apply(function() {
+                    selectedItemService.length = 0;
+                    selectedItemService.push(geom);
+                });
             });
             if(jsonData.properties.geomLabel){
                 geom.bindPopup(jsonData.properties.geomLabel);
@@ -853,15 +863,103 @@ app.service('mapService', function($rootScope, $loading, $q, $timeout, configSer
                 geom.bindLabel(jsonData.properties.nom_zone_sensible, { noHide: true });
             }
 
-            // Mortalités: Couleur des especes en fonction de la cause mortalité
+// MORTALITES
+            // MORTALITES ELECTROCUTION
+            // geom.feature.properties.selection = true;
             if(jsonData.properties.cause_mortalite === 'électrocution'){
-                geom.setIcon(defaultColorService.iconElec());
-            }
-            else if(jsonData.properties.cause_mortalite === 'percussion'){
-                geom.setIcon(defaultColorService.iconPerc());
+                // 1 - page avec tableau = URL avec catégorie SANS id objet
+                if ($routeParams.id === undefined) {
+                    // console.log('addgeom 1');
+                    // 2 - pas d'objet sélection = selectedItemService[0] vide
+                    // => tous les objets avec couleur par défaut
+                    if (selectedItemService[0] === undefined) {
+                        // console.log('addgeom 2');
+                        geom.setIcon(defaultColorService.iconElec());
+                    }
+                    // 2' - objet sélectionné = selectedItemService[0] rempli
+                    else {
+                        // console.log('addgeom 2\'');
+                        // 3 - objet dans tabThemaData = objet dans selectedItemService[0]
+                        // => l'objet avec couleur de sélection
+                        if (geom.feature.properties.id === selectedItemService[0].feature.properties.id) {
+                            // console.log('addgeom 3');
+                            selectedItemService.length = 0;
+                            selectedItemService.push(geom);
+                            geom.setIcon(changeColorService.iconElec());
+                        }
+                        // 3' - tous les autres objets avec couleur par défaut
+                        else {
+                            // console.log('addgeom 3\'');
+                            geom.setIcon(defaultColorService.iconElec());
+                        }
+                    }
+                }
+                // 1' - page Détail ou Edition = URL avec catégorie AVEC id objet             
+                else {
+                    // console.log('addgeom 1\'');
+                    // 4 - objet dans tabThemaData = objet avec id dans URL
+                    // => l'objet avec couleur de sélection
+                    if (geom.feature.properties.id === parseInt($routeParams.id)) {
+                        // console.log('addgeom 4');
+                        selectedItemService.length = 0;
+                        selectedItemService.push(geom);
+                        geom.setIcon(changeColorService.iconElec());
+                    }
+                    // 4' - tous les autres objets avec couleur par défaut
+                    else {
+                        // console.log('addgeom 4\'');
+                        geom.setIcon(defaultColorService.iconElec());
+                    }
+                }
             }
 
-            // Tronçons à risque: Couleur en fonction du niveau de risque
+            // MORTALITES PERCUSSION
+            else if(jsonData.properties.cause_mortalite === 'percussion'){
+                // 1 - page avec tableau = URL avec catégorie SANS id objet
+                if ($routeParams.id === undefined) {
+                    // console.log('addgeom 1');
+                    // 2 - pas d'objet sélection = selectedItemService[0] vide
+                    // => tous les objets avec couleur par défaut
+                    if (selectedItemService[0] === undefined) {
+                        // console.log('addgeom 2');
+                        geom.setIcon(defaultColorService.iconPerc());
+                    }
+                    // 2' - objet sélectionné = selectedItemService[0] rempli
+                    else {
+                        // console.log('addgeom 2\'');
+                        // 3 - objet dans tabThemaData = objet dans selectedItemService[0]
+                        // => l'objet avec couleur de sélection
+                        if (geom.feature.properties.id === selectedItemService[0].feature.properties.id) {
+                            // console.log('addgeom 3');
+                            geom.setIcon(changeColorService.iconPerc());
+                        }
+                        // 3' - tous les autres objets avec couleur par défaut
+                        else {
+                            // console.log('addgeom 3\'');
+                            geom.setIcon(defaultColorService.iconPerc());
+                        }
+                    }
+                }
+                // 1' - page Détail ou Edition = URL avec catégorie AVEC id objet             
+                else {
+                    // console.log('addgeom 1\'');
+                    // 4 - objet dans tabThemaData = objet avec id dans URL
+                    // => l'objet avec couleur de sélection
+                    if (geom.feature.properties.id === parseInt($routeParams.id)) {
+                        // console.log('addgeom 4');
+                        selectedItemService.length = 0;
+                        selectedItemService.push(geom);
+                        geom.setIcon(changeColorService.iconPerc());
+                    }
+                    // 4' - tous les autres objets avec couleur par défaut
+                    else {
+                        // console.log('addgeom 4\'');
+                        geom.setIcon(defaultColorService.iconPerc());
+                    }
+                }
+            }
+
+// TRONCONS A RISQUE
             if(jsonData.properties.cat === 'tronconserdf'){
                 switch (jsonData.properties.risqueTroncon) {
                     case 'Risque élevé':
@@ -1104,7 +1202,7 @@ app.directive('leafletMap', function(){
  /*
  * * #5 - Directive qui gère les évenements entre la carte et le tableau de données métier
  */
-app.directive('maplist', function($rootScope, $timeout, mapService){
+app.directive('maplist', function($rootScope, $timeout, mapService) {
     return {
         restrict: 'A',
         transclude: true,
@@ -1123,12 +1221,6 @@ app.directive('maplist', function($rootScope, $timeout, mapService){
              * Initialisation des listeners d'évenements carte
              */
             var connect = function(){
-
-                // Click sur la carte
-                scope.$on('mapService:itemClick', function(ev, item, cat){
-                    mapService.selectItem(item.feature.properties.id, cat);
-                    $rootScope.$broadcast(target + ':select', item.feature.properties, cat);
-                });
 
                 scope.$on('mapService:pan', function(ev){
                     scope.filter();

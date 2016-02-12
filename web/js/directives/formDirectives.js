@@ -665,6 +665,7 @@ app.directive('geometry', function($timeout){
                             setEditLayer(geom);
                             selectedItemService.length = 0; // => voir si cela est nécessaire
                             selectedItemService.push(geom); // => voir si cela est nécessaire
+                            selectedItemService.push(cat);
                     }
                     map.addLayer($scope.editLayer);
                 });

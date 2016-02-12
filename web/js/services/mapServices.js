@@ -264,6 +264,7 @@ var iconelecpink;
 
         }
         return deferred.promise;
+        window.couche = this.tabThemaData[category];
     };
 
     return {
@@ -377,10 +378,10 @@ var iconelecpink;
                         "poteauxErdfPeuPasRisque": "css/img/couche_visible.png"
                     }
                 },
-                "equipementstronconserdf": {
+                "eqtronconserdf": {
                     "mainLayer": "css/img/couche_visible.png"
                 },
-                "equipementspoteauxerdf": {
+                "eqpoteauxerdf": {
                     "mainLayer": "css/img/couche_visible.png"
                 },
                 "nidifications": {
@@ -513,9 +514,9 @@ var iconelecpink;
             promise.then(
                 angular.bind(this, function() {
                     map.addLayer(this.tabThemaData[category]);
-                    if (subLayer === 'mortalites' || 'poteauxerdf' || 'tronconserdf' || 'nidifications' || 'observations') {
-                        this.changeVisibilityLayer(category, subLayer);
-                    }
+                    // if (subLayer === 'poteauxerdf' || 'tronconserdf' || 'nidifications' || 'observations') {
+                    //     this.changeVisibilityLayer(category, subLayer);
+                    // }
                     // map.addLayer(this.tabThemaData[category]);
                     deferred.resolve();
                     $loading.finish('map-loading');
@@ -553,44 +554,7 @@ var iconelecpink;
             self = this;
             var res = this.tabThemaData[category].getLayers();
             res.forEach(function(item) {
-                // MORTALITES
-                switch (item.feature.properties.cause_mortalite) {
-                    case 'percussion':
-                        configServ.get('legendLayer:mortalites:mortalitesPercussions:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.poNoVisible());
-                                item.options.clickable = false;
-                            }
-                            // else {
-                            //     item.setIcon(defaultColorService.iconPerc());
-                            //     item.options.clickable = true;
-                            // }
-                        });
-                    break;
-                    case 'électrocution':
-                        configServ.get('legendLayer:mortalites:mortalitesElectrocutions:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.poNoVisible());
-                            }
-                            // else {
-                            //     if (selectedItemService[0] !== undefined) {
-                            //         if (item.feature.properties.id === selectedItemService[0].feature.properties.id) {
-                            //             item.setIcon(changeColorService.iconElec());
-                            //         }
-                            //         else {
-                            //             console.log('dans électrocution 1e else');
-                            //             item.setIcon(defaultColorService.iconElec());
-                            //         }
-                            //     }
-                            //     else {
-                            //         console.log('dans électrocution 2e else');
-                            //         item.setIcon(defaultColorService.iconElec());
-                            //     }
-                            // }
-                        });
-                    break;
-                }
-
+               
                 // TRONCONS ERDF
                 switch(item.feature.properties.risqueTroncon){
                     case 'Risque élevé':
@@ -771,6 +735,101 @@ var iconelecpink;
             return item;
         },
 
+        manageColor: function(item, category, subLayer, style, noVisibleStyle, defaultStyle, changeStyle) {
+            var layerVisibility;
+            configServ.get('legendLayer:'+category+':'+subLayer+':visibility', function(visibility){
+            // configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueEleve:visibility', function(visibility){
+                layerVisibility = visibility;
+            });
+            // console.log('layerVisibility : '+layerVisibility)
+
+            // 0 - Couche non visible dans la carte = couche décochée dans légende
+            if(layerVisibility === 'novisible'){
+                // console.log('addgeom 0')
+                if (style === 'marker') {
+                    item.setIcon(noVisibleStyle);
+                }
+                else if (style === 'line') {
+                    item.setStyle(noVisibleStyle);
+                }
+            }
+            else {
+                // console.log('addgeom else novisible')
+                // 1 - page avec tableau = URL avec catégorie SANS id objet
+                if ($routeParams.id === undefined) {
+                    // console.log('addgeom 1');
+                    // 2 - pas d'objet sélection = selectedItemService[0] vide
+                    // => tous les objets avec couleur par défaut
+                    if (selectedItemService[0] === undefined) {
+                        // console.log('addgeom 2');
+                        if (style === 'marker') {
+                            item.setIcon(defaultStyle);
+                        }
+                        else if (style === 'line') {
+                            item.setStyle(defaultStyle);
+                        }
+                    }
+                    // 2' - objet sélectionné = selectedItemService[0] rempli
+                    else {
+                        // console.log('addgeom 2\'');
+                        // 3 - objet dans tabThemaData = objet dans selectedItemService[0]
+                        // => l'objet avec couleur de sélection
+                        if (item.feature.properties.id === selectedItemService[0].feature.properties.id) {
+                            // console.log('addgeom 3');
+                            selectedItemService.length = 0;
+                            selectedItemService.push(item);
+                            selectedItemService.push(category);
+                            if (style === 'marker') {
+                            item.setIcon(changeStyle);
+                            }
+                            else if (style === 'line') {
+                                item.setStyle(changeStyle);
+                            }
+                        }
+                        // 3' - tous les autres objets avec couleur par défaut
+                        else {
+                            // console.log('addgeom 3\'');
+                            if (style === 'marker') {
+                                item.setIcon(defaultStyle);
+                            }
+                            else if (style === 'line') {
+                                item.setStyle(defaultStyle);
+                            }
+                        }
+                    }
+                }
+                // 1' - page Détail ou Edition = URL avec catégorie AVEC id objet             
+                else {
+                    // console.log('addgeom 1\'');
+                    // 4 - objet dans tabThemaData = objet avec id dans URL
+                    // => l'objet avec couleur de sélection
+                    if (item.feature.properties.id === parseInt($routeParams.id)) {
+                        // console.log('addgeom 4');
+                        selectedItemService.length = 0;
+                        selectedItemService.push(item);
+                        selectedItemService.push(category);
+                        if (style === 'marker') {
+                            item.setIcon(changeStyle);
+                        }
+                        else if (style === 'line') {
+                            item.setStyle(changeStyle);
+                        }
+                    }
+                    // 4' - tous les autres objets avec couleur par défaut
+                    else {
+                        // console.log('addgeom 4\'');
+                        if (style === 'marker') {
+                            item.setIcon(defaultStyle);
+                        }
+                        else if (style === 'line') {
+                            item.setStyle(defaultStyle);
+                        }
+                    }
+                }
+
+            }
+        },
+
         /*
          * Création des couches Leaflet (featureGroup) depuis le json renvoyé par Symfony pour une catégorie métier
          * Parameters :
@@ -778,7 +837,6 @@ var iconelecpink;
          * - categoryData : nom de la catégorie métier utilisée qui va être créée
          */
         addGeom: function(jsonData, filter, categoryData) {
-            // console.log('addgeom');
             var geom = L.GeoJSON.geometryToLayer(jsonData); // la couche GeoJSON
             geom.feature = jsonData;
             var cat = jsonData.properties.cat; // récupération de la catégorie
@@ -788,20 +846,23 @@ var iconelecpink;
                 $rootScope.$apply(function() {
                     selectedItemService.length = 0;
                     selectedItemService.push(geom);
+                    selectedItemService.push(category);
                 });
             });
             if(jsonData.properties.geomLabel){
                 geom.bindPopup(jsonData.properties.geomLabel);
             }
             try{
+
                 geom.setZIndexOffset(0);
             }
             catch(e){}
+
             /*
              * Distribution des couleurs aux différentes couches
              */
 
-             // Distributions des styles pour les couches non gérées
+// COUCHES DE REFERENCE = ERDF, RTE, OGM, COMMUNES
              switch (jsonData.properties.cat) {
                 case'erdfappareilcoupure':
                     geom.setIcon(defaultColorService.erdfac())
@@ -847,7 +908,8 @@ var iconelecpink;
                     break;
              }
 
-            // Zones sensibles: Couleurs en fonctions du niveau de sensibilité
+// COUCHES METIER
+// ZONES SENSIBLES : Couleurs en fonctions du niveau de sensibilité
             if(jsonData.properties.cat === 'zonessensibles'){
                 switch (jsonData.properties.niveau_sensibilite) {
                     case 1:
@@ -864,140 +926,139 @@ var iconelecpink;
             }
 
 // MORTALITES
-            // MORTALITES ELECTROCUTION
-            // geom.feature.properties.selection = true;
-            if(jsonData.properties.cause_mortalite === 'électrocution'){
-                // 1 - page avec tableau = URL avec catégorie SANS id objet
-                if ($routeParams.id === undefined) {
-                    // console.log('addgeom 1');
-                    // 2 - pas d'objet sélection = selectedItemService[0] vide
-                    // => tous les objets avec couleur par défaut
-                    if (selectedItemService[0] === undefined) {
-                        // console.log('addgeom 2');
-                        geom.setIcon(defaultColorService.iconElec());
-                    }
-                    // 2' - objet sélectionné = selectedItemService[0] rempli
-                    else {
-                        // console.log('addgeom 2\'');
-                        // 3 - objet dans tabThemaData = objet dans selectedItemService[0]
-                        // => l'objet avec couleur de sélection
-                        if (geom.feature.properties.id === selectedItemService[0].feature.properties.id) {
-                            // console.log('addgeom 3');
-                            selectedItemService.length = 0;
-                            selectedItemService.push(geom);
-                            geom.setIcon(changeColorService.iconElec());
-                        }
-                        // 3' - tous les autres objets avec couleur par défaut
-                        else {
-                            // console.log('addgeom 3\'');
-                            geom.setIcon(defaultColorService.iconElec());
-                        }
-                    }
-                }
-                // 1' - page Détail ou Edition = URL avec catégorie AVEC id objet             
-                else {
-                    // console.log('addgeom 1\'');
-                    // 4 - objet dans tabThemaData = objet avec id dans URL
-                    // => l'objet avec couleur de sélection
-                    if (geom.feature.properties.id === parseInt($routeParams.id)) {
-                        // console.log('addgeom 4');
-                        selectedItemService.length = 0;
-                        selectedItemService.push(geom);
-                        geom.setIcon(changeColorService.iconElec());
-                    }
-                    // 4' - tous les autres objets avec couleur par défaut
-                    else {
-                        // console.log('addgeom 4\'');
-                        geom.setIcon(defaultColorService.iconElec());
-                    }
-                }
-            }
+			if(jsonData.properties.cat === 'mortalites') {
+	            // MORTALITES ELECTROCUTION
+	            if(jsonData.properties.cause_mortalite === 'électrocution'){
+	                this.manageColor(
+	                    geom, 
+	                    'mortalites', 
+	                    'mortalitesElectrocutions',
+	                    'marker', 
+	                    defaultColorService.poNoVisible(), 
+	                    defaultColorService.iconElec(),
+	                    changeColorService.iconElec()
+	                );
+	            }
 
-            // MORTALITES PERCUSSION
-            else if(jsonData.properties.cause_mortalite === 'percussion'){
-                // 1 - page avec tableau = URL avec catégorie SANS id objet
-                if ($routeParams.id === undefined) {
-                    // console.log('addgeom 1');
-                    // 2 - pas d'objet sélection = selectedItemService[0] vide
-                    // => tous les objets avec couleur par défaut
-                    if (selectedItemService[0] === undefined) {
-                        // console.log('addgeom 2');
-                        geom.setIcon(defaultColorService.iconPerc());
-                    }
-                    // 2' - objet sélectionné = selectedItemService[0] rempli
-                    else {
-                        // console.log('addgeom 2\'');
-                        // 3 - objet dans tabThemaData = objet dans selectedItemService[0]
-                        // => l'objet avec couleur de sélection
-                        if (geom.feature.properties.id === selectedItemService[0].feature.properties.id) {
-                            // console.log('addgeom 3');
-                            geom.setIcon(changeColorService.iconPerc());
-                        }
-                        // 3' - tous les autres objets avec couleur par défaut
-                        else {
-                            // console.log('addgeom 3\'');
-                            geom.setIcon(defaultColorService.iconPerc());
-                        }
-                    }
-                }
-                // 1' - page Détail ou Edition = URL avec catégorie AVEC id objet             
-                else {
-                    // console.log('addgeom 1\'');
-                    // 4 - objet dans tabThemaData = objet avec id dans URL
-                    // => l'objet avec couleur de sélection
-                    if (geom.feature.properties.id === parseInt($routeParams.id)) {
-                        // console.log('addgeom 4');
-                        selectedItemService.length = 0;
-                        selectedItemService.push(geom);
-                        geom.setIcon(changeColorService.iconPerc());
-                    }
-                    // 4' - tous les autres objets avec couleur par défaut
-                    else {
-                        // console.log('addgeom 4\'');
-                        geom.setIcon(defaultColorService.iconPerc());
-                    }
-                }
-            }
+	            // MORTALITES PERCUSSION
+	            else if(jsonData.properties.cause_mortalite === 'percussion'){
+	                this.manageColor(
+	                    geom,
+	                    'mortalites', 
+	                    'mortalitesPercussions', 
+	                    'marker',
+	                    defaultColorService.poNoVisible(), 
+	                    defaultColorService.iconPerc(), 
+	                    changeColorService.iconPerc()
+	                );
+	            };
+	        };
 
 // TRONCONS A RISQUE
-            if(jsonData.properties.cat === 'tronconserdf'){
-                switch (jsonData.properties.risqueTroncon) {
-                    case 'Risque élevé':
-                        geom.setStyle(angular.extend({color:'#DE0101', weight: 7}, defaultColorService.lineStyle()))
-                    break;
-                    case 'Risque secondaire':
-                        geom.setStyle(angular.extend({color:'#ECA500', weight: 7}, defaultColorService.lineStyle()))
-                    break;
-                    case 'Peu ou pas de risque':
-                        geom.setStyle(angular.extend({color:'#2B4EDC', weight: 7}, defaultColorService.lineStyle()))
-                    break;
-                }
+			if(jsonData.properties.cat === 'tronconserdf') {
+				if (jsonData.properties.risqueTroncon === 'Risque élevé') {
+					this.manageColor(
+	                    geom, 
+	                    'tronconserdf', 
+	                    'tronconsErdfRisqueEleve',
+	                    'line', 
+	                    defaultColorService.tronNoVisible(), 
+	                    defaultColorService.tronRisqueEleve(),
+	                    changeColorService.tronRisqueEleve()
+	                );
+				}
+                
+				if (jsonData.properties.risqueTroncon === 'Risque secondaire') {
+	                this.manageColor(
+	                    geom, 
+	                    'tronconserdf', 
+	                    'tronconsErdfRisqueSecondaire',
+	                    'line', 
+	                    defaultColorService.tronNoVisible(), 
+	                    defaultColorService.tronRisqueSecondaire(),
+	                    changeColorService.tronRisqueSecondaire()
+	                );
+            	}
+
+            	if (jsonData.properties.risqueTroncon === 'Peu ou pas de risque') {
+	                this.manageColor(
+	                    geom, 
+	                    'tronconserdf', 
+	                    'tronconsErdfPeuPasRisque',
+	                    'line', 
+	                    defaultColorService.tronNoVisible(), 
+	                    defaultColorService.tronNonRisque(),
+	                    changeColorService.tronNonRisque()
+	                );
+            	}
             };
-            // Poteaux à risque: Couleur en fonction du niveau de risque
+
+// POTEAUX A RISQUE : Couleur en fonction du niveau de risque
             if(jsonData.properties.cat === 'poteauxerdf'){
-                switch (jsonData.properties.risquePoteau) {
-                    case 'Risque élevé':
-                        geom.setIcon(defaultColorService.poteauxErdfRisqueEleve())
-                    break;
-                    case 'Risque secondaire':
-                        geom.setIcon(defaultColorService.poteauxErdfRisqueSecondaire())
-                    break;
-                    case 'Peu ou pas de risque':
-                        geom.setIcon(defaultColorService.poteauxErdfPeuPasRisque())
-                    break;
-                }
+                if (jsonData.properties.risquePoteau === 'Risque élevé') {
+					this.manageColor(
+	                    geom, 
+	                    'poteauxerdf', 
+	                    'poteauxErdfRisqueEleve',
+	                    'marker', 
+	                    defaultColorService.poNoVisible(), 
+	                    defaultColorService.poteauxErdfRisqueEleve(),
+	                    changeColorService.poRisqueEleve()
+	                );
+				}
+                
+				if (jsonData.properties.risquePoteau === 'Risque secondaire') {
+	                this.manageColor(
+	                    geom, 
+	                    'poteauxerdf', 
+	                    'poteauxErdfRisqueSecondaire',
+	                    'marker', 
+	                    defaultColorService.poNoVisible(), 
+	                    defaultColorService.poteauxErdfRisqueSecondaire(),
+	                    changeColorService.poRisqueSecondaire()
+	                );
+            	}
+
+            	if (jsonData.properties.risquePoteau === 'Peu ou pas de risque') {
+	                this.manageColor(
+	                    geom, 
+	                    'poteauxerdf', 
+	                    'poteauxErdfPeuPasRisque',
+	                    'marker', 
+	                    defaultColorService.poNoVisible(), 
+	                    defaultColorService.poteauxErdfPeuPasRisque(),
+	                    changeColorService.poNonRisque()
+	                );
+            	}
             };
 
-           // Equipements tronçons
+// EQUIPEMENTS TRONCONS
             if(jsonData.properties.cat === 'eqtronconserdf'){
-                geom.setStyle(defaultColorService.eqTroncon());
-            }
-            // Equipements poteaux
-            if(jsonData.properties.cat === 'eqpoteauxerdf'){
-                geom.setIcon(defaultColorService.eqPoteau())
+                this.manageColor(
+                    geom, 
+                    'eqtronconserdf', 
+                    'main',
+                    'line', 
+                    defaultColorService.tronNoVisible(), 
+                    defaultColorService.eqTroncon(),
+                    changeColorService.eqTroncon()
+                );
             }
 
-            // Sites de nidification: Couleur en fonction de l'espece
+// // EQUIPEMENTS POTEAUX
+            if(jsonData.properties.cat === 'eqpoteauxerdf'){
+				this.manageColor(
+                    geom, 
+                    'eqpoteauxerdf', 
+                    'main',
+                    'marker', 
+                    defaultColorService.poNoVisible(), 
+                    defaultColorService.eqPoteau(),
+                    changeColorService.eqPoteau()
+                );
+            }
+
+// SITES DE NIDIFICATION : Couleur en fonction de l'espece
             if(jsonData.properties.cat === 'nidifications'){
                switch (jsonData.properties.nom_espece) {
 
@@ -1016,7 +1077,7 @@ var iconelecpink;
                 }
             }
 
-            // observations : classes en fonction du nb d'individus
+// OBSERVATIONS : Classes en fonction du nb d'individus
             if(jsonData.properties.cat === 'observations'){
                 var nb = jsonData.properties.nombre;
                 switch (true) {
@@ -1166,7 +1227,8 @@ app.directive('leafletMap', function(){
                     // mapService.hideLayer(category);
                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerNoVisible;
                     configServ.put('legendLayer:'+category+':'+subLayer+':visibility', "novisible");
-                    mapService.showLayer(subLayer, category);
+                    mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(subLayer, category, 'force');
                     // configServ.put('cables/'+category+':ngTable:Filter', '{risquePoteau: "Risque secondaire"}');
                 }
 
@@ -1174,7 +1236,8 @@ app.directive('leafletMap', function(){
                 else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerNoVisible){
                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerVisible;
                     configServ.put('legendLayer:'+category+':'+subLayer+':visibility', "visible");
-                    mapService.showLayer(null, category);
+                    mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(null, category, 'force');
 
                     var i = true;
                     var subLayer2 = $scope.pictoLayer[category]["subLayer"];

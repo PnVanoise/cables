@@ -72,13 +72,13 @@ app.service('defaultColorService', function () {
 
     // Tronçons à risque : non visible
     this.tronNoVisible = function(){
-        tronRisqueEleve = angular.extend({
+        tronNoVisible = angular.extend({
             // color:'#DE0101',
             weight: 0
         }
         //, lineStyle()
         )
-    return tronRisqueEleve;
+    return tronNoVisible;
     }
 
     // Tronçons à risque : élevé

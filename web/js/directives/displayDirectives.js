@@ -544,7 +544,8 @@ app.directive('tablewrapper', function(){
                     angular.forEach(mapService.tabThemaData[cat].getLayers(),
                         function(geom) {
                             if (geom.feature.properties.id == item.id) {
-							    selectedItemService.push(geom);
+                                selectedItemService.push(geom);
+							    selectedItemService.push(cat);
                             }
                         }
                     );

@@ -32,10 +32,18 @@ app.controller('poteauxErdfDetailCtrl', function($scope, $rootScope, $routeParam
     $scope.dataId = $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/poteauxerdf/' + $routeParams.id;
 
+    // écoute sur display:init déclenché par broadcast dans displayDirectives > dir detailDisplay
+    // utilisé dans page de détail
     $scope.$on('display:init', function(ev, data){
-        mapService.selectItem(parseInt($routeParams.id), 'poteauxerdf');
+        console.log('poteauxdetailctrl init');
+        // mapService.selectItem(parseInt($routeParams.id), 'poteauxerdf');
         $scope.title = 'Poteau de type ' + data.type_poteau_erdf;
     });
+
+    // Chargement des données sur chargement page de détail
+    mapService.tabThemaData['poteauxerdf'].loaded = false;
+    // console.log('showlayer mortalitectrl');
+    mapService.showLayer(null, 'poteauxerdf', 'force');
 
     // Ajout la possibilité de supprimer un élément en mode détail
     if($routeParams.id){

@@ -47,7 +47,7 @@ app.config(function($routeProvider){
 });
 
 
-app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, categories, category, mapService, configServ, userServ, storeFlag, selectedItemService, selectedPage) {
+app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, categories, category, mapService, configServ, userServ, storeFlag, selectedItemService, selectedPage, selectedCategoryService) {
     $scope.categories = categories;
     $scope.category = category;
     $scope.title = category.title;
@@ -88,11 +88,13 @@ app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, catego
             if (category.id === "zonessensibles") {
                 configServ.get('legendLayer:zonessensibles:main:visibility', function(visibility){
                     if(visibility === 'visible'){
+                        // console.log('showlayer cableglobal if zs');
                         mapService.showLayer(null, category.id);
                     }
                 });
             }
             else {
+                // console.log('showlayer cableglobal else');
                 mapService.tabThemaData[category.id].loaded = false;
                 mapService.showLayer(null, category.id, 'force');
             }
@@ -111,11 +113,16 @@ app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, catego
             var data = [];
             // newVal equals to mapService.tabThemaData.zonessensibles.getLayers()
             newVal.forEach(function(layer){
-                if (selectedItemService[0] !== undefined) {
-                    var selectedItem = selectedItemService[0].feature.properties;
-                    if (selectedItem.id === layer.feature.properties.id) {
-                        layer.feature.properties.$selected = true;
-                        data.push(layer.feature.properties);
+                if (selectedCategoryService[0] === category.id) {
+                    if (selectedItemService[0] !== undefined) {
+                        var selectedItem = selectedItemService[0].feature.properties;
+                        if (selectedItem.id === layer.feature.properties.id) {
+                            layer.feature.properties.$selected = true;
+                            data.push(layer.feature.properties);
+                        }
+                        else {
+                            data.push(layer.feature.properties);
+                        }
                     }
                     else {
                         data.push(layer.feature.properties);

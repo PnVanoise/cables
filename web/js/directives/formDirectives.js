@@ -310,11 +310,11 @@ app.directive('simpleform', function(){
                     // category = $scope.saveUrl.split("/")[1];
                     // mapService.tabThemaData[category].loaded = false;
                     // mapService.showLayer(null, category, 'force');
-                    // if (category === 'poteauxerdf' || 'tronconserdf')
-                    // {
-                    //     mapService.tabThemaData['zonessensibles'].loaded = false;
-                    //     mapService.showLayer(null, 'zonessensibles', 'force');
-                    // };
+                    if (category === 'poteauxerdf' || 'tronconserdf')
+                    {
+                        mapService.tabThemaData['zonessensibles'].loaded = false;
+                        mapService.showLayer(null, 'zonessensibles', 'force');
+                    };
                     
                 }
                 else{
@@ -322,11 +322,11 @@ app.directive('simpleform', function(){
                     // category = $scope.saveUrl.split("/")[1];
                     // mapService.tabThemaData[category].loaded = false;
                     // mapService.showLayer(null, category, 'force');
-                    // if (category === 'poteauxerdf' || 'tronconserdf')
-                    // {
-                    //     mapService.tabThemaData['zonessensibles'].loaded = false;
-                    //     mapService.showLayer(null, 'zonessensibles', 'force');
-                    // };
+                    if (category === 'poteauxerdf' || 'tronconserdf')
+                    {
+                        mapService.tabThemaData['zonessensibles'].loaded = false;
+                        mapService.showLayer(null, 'zonessensibles', 'force');
+                    };
                 }
             };
 
@@ -629,7 +629,7 @@ app.directive('geometry', function($timeout){
             origin: '=',
         },
         templateUrl:  'js/templates/form/geometry.htm',
-        controller: function($scope, $rootScope, $timeout, mapService, storeFlag, selectedItemService){
+        controller: function($scope, $rootScope, $timeout, mapService, storeFlag, selectedItemService, selectedCategoryService){
             var map = mapService.getMap();
             $scope.editLayer = new L.FeatureGroup();
             var current = null;
@@ -656,6 +656,8 @@ app.directive('geometry', function($timeout){
             // NF 2 : la ligne ci-dessous permet d'avoir la couche en édition présente dans la légende
             // afin de jouer avec la visibilité
             //mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
+            
+            // chargement des données sur la page d'édition
             mapService.tabThemaData[cat].loaded = false;
             mapService.showLayer(null, cat, 'forceedit').then(function(){
                 var itemId = parseInt($scope.origin);
@@ -664,8 +666,9 @@ app.directive('geometry', function($timeout){
                         if (geom.feature.properties.id == itemId) {
                             setEditLayer(geom);
                             selectedItemService.length = 0; // => voir si cela est nécessaire
+                            selectedCategoryService.length = 0; // => voir si cela est nécessaire
                             selectedItemService.push(geom); // => voir si cela est nécessaire
-                            selectedItemService.push(cat);
+                            selectedCategoryService.push(cat);
                     }
                     map.addLayer($scope.editLayer);
                 });

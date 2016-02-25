@@ -24,7 +24,7 @@ app.config(function($routeProvider){
 /*
  * controleur pour l'affichage basique des détails d'un cas
  */
-app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag, selectedItemService){
+app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
 
     $scope._appName = $routeParams.appName;
     $scope.schemaUrl = $scope._appName + '/config/mortalites/detail';
@@ -36,8 +36,9 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
         $scope.title = data.espece;
     });
 
-    // Chargement des données
+    // Chargement des données sur chargement page de détail
     mapService.tabThemaData['mortalites'].loaded = false;
+    // console.log('showlayer mortalitectrl');
     mapService.showLayer(null, 'mortalites', 'force');
 
     // Ajout la possibilité de supprimer un élément en mode détail

@@ -34,7 +34,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
  * * #2 - Service cartographique
  */
-app.service('mapService', function($rootScope, $routeParams, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItemService) {
+app.service('mapService', function($rootScope, $routeParams, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItemService, selectedCategoryService) {
 
     /*
      * Private variables or functions
@@ -264,7 +264,6 @@ var iconelecpink;
 
         }
         return deferred.promise;
-        window.couche = this.tabThemaData[category];
     };
 
     return {
@@ -774,21 +773,34 @@ var iconelecpink;
                         // console.log('addgeom 2\'');
                         // 3 - objet dans tabThemaData = objet dans selectedItemService[0]
                         // => l'objet avec couleur de sélection
-                        if (item.feature.properties.id === selectedItemService[0].feature.properties.id) {
-                            // console.log('addgeom 3');
-                            selectedItemService.length = 0;
-                            selectedItemService.push(item);
-                            selectedItemService.push(category);
-                            if (style === 'marker') {
-                            item.setIcon(changeStyle);
+                        if (category === selectedCategoryService[0]) {
+                            // console.log('mapservice managecolor 3')
+                            if (item.feature.properties.id === selectedItemService[0].feature.properties.id) {
+                                // console.log('addgeom 3');
+                                selectedItemService.length = 0;
+                                // selectedCategoryService.length = 0;
+                                selectedItemService.push(item);
+                                // console.log('mapservice push 1');
+                                // selectedCategoryService.push(category);
+                                if (style === 'marker') {
+                                item.setIcon(changeStyle);
+                                }
+                                else if (style === 'line') {
+                                    item.setStyle(changeStyle);
+                                }
                             }
-                            else if (style === 'line') {
-                                item.setStyle(changeStyle);
+                            // 3' - tous les autres objets avec couleur par défaut
+                            else {
+                                // console.log('addgeom 3\'');
+                                if (style === 'marker') {
+                                    item.setIcon(defaultStyle);
+                                }
+                                else if (style === 'line') {
+                                    item.setStyle(defaultStyle);
+                                }
                             }
                         }
-                        // 3' - tous les autres objets avec couleur par défaut
                         else {
-                            // console.log('addgeom 3\'');
                             if (style === 'marker') {
                                 item.setIcon(defaultStyle);
                             }
@@ -806,8 +818,10 @@ var iconelecpink;
                     if (item.feature.properties.id === parseInt($routeParams.id)) {
                         // console.log('addgeom 4');
                         selectedItemService.length = 0;
+                        selectedCategoryService.length = 0;
                         selectedItemService.push(item);
-                        selectedItemService.push(category);
+                        selectedCategoryService.push(category);
+                        // console.log('mapservice push 2');
                         if (style === 'marker') {
                             item.setIcon(changeStyle);
                         }
@@ -845,8 +859,9 @@ var iconelecpink;
             geom.on('click', function(e){
                 $rootScope.$apply(function() {
                     selectedItemService.length = 0;
+                    selectedCategoryService.length = 0;
                     selectedItemService.push(geom);
-                    selectedItemService.push(category);
+                    selectedCategoryService.push(cat);
                 });
             });
             if(jsonData.properties.geomLabel){
@@ -1295,15 +1310,16 @@ app.directive('maplist', function($rootScope, $timeout, mapService) {
                 }
 
                 // Sélection dans la liste
-                scope.$on(target + ':ngTable:ItemSelected', function(ev, item, cat){
-                    $timeout(function(){
-                        try{
-                            var geom = mapService.selectItem(item.id, cat);
-                            geom.openPopup();
-                        }
-                        catch(e){}
-                    }, 0);
-                });
+                // scope.$on(target + ':ngTable:ItemSelected', function(ev, item, cat){
+                //    console.log('=============================== scope.on');
+                //     $timeout(function(){
+                //         try{
+                //             var geom = mapService.selectItem(item.id, cat);
+                //             geom.openPopup();
+                //         }
+                //         catch(e){}
+                //     }, 0);
+                // });
 
                 // Filtrage avec le tableau
                 scope.$on(target + ':ngTable:Filtered', function(ev, data){

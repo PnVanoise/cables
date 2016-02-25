@@ -33,9 +33,14 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
     $scope.updateUrl = '#/' + $scope._appName + '/edit/tronconserdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.selectItem(parseInt($routeParams.id), 'tronconserdf');
+        // mapService.selectItem(parseInt($routeParams.id), 'tronconserdf');
         $scope.title = 'Tronçon ' + data.id;
     });
+
+    // Chargement des données sur chargement page de détail
+    mapService.tabThemaData['tronconserdf'].loaded = false;
+    // console.log('showlayer mortalitectrl');
+    mapService.showLayer(null, 'tronconserdf', 'force');
 
     // Ajout la possibilité de supprimer un élément en mode détail
     if($routeParams.id){

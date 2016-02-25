@@ -295,6 +295,8 @@ app.service('storeBreadcrumb', function(){
  */
 app.value('selectedItemService', []);
 
+app.value('selectedCategoryService', []);
+
 /**
  * Service qui enregistre le numéro de la page de l'objet sélectionné
  */

@@ -349,7 +349,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItemService, selectedPage){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItemService, selectedPage, selectedCategoryService){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -535,48 +535,52 @@ app.directive('tablewrapper', function(){
                 if(broadcast == undefined){
                     broadcast = true;
                 }
-                item.$selected = true;
+                item.$selected = true; // ligne sur laquelle on vient de cliquer passe en rose
                 $scope.currentItem = item;
                 configServ.put($scope.refName + ':itemId:selected', item.id);
                 if(broadcast){
                     selectedItemService.length = 0;
+                    selectedCategoryService.length = 0;
 
                     angular.forEach(mapService.tabThemaData[cat].getLayers(),
                         function(geom) {
+                            // Si l'item sélectionné dans le tableau = item dans couche
+                            // => selectedItemService rempli avec item
+                            // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
                             if (geom.feature.properties.id == item.id) {
                                 selectedItemService.push(geom);
-							    selectedItemService.push(cat);
+							    selectedCategoryService.push(cat);
                             }
                         }
                     );
                 }
             };
 
-            var displaySelected = function() {
-                var selectedItem = selectedItemService[0].feature.properties;
-                var category = $scope.refName.split('/')[1];
-                // var data = mapService.tabThemaData[category];
+            // var displaySelected = function() {
+            //     var selectedItem = selectedItemService[0].feature.properties;
+            //     var category = $scope.refName.split('/')[1];
+            //     // var data = mapService.tabThemaData[category];
                 
-                angular.forEach($scope.data, function(item) {
-                // angular.forEach(data, function(item) {
-                    if (item.id == selectedItem.id &&
-                        selectedItem.cat == category) {
-                        item.$selected = true;
-                    } else {
-                        item.$selected = false;
-                    }
-                });
-                if (selectedItem && selectedItem.cat == category) {
-                    var idx = null;
-                    for (var key in orderedData){
-                        if (orderedData[key].id === selectedItem.id){
-                            idx = orderedData.indexOf(orderedData[key]);
-                        }
-                    }
-                    var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
-                    $scope.tableParams.page(pgnum);
-                }
-            }
+            //     angular.forEach($scope.data, function(item) {
+            //     // angular.forEach(data, function(item) {
+            //         if (item.id == selectedItem.id &&
+            //             selectedItem.cat == category) {
+            //             item.$selected = true;
+            //         } else {
+            //             item.$selected = false;
+            //         }
+            //     });
+            //     if (selectedItem && selectedItem.cat == category) {
+            //         var idx = null;
+            //         for (var key in orderedData){
+            //             if (orderedData[key].id === selectedItem.id){
+            //                 idx = orderedData.indexOf(orderedData[key]);
+            //             }
+            //         }
+            //         var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
+            //         $scope.tableParams.page(pgnum);
+            //     }
+            // }
 
             // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
             $rootScope.$watchCollection(function() {
@@ -588,11 +592,12 @@ app.directive('tablewrapper', function(){
                 }
 
                 var selectedItem = selectedItemService[0].feature.properties;
+                var selectedCategory = selectedCategoryService[0];
                 var category = $scope.refName.split('/')[1];
                 angular.forEach($scope.data, function(item) {
                     if (item.id == selectedItem.id &&
                         selectedItem.cat == category) {
-                        item.$selected = true;
+                        item.$selected = true; // Exécuté sur clic objet dans la carte => ligne correspondante dans tableau devient rose
                     } else {
                         item.$selected = false;
                     }

@@ -4,10 +4,10 @@
 <!-- GENERATION DE LA LEGENDE -->
 <div id="legendblock" class="sidebar collapsed uk-grid uk-margin-remove">
 
-    <!-- Nav tabs -->
+    <!-- BOUTON LEGENDE -->
     <div class="sidebar-tabs">
-        <ul role="tablist">
-            <li><a ng-href="#home" role="tab"><i class="glyphicon glyphicon-th-list"></i></a></li>
+        <ul>
+            <li><a ng-href="#home"><i class="glyphicon glyphicon-th-list"></i></a></li>
         </ul>
     </div>
 
@@ -16,264 +16,244 @@
         <div class="sidebar-pane" id="home">
         </div>
         <div class="overlay">
-            <div id="baselayers" class="baselayers">
-                <h4 class="uk-margin-top base">Fonds de référence</h4>
-                <ul>
-                    <li ng-repeat="(name, layer) in tileLayers">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="baselayers" ng-click="selectBaseLayer(layer)">
-                                {{name}}
-                            </label>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-<!-- COMMUNES -->
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["communes"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('communes')" /> Communes
-                </label></br>
-            </div>
-            <!-- <legend-layer category="communes" subLayer="main" name="Communes"/> -->
+            
 
-<!-- ERDF -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i>  ERDF</a>
-            <div id="erdf" class="sublinks collapse ">
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["erdfappareilcoupure"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('erdfappareilcoupure')" /> Appareils de coupure
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["erdfconnexionaerienne"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('erdfconnexionaerienne')" /> Connexions aériennes
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["erdfparafoudre"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('erdfparafoudre')" /> Parafoudre
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["erdfposteelectrique"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('erdfposteelectrique')" /> Postes électriques
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["erdfremonteeaerosout"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('erdfremonteeaerosout')" /> Remontées aérosouterraines
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["erdftronconaerien"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('erdftronconaerien')" /> Tronçons aériens
-                    </label></br>
-                </div>
-            </div>
-
-<!-- OGM -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#ogm" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> OGM</a>
-            <div id="ogm" class="sublinks collapse">
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["ogmcablesremonteesmecaniques"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('ogmcablesremonteesmecaniques')" /> Remontée mécaniques
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["ogmdomainesskiables"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('ogmdomainesskiables')" /> Domaines skiables
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["ogmtronconsdangereux"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('ogmtronconsdangereux')" /> Tronçons dangereux
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["ogmtronconsvisualises"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('ogmtronconsvisualises')" /> Tronçons visualisés
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["ogmtronconsvisualisesdangereux"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('ogmtronconsvisualisesdangereux')" /> Tronçons visualisés dangereux
-                    </label></br>
-                </div>
-            </div>
-
-<!-- RTE -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#rte" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> RTE</a>
-            <div id="rte" class="sublinks collapse">
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["rtelignes"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('rtelignes')" /> Lignes électriques
-                </label></br>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["rtepostes"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('rtepostes')" /> Postes électriques
-                </label></br>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["rtepoteaux"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('rtepoteaux')" /> Poteaux
-                </label></br>
-            </div>
-            </div>
-            <div class="separateur">
-            </div>
-
-            <h4  class="uk-margin-top metier">Données métier</h4>
-
+<!-- ### DONNEES METIER ### -->
+ <!-- <h4  class="uk-margin-top metier">Données métier</h4> -->
 <!-- ZONES SENSIBLES -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#zs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i>Zones sensibles</a>
-            <div id="zs" class="sublinks collapse in">
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["zonessensibles"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('zonessensibles')" /> Zones sensibles
-                    </label></br>
-                </div>
+            <div class="labelLayerMain">
+                <label ng-click="getVisibility('zonessensibles')">
+                    <img ng-src={{pictoLayer["zonessensibles"]["mainLayer"]}} alt="Couche visible" /> Zones sensibles
+                </label></br>
             </div>
-
 <!-- MORTALITES -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#mort" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Cas de mortalité</a>
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#mort" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i><img ng-src={{pictoLayer["mortalites"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('mortalites')" /> Cas de mortalité</a>
             <div id="mort" class="sublinks collapse">
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["mortalites"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('mortalites')" /> Cas de mortalité
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('mortalites', 'mortalitesPercussions')">
+                        <img ng-src={{pictoLayer["mortalites"]["subLayer"]["mortalitesPercussions"]}} alt="Couche visible" /> Percussions
                     </label></br>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["mortalites"]["subLayer"]["mortalitesPercussions"]}} alt="Couche visible" ng-click="getVisibility('mortalites', 'mortalitesPercussions')" /> Percussions
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["mortalites"]["subLayer"]["mortalitesElectrocutions"]}} alt="Couche visible" ng-click="getVisibility('mortalites', 'mortalitesElectrocutions')" /> Electrocution
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('mortalites', 'mortalitesElectrocutions')">
+                        <img ng-src={{pictoLayer["mortalites"]["subLayer"]["mortalitesElectrocutions"]}} alt="Couche visible" /> Electrocution
                     </label></br>
                 </div>
             </div>
 
 <!-- TRONCONS ERDF -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Tronçons ERDF à risque</a>
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-down': !isExpanded, 'glyphicon-chevron-right': isExpanded}"></i><img ng-src={{pictoLayer["tronconserdf"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('tronconserdf')" /> Tronçons ERDF à risque</a>
             <div id="tr" class="sublinks collapse in">
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["tronconserdf"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('tronconserdf')" /> Tronçons ERDF
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('tronconserdf', 'tronconsErdfRisqueEleve')">
+                        <img ng-src={{pictoLayer["tronconserdf"]["subLayer"]["tronconsErdfRisqueEleve"]}} alt="Couche visible" /> Risque élevé
                     </label></br>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["tronconserdf"]["subLayer"]["tronconsErdfRisqueEleve"]}} alt="Couche visible" ng-click="getVisibility('tronconserdf', 'tronconsErdfRisqueEleve')" /> Risque élevé
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('tronconserdf', 'tronconsErdfRisqueSecondaire')">
+                        <img ng-src={{pictoLayer["tronconserdf"]["subLayer"]["tronconsErdfRisqueSecondaire"]}} alt="Couche visible" /> Risque secondaire
                     </label></br>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["tronconserdf"]["subLayer"]["tronconsErdfRisqueSecondaire"]}} alt="Couche visible" ng-click="getVisibility('tronconserdf', 'tronconsErdfRisqueSecondaire')" /> Risque secondaire
-                    </label></br>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img ng-src={{pictoLayer["tronconserdf"]["subLayer"]["tronconsErdfPeuPasRisque"]}} alt="Couche visible" ng-click="getVisibility('tronconserdf', 'tronconsErdfPeuPasRisque')" /> Peu pas de risque
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('tronconserdf', 'tronconsErdfPeuPasRisque')">
+                        <img ng-src={{pictoLayer["tronconserdf"]["subLayer"]["tronconsErdfPeuPasRisque"]}} alt="Couche visible" /> Peu pas de risque
                     </label></br>
                 </div>
             </div>
 
 <!-- POTEAUX ERDF -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#pt" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-minus': !isExpanded, 'glyphicon-plus': isExpanded}"></i> Poteaux ERDF à risque </a>
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#pt" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-down': !isExpanded, 'glyphicon-chevron-right': isExpanded}"></i><img ng-src={{pictoLayer["poteauxerdf"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('poteauxerdf')" /> Poteaux ERDF à risque </a>
             <div id="pt" class="sublinks collapse in">
-                    <div class="checkbox">
-                        <label>
-                            <img ng-src={{pictoLayer["poteauxerdf"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('poteauxerdf')" /> Poteaux ERDF à risque
+                    <div class="labelLayerSub">
+                        <label ng-click="getVisibility('poteauxerdf', 'poteauxErdfRisqueEleve')">
+                            <img ng-src={{pictoLayer["poteauxerdf"]["subLayer"]["poteauxErdfRisqueEleve"]}} alt="Couche visible" /> Risque élevé
                         </label></br>
                     </div>
-                    <div class="checkbox">
-                        <label>
-                            <img ng-src={{pictoLayer["poteauxerdf"]["subLayer"]["poteauxErdfRisqueEleve"]}} alt="Couche visible" ng-click="getVisibility('poteauxerdf', 'poteauxErdfRisqueEleve')" /> Risque élevé
+                    <div class="labelLayerSub">
+                        <label ng-click="getVisibility('poteauxerdf', 'poteauxErdfRisqueSecondaire')">
+                            <img ng-src={{pictoLayer["poteauxerdf"]["subLayer"]["poteauxErdfRisqueSecondaire"]}} alt="Couche visible" /> Risque secondaire
                         </label></br>
                     </div>
-                    <div class="checkbox">
-                        <label>
-                            <img ng-src={{pictoLayer["poteauxerdf"]["subLayer"]["poteauxErdfRisqueSecondaire"]}} alt="Couche visible" ng-click="getVisibility('poteauxerdf', 'poteauxErdfRisqueSecondaire')" /> Risque secondaire
-                        </label></br>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <img ng-src={{pictoLayer["poteauxerdf"]["subLayer"]["poteauxErdfPeuPasRisque"]}} alt="Couche visible" ng-click="getVisibility('poteauxerdf', 'poteauxErdfPeuPasRisque')" /> Peu ou pas de risque
+                    <div class="labelLayerSub">
+                        <label ng-click="getVisibility('poteauxerdf', 'poteauxErdfPeuPasRisque')">
+                            <img ng-src={{pictoLayer["poteauxerdf"]["subLayer"]["poteauxErdfPeuPasRisque"]}} alt="Couche visible" /> Peu ou pas de risque
                         </label></br>
                     </div>
             </div>
 
 <!-- EQUIPEMENTS TRONCONS ERDF -->
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["eqtronconserdf"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('eqtronconserdf')" /> ERDF - Equipements de tronçons
-                </label></br>
-            </div>
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#equip" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i>  Equipements de neutralisation</a>
+            <div id="equip" class="sublinks collapse">
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('eqtronconserdf')">
+                        <img ng-src={{pictoLayer["eqtronconserdf"]["mainLayer"]}} alt="Couche visible" /> Tronçons ERDF
+                    </label></br>
+                </div>
 
 <!-- EQUIPEMENTS POTEAUX ERDF -->
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["eqpoteauxerdf"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('eqpoteauxerdf')" /> ERDF - Equipements de poteaux
-                </label></br>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('eqpoteauxerdf')">
+                        <img ng-src={{pictoLayer["eqpoteauxerdf"]["mainLayer"]}} alt="Couche visible" /> Poteaux ERDF
+                    </label></br>
+                </div>
             </div>
 
 <!-- NIDIFICATIONS -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#nid" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Sites de nidification </a>
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#nid" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i><img ng-src={{pictoLayer["nidifications"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('nidifications')" /> Sites de nidification </a>
             <div id="nid" class="sublinks collapse">
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["nidifications"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('nidifications')" /> Nidifications rapaces
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('nidifications', 'nidificationsGypaete')">
+                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGypaete"]}} alt="Couche visible" /> Gypaète barbu
                 </label></br>
             </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGypaete"]}} alt="Couche visible" ng-click="getVisibility('nidifications', 'nidificationsGypaete')" /> Gypaète barbu
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('nidifications', 'nidificationsAigle')">
+                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsAigle"]}} alt="Couche visible" /> Aigle royal
                 </label></br>
             </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsAigle"]}} alt="Couche visible" ng-click="getVisibility('nidifications', 'nidificationsAigle')" /> Aigle royal
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('nidifications', 'nidificationsGrandDuc')">
+                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGrandDuc"]}} alt="Couche visible" /> Hibou grand-duc
                 </label></br>
             </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGrandDuc"]}} alt="Couche visible" ng-click="getVisibility('nidifications', 'nidificationsGrandDuc')" /> Hibou grand-duc
-                </label></br>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsFaucon"]}} alt="Couche visible" ng-click="getVisibility('nidifications', 'nidificationsFaucon')" /> Faucon pélerin
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('nidifications', 'nidificationsFaucon')">
+                    <img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsFaucon"]}} alt="Couche visible" /> Faucon pélerin
                 </label></br>
             </div>
             </div>
 
 <!-- OBSERVATIONS VAUTOURS -->
-            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#obs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-plus': !isExpanded, 'glyphicon-minus': isExpanded}"></i> Observations de vautours (nb d'individus)</a>
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#obs" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i><img ng-src={{pictoLayer["observations"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('observations')" /> Vautours - Observations</a>
             <div id="obs" class="sublinks collapse">
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["observations"]["mainLayer"]}} alt="Couche visible" ng-click="getVisibility('observations')" /> Observations de vautour
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('observations', 'observationsNombre020')">
+                    <img ng-src={{pictoLayer["observations"]["subLayer"]["observationsNombre020"]}} alt="Couche visible" /> Nombre individus : 0 - 20
                 </label></br>
             </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["observations"]["subLayer"]["observationsNombre020"]}} alt="Couche visible" ng-click="getVisibility('observations', 'observationsNombre020')" /> Nombre individus : 0 - 20
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('observations', 'observationsNombre2040')">
+                    <img ng-src={{pictoLayer["observations"]["subLayer"]["observationsNombre2040"]}} alt="Couche visible" /> Nombre individus : 20 - 40
                 </label></br>
             </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["observations"]["subLayer"]["observationsNombre2040"]}} alt="Couche visible" ng-click="getVisibility('observations', 'observationsNombre2040')" /> Nombre individus : 20 - 40
-                </label></br>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <img ng-src={{pictoLayer["observations"]["subLayer"]["observationsSup40"]}} alt="Couche visible" ng-click="getVisibility('observations', 'observationsSup40')" /> Nombre individus : > 40
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('observations', 'observationsSup40')">
+                    <img ng-src={{pictoLayer["observations"]["subLayer"]["observationsSup40"]}} alt="Couche visible" /> Nombre individus : > 40
                 </label></br>
             </div>
             </div>
+<!-- ### FIN DONNEES METIER ### --> 
+
+<!-- ### FONDS CARTO VECTEUR ### -->
+<div class="separateur"></div>
+<!-- <h4 class="uk-margin-top base">Fonds de référence</h4> -->
+<!-- COMMUNES -->
+            <div class="labelLayerMain">
+                <label ng-click="getVisibility('communes')">
+                    <img ng-src={{pictoLayer["communes"]["mainLayer"]}} alt="Couche visible" /> Communes
+                </label></br>
+            </div>
+<!-- ERDF -->
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item " data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i>  ERDF</a>
+            <div id="erdf" class="sublinks collapse ">
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('erdfappareilcoupure')">
+                        <img ng-src={{pictoLayer["erdfappareilcoupure"]["mainLayer"]}} alt="Couche visible" /> Appareils de coupure
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('erdfconnexionaerienne')">
+                        <img ng-src={{pictoLayer["erdfconnexionaerienne"]["mainLayer"]}} alt="Couche visible" /> Connexions aériennes
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('erdfparafoudre')">
+                        <img ng-src={{pictoLayer["erdfparafoudre"]["mainLayer"]}} alt="Couche visible" /> Parafoudre
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('erdfposteelectrique')">
+                        <img ng-src={{pictoLayer["erdfposteelectrique"]["mainLayer"]}} alt="Couche visible" /> Postes électriques
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('erdfremonteeaerosout')">
+                        <img ng-src={{pictoLayer["erdfremonteeaerosout"]["mainLayer"]}} alt="Couche visible" /> Remontées aérosouterraines
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('erdftronconaerien')">
+                        <img ng-src={{pictoLayer["erdftronconaerien"]["mainLayer"]}} alt="Couche visible" /> Tronçons aériens
+                    </label></br>
+                </div>
+            </div>
+
+<!-- OGM -->
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#ogm" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i> OGM</a>
+            <div id="ogm" class="sublinks collapse">
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('ogmcablesremonteesmecaniques')">
+                        <img ng-src={{pictoLayer["ogmcablesremonteesmecaniques"]["mainLayer"]}} alt="Couche visible" /> Remontée mécaniques
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('ogmdomainesskiables')">
+                        <img ng-src={{pictoLayer["ogmdomainesskiables"]["mainLayer"]}} alt="Couche visible" /> Domaines skiables
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('ogmtronconsdangereux')">
+                        <img ng-src={{pictoLayer["ogmtronconsdangereux"]["mainLayer"]}} alt="Couche visible" /> Tronçons dangereux
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('ogmtronconsvisualises')">
+                        <img ng-src={{pictoLayer["ogmtronconsvisualises"]["mainLayer"]}} alt="Couche visible" /> Tronçons visualisés
+                    </label></br>
+                </div>
+                <div class="labelLayerSub">
+                    <label ng-click="getVisibility('ogmtronconsvisualisesdangereux')">
+                        <img ng-src={{pictoLayer["ogmtronconsvisualisesdangereux"]["mainLayer"]}} alt="Couche visible" /> Tronçons visualisés dangereux
+                    </label></br>
+                </div>
+            </div>
+
+<!-- RTE -->
+            <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#rte" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i> RTE</a>
+            <div id="rte" class="sublinks collapse">
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('rtelignes')">
+                    <img ng-src={{pictoLayer["rtelignes"]["mainLayer"]}} alt="Couche visible" /> Lignes électriques
+                </label></br>
+            </div>
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('rtepostes')">
+                    <img ng-src={{pictoLayer["rtepostes"]["mainLayer"]}} alt="Couche visible" /> Postes électriques
+                </label></br>
+            </div>
+            <div class="labelLayerSub">
+                <label ng-click="getVisibility('rtepoteaux')">
+                    <img ng-src={{pictoLayer["rtepoteaux"]["mainLayer"]}} alt="Couche visible" /> Poteaux
+                </label></br>
+            </div>
+            </div>
+<!-- ### FIN FONDS CARTO VECTEUR ### -->
+
+<!-- ### FONDS CARTO RASTER ### -->
+            <div id="baselayers">
+               
+                <!-- <ul> -->
+                    <!-- <li ng-repeat="(name, layer) in tileLayers"> -->
+                        <div ng-repeat="(name, layer) in tileLayers" class="labelLayerRaster">
+                            <label>
+                                <input type="radio" name="baselayers" ng-click="selectBaseLayer(layer)">
+                                {{name}}
+                            </label>
+                        </div>
+                    <!-- </li> -->
+                <!-- </ul> -->
+            </div>
+<!-- ### FIN FONDS CARTO RASTER ### -->
         </div>
     </div>
 </div>

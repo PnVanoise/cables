@@ -1,5 +1,5 @@
 /********************************************************
- * Sidebar tableau de donnÃ©es
+ * SIDEBAR TABLEAU DE DONNEES
  ********************************************************/
 .datablock, .btncontenu {
     float: left;
@@ -43,7 +43,7 @@
 }
 
 /********************************************************
- * Carte
+ * CARTE
  ********************************************************/
 #map{
     width: 100%;
@@ -132,7 +132,7 @@
 
 
 /********************************************************
- *  Messages utilisateurs
+ *  MESSAGES UTILISATEURS
  ********************************************************/
 .msg-default{
     background-color: #0D2E4C;
@@ -148,14 +148,13 @@
 
 
 /********************************************************
- * Menu principal
+ * MENU PRINCIPAL
  ********************************************************/
- /*Fixed Nav-bar*/
+ /* Fixed Nav-bar */
  body { padding-top: 52px; }
 
 
-/*  Font Awesome
-    */
+/* Font Awesome */
 @font-face {
   font-family: 'FontAwesome';
   src: url('../css/lib/font-awesome/fonts/fontawesome-webfont.eot');
@@ -247,7 +246,7 @@ ul.icons li .icon-large:before {
   text-shadow: 0 1px 0 #333333;
 }
 /********************************************************
- * Spinner
+ * SPINNER
  *******************************************************/
 .custom-loading.dw-loading {
   text-align: center;
@@ -275,7 +274,7 @@ ul.icons li .icon-large:before {
 }
 
 /*******************************************************
- *      FORMULAIRES
+ * FORMULAIRES
  *******************************************************/
 .css-form input.ng-invalid{
     border-color: red;
@@ -359,8 +358,8 @@ select:invalid {
 
 
 /**********************************************************
- * * Table wrapper
- * *******************************************************/
+ * TABLE WRAPPER
+ **********************************************************/
 .select-column {
     left: auto;
     right: 0;
@@ -378,9 +377,8 @@ table.tablewrapper>tbody>tr.active>td{
     color: #C55009;
 }
 /*******************************************************
- * Balises gÃ©nÃ©riques
+ * BALISES GENERIQUES
  *******************************************************/
-
 
 .float-right {
     float: right;
@@ -589,7 +587,7 @@ span.filter-active{
 }
 
 /*******************************************************
- * CSS tab page d'accueil
+ * TAB PAGE ACCUEIL
  *******************************************************/
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover,
@@ -837,10 +835,9 @@ canvas {
 }
 
 
-/*
- **********************************************************************
- ************************** LÃ©gende *****************************
- */
+/***********************************************************************
+    LEGENDE
+ ***********************************************************************/
 
  .sidebar {
   position: absolute;
@@ -887,7 +884,8 @@ canvas {
   top: 0;
   bottom: 0;
   height: 100%;
-  background-color: #212d39; }
+  /* Sous le bouton de la légende et la bande de gauche */
+  background-color: #FFF; }
   .sidebar-left .sidebar-tabs {
     left: 0;
     }
@@ -925,18 +923,19 @@ canvas {
                 text-align: center; }
 
 .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
-
+    /* Couleur fond bouton légende */
     background-color: #FFF;
 }
 
 /********************************************************
- * Contenu de la lÃƒÂ©gende
+ * Contenu de la légende
  ********************************************************/
  .sidebar-content {
   position: absolute;
   top: 0;
   bottom: 0;
-  background-color: #212d39;
+  /* Bande à droite du bouton */
+  background-color: #FFF;
   overflow-x: hidden;
   overflow-y: auto; }
 
@@ -957,7 +956,7 @@ canvas {
 
 
 /********************************************************
- * En tete
+ * Entête
  ********************************************************/
  .sidebar-header {
   margin: -10px -20px 0;
@@ -966,7 +965,9 @@ canvas {
   line-height: 40px;
   font-size: 14.4pt;
   color: #fff;
-  background-color: #212d39; }
+  /* Bande sous les couches */
+  background-color: #FFF; }
+
   .sidebar-right .sidebar-header {
     padding-left: 40px; }
 
@@ -987,13 +988,16 @@ canvas {
 }
 
 .separateur{
-  height: 1vh;
-  background-color: #43A8EB;
+  height: 2px;
+  width: 210px;
+  background-color: #000000;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 
 .overlay{
-  background-color: #212D39;
+  background-color: #FFF;
   color: #ffffff;
   letter-spacing: 1px;
 }
@@ -1004,7 +1008,8 @@ canvas {
 }
 
 .baselayers label{
-  font-size: small;
+  font-size: 12px;
+  color: #000000;
 }
 
 .uk-margin-top.base{
@@ -1098,9 +1103,9 @@ canvas {
 
 
 a.legendBlock-item:focus, a.legendBlock-item:hover {
-    color: #FFF;
+    color: #000005;
     text-decoration: none;
-    background-color: #43A8EB;
+    font-weight: bold;
 }
 a.legendBlock-item {
     color: #555;
@@ -1114,10 +1119,11 @@ a.legendBlock-item {
     position: relative;
     display: block;
     padding: 5px 0px;
-    color: #ffffff;
+    /* Couleur des libellés de couche */
+    color: #000000;
     letter-spacing: 1px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
 
 
 }
@@ -1171,4 +1177,37 @@ a.legendBlock-item {
 
 .detail-photo{
   position:fixed;
+}
+
+.labelLayerMain label {
+    min-height: 20px;
+    padding-left: 13px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.labelLayerSub label {
+    min-height: 20px;
+    padding-left: 33px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.labelLayerSub:hover, label:hover {
+    font-weight: bold;
+}
+
+.labelLayerRaster label {
+    min-height: 20px;
+    padding-left: -20px;
+    font-size: 12px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
 }

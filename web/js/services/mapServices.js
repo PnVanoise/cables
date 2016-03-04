@@ -11,6 +11,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 
         loadData : function(layerdata) {
             this.couche = {};
+            this.couche.id = layerdata.id; // nom de la couche
             this.couche.name = layerdata.name; // nom de la couche
             this.couche.active = layerdata.active; // true ou false pour activer le fond par default
 
@@ -48,7 +49,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
 
     var empriseInit;
 
-    var tileLayers = {}; // couche pour les fonds de référence
+    var tileLayers = []; // couche pour les fonds de référence
 
     var currentSel;
 
@@ -71,9 +72,16 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             });
 
             // Ajout des couches sur la carte
+            var i = 0;
             resource.layers.baselayers.forEach(function(_layer, name){
+                // Récupération des différentes propriétés pour l'affichage dans la carte et dans la légende
                 var layerData = LeafletServices.loadData(_layer);
-                tileLayers[layerData.name] = layerData.map;
+                var layerDataId = layerData.id;
+                var layerDataName = layerData.name;
+                var layerDataMap = layerData.map;
+                var layerDataActive = layerData.active;
+                tileLayers[i] = {id: layerDataId, name: layerDataName, active: layerDataActive, map: layerDataMap};
+
                 if(currentBaseLayer){
                     if(layerData.name == currentBaseLayer){
                         layerData.map.addTo(map);
@@ -84,6 +92,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                         currentBaseLayer = layerData.map;
                     }
                 }
+                i++;
             });
 
             // Vue par défaut de la carte
@@ -118,6 +127,10 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             }]
         }).addTo(map);
 
+        /*
+         * GESTION LEGENDE
+         */
+
         // Légende Leaflet
         layerControl = L.control.layers(tileLayers, null, { collapsed: false});
 
@@ -126,7 +139,11 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
         // Suppression du conteneur de la légande Leaflet par défaut
         layerControl._container.remove();
         // Mise en place des couches dans la légende personnalisée : voir template-url ==> map.htm
-        document.getElementById('baselayers').appendChild(layerControl.onAdd(map));
+        // document.getElementById('baselayers').appendChild(layerControl.onAdd(map));
+
+        /*
+         * FIN GESTION LEGENDE
+         */
 
         //Ajout d'une l'échelle
         L.control.scale().addTo(map);

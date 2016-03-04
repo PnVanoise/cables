@@ -267,7 +267,7 @@ ul.icons li .icon-large:before {
 }
 
 /*
- * Affichage du dÃ©tail des Ã©lÃ©ments
+ * Affichage du détail des éléments
  */
 .text-info{
   color:#554A0A;
@@ -634,11 +634,6 @@ background-color:  aliceblue
       background-color: white;
       cursor: pointer; }
 
-
-
-
-      /*/////////////////////////*/
-
 .but-recentre {
     color: #fff;
     font-size: 1.2em;
@@ -769,7 +764,7 @@ background-color:  aliceblue
     display: block;
 }
 /*
-* PrÃ©view des images
+* Preview des images
 */
 canvas {
   background-color: #f3f3f3;
@@ -786,7 +781,7 @@ canvas {
 }
 
 /*
- * DÃ©tail tableau
+ * Détail tableau
  */
 .dl-horizontal dt {
     float: left;
@@ -799,9 +794,7 @@ canvas {
     white-space: nowrap;
 }
 
-
-
-/******Css tableau **********************************/
+/****** Css tableau **********************************/
 .with-nav-tabs.panel-primary .nav-tabs > li > a,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
@@ -824,8 +817,8 @@ canvas {
   border-color: #428bca;
   border-bottom-color: transparent;
 }
-/********************************************************************/
-/****** Titre en dÃ©tail */
+
+/****** Titre dans page détail *************************/
 .editDetailButton{
   float:right;
   margin-top:35px;
@@ -834,24 +827,26 @@ canvas {
   border-color:#FFF;
 }
 
-
 /***********************************************************************
     LEGENDE
  ***********************************************************************/
-
- .sidebar {
+/** Formatage de la légende dans la div **/
+.sidebar {
   position: absolute;
   top: 5px;
   bottom: 5px;
   width: 100%;
-  height:100%;
+  /*height:100%;*/
+  height: 605px;
   overflow: hidden;
   z-index: 2000;
-  opacity: 0.8;
+  opacity: 1;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 /*   transition: width 500ms;
    transition: height 20ms; */
 }
+
+/** Taille de la légende fermée = environ taille bouton Légende **/
 .sidebar.collapsed {
   width:  40px;
   height: 40px;
@@ -865,114 +860,231 @@ canvas {
  .sidebar {
     width: 300px; }
 }
-/*
- * Position par rapport au bord gauche
- */
+
+/** Position par rapport au bord gauche */
 .sidebar-left {
   left: 0;
  }
-@media (min-width: 768px) {
-    .sidebar-left {
-      top: 0px;
-    }
- }
 
-/*
- * Css button
- */
- .sidebar-tabs {
+@media (min-width: 768px) {
+  .sidebar-left {
+    top: 0px;
+  }
+}
+
+/** Bouton */
+.sidebar-tabs {
   top: 0;
   bottom: 0;
   height: 100%;
-  /* Sous le bouton de la légende et la bande de gauche */
-  background-color: #FFF; }
-  .sidebar-left .sidebar-tabs {
-    left: 0;
-    }
-    .sidebar-right .sidebar-tabs {
-      right: 0; }
-      .sidebar-tabs, .sidebar-tabs > ul {
-        position: absolute;
-        width: 40px;
-        margin: 0;
-        padding: 0; }
-
-
-        .sidebar-tabs > li, .sidebar-tabs > ul > li {
-          width: 100%;
-          height: 40px;
-          color: #333;
-          font-size: 12pt;
-          overflow: hidden;
-          transition: all 80ms; }
-          .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
-            color: #000;
-            background-color: #eee; }
-            .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
-              /*color: ;*/
-              background-color: #212d39; }
-
-
-              .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
-                display: block;
-                width: 100%;
-                height: 100%;
-                line-height: 40px;
-                color: inherit;
-                text-decoration: none;
-                text-align: center; }
-
-.sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
-    /* Couleur fond bouton légende */
-    background-color: #FFF;
+  background-color: #FFF; /* Sous le bouton de la légende et la bande de gauche */
 }
 
-/********************************************************
- * Contenu de la légende
- ********************************************************/
- .sidebar-content {
+.sidebar-left .sidebar-tabs {
+  left: 0;
+}
+
+.sidebar-right .sidebar-tabs {
+  right: 0;
+}
+
+.sidebar-tabs, .sidebar-tabs > ul {
+  position: absolute;
+  width: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-tabs > li, .sidebar-tabs > ul > li {
+  width: 100%;
+  height: 40px;
+  color: #333;
+  font-size: 12pt;
+  overflow: hidden;
+  transition: all 80ms; 
+}
+
+.sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
+  color: #000;
+  background-color: #eee;
+}
+
+.sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
+  background-color: #212d39;
+}
+
+.sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+.sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
+  background-color: #FFF; /* Couleur fond bouton légende */
+}
+
+/** Contenu de la légende **/
+.sidebar-content {
   position: absolute;
   top: 0;
   bottom: 0;
-  /* Bande à droite du bouton */
-  background-color: #FFF;
+  background-color: #FFF; /* Bande à droite du bouton */
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: auto;
+}
 
+.sidebar-left .sidebar-content {
+  left: 40px;
+  right: 0;
+}
 
-  .sidebar-left .sidebar-content {
-    left: 40px;
-    right: 0; }
+/*
+ * CSS collapse données metier légende
+ */
 
-    .sidebar-pane {
-      display: none;
-      left: 0;
-      right: 0;
-      box-sizing: border-box;
-      padding: 10px 20px; }
-      .sidebar-pane.active {
-        display: block; }
+a:focus, a:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
 
+.legendBlock-item {
+  display: inline-block;
+  color: #000000;
+  font-size: 12px;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.legendBlock-item:hover {
+  color: #000005;
+  font-weight: bold;
+}
+
+a.legendBlock-item {
+    color: #000000; /* Couleur des libellés de couche */
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.test {
+  display: inline-block;
+  color: #000000;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.overlay{
+  background-color: #FFF; /* couleur fond sous les couches */
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.separateurVecteur {
+  height: 2px;
+  width: 215px;
+  background-color: #000000;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.separateurRaster {
+  height: 3px;
+  width: 215px;
+  background-color: #000000;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/** Label des couches **/
+.labelLayerZs {
+    padding-left: 17px;
+    /*padding-bottom: 4px;*/
+    padding-top: 2px;
+    font-size: 12px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.labelLayerCommunes {
+    padding-left: 19px;
+    padding-top: 2px;
+    font-size: 12px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.labelLayerSub {
+    min-height: 20px;
+    padding-left: 33px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.labelLayerSubRef {
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.labelLayerSub:hover {
+    font-weight: bold;
+}
+
+.labelLayerSubRef:hover {
+    font-weight: bold;
+}
+
+.labelLayerZs:hover {
+    font-weight: bold;
+}
+
+.labelLayerCommunes:hover {
+    font-weight: bold;
+}
+
+.labelLayerRaster label {
+    min-height: 20px;
+    padding-left: -20px;
+    font-size: 12px;
+    font-weight: 100;
+    cursor: pointer;
+    color: #000000;
+}
+
+.image {
+  float: right;
+}
 
 
 /********************************************************
  * Entête
  ********************************************************/
- .sidebar-header {
+.sidebar-header {
   margin: -10px -20px 0;
   height: 40px;
   padding: 0 20px;
   line-height: 40px;
   font-size: 14.4pt;
   color: #fff;
-  /* Bande sous les couches */
-  background-color: #FFF; }
+  background-color: #FFF; /* Bande sous les couches */
+}
 
-  .sidebar-right .sidebar-header {
-    padding-left: 40px; }
-
-
-
+.sidebar-right .sidebar-header {
+    padding-left: 40px;
+}
 
 /********************************************************
  * Css supplementaires
@@ -982,42 +1094,27 @@ canvas {
  @import url(http://fonts.googleapis.com/css?family=Montserrat);
 
 
- html,body{
+ html,body {
   margin:0px;
   font-family: 'Roboto', sans-serif;
 }
 
-.separateur{
-  height: 2px;
-  width: 210px;
-  background-color: #000000;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-
-.overlay{
-  background-color: #FFF;
-  color: #ffffff;
-  letter-spacing: 1px;
-}
-
-.overlay h4{
+.overlay h4 {
   text-transform: uppercase;
   color: #ffffff;
 }
 
-.baselayers label{
+.baselayers label {
   font-size: 12px;
   color: #000000;
 }
 
-.uk-margin-top.base{
+.uk-margin-top.base {
   margin-top:-10px;
   margin-left:2px;
 }
 
-.bnt-new{
+.bnt-new {
   position: absolute;
   padding-top: 5px;
   padding-left:10px;
@@ -1097,39 +1194,7 @@ canvas {
   margin-top:-5px
 }
 
-/*
- * CSS collapse données metier légende
- */
-
-
-a.legendBlock-item:focus, a.legendBlock-item:hover {
-    color: #000005;
-    text-decoration: none;
-    font-weight: bold;
-}
-a.legendBlock-item {
-    color: #555;
-}
-a:focus, a:hover {
-    color: #23527c;
-    text-decoration: underline;
-}
-
-a.legendBlock-item {
-    position: relative;
-    display: block;
-    padding: 5px 0px;
-    /* Couleur des libellés de couche */
-    color: #000000;
-    letter-spacing: 1px;
-    cursor: pointer;
-    font-size: 12px;
-
-
-}
-
 .noObs{
-
   /*background:#8A2908;*/
   opacity:0;
   border-radius:100%;
@@ -1137,11 +1202,10 @@ a.legendBlock-item {
   width: 4px;
   margin-bottom:-2px;
   margin-left:-2px;
-  margin-top:-2px
-
+  margin-top:-2px;
 }
-.obsClasse1{
 
+.obsClasse1{
   background:#8A2908;
   opacity:0.9;
   border-radius:100%;
@@ -1149,11 +1213,10 @@ a.legendBlock-item {
   width: 4px;
   margin-bottom:-2px;
   margin-left:-2px;
-  margin-top:-2px
-
+  margin-top:-2px;
 }
-.obsClasse2{
 
+.obsClasse2{
   background:#046380;
   opacity:0.9;
   border-radius:100%;
@@ -1161,10 +1224,10 @@ a.legendBlock-item {
   width: 8px;
   margin-bottom:-4px;
   margin-left:-4px;
-  margin-top:-4px
+  margin-top:-4px;
 }
-.obsClasse3{
 
+.obsClasse3{
   background:#96CA2D;
   opacity:0.9;
   border-radius:100%;
@@ -1172,42 +1235,21 @@ a.legendBlock-item {
   width: 12px;
   margin-bottom:-6px;
   margin-left:-6px;
-  margin-top:-6px
+  margin-top:-6px;
 }
 
-.detail-photo{
+.detail-photo {
   position:fixed;
 }
 
-.labelLayerMain label {
-    min-height: 20px;
-    padding-left: 13px;
-    margin-bottom: 0;
-    font-size: 12px;
-    font-weight: 100;
-    cursor: pointer;
-    color: #000000;
+.sidebar-pane {
+  display: none;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 10px 20px;
 }
 
-.labelLayerSub label {
-    min-height: 20px;
-    padding-left: 33px;
-    margin-bottom: 0;
-    font-size: 11px;
-    font-weight: 100;
-    cursor: pointer;
-    color: #000000;
-}
-
-.labelLayerSub:hover, label:hover {
-    font-weight: bold;
-}
-
-.labelLayerRaster label {
-    min-height: 20px;
-    padding-left: -20px;
-    font-size: 12px;
-    font-weight: 100;
-    cursor: pointer;
-    color: #000000;
+.sidebar-pane.active {
+  display: block;
 }

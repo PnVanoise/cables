@@ -12,13 +12,7 @@
         "layers": { 
             "baselayers": [
                 {
-                    "name": "OpenStreetMap",
-                    "type": "tileLayer",
-                    "url": "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
-                    "active": true,
-                    "options":{}
-                },
-                {
+                    "id": "4",
                     "name": "Mapbox",
                     "type": "tileLayer",
                     "url": "http://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFyaW5lbSIsImEiOiJXOW92NVFJIn0.XsgoSQ8l6dGZsnTugVLtOQ",
@@ -26,6 +20,17 @@
                     "options":{}
                 },
                 {
+                    "id": "3",
+                    "name": "IGN - ortho",
+                    "type": "ign",
+                    "layer":"ORTHOIMAGERY.ORTHOPHOTOS",
+                    "key":"j1jwpif6pg56ogztoraocg51",
+                    "url": "https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
+                    "active": false,
+                    "options":{}
+                },
+                {
+                    "id": "2",
                     "name": "IGN - topo",
                     "type": "ign",
                     "layer":"GEOGRAPHICALGRIDSYSTEMS.MAPS",
@@ -33,14 +38,13 @@
                     "url": "https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
                     "active": false,
                     "options":{}
-                },               
+                }, 
                 {
-                    "name": "IGN - ortho",
-                    "type": "ign",
-                    "layer":"ORTHOIMAGERY.ORTHOPHOTOS",
-                    "key":"j1jwpif6pg56ogztoraocg51",
-                    "url": "https://gpp3-wxs.ign.fr/' + layerdata.key + '/geoportail/wmts?LAYER='+layerdata.layer+'&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
-                    "active": false,
+                    "id": "1",
+                    "name": "OpenStreetMap",
+                    "type": "tileLayer",
+                    "url": "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+                    "active": true,
                     "options":{}
                 }
             ]

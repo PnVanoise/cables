@@ -1242,7 +1242,8 @@ app.directive('leafletMap', function(){
                 	// Passage couche principale en VISIBLE
                 	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
                     configServ.put('legendLayer:'+category+':main:visibility', "visible");
-                	mapService.showLayer(null, category);
+                	mapService.tabThemaData[category].loaded = false;
+                    mapService.showLayer(null, category, 'force');
 
                 	// Passage toutes les sous-couches de la catégorie en VISIBLE
                     var subLayer = $scope.pictoLayer[category]["subLayer"];

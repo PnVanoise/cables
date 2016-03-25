@@ -2,7 +2,7 @@ title: Inventaires Poteaux ERDF
 maplist: cables/poteauxerdf
 refname: cables/poteauxerdf
 emptyMsg: Aucun inventaire poteau
-createBtnLabel: Nouvel inventaire poteau
+createBtnLabel: Nouveau poteau
 createUrl: "#/cables/edit/poteauxerdf/"
 editUrl: "#/cables/edit/poteauxerdf/"
 detailUrl: "#/cables/poteauxerdf/"

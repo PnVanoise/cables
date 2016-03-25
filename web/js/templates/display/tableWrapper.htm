@@ -5,33 +5,38 @@
 <div style="clear: both; margin-top: 5px;">
 <filterform ng-if="filterUrl" url="{{filterUrl}}" schema="schema.filtering" callback="filterCallback"></filterform>
 </div>
-<h3 ng-if="!data.length">
+<!-- GESTION AUCUNE DONNEES DANS UNE CATEGORIE -->
+<!-- <h3 ng-if="!data.length">
     <span class="text-primary">Aucune donnée</span>
-</h3>
-<div ng-if="data.length">
+</h3> -->
+<div class="pos-table" ng-if="data.length">
     <div class="btn-group float-right" style="margin-bottom: 1ex;">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="glyphicon glyphicon-th-list"> Colonnes <span class="caret"></button>
         <!-- BOUTON EXPORTER -->
         <div class="btn-group">
-            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-share"> Exporter <span></button>
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-share"><span><span class="font-exporter"> Exporter <span></button>
             <ul class="dropdown-menu " role="menu">
                 <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'csv',escape:'false'});"> <img src='css/img/icons/csv.png' width='24px'> CSV</a></li>          
                                         
                 <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'excel',escape:'false'});"> <img src='css/img/icons/xls.png' width='24px'> XLS</a></li>
-                <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'doc',escape:'false'});"> <img src='css/img/icons/word.png' width='24px'> Word</a></li>
+                <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'doc',escape:'false'});"> <img src='css/img/icons/word.png' width='24px'> DOC</a></li>
             </ul>
         </div> 
         <!-- FIN -->
-        <ul class="dropdown-menu select-column" role="menu">
-            <li ng-repeat="column in schema.fields"><input style="margin-right: 5px;" id="sel[{{$index}}]" type="checkbox" ng-model="column.options.visible" ng-disabled="column.options.type=='checkable'" /><label for="sel[{{$index}}]">{{column.label}}</label></li>
-        </ul>
     </div>
     <div class="tb-wrapper">
         <table id="listDonnees" ng-table="tableParams" show-filter="true" class="table table-condensed ng-table-rowselected ng-table-resizable-columns table-bordered tablewrapper">
             <thead>
                 <tr>
                     <th>
-
+                        <!-- Bouton pour l'affichage des colonnes -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="glyphicon glyphicon-option-horizontal"></button>
+                            <ul class="dropdown-menu my-select-column" role="menu">
+                                <li ng-repeat="column in schema.fields"><input style="margin-right: 5px;" id="sel[{{$index}}]" type="checkbox" ng-model="column.options.visible" ng-disabled="column.options.type=='checkable'" />
+                                    <label for="sel[{{$index}}]">{{column.label}}</label>
+                                </li>
+                            </ul>
+                        </div>
                     </th>
                     <th ng-if="schema.checkable">
                         <input type="checkbox" ng-model="_checkall" ng-click="checkAll(_checkall)"></input>

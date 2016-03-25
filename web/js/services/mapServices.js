@@ -369,7 +369,7 @@ var iconelecpink;
                     "mainLayer": "css/img/couche_non_visible.png"
                 },
                 "zonessensibles": {
-                    "mainLayer": "css/img/couche_visible.png"
+                    "mainLayer": "css/img/couche_non_visible.png"
                 },
                 "mortalites": {
                     "mainLayer": "css/img/couche_non_visible.png",
@@ -1212,7 +1212,13 @@ app.directive('leafletMap', function(){
                 mapService.setBaseLayer(layer);
             }
 
-            var pictoLayerVisible = "css/img/couche_visible.png";
+            // collapsed bandeau
+            $scope.toggleBandeau = function() {
+               $scope.affichebandeau = !$scope.affichebandeau;
+               console.log('toggle bandeau');
+            };
+
+            var pictoLayerVisible = "css/img/bouton_bandeau_montant.png";
             var pictoLayerNoVisible = "css/img/couche_non_visible.png";
             var category = $scope.category;
             var filter = $scope.filter;

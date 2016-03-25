@@ -82,38 +82,46 @@
         <title>Projet Câbles dangereux</title>
     </head>
     <body ng-controller="baseController">
-        <!-- message utilisateur -->
+        <!-- MESSAGE UTILISATEUR -->
         <div usermsg></div>
 
-        <!-- bandeau de navigation  -->
-        <div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a ng-show="user" href="#/cables/zonessensibles" class="brand"><i class="icon-bolt">Cables</i></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li ng-if="user">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href=""> <span class="glyphicon glyphicon-user"></span> {{user.nom_complet}}</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/logout"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Se déconnecter</a></li>
-                            </ul>
-                        </li>
-                        <li ng-if="!user"><a href="#/login"><span class="glyphicon glyphicon-lock"></span> Non connecté</a></li>
-                    </ul>
-                </div>
+<!-- BANDEAU  -->
+        <div class="pos-bandeau" ng-class="{'visibilitebandeau' : affichebandeau}">
+            <div class="logo-title-user" ng-class="{'visibilitebandeau' : affichebandeau}">
+                <img ng-src="css/img/logo_titre_bleu.png"/>
+            </div>
+            <div class="user" ng-if="user">
+                <span class="glyphicon glyphicon-user"></span> {{user.nom_complet}}  <a href="#/logout" ng-click="toggleDeconnect()"><span class="glyphicon glyphicon-off"></span></a>
             </div>
         </div>
+<!-- FIN BANDEAU  -->
 
-        <div class="container-fluid full-screen">
-            <!-- la carte à gauche-->
-            <div class="col-md-7 fixed-map">
+        <div>
+            <!-- CARTE -->
+            <div class="contenu fixed-map" ng-class="{'visibilite' : !affiche }">
                 <div class="map large" leaflet-map data="geoms" ></div>
             </div>
-            <div class="col-md-5 float-right padded" ng-view></div>
+            <!-- FIN CARTE -->
+            <!-- BOUTON BANDEAU -->
+            <div class='btn-bandeau' ng-click="toggleBandeau()" ng-if="affichebandeau">
+                <img ng-src="css/img/btn_bandeau_down_bleu_4.png"/>
+            </div>
+            <div class='btn-bandeau' ng-click="toggleBandeau()" ng-if="!affichebandeau">
+                <img ng-src="css/img/btn_bandeau_up_bleu_1.png"/>
+            </div>
+            <!-- AFFICHAGE TABLEAU -->
+            <!-- BOUTON TABLEAU -->
+            <div class='btn-table' ng-class="{'visibilite' : !affiche }" ng-click="toggle()">
+                <img ng-src="css/img/tableau_bleu.png"/>
+            </div>
+            <!-- TABLEAU -->
+            <!-- IMPORTANT : ng-view => cela veut dire que l'affichage de tous les templates liés à un changement d'url se fait dans la div ci-dessous => même le template pour la page de login -->
+            <div class="datablock float-right padded" ng-view ng-class="{'visibilite' : affiche }">
+            </div>
+            <!-- FIN AFFICHAGE TABLEAU -->
         </div>
 
-        <!-- spinner au chargement des données -->
+        <!-- SPINNER CHARGEMENT DONNEES -->
         <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}"
              ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}">
         </div>

@@ -4,7 +4,7 @@ subDataPoteauxUrl: cables/zonessensibles/poteauxerdf/
 subSchemaTronconsUrl: cables/config/tronconserdf/list
 subDataTronconsUrl: cables/zonessensibles/tronconserdf/
 groups:
-    -   name: Informations
+    -   name: Informations générales
         fields:
             -   name: nom_zone_sensible
                 label: "Zone sensible"

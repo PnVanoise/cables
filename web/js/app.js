@@ -108,6 +108,7 @@ app.controller('baseController', function($scope, $location, dataServ,
     var success = function(resp){
         $scope.user = userServ.getUser();
         if(!$scope.user){
+            console.log('dans login');
             $location.url('login');
         }
         // retourne /cables/zonessensibles si on tape juste pnv ou pnv/cables
@@ -120,7 +121,7 @@ app.controller('baseController', function($scope, $location, dataServ,
         // FIXME DEBUG
         configServ.put('debug', false);
 
-        userMessages.infoMessage = "bienvenue !";
+        // userMessages.infoMessage = "bienvenue !";
 
         $scope.$on('user:login', function(ev, user){
             $scope.user = user;
@@ -144,10 +145,25 @@ app.controller('baseController', function($scope, $location, dataServ,
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
-   // collapsed tableau de données
+
+    // collapsed tableau de données
     $scope.toggle = function() {
        $scope.affiche = !$scope.affiche;
-    } ;
+       console.log('affiche : '+$scope.affiche)
+    };
+
+    // PALIATIF : change la valeur pour que affiche soit toujours à true (tableau ouvert) pour que la page de connexion s'affiche avec le ng-view
+    $scope.toggleDeconnect = function() {
+       if ($scope.affiche === true) {
+        $scope.affiche = !$scope.affiche;
+       }
+    };
+
+    // collapsed bandeau
+    $scope.srcImageBtn = "css/img/btn_bandeau_up.png";
+    $scope.toggleBandeau = function() {
+        $scope.affichebandeau = !$scope.affichebandeau;
+    };
 
     $scope.check = function(val){
         return userServ.checkLevel(val);
@@ -161,16 +177,19 @@ app.controller('baseController', function($scope, $location, dataServ,
  */
 app.controller('loginController', function($scope, $location, $rootScope, userServ, userMessages, configServ){
     if(userServ.getUser()){
+        console.log('loginController if')            
         $scope.data = {
             login: userServ.getUser().identifiant,
             pass: userServ.getUser().pass,
         };
     }
     else{
+        console.log('loginController else')
         $scope.data = {login: null, pass: null};
     }
 
     $scope.$on('user:login', function(ev, user){
+        console.log('loginController user:login')
         userMessages.infoMessage = user.nom_complet.replace(/(\w+) (\w+)/, 'Bienvenue $2 $1 !');
         $location.url('/cables/zonessensibles');
     });

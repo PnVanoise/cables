@@ -1,14 +1,11 @@
 <div class="panel panel-info" class="float-right">
-<!-- Boutons modifier et supprimer-->
-<div class="editDetailButton">
-   <a class="btn btn-warning" ng-if="updateUrl && editAccess" ng-href="{{updateUrl}}"><span class="glyphicon glyphicon-edit"></span> Modifier</a>
- <button class="btn btn-danger" type="button" ng-if="data.id && deleteAccess" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+    <!-- BOUTONS MODIFIER ET SUPPRIMER -->
+    <div class="editDetailButton">
+        <a class="btn btn-warning" ng-if="updateUrl && editAccess" ng-href="{{updateUrl}}"><span class="glyphicon glyphicon-edit"></span> Modifier</a>
+        <button class="btn btn-danger" type="button" ng-if="data.id && deleteAccess" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+    </div>
+    <ng-transclude></ng-transclude>
 </div>
-<ng-transclude></ng-transclude>
-
-</div>
-
-
 
 <!-- Mise en place du schema détail-->
 <div class="detail-display">
@@ -33,42 +30,42 @@
 <div>
 <!-- Mise en place du sous-schema classique s'il y en a-->
 <div ng-if="subSchema" class="sub-schema" maplist="{{subSchema.maplist}}">
-    <div class="padding-20">
+    <div class="btn-sub-new-classique">
       <a class="btn btn-success"  ng-if="subEditAccess" ng-href="{{subSchema.createUrl}}{{dataId}}">{{subSchema.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
       <button type="button" class="btn btn-success float-right" ng-if="subData.length==0 && subEditAccess && schema.subEditSchemaUrl" ng-click="switchEditing()">{{subSchema.createBtnLabel}} - Rapide <span class="glyphicon glyphicon-plus"></button>
     </div>
     <div tablewrapper class="table" ng-if="subData.length>0 && !subEditing" schema="subSchema" data="subData" refname="{{subSchema.maplist}}">{{subSchema.title}}</div>
-    <h1 ng-if="subData.length==0 && !subEditing">{{subSchema.emptyMsg}}</h1>
+    <h4 ng-if="subData.length==0 && !subEditing">{{subSchema.emptyMsg}}</h4>
     <div ng-if="subData.length==0 && subEditing" subeditform schema="schema.subEditSchemaUrl" saveurl="schema.subEditSaveUrl" refid="data[schema.subEditRef]"></div>
 </div>
 <!-- Mise en place du sous-schemaPoteaux s'il y en a-->
 <div ng-if="subSchemaPoteaux" class="sub-schema-poteaux" maplist="{{subSchema.maplist}}">
-    <div class="padding-20">
+    <div class="btn-sub-new-poteau">
       <a class="btn btn-success" ng-if="subEditAccess" ng-href="{{subSchemaPoteaux.createUrl}}">{{subSchemaPoteaux.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
       <button type="button" class="btn btn-succes float-right" ng-if="subDataPoteaux.length==0 && subEditAccess && schema.subEditSchemaUrl" ng-click="switchEditing()">{{subSchemaPoteaux.createBtnLabel}} - Rapide <span class="glyphicon glyphicon-plus"></button>
     </div>
     <div tablewrapper class="table" ng-if="subDataPoteaux.length>0 && !subEditing" schema="subSchemaPoteaux" data="subDataPoteaux" refname="{{subSchema.maplist}}">{{subSchemaPoteaux.title}} </div>
-    <h1 ng-if="subDataPoteaux.length==0 && !subEditing">{{subSchemaPoteaux.emptyMsg}}</h1>
+    <h4 ng-if="subDataPoteaux.length==0 && !subEditing">{{subSchemaPoteaux.emptyMsg}}</h4>
     <div ng-if="subDataPoteaux.length==0 && subEditing" subeditform schema="schema.subEditSchemaUrl" saveurl="schema.subEditSaveUrl" refid="data[schema.subEditRef]"></div>
 </div>
 <!-- Mise en place du sous-schemaTroncons s'il y en a-->
 <div ng-if="subSchemaTroncons" class="sub-schema-troncons" maplist="{{subSchema.maplist}}">
-    <div class="padding-20">
+    <div class="btn-sub-new-troncon">
       <a class="btn btn-success" ng-if="subEditAccess" ng-href="{{subSchemaTroncons.createUrl}}">{{subSchemaTroncons.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
       <button type="button" class="btn btn-succes float-right" ng-if="subDataTroncons.length==0 && subEditAccess && schema.subEditSchemaUrl" ng-click="switchEditing()">{{subSchemaTroncons.createBtnLabel}} - Rapide <span class="glyphicon glyphicon-plus"></button>
     </div>
     <div tablewrapper class="table" ng-if="subDataTroncons.length>0 && !subEditing" schema="subSchemaTroncons" data="subDataTroncons" refname="{{subSchema.maplist}}">{{subSchemaTroncons.title}} </div>
-    <h1 ng-if="subDataTroncons.length==0 && !subEditing">{{subSchemaTroncons.emptyMsg}}</h1>
+    <h4 ng-if="subDataTroncons.length==0 && !subEditing">{{subSchemaTroncons.emptyMsg}}</h4>
     <div ng-if="subDataTroncons.length==0 && subEditing" subeditform schema="schema.subEditSchemaUrl" saveurl="schema.subEditSaveUrl" refid="data[schema.subEditRef]"></div>
 </div>
 <!-- Mise en place du sous-schema photos s'il y en a-->
 <div ng-if="subSchemaPhotos" class="sub-schema-photos" maplist="{{subSchema.maplist}}">
-    <div class="padding-20">
+    <div class="btn-sub-new-photo">
       <a class="btn btn-success" ng-if="subEditAccess" ng-href="{{subSchemaPhotos.createUrl}}{{dataId}}">{{subSchemaPhotos.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
       <button type="button" class="btn btn-succes float-right" ng-if="subDataPhotos.length==0 && subEditAccess && schema.subEditSchemaUrl" ng-click="switchEditing()">{{subSchemaPhotos.createBtnLabel}} - Rapide <span class="glyphicon glyphicon-plus"></button>
     </div>
     <div tablewrapper class="table" ng-if="subDataPhotos.length>0 && !subEditing" schema="subSchemaPhotos" data="subDataPhotos" refname="{{subSchema.title}}{{dataId}}">{{subSchemaPhotos.title}} </div>
-    <h1 ng-if="subDataPhotos.length==0 && !subEditing">{{subSchemaPhotos.emptyMsg}}</h1>
+    <h4 ng-if="subDataPhotos.length==0 && !subEditing">{{subSchemaPhotos.emptyMsg}}</h4>
     <div ng-if="subDataPhotos.length==0 && subEditing" subeditform schema="schema.subEditSchemaUrl" saveurl="schema.subEditSaveUrl" refid="data[schema.subEditRef]"></div>
 </div>
 <div dw-loading="spinner-detail" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>

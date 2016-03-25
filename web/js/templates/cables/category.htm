@@ -1,14 +1,17 @@
 <div ng-show="user" class="row">
-    <!-- Gestion des onglets -->
-    <!-- <ul class="toto toto-pills toto-justified"> -->
-    <ul class="nav nav-pills nav-justified">
-    <!-- <ul> -->
-        <li ng-repeat="cat in ::categories" ng-class="{'active': cat.id == category.id}"><a href="#/cables/{{::cat.id}}">{{::cat.title}}</a></li>
-    </ul>
+    <!-- GESTION DES ONGLETS -->
+    <div class="nav-pos-fixed">
+        <ul class="nav nav-pills nav-justified">
+            <li ng-repeat="cat in ::categories" ng-class="{'active': cat.id == category.id}"><a href="#/cables/{{::cat.id}}">{{::cat.title}}</a></li>
+        </ul>
+    </div>
+    <div class="espace-sous-onglet"></div>
     <div maplist="cables/{{::category.id}}">
-        <div class="bnt-new" ng-if="editAccess">
-            <a class="btn btn-success" style="margin-right: 1ex;" ng-href="{{schema.createUrl}}" ng-if="category.id!='eqtronconserdf' && category.id!='eqpoteauxerdf'">{{schema.createBtnLabel}} <span class="glyphicon glyphicon-plus"></a>
+        <!-- BOUTON NOUVEAU -->
+        <div class="btn-new" ng-if="editAccess">
+            <a class="btn btn-success" style="margin-right: 1ex;" ng-href="{{schema.createUrl}}" ng-if="category.id!='eqtronconserdf' && category.id!='eqpoteauxerdf'"><span class="glyphicon glyphicon-plus"></span><span class="font-nouveau"> {{schema.createBtnLabel}} </span></a>
         </div>
+        <!-- FIN BOUTON NOUVEAU -->
         </br>
         <div class="padded">
             <div tablewrapper class="table" schema="schema" data="data" selectedpage="selectedpage" refname="cables/{{::category.id}}"></div>

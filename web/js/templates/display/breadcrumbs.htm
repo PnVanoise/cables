@@ -5,8 +5,9 @@
     </li>
 </ol>
 <ol class="breadcrumb" ng-if="_edit">
+    <span class="glyphicon glyphicon-chevron-left"></span>
     <li ng-repeat="item in bc">
-        <a ng-href="{{item.link}}"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
+        <a ng-href="{{item.link}}">{{item.label}}</a>
     </li>
     <li>
         <span class="text-muted">Edition</span>

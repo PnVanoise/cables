@@ -2,7 +2,7 @@ title: Inventaires Troncons ERDF
 maplist: cables/tronconserdf
 refname: cables/tronconserdf
 emptyMsg: Aucun inventaire tronçon
-createBtnLabel: Nouvel inventaire tronçon
+createBtnLabel: Nouveau tronçon
 createUrl: "#/cables/edit/tronconserdf/"
 editUrl: "#/cables/edit/tronconserdf/"
 detailUrl: "#/cables/tronconserdf/"

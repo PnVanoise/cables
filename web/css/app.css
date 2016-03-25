@@ -1,28 +1,95 @@
 /********************************************************
  * SIDEBAR TABLEAU DE DONNEES
  ********************************************************/
-.datablock, .btncontenu {
-    float: left;
-    height: 500px;
-      -webkit-transition: width 200ms ease-in;
+/* CARTE : taille de la div de la carte quand la tableau est replié */
+.contenu {
+    width: 100%;
+}
+
+/* CARTE : taille de la div de la carte quand la tableau est déplié */
+.contenu.visibilite {
+    width: 55%;
+/*  -webkit-transition: width 200ms ease-in;
     -moz-transition: width 200ms ease-in;
     -ms-transition: width 200ms ease-in;
     -o-transition: width 200ms ease-in;
-    transition: width 200ms ease-in;
+    transition: width 200ms ease-in;  */
 }
 
+/* TABLEAU : taille de la div du tableau quand il est déplié */
 .datablock {
+    float: left;
+    height: 500px;
+    padding: 0 20px 20px 20px;
+    display: inline-block;
+    width:45%;
+    /*border: 1px solid red;*/
+    /*-webkit-transition: width 200ms ease-in;
+    -moz-transition: width 200ms ease-in;
+    -ms-transition: width 200ms ease-in;
+    -o-transition: width 200ms ease-in;
+    transition: width 200ms ease-in;*/
+}
+
+/*.datablock {
     padding: 0 20px 20px 20px;
     display: inline-block;
     width:45%;
 
+}*/
+
+/* TABLEAU : état de la div du tableau quand il est replié */
+.datablock.visibilite {
+    display: none;
 }
 
-.btncontenu {
+/* BOUTON : placement du bouton quand le tableau est replié */
+/*.btn.btn-info {
+   position: absolute;
+   margin-left: 97.5%;
+   margin-top: 20%;
+}*/
+
+/* BOUTON : placement du bouton quand le tableau est déplié */
+/*.btn.btn-info.visibilite {
+   position: absolute;
+   margin-left: 53%;
+   margin-top: 20%;
+}*/
+
+.btn-table {
+  width:  30px;
+  height: 30px;
+  position: fixed;
+  margin-left: 98.05%;
+  margin-top: 20%;
+  text-align: center;
+  padding-top: 2px;
+  color: inherit;
+  background-color: #FFF;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  /*list-style: none;*/
+}
+
+.btn-table.visibilite {
+  position: fixed;
+  margin-left: 53%;
+  margin-top: 20%;
+  text-align: center;
+  padding-top: 2px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  /*list-style: none;*/
+}
+
+.btn-table-ul {
+  list-style: none;
+}
+
+/*.btncontenu {
     width: 60%;
-}
+}*/
 
-.btncontenu.visibilite {
+/*.btncontenu.visibilite {
     width: 100%;
 
     -webkit-transition: width 200ms ease-in;
@@ -30,24 +97,164 @@
     -ms-transition: width 200ms ease-in;
     -o-transition: width 200ms ease-in;
     transition: width 200ms ease-in;
+}*/
+
+/* pagination active */
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  background-color: #537380;
+  border-color: #537380;
+  padding: 4px 8px 4px 8px;
+  font-size: 12px;
 }
 
-.datablock.visibilite {
-    display: none;
-
+/* pagination passive */
+.pagination>li>a, .pagination>li>span {
+  color: #537380;
+  padding: 4px 8px 4px 8px;
+  font-size: 12px;
 }
+
+/* centrage dans les colonnes */
+.table>thead>tr>th {
+  vertical-align: middle;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  vertical-align: middle; 
+}
+
+/* gestion de la zone de filtre */
+.form-control {
+  font-size: 12px;
+  font-weight: normal;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.table-condensed>thead>tr>th {
+    padding: 2px;
+}
+
+/* boutons pour la pagination */
+.btn-default {
+  padding: 0px 5px 2px 5px;
+  font-size: 12px;
+}
+
+/*.btn-new {
+  position: absolute;
+  padding: 5px 5px 5px 5px;
+  font-family: sans-serif;
+  font-size: 12px;
+}*/
+
+.btn-success {
+  /*position: absolute;*/
+  padding: 5px 5px 5px 5px;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.btn-record {
+  /*position: absolute;*/
+  padding: 5px 5px 5px 5px;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.btn-primary {
+  /*position: absolute;*/
+  padding: 5px 5px 5px 5px;
+  /*font-family: sans-serif;
+  font-size: 12px;*/
+}
+
+.font-exporter {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.font-nouveau {
+  font-family: sans-serif;
+  font-size: 12px;
+  /*padding-left: 2px;
+  padding-bottom: 20px;*/
+}
+
+/* bouton pour l'affichage des colonnes */
 .btn.btn-info {
-   margin-top:0%;
-
+  position: static; 
+  margin-top: 0px;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  background: #537380;
+  font-color: #ffffff;
+  border: 1px solid #537380;
 }
+
+.btn-info.active, .btn-info.focus, .btn-info:active, .btn-info:focus, .btn-info:hover, .open>.dropdown-toggle.btn-info {
+    /*color: #fff;*/
+    background-color: #537380;
+    border-color: #537380;
+}
+
+/*.btn.btn-info.active {
+  position: static; 
+  margin-top: 0px;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  background: #537380;
+  font-color: #ffffff;
+  border: 1px solid #537380;
+}*/
+
+/* placement de la liste déroulante sous le bouton pour l'affichage des colonnes */
+.my-select-column {
+  right: auto;
+}
+
+.dropdown-menu {
+  right: auto;
+  font-size: 10px;
+}
+
+.deconnect {
+  /*right: auto;*/
+  font-size: 13px;
+}
+
+/* glyphicon bouton info devant chaque ligne du tableau */
+.glyphicon.glyphicon-info-sign {
+  color: #537380;
+}
+
+/* glyphicon '3 points' pour la gestion des colonnes */
+.glyphicon.glyphicon-option-horizontal {
+  /*color: #537380;*/
+  padding-right: 2px;
+  text-align: center;
+}
+
+.btn-group:open {
+  background: #5da5b4;
+}
+
+/* texte 'Aucune données' */
+.text-primary {
+  color: #537380;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pos-table {
+  padding-top: 10px;
+  /*border: 1px solid green;*/
+}
+
 
 /********************************************************
  * CARTE
  ********************************************************/
-#map{
-    width: 100%;
-    height: 100%;
-}
 #mapd{
     width: 100%;
     height: 100%;
@@ -55,8 +262,8 @@
 
 .fixed-map {
   position: fixed;
-  padding: 0;
-  margin: 0;
+  /*padding: 0;
+  margin: 0;*/
 }
 
 .full-screen{
@@ -83,8 +290,9 @@
 
 .map{
     float: left;
-    padding: 2px;
-   box-shadow: 1px 1px 1px 1px grey;
+    /*padding: 2px;*/
+   /*box-shadow: 1px 1px 1px 1px grey;*/
+   /*border: 1px solid green;*/
 
 }
 
@@ -128,7 +336,9 @@
     color: red;
 }
 
-
+.easy-button-button .button-state {
+  padding-top: 2px;
+}
 
 /********************************************************
  *  MESSAGES UTILISATEURS
@@ -150,7 +360,11 @@
  * MENU PRINCIPAL
  ********************************************************/
  /* Fixed Nav-bar */
- body { padding-top: 52px; }
+ body {
+  padding-top: 0px;
+  /* taille de la police dans le tableau */
+  font-size: 12px;
+}
 
 
 /* Font Awesome */
@@ -236,7 +450,7 @@ ul.icons li .icon-large:before {
 }
 
 .navbar .brand {
-  float: left;
+  float: left
   display: block;
   padding: 10px 20px 10px;
   font-size: 20px;
@@ -381,6 +595,7 @@ table.tablewrapper>tbody>tr.active>td{
 
 .float-right {
     float: right;
+    font-size: 12px;
 }
 
 .float-left {
@@ -398,7 +613,7 @@ table.tablewrapper>tbody>tr.active>td{
 }
 
 .padding-20 {
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .sub-schema {
@@ -817,11 +1032,36 @@ canvas {
   border-bottom-color: transparent;
 }
 
-/****** Titre dans page détail *************************/
+/***********************************************************************
+    PAGE DETAIL
+ ***********************************************************************/
+h1 {
+  font-size: 22px;
+}
+
 .editDetailButton{
   float:right;
   margin-top:35px;
 }
+
+/* bouton modifier */
+.btn-warning {
+  padding: 5px 5px 5px 5px;
+  /*font-family: sans-serif;*/
+  font-size: 12px;
+}
+
+/* bouton supprimer */
+.btn-danger {
+  padding: 5px 5px 5px 5px;
+  /*font-family: sans-serif;*/
+  font-size: 12px;
+}
+
+.panel-body {
+  padding-bottom: 0px;
+}
+
 .panel-info{
   border-color:#FFF;
 }
@@ -847,8 +1087,8 @@ canvas {
 
 /** Taille de la légende fermée = environ taille bouton Légende **/
 .sidebar.collapsed {
-  width:  40px;
-  height: 40px;
+  width:  30px;
+  height: 30px;
 }
 
 .sidebar-tabs.collapsed {
@@ -857,7 +1097,7 @@ canvas {
 
 @media (min-width: 1200px) {
  .sidebar {
-    width: 300px; }
+    width: 270px; }
 }
 
 /** Position par rapport au bord gauche */
@@ -877,6 +1117,8 @@ canvas {
   bottom: 0;
   height: 100%;
   background-color: #FFF; /* Sous le bouton de la légende et la bande de gauche */
+  /*margin-left: 29px;
+  margin-top: 2px;*/  
 }
 
 .sidebar-left .sidebar-tabs {
@@ -889,7 +1131,7 @@ canvas {
 
 .sidebar-tabs, .sidebar-tabs > ul {
   position: absolute;
-  width: 40px;
+  width: 30px;
   margin: 0;
   padding: 0;
 }
@@ -916,10 +1158,12 @@ canvas {
   display: block;
   width: 100%;
   height: 100%;
-  line-height: 40px;
+  /*line-height: 40px;*/
   color: inherit;
   text-decoration: none;
-  text-align: center;
+  /*text-align: center;*/
+  padding-left: 2px;
+  padding-top: 2px;
 }
 
 .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
@@ -937,17 +1181,23 @@ canvas {
 }
 
 .sidebar-left .sidebar-content {
-  left: 40px;
+  left: 30px;
   right: 0;
 }
 
 /*
  * CSS collapse données metier légende
  */
+.glyphicon {
+  /*color: #537380;*/
+  color: #ffffff;
+}
 
 a:focus, a:hover {
     color: #23527c;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
+    text-decoration: none;
+    outline: 0px;
 }
 
 .legendBlock-item {
@@ -985,7 +1235,7 @@ a.legendBlock-item {
 .separateurVecteur {
   height: 2px;
   width: 215px;
-  background-color: #000000;
+  background-color: #537380;
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -1008,6 +1258,10 @@ a.legendBlock-item {
     cursor: pointer;
     color: #000000;
 }
+
+/*.labelLayerZs>img {
+  vertical-align: baseline;
+}*/
 
 .labelLayerCommunes {
     padding-left: 19px;
@@ -1113,10 +1367,43 @@ a.legendBlock-item {
   margin-left:2px;
 }
 
-.bnt-new {
+/* bouton Nouveau xxx dans le tableau */
+.btn-new {
   position: absolute;
-  padding-top: 5px;
-  padding-left:10px;
+  padding-top: 35px;
+  padding-left: 12px;
+  z-index: 9999;
+  /*border: 1px solid red;*/
+}
+
+.btn-sub-new {
+  position: absolute;
+  padding-top: 63px;
+  /*padding-left: 63px;*/
+}
+
+.btn-sub-new-poteau {
+  position: absolute;
+  padding-top: 15px;
+  /*padding-left: 63px;*/
+}
+
+.btn-sub-new-troncon {
+  position: absolute;
+  padding-top: 15px;
+  /*padding-left: 63px;*/
+}
+
+.btn-sub-new-classique {
+  /*position: absolute;*/
+  padding-top: 0px;
+  padding-left: 0px;
+}
+
+.btn-sub-new-photo {
+  /*position: absolute;*/
+  padding-top: 0px;
+  padding-left: 0px;
 }
 
 .center {
@@ -1256,10 +1543,217 @@ a.legendBlock-item {
 /* Surcouche pour gestion des onglets */
 .nav {
   font-size: 12px;
-  padding-left: 10px;
+  /*padding-left: 10px;*/
   font-weight: bold;
+  color: #00FF21;
+  /*margin-left: 10px;*/
+  /*position: fixed;*/
+}
+
+/* ajout du décalage que pour les onglets dans le bloc tableau */
+.nav-tab {
+  padding-left: 10px;
+  /*border: 1px solid red;*/
+}
+
+a {
+  color: #537380;
+}
+
+a:hover {
+  color: #5da5b4;
+}
+
+.dropdown-menu>li>a {
+  color: #537380;
+}
+
+.dropdown-menu>li>a:hover {
+  color: #5da5b4;
 }
 
 .nav-pills>li>a {
     border-radius: 0px;
+}
+
+/* couleur de fond des onglets */
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  background-color: #537380;
+}
+
+.navbar-fixed-top {
+    border: 1px solid black;
+    background: #000000;
+}
+
+.container-fluid {
+  /*border: 1px solid red;*/
+  /*height: 30%;*/
+  background-color: #ffffff;
+  z-index: 99999;
+  /*position: fixed;*/
+}
+
+.navbar-nav {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  /*position: fixed;*/
+}
+
+/**************
+* BANDEAU
+**************/
+
+/* Bouton bandeau */
+.btn-bandeau {
+  width:  30px;
+  height: 17px;
+  position: fixed;
+  margin-left: 50%;
+  /*margin-top: 0.05%;*/
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 0px;
+  color: inherit;
+  background-color: #FFF;
+}
+
+.btn-bandeau>img {
+  vertical-align: baseline;
+}
+
+/*.navbar-nav.visibilitebandeau {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}*/
+
+.nav.visibilitebandeau {
+  display: none;
+}
+
+.logo-title-user {
+  width: 100%;
+  /*height: 80px;*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  /*border: 1px solid blue;*/
+  z-index: 99999;
+  background-color: #ffffff;
+}
+
+.logo-title-user.visibilitebandeau {
+  display: none;
+}
+
+.user {
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding-right: 15px;
+  padding-top: 30px;
+  color: #537380;
+  font-weight: bold;
+  z-index: 100000;
+  background-color: #ffffff;
+}
+
+/* icone user */
+.glyphicon.glyphicon-user {
+  color: #537380;
+}
+
+.glyphicon.glyphicon-off {
+  color: #537380;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.glyphicon.glyphicon-off:hover {
+  color: #5da5b4;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* icone cadenas sur clic sur user */
+.glyphicon.glyphicon-lock {
+  color: #537380;
+}
+
+.user-fixed {
+  /*position: fixed;*/
+}
+
+.pos-bandeau {
+  /*position: fixed;
+  left: 0;
+  top: 0;*/
+  width: 100%
+  height: 80px;
+  padding-top: 80px;
+  background-color: #ffffff;
+  
+}
+
+.pos-bandeau.visibilitebandeau {
+  display: none;
+}
+
+.nav-pos-fixed {
+  position: fixed;
+  z-index: 99999;
+  background-color: #ffffff;
+  /*border: 1px solid blue;*/
+  margin-left: 5px;
+  margin-right: 3px;
+}
+
+.glyphicon.glyphicon-chevron-left {
+  color: #537380;
+  padding-right: 3px;
+}
+
+.glyphicon.glyphicon-chevron-right {
+  color: #537380;
+  padding-right: 3px;
+}
+
+.glyphicon.glyphicon-chevron-down {
+  color: #537380;
+  padding-right: 3px;
+}
+
+.glyphicon.glyphicon-calendar {
+  color: #537380;
+  /*padding-right: 3px;*/
+  font-size: 16px;
+  /*text-align: center;
+  vertical-align: middle;*/
+  padding-top: 10px;
+}
+
+/* icone retour étendue initiale sur la carte */
+.glyphicon.glyphicon-home {
+  color: #000000;
+  font-size: 16px;
+}
+
+/**************
+* BREADCRUMB
+***************/
+
+.panel-default {
+  padding-bottom: 0px;
+}
+
+.sub-schema-poteaux {
+  /*padding-top: 20px;*/
+}
+
+.modal-content {
+  margin-top: 100px;
+}
+
+.espace-sous-onglet {
+  margin-top: 40px;
 }

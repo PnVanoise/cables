@@ -320,6 +320,7 @@
 }
 
 .suivi-popover{
+    margin-top: 70px;
     position: fixed;
     top: 4.5em;
     right: 1em;

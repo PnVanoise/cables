@@ -81,7 +81,7 @@ app.config(function (localStorageServiceProvider) {
 /*
  * Controleur de base
  */
-app.controller('baseController', function($scope, $location, dataServ,
+app.controller('baseController', function($scope, $location, $modal, dataServ,
     configServ, mapService, userMessages, userServ){
     
     // Définition des couches qui sont chargées au démarrage de l'application
@@ -167,6 +167,23 @@ app.controller('baseController', function($scope, $location, dataServ,
 
     $scope.check = function(val){
         return userServ.checkLevel(val);
+    };
+
+    $scope.modalMentions = function(txt){
+        var modInstance = $modal.open({
+            templateUrl: 'js/templates/modalMentions.htm',
+            resolve: {txt: function(){return txt}},
+            controller: function($modalInstance, $scope, txt){
+                $scope.txt = txt;
+                $scope.ok = function(){
+                    $modalInstance.close();
+                };
+                $scope.cancel = function(){
+                    $modalInstance.dismiss('cancel');
+                }
+            }
+        });
+        return modInstance.result;
     };
 
     configServ.getUrl('config/apps', success);

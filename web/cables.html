@@ -119,11 +119,50 @@
             <div class="datablock float-right padded" ng-view ng-class="{'visibilite' : affiche }">
             </div>
             <!-- FIN AFFICHAGE TABLEAU -->
+            <!-- BOUTON MENTIONS -->
+            <!-- <div class='btn-mentions' ng-click="modalMentions(['toto'])"> -->
+            <div class='btn-mentions' data-toggle="modal" data-target="#modalMentions">
+                <span class="glyphicon glyphicon-modal-window"></span>
+            </div>
+            <!-- FIN BOUTON MENTIONS -->
         </div>
 
         <!-- SPINNER CHARGEMENT DONNEES -->
         <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}"
              ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}">
         </div>
+        <!-- FIN SPINNER CHARGEMENT DONNEES -->
+        <!-- MODAL DES MENTIONS -->
+        <div class="modal fade" id="modalMentions">
+            <div class="modal-dialog modal-dialog-mentions">
+                <div class="modal-content modal-content-mentions">
+                    <div class="modal-header-mentions">
+                        <h3>Projet LIFE GypHelp n° LIFE13/NAT/FR/000093</h3>
+                    </div>
+                    <div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/life_1_h84.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/erdf_4.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/rte_h60.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/lpo_savoie_2_h84.jpg"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnv_2_h85.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnr_bauges_h120.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnr_chartreuse_h100.png"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/oncfs_6_h110.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/ogm_h45.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/natura_2000_4_h85.png"/></div>
+                        </div>
+                    </div>
+                    <div class="modal-close" data-dismiss="modal">
+                        X
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL DES MENTIONS -->
     </body>
 </html>

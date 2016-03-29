@@ -1250,7 +1250,7 @@ a.legendBlock-item {
 
 /** Label des couches **/
 .labelLayerZs {
-    padding-left: 17px;
+    padding-left: 19px;
     /*padding-bottom: 4px;*/
     padding-top: 2px;
     font-size: 12px;
@@ -1372,7 +1372,7 @@ a.legendBlock-item {
   position: absolute;
   padding-top: 35px;
   padding-left: 12px;
-  z-index: 9999;
+  /*z-index: 9999;*/
   /*border: 1px solid red;*/
 }
 
@@ -1751,9 +1751,82 @@ a:hover {
 }
 
 .modal-content {
-  margin-top: 100px;
+  margin-top: 150px;
+  margin-left: 0px;
+  z-index: 9999999;
 }
 
 .espace-sous-onglet {
   margin-top: 40px;
+}
+
+/****************
+* MODAL MENTIONS
+****************/
+
+/* Bouton mentions légales */
+.btn-mentions {
+  bottom: 0;
+  width:  34px;
+  height: 33px;
+  position: fixed;
+  margin-left: 50%;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 4px;
+  color: inherit;
+  background-color: #ffffff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+}
+
+.glyphicon.glyphicon-modal-window {
+  color: #537380;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.modal.backdrop {
+    z-index: 100002;
+}
+
+.modal-backdrop.in {
+  opacity: 0;
+}
+
+.modal-dialog-mentions {
+  width: 800px;
+  height: 480px;
+}
+
+.modal-header-mentions {
+  text-align: center;
+  border-bottom: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #537380;
+  padding-bottom: 10px;
+}
+
+.modal-close {
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+  color: #537380;
+  cursor: pointer;
+  padding-right: 15px;
+}
+
+.modal-content-mentions {
+  width: 800px;
+  height: 480px;
+}
+
+.logo-partenaire-ligne {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.logo-partenaire {
+  padding: 10px 10px 10px 10px;
+  display: inline-block;
 }

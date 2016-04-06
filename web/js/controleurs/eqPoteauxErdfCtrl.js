@@ -32,9 +32,6 @@ app.controller('eqPoteauxErdfDetailCtrl', function($scope, $rootScope, $routePar
     $scope.updateUrl = '#/' + $scope._appName + '/edit/eqpoteauxerdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.showLayer('eqpoteauxerdf').then(function() {
-            mapService.selectItem($routeParams.id, 'eqpoteauxerdf');
-        });
         $scope.title = 'Equipement poteaux de type ' + data.type_equipement_poteau;
     });
 
@@ -72,11 +69,8 @@ app.controller('eqPoteauxErdfEditCtrl', function($scope, $rootScope, $routeParam
             loginSaisie: userServ.getUser().nom_complet, 
             idInventairePoteauErdf: $routeParams.id_inventaire_poteau_erdf
         };
-        // console.log($scope.data);
     }
-   
 
-    
     $scope.$on('form:init', function(ev, data){
         if(data.type_equipement_poteau){
         $scope.title = "Modification de l'équipement poteaux de type" + data.type_equipement_poteau;

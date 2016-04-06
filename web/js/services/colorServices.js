@@ -184,9 +184,9 @@ app.service('defaultColorService', function () {
     //Style pour les équipements tronçons
     this.eqTroncon = function(){
         eqTroncon = {
-            color:'#5CB85C',
+            color:'#01df01',
             width:1,
-            opacity:0.8
+            opacity:0.9
         };
     return eqTroncon;
     }
@@ -195,7 +195,7 @@ app.service('defaultColorService', function () {
     this.erdfac = function(){
         erdfac = L.icon({
             className : 'apcoupERDF',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_appareils_coupure_erdf.png'
         });
     return erdfac;
     }
@@ -204,7 +204,7 @@ app.service('defaultColorService', function () {
     this.erdfca = function(){
         erdfca = L.icon({
             className : 'caERDF',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_connexions_aeriennes_erdf.png'
         });
     return erdfca;
     }
@@ -213,7 +213,7 @@ app.service('defaultColorService', function () {
     this.erdfp = function(){
         erdfp = L.icon({
             className : 'parafERDF',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_parafoudres_erdf.png'
         });
     return erdfp;
     }
@@ -222,7 +222,7 @@ app.service('defaultColorService', function () {
     this.erdfpe = function(){
         erdfpe = L.icon({
             className : 'postelecERDF',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_postes_electriques_erdf.png'
         });
     return erdfpe;
     }
@@ -231,7 +231,7 @@ app.service('defaultColorService', function () {
     this.erdfra = function(){
         erdfra = L.icon({
             className : 'raesoutERDF',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_remontees_aerosouterraines_erdf.png'
         });
     return erdfra;
     }
@@ -239,8 +239,8 @@ app.service('defaultColorService', function () {
     //  Tronçons aériens ERDF
     this.erdfta = function(){
         erdfta = {
-            color: "#000000",
-            fillColor: "#000000",
+            color: "#61210B",
+            fillColor: "#61210B",
             weight: 2,
             opacity: 1,
             fillOpacity: 0.3
@@ -287,8 +287,8 @@ app.service('defaultColorService', function () {
     // Tronçons visualisés OGM
     this.ogmtv = function(){
         ogmtv = {
-            color: "#000000",
-            fillColor: "#000000",
+            color: "#0B610B",
+            fillColor: "#0B610B",
             weight: 2,
             opacity: 1,
             fillOpacity: 0.3
@@ -299,8 +299,8 @@ app.service('defaultColorService', function () {
     // Tronçons visualisés dangereux OGM
     this.ogmtvd = function(){
         ogmtvd = {
-            color: "#FF0000",
-            fillColor: "#FF0000",
+            color: "#FF8000",
+            fillColor: "#FF8000",
             weight: 2,
             opacity: 1,
             fillOpacity: 0.3
@@ -324,7 +324,7 @@ app.service('defaultColorService', function () {
     this.rtep = function(){
         rtep = L.icon({
             className : 'posteRTE',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_postes_electriques_rte.png'
         });
     return rtep;
     }
@@ -333,7 +333,7 @@ app.service('defaultColorService', function () {
     this.rtepot = function(){
         rtepot = L.icon({
             className : 'poteauRTE',
-            iconUrl: 'css/lib/images/marker_poteau_erdf.png'
+            iconUrl: 'css/lib/images/marker_poteaux_electriques_rte.png'
         });
     return rtepot;
     }
@@ -364,7 +364,7 @@ app.service('defaultColorService', function () {
     this.obsClasse1 = function(){
         obsClasse1 = L.icon({
             className : 'obsClasse1',
-            iconUrl: 'css/lib/images/marker-poteau.png'
+            iconUrl: 'css/lib/images/marker_observations_inf_20.png'
         });
     return obsClasse1;
     }
@@ -372,7 +372,7 @@ app.service('defaultColorService', function () {
     this.obsClasse2 = function(){
         obsClasse2 = L.icon({
             className : 'obsClasse2',
-            iconUrl: 'css/lib/images/marker-poteau.png'
+            iconUrl: 'css/lib/images/marker_observations_sup_20_inf_40.png'
         });
     return obsClasse2;
     }
@@ -380,7 +380,7 @@ app.service('defaultColorService', function () {
     this.obsClasse3 = function(){
         obsClasse3 = L.icon({
             className : 'obsClasse3',
-            iconUrl: 'css/lib/images/marker-poteau.png'
+            iconUrl: 'css/lib/images/marker_observations_sup_40.png'
         });
     return obsClasse3;
     }
@@ -549,5 +549,31 @@ app.service('changeColorService', function () {
             opacity:0.8
         };
     return eqTroncon;
+    }
+
+    // Observations : classes en fonction du nombre d'obs
+    // ** 0- 20 **
+    this.obsClasse1 = function(){
+        obsClasse1 = L.icon({
+            className : 'obsClasse1',
+            iconUrl: 'css/lib/images/marker-poteau.png'
+        });
+    return obsClasse1;
+    }
+    // ** 20- 40 **
+    this.obsClasse2 = function(){
+        obsClasse2 = L.icon({
+            className : 'obsClasse2',
+            iconUrl: 'css/lib/images/marker-poteau.png'
+        });
+    return obsClasse2;
+    }
+    // ** + 40 **
+    this.obsClasse3 = function(){
+        obsClasse3 = L.icon({
+            className : 'obsClasse3',
+            iconUrl: 'css/lib/images/marker-poteau.png'
+        });
+    return obsClasse3;
     }
 });

@@ -308,15 +308,21 @@ app.directive('breadcrumbs', function(){
                 }
             }
             if(params.length == 4){
-                if(!parseInt(params[3])){
-                    url = params[0] + '/config/breadcrumb?view=' + params[1]
+                // Cas pour ajout nouvelle photo à un poteau ou à un tronçon
+                if (params[2] === 'photospoteauxerdf' || 'photostronconserdf') {
+                    url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
                 }
-                else{
-                    if($scope._edit){
-                        url = params[0] + '/config/breadcrumb?view=' + params[2] + '&id=' + params[3];
+                else {
+                    if(!parseInt(params[3])){
+                        url = params[0] + '/config/breadcrumb?view=' + params[1]
                     }
                     else{
-                        url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
+                        if($scope._edit){
+                            url = params[0] + '/config/breadcrumb?view=' + params[2] + '&id=' + params[3];
+                        }
+                        else{
+                            url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
+                        }
                     }
                 }
             }

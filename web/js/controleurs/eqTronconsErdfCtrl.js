@@ -37,9 +37,6 @@ app.controller('eqTronconsErdfDetailCtrl', function($scope, $rootScope, $routePa
     $scope.updateUrl = '#/' + $scope._appName + '/edit/eqtronconserdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        mapService.showLayer('eqtronconserdf').then(function() {
-            mapService.selectItem($routeParams.id, 'eqtronconserdf');
-        });
         $scope.title = 'Equipement tronçon de type ' + data.type_equipement_troncon;
     });
 

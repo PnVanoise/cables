@@ -324,97 +324,97 @@ var iconelecpink;
          */
         pictoLayer : {
                 "communes": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "erdfappareilcoupure": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "erdfconnexionaerienne": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "erdfparafoudre": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "erdfposteelectrique": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "erdfremonteeaerosout": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "erdftronconaerien": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "ogmcablesremonteesmecaniques": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "ogmdomainesskiables": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "ogmtronconsdangereux": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "ogmtronconsvisualises": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "ogmtronconsvisualisesdangereux": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "rtelignes": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "rtepostes": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "rtepoteaux": {
-                    "mainLayer": "css/img/couche_non_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "zonessensibles": {
-                    "mainLayer": "css/img/couche_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png"
                 },
                 "mortalites": {
-                    "mainLayer": "css/img/couche_non_visible.png",
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png",
                     "subLayer": {
-                        "mortalitesPercussions": "css/img/couche_non_visible.png",
-                        "mortalitesElectrocutions": "css/img/couche_non_visible.png"
+                        "mortalitesPercussions": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "mortalitesElectrocutions": "css/img/icones_couches_legende/couche_non_visible.png"
                     }
                 },
                 "tronconserdf": {
-                    "mainLayer": "css/img/couche_visible.png",
+                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png",
                     "subLayer": {
-                        "tronconsErdfRisqueEleve": "css/img/couche_visible.png",
-                        "tronconsErdfRisqueSecondaire": "css/img/couche_visible.png",
-                        "tronconsErdfPeuPasRisque": "css/img/couche_visible.png"
+                        "tronconsErdfRisqueEleve": "css/img/icones_couches_legende/couche_visible.png",
+                        "tronconsErdfRisqueSecondaire": "css/img/icones_couches_legende/couche_visible.png",
+                        "tronconsErdfPeuPasRisque": "css/img/icones_couches_legende/couche_visible.png"
                     }
                 },
                 "poteauxerdf": {
-                    "mainLayer": "css/img/couche_visible.png",
+                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png",
                     "subLayer": {
-                        "poteauxErdfRisqueEleve": "css/img/couche_visible.png",
-                        "poteauxErdfRisqueSecondaire": "css/img/couche_visible.png",
-                        "poteauxErdfPeuPasRisque": "css/img/couche_visible.png"
+                        "poteauxErdfRisqueEleve": "css/img/icones_couches_legende/couche_visible.png",
+                        "poteauxErdfRisqueSecondaire": "css/img/icones_couches_legende/couche_visible.png",
+                        "poteauxErdfPeuPasRisque": "css/img/icones_couches_legende/couche_visible.png"
                     }
                 },
                 "eqtronconserdf": {
-                    "mainLayer": "css/img/couche_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png"
                 },
                 "eqpoteauxerdf": {
-                    "mainLayer": "css/img/couche_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png"
                 },
                 "nidifications": {
-                    "mainLayer": "css/img/couche_visible.png",
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png",
                     "subLayer": {
-                        "nidificationsGypaete": "css/img/couche_non_visible.png",
-                        "nidificationsAigle": "css/img/couche_non_visible.png",
-                        "nidificationsGrandDuc": "css/img/couche_non_visible.png",
-                        "nidificationsFaucon": "css/img/couche_non_visible.png"
+                        "nidificationsGypaete": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsAigle": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsGrandDuc": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsFaucon": "css/img/icones_couches_legende/couche_non_visible.png"
                     }
                 },
                 "observations": {
-                    "mainLayer": "css/img/couche_non_visible.png",
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png",
                     "subLayer": {
-                        "observationsNombre020": "css/img/couche_non_visible.png",
-                        "observationsNombre2040": "css/img/couche_non_visible.png",
-                        "observationsSup40": "css/img/couche_non_visible.png"
+                        "observationsNombre020": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "observationsNombre2040": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "observationsSup40": "css/img/icones_couches_legende/couche_non_visible.png"
                     }
                 }
             },
@@ -560,165 +560,6 @@ var iconelecpink;
         },
 
         /*
-         * Visibilité - Interaction entre les objets sur la carte et les sous-couches dans la légende
-         * La visibilité des objets est appliquée au niveau des styles des objets
-         * Parameters :
-         * - category : nom de la catégorie métier de chaque sous-couche
-         * - subLayer : nom de la sous-couche sur laquelle joue la visibilité des objets associés
-         */
-        changeVisibilityLayer: function(category, subLayer) {
-            self = this;
-            var res = this.tabThemaData[category].getLayers();
-            res.forEach(function(item) {
-               
-                // TRONCONS ERDF
-                switch(item.feature.properties.risqueTroncon){
-                    case 'Risque élevé':
-                        configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueEleve:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.tronNoVisible());
-                            }
-                            else {
-                                item.setStyle(defaultColorService.tronRisqueEleve());
-                            }
-                        });
-                    break;
-                    case 'Risque secondaire':
-                        configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueSecondaire:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.tronNoVisible());
-                            }
-                            else {
-                                item.setStyle(defaultColorService.tronRisqueSecondaire());
-                            }
-                        });
-                    break;
-                    case 'Peu ou pas de risque':
-                        configServ.get('legendLayer:tronconserdf:tronconsErdfPeuPasRisque:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.tronNoVisible());
-                            }
-                            else {
-                                item.setStyle(defaultColorService.tronNonRisque());
-                            }
-                        });
-                    break;
-                }
-                // POTEAUX ERDF
-                switch (item.feature.properties.risquePoteau) {
-                    case 'Risque élevé':
-                        configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueEleve:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.poNoVisible());
-                            }
-                            else {
-                                item.setIcon(defaultColorService.poteauxErdfRisqueEleve());
-                            }
-                        });
-                    break;
-                    case 'Risque secondaire':
-                        configServ.get('legendLayer:poteauxerdf:poteauxErdfRisqueSecondaire:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.poNoVisible());
-                            }
-                            else {
-                                item.setIcon(defaultColorService.poteauxErdfRisqueSecondaire());
-                            }
-                        });
-                    break;
-                    case 'Peu ou pas de risque':
-                        configServ.get('legendLayer:poteauxerdf:poteauxErdfPeuPasRisque:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.poNoVisible());
-                            }
-                            else {
-                                item.setIcon(defaultColorService.poteauxErdfPeuPasRisque());
-                            }
-                        });
-                    break;
-                }
-                // NIDIFICATIONS RAPACES
-                switch (item.feature.properties.nom_espece) {
-                    case 'Gypaète barbu':
-                        configServ.get('legendLayer:nidifications:nidificationsGypaete:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.noPolyStyle());
-                            }
-                            else {
-                                item.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()));
-                            }
-                        });
-                    break;
-                    case 'Aigle royal':
-                        configServ.get('legendLayer:nidifications:nidificationsAigle:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.noPolyStyle());
-                            }
-                            else {
-                                item.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()));
-                            }
-                        });
-                    break;
-                    case 'Grand Duc d\'Europe':
-                        configServ.get('legendLayer:nidifications:nidificationsGrandDuc:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.noPolyStyle());
-                            }
-                            else {
-                                item.setStyle(angular.extend({color:'#D400FF'}, defaultColorService.polyStyle()));
-                            }
-                        });
-                    break;
-            		   case 'Faucon pélerin':
-                        configServ.get('legendLayer:nidifications:nidificationsFaucon:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setStyle(defaultColorService.noPolyStyle());
-                            }
-                            else {
-                                item.setStyle(angular.extend({color:'#EFA0FF'}, defaultColorService.polyStyle()));
-                            }
-                        });
-                    break;
-                }
-
-                // OBSERVATIONS VAUTOURS
-                var nb = item.feature.properties.nombre;
-                switch (true) {
-                    case (nb<20):
-                        configServ.get('legendLayer:observations:observationsNombre020:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.noObs());
-                            }
-                            else {
-                                item.setIcon(defaultColorService.obsClasse1());
-                            }
-                        });
-                    break;
-                    case (nb>=20 && nb<40):
-                        configServ.get('legendLayer:observations:observationsNombre2040:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.noObs());
-                            }
-                            else {
-                                item.setIcon(defaultColorService.obsClasse2());
-                            }
-                        });
-                    break;
-                    case (nb>=40):
-                        configServ.get('legendLayer:observations:observationsSup40:visibility', function(visibility){
-                            if(visibility === 'novisible'){
-                                item.setIcon(defaultColorService.noObs());
-                            }
-                            else {
-                                item.setIcon(defaultColorService.obsClasse3());
-                            }
-                        });
-                    break;
-                }
-            });
-        },
-
-        /*
          * Permet de zoomer sur un objets quel que soit son type (point, ligne et polygone)
          * Parameters :
          * - item : un élément (géométrique et attributaire) d'un ensemble de données métier
@@ -751,13 +592,12 @@ var iconelecpink;
             return item;
         },
 
-        manageColor: function(item, category, subLayer, style, noVisibleStyle, defaultStyle, changeStyle) {
+        manageColor: function(item, category, subLayer, style, color, noVisibleStyle, defaultStyle, changeStyle) {
             var layerVisibility;
             configServ.get('legendLayer:'+category+':'+subLayer+':visibility', function(visibility){
             // configServ.get('legendLayer:tronconserdf:tronconsErdfRisqueEleve:visibility', function(visibility){
                 layerVisibility = visibility;
             });
-            // console.log('layerVisibility : '+layerVisibility)
 
             // 0 - Couche non visible dans la carte = couche décochée dans légende
             if(layerVisibility === 'novisible'){
@@ -766,6 +606,9 @@ var iconelecpink;
                     item.setIcon(noVisibleStyle);
                 }
                 else if (style === 'line') {
+                    item.setStyle(noVisibleStyle);
+                }
+                else if (style === 'poly') {
                     item.setStyle(noVisibleStyle);
                 }
             }
@@ -783,6 +626,9 @@ var iconelecpink;
                         }
                         else if (style === 'line') {
                             item.setStyle(defaultStyle);
+                        }
+                        else if (style === 'poly') {
+                            item.setStyle(angular.extend({color: color}, defaultStyle));
                         }
                     }
                     // 2' - objet sélectionné = selectedItemService[0] rempli
@@ -805,6 +651,9 @@ var iconelecpink;
                                 else if (style === 'line') {
                                     item.setStyle(changeStyle);
                                 }
+                                else if (style === 'poly') {
+                                    item.setStyle(angular.extend({color: color}, changeStyle));
+                                }
                             }
                             // 3' - tous les autres objets avec couleur par défaut
                             else {
@@ -815,6 +664,9 @@ var iconelecpink;
                                 else if (style === 'line') {
                                     item.setStyle(defaultStyle);
                                 }
+                                else if (style === 'poly') {
+                                    item.setStyle(angular.extend({color: color}, defaultStyle));
+                                }
                             }
                         }
                         else {
@@ -823,6 +675,9 @@ var iconelecpink;
                             }
                             else if (style === 'line') {
                                 item.setStyle(defaultStyle);
+                            }
+                            else if (style === 'poly') {
+                                item.setStyle(angular.extend({color: color}, defaultStyle));
                             }
                         }
                     }
@@ -845,6 +700,9 @@ var iconelecpink;
                         else if (style === 'line') {
                             item.setStyle(changeStyle);
                         }
+                        else if (style === 'poly') {
+                            item.setStyle(angular.extend({color: color}, changeStyle));
+                        }
                     }
                     // 4' - tous les autres objets avec couleur par défaut
                     else {
@@ -854,6 +712,9 @@ var iconelecpink;
                         }
                         else if (style === 'line') {
                             item.setStyle(defaultStyle);
+                        }
+                        else if (style === 'poly') {
+                            item.setStyle(angular.extend({color: color}, defaultStyle));
                         }
                     }
                 }
@@ -966,6 +827,7 @@ var iconelecpink;
 	                    'mortalites', 
 	                    'mortalitesElectrocutions',
 	                    'marker', 
+                        null,
 	                    defaultColorService.poNoVisible(), 
 	                    defaultColorService.iconElec(),
 	                    changeColorService.iconElec()
@@ -979,6 +841,7 @@ var iconelecpink;
 	                    'mortalites', 
 	                    'mortalitesPercussions', 
 	                    'marker',
+                        null,
 	                    defaultColorService.poNoVisible(), 
 	                    defaultColorService.iconPerc(), 
 	                    changeColorService.iconPerc()
@@ -994,6 +857,7 @@ var iconelecpink;
 	                    'tronconserdf', 
 	                    'tronconsErdfRisqueEleve',
 	                    'line', 
+                        null,
 	                    defaultColorService.tronNoVisible(), 
 	                    defaultColorService.tronRisqueEleve(),
 	                    changeColorService.tronRisqueEleve()
@@ -1006,6 +870,7 @@ var iconelecpink;
 	                    'tronconserdf', 
 	                    'tronconsErdfRisqueSecondaire',
 	                    'line', 
+                        null,
 	                    defaultColorService.tronNoVisible(), 
 	                    defaultColorService.tronRisqueSecondaire(),
 	                    changeColorService.tronRisqueSecondaire()
@@ -1018,6 +883,7 @@ var iconelecpink;
 	                    'tronconserdf', 
 	                    'tronconsErdfPeuPasRisque',
 	                    'line', 
+                        null,
 	                    defaultColorService.tronNoVisible(), 
 	                    defaultColorService.tronNonRisque(),
 	                    changeColorService.tronNonRisque()
@@ -1033,6 +899,7 @@ var iconelecpink;
 	                    'poteauxerdf', 
 	                    'poteauxErdfRisqueEleve',
 	                    'marker', 
+                        null,
 	                    defaultColorService.poNoVisible(), 
 	                    defaultColorService.poteauxErdfRisqueEleve(),
 	                    changeColorService.poRisqueEleve()
@@ -1045,6 +912,7 @@ var iconelecpink;
 	                    'poteauxerdf', 
 	                    'poteauxErdfRisqueSecondaire',
 	                    'marker', 
+                        null,
 	                    defaultColorService.poNoVisible(), 
 	                    defaultColorService.poteauxErdfRisqueSecondaire(),
 	                    changeColorService.poRisqueSecondaire()
@@ -1057,6 +925,7 @@ var iconelecpink;
 	                    'poteauxerdf', 
 	                    'poteauxErdfPeuPasRisque',
 	                    'marker', 
+                        null,
 	                    defaultColorService.poNoVisible(), 
 	                    defaultColorService.poteauxErdfPeuPasRisque(),
 	                    changeColorService.poNonRisque()
@@ -1071,6 +940,7 @@ var iconelecpink;
                     'eqtronconserdf', 
                     'main',
                     'line', 
+                    null,
                     defaultColorService.tronNoVisible(), 
                     defaultColorService.eqTroncon(),
                     changeColorService.eqTroncon()
@@ -1084,6 +954,7 @@ var iconelecpink;
                     'eqpoteauxerdf', 
                     'main',
                     'marker', 
+                    null,
                     defaultColorService.poNoVisible(), 
                     defaultColorService.eqPoteau(),
                     changeColorService.eqPoteau()
@@ -1092,36 +963,98 @@ var iconelecpink;
 
 // SITES DE NIDIFICATION : Couleur en fonction de l'espece
             if(jsonData.properties.cat === 'nidifications'){
-               switch (jsonData.properties.nom_espece) {
+               if (jsonData.properties.nom_espece === 'Aigle royal') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsAigle',
+                        'poly', 
+                        '#5882FA',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
 
-                    case 'Aigle royal':
-                        geom.setStyle(angular.extend({color:'#F4FF3A'}, defaultColorService.polyStyle()))
-                    break;
-                    case 'Grand Duc d\'Europe':
-                        geom.setStyle(angular.extend({color:'#D400FF'}, defaultColorService.polyStyle()))
-                    break;
-                    case 'Faucon pélerin':
-                        geom.setStyle(angular.extend({color:'#EFA0FF'}, defaultColorService.polyStyle()))
-                    break;
-                    case 'Gypaète barbu':
-                        geom.setStyle(angular.extend({color:'#FC7F3C'}, defaultColorService.polyStyle()))
-                    break;
+                if (jsonData.properties.nom_espece === 'Grand Duc d\'Europe') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsGrandDuc',
+                        'poly', 
+                        '#D400FF',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
+
+                if (jsonData.properties.nom_espece === 'Faucon pélerin') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsFaucon',
+                        'poly', 
+                        '#04B404',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
+
+                if (jsonData.properties.nom_espece === 'Gypaète barbu') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsGypaete',
+                        'poly', 
+                        '#F4FF3A',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
                 }
             }
 
 // OBSERVATIONS : Classes en fonction du nb d'individus
             if(jsonData.properties.cat === 'observations'){
-                var nb = jsonData.properties.nombre;
-                switch (true) {
-                    case (nb<20):
-                        geom.setIcon(defaultColorService.obsClasse1())
-                    break;
-                    case (nb>=20 && nb<40):
-                        geom.setIcon(defaultColorService.obsClasse2())
-                    break;
-                    case (nb>=40):
-                        geom.setIcon(defaultColorService.obsClasse3())
-                    break;
+                if (jsonData.properties.nombre < 20) { 
+                   this.manageColor(
+                        geom, 
+                        'observations', 
+                        'observationsNombre020',
+                        'marker', 
+                        null,
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.obsClasse1(),
+                        changeColorService.obsClasse1()
+                    );
+                }
+
+                if (jsonData.properties.nombre >= 20 && jsonData.properties.nombre < 40) { 
+                   this.manageColor(
+                        geom, 
+                        'observations', 
+                        'observationsNombre2040',
+                        'marker', 
+                        null,
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.obsClasse2(),
+                        changeColorService.obsClasse2()
+                    );
+                }
+
+                if (jsonData.properties.nombre >= 40) { 
+                   this.manageColor(
+                        geom, 
+                        'observations', 
+                        'observationsSup40',
+                        'marker', 
+                        null,
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.obsClasse3(),
+                        changeColorService.obsClasse3()
+                    );
                 }
             };
 
@@ -1215,11 +1148,10 @@ app.directive('leafletMap', function(){
             // collapsed bandeau
             $scope.toggleBandeau = function() {
                $scope.affichebandeau = !$scope.affichebandeau;
-               console.log('toggle bandeau');
             };
 
-            var pictoLayerVisible = "css/img/couche_visible.png";
-            var pictoLayerNoVisible = "css/img/couche_non_visible.png";
+            var pictoLayerVisible = "css/img/icones_couches_legende/couche_visible.png";
+            var pictoLayerNoVisible = "css/img/icones_couches_legende/couche_non_visible.png";
             var category = $scope.category;
             var filter = $scope.filter;
 
@@ -1275,6 +1207,7 @@ app.directive('leafletMap', function(){
                 else if (subLayer !== undefined && $scope.pictoLayer[category]["subLayer"][subLayer] === pictoLayerNoVisible){
                     $scope.pictoLayer[category]["subLayer"][subLayer] = pictoLayerVisible;
                     configServ.put('legendLayer:'+category+':'+subLayer+':visibility', "visible");
+                    var temp = 'legendLayer:'+category+':'+subLayer+':visibility';
                     mapService.tabThemaData[category].loaded = false;
                     mapService.showLayer(null, category, 'force');
 
@@ -1294,7 +1227,7 @@ app.directive('leafletMap', function(){
                     else {
                     	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
                         configServ.put('legendLayer:'+category+':main:visibility', "visible");
-                    }                  
+                    }
                 }
             }
         }

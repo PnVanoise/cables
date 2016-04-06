@@ -899,7 +899,7 @@ background-color:  aliceblue
   margin-top:-7.5px
 }
 .eqPoteau{
-  background:#5CB85C;
+  background:#01df01;
   opacity:0.9;
   border-radius:100%;
   height: 8px;
@@ -1075,9 +1075,9 @@ h1 {
   position: absolute;
   top: 5px;
   bottom: 5px;
-  width: 100%;
+  /*width: 100%;*/
   /*height:100%;*/
-  height: 605px;
+  height: 580px;
   overflow: hidden;
   z-index: 2000;
   opacity: 1;
@@ -1096,9 +1096,10 @@ h1 {
   background-color: #FFF;
 }
 
+/* Largeur de la div de la légende */
 @media (min-width: 1200px) {
  .sidebar {
-    width: 270px; }
+    width: 300px; }
 }
 
 /** Position par rapport au bord gauche */
@@ -1253,11 +1254,12 @@ a.legendBlock-item {
 .labelLayerZs {
     padding-left: 19px;
     /*padding-bottom: 4px;*/
-    padding-top: 2px;
+    padding-top: 3px;
     font-size: 12px;
     font-weight: 100;
     cursor: pointer;
     color: #000000;
+    vertical-align: middle;
 }
 
 /*.labelLayerZs>img {
@@ -1322,6 +1324,10 @@ a.legendBlock-item {
   float: right;
 }
 
+.item-leg {
+  display: inline-block;
+  vertical-align: top;
+}
 
 /********************************************************
  * Entête
@@ -1373,7 +1379,7 @@ a.legendBlock-item {
   position: absolute;
   padding-top: 35px;
   padding-left: 12px;
-  /*z-index: 9999;*/
+  z-index: 9999;
   /*border: 1px solid red;*/
 }
 
@@ -1419,61 +1425,61 @@ a.legendBlock-item {
 }
 
 .apcoupERDF{
-  background:red;
-  height: 6px;
-  width: 6px;
+  /*background:red;*/
+  height: 8px;
+  width: 8px;
   margin-bottom:-3px;
   margin-left:-3px;
   margin-top:-3px
 }
 
 .caERDF{
-  background:blue;
-  height: 6px;
-  width: 6px;
+  /*background:blue;*/
+  height: 8px;
+  width: 8px;
   margin-bottom:-3px;
   margin-left:-3px;
   margin-top:-3px
 }
 
 .parafERDF{
-  background:yellow;
-  height: 6px;
-  width: 6px;
+  /*background:yellow;*/
+  height: 8px;
+  width: 8px;
   margin-bottom:-3px;
   margin-left:-3px;
   margin-top:-3px
 }
 
 .postelecERDF{
-  background:green;
-  height: 6px;
-  width: 6px;
+  /*background:green;*/
+  height: 8px;
+  width: 8px;
   margin-bottom:-3px;
   margin-left:-3px;
   margin-top:-3px
 }
 
 .raesoutERDF{
-  background:black;
-  height: 6px;
-  width: 6px;
+  /*background:black;*/
+  height: 8px;
+  width: 8px;
   margin-bottom:-3px;
   margin-left:-3px;
   margin-top:-3px
 }
 
 .posteRTE{
-  background:red;
-  height: 10px;
-  width: 10px;
+  /*background:red;*/
+  height: 9px;
+  width: 9px;
   margin-bottom:-5px;
   margin-left:-5px;
   margin-top:-5px
 }
 
 .poteauRTE{
-  background:black;
+  /*background:black;*/
   height: 10px;
   width: 10px;
   margin-bottom:-5px;
@@ -1493,20 +1499,20 @@ a.legendBlock-item {
 }
 
 .obsClasse1{
-  background:#8A2908;
-  opacity:0.9;
-  border-radius:100%;
-  height: 4px;
-  width: 4px;
+  /*background:#8A2908;*/
+  /*opacity:0.9;*/
+  /*border-radius:100%;*/
+  height: 6px;
+  width: 6px;
   margin-bottom:-2px;
   margin-left:-2px;
   margin-top:-2px;
 }
 
 .obsClasse2{
-  background:#046380;
-  opacity:0.9;
-  border-radius:100%;
+  /*background:#046380;*/
+  /*opacity:0.9;*/
+  /*border-radius:100%;*/
   height: 8px;
   width: 8px;
   margin-bottom:-4px;
@@ -1515,11 +1521,11 @@ a.legendBlock-item {
 }
 
 .obsClasse3{
-  background:#96CA2D;
-  opacity:0.9;
-  border-radius:100%;
-  height: 12px;
-  width: 12px;
+  /*background:#96CA2D;*/
+  /*opacity:0.9;*/
+  /*border-radius:100%;*/
+  height: 10px;
+  width: 10px;
   margin-bottom:-6px;
   margin-left:-6px;
   margin-top:-6px;

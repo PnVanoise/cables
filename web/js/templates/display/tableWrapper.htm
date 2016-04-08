@@ -79,7 +79,7 @@
                 <tr ng-repeat="item in $data" ng-click="selectItem(item, true, item.cat)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
 
                     <td style="text-align: center">
-                        <a class="link-mute" id="item{{item.id}}" ng-href="{{schema.detailUrl}}{{item.id}}">
+                        <a class="link-mute" id="item{{item.id}}" ng-href="{{schema.detailUrl}}{{item.id}}" ng-click="savePhotoUrl(item.id)">
                             <span class="glyphicon glyphicon-info-sign" tooltip="Afficher"></span>
                         </a>
                         <a class="link-mute" tooltip="Editer" ng-show="editAccess" ng-href="{{schema.editUrl}}{{item.id}}"><span class="glyphicon glyphicon-pencil"></span></a>

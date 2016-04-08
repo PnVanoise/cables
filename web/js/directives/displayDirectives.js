@@ -296,13 +296,13 @@ app.directive('breadcrumbs', function(){
         templateUrl: 'js/templates/display/breadcrumbs.htm',
         controller: function($scope, configServ, $location){
             $scope.bc = [];
-            $scope._edit = false;
+            $scope.statutPage = 'detail';
             $scope._create = false;
             var _url = null;
             var params = $location.path().slice(1).split('/');
             if(params.indexOf('edit') >= 0){
                 params.splice(params.indexOf('edit'), 1);
-                $scope._edit = true;
+                $scope.statutPage = 'edition';
                 if(!parseInt(params[params.length-1])){
                     $scope._create = true;
                 }
@@ -316,8 +316,8 @@ app.directive('breadcrumbs', function(){
                     if(!parseInt(params[3])){
                         url = params[0] + '/config/breadcrumb?view=' + params[1]
                     }
-                    else{
-                        if($scope._edit){
+                    else {
+                        if($scope.statutPage == 'edition'){
                             url = params[0] + '/config/breadcrumb?view=' + params[2] + '&id=' + params[3];
                         }
                         else{
@@ -327,11 +327,26 @@ app.directive('breadcrumbs', function(){
                 }
             }
             else if(params.length == 3){
-                if(!parseInt(params[2])){
-                    url = params[0] + '/config/breadcrumb?view=' + params[1]
+                //Cas pour ajout nouvelle photo à un poteau ou à un tronçon
+                if (params[1] === 'photospoteauxerdf') {
+                    $scope.statutPage = 'photo'
+                    configServ.get('returnPhotoUrl', function(url){
+                        url = params[0] + '/config/breadcrumb?view=' + url.split('/')[2] + '&id=' + url.split('/')[3];
+                    });
                 }
-                else{
-                    url = params[0] + '/config/breadcrumb?view=' + params[1]+ '&id=' + params[2];
+                else if (params[1] === 'photostronconserdf') {
+                    $scope.statutPage = 'photo'
+                    configServ.get('returnPhotoUrl', function(url){
+                        url = params[0] + '/config/breadcrumb?view=' + url.split('/')[2] + '&id=' + url.split('/')[3];
+                    });
+                }
+                else {
+                    if(!parseInt(params[2])){
+                        url = params[0] + '/config/breadcrumb?view=' + params[1]
+                    }
+                    else{
+                        url = params[0] + '/config/breadcrumb?view=' + params[1]+ '&id=' + params[2];
+                    }
                 }
             }
             else if(params.length == 2){
@@ -559,6 +574,21 @@ app.directive('tablewrapper', function(){
                             }
                         }
                     );
+                }
+            };
+
+            /*
+             * Fonction pour enregistrer l'url du poteau ou troncon associé à la photo sur laquelle on a cliqué
+             * Parametres :
+             *      - itemId : id du poteau ou du tronçon sélectionné dans le tableau
+             */
+            $scope.savePhotoUrl = function (itemId) {
+                var returnPhotoUrl = $scope.schema.detailUrl+itemId;
+                if (returnPhotoUrl.split('/')[2] === 'poteauxerdf') {
+                    configServ.put('returnPhotoUrl', returnPhotoUrl);
+                }
+                else if (returnPhotoUrl.split('/')[2] === 'tronconserdf') {
+                    configServ.put('returnPhotoUrl', returnPhotoUrl);
                 }
             };
 

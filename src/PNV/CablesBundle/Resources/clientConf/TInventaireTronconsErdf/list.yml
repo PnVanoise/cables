@@ -7,82 +7,82 @@ createUrl: "#/cables/edit/tronconserdf/"
 editUrl: "#/cables/edit/tronconserdf/"
 detailUrl: "#/cables/tronconserdf/"
 editAccess: 5
-fields: 
-    -   name: id 
+fields:
+    -   name: id
         label: ID
-        filter: 
+        filter:
             id: text
         options: 
             visible: false
     -   name: dateInventaire
-        label: Date Inventaire
-        filter: 
+        label: Date d'inventaire
+        filter:
             dateInventaire: text
         options:
             visible: true
     -   name: remarques
-        label: Remarques 
-        filter: 
+        label: Remarques
+        filter:
             remarques: text
         options:
-            visible: true
+            visible: false
     -   name: risqueTroncon
-        label: Risque tronçon 
-        filter: 
+        label: Risque tronçon
+        filter:
             risqueTroncon: select
         options:
             visible: true
     -   name: commune
-        label: Commune 
-        filter: 
+        label: Commune
+        filter:
             commune: select
         options:
             visible: true
     -   name: nbPhotos
-        label: Nb photos 
-        filter: 
+        label: Nb photos
+        filter:
             nbPhotos: text
         options:
             visible: true
     -   name: lgEquipee
         label: Lg équipée
-        filter: 
+        filter:
             lgEquipe: text
         options:
             visible: false
     -   name: longueur
         label: Longueur
-        filter: 
+        filter:
             longueur: text
         options:
-            visible: false
+            visible: true
     -   name: risque_integration_bati
         label: Risq. int. bati
-        filter: 
+        filter:
             risque_integration_bati: select
         options:
             visible: false
     -   name: risque_deplacement
         label: Risque déplacement
-        filter: 
+        filter:
             risque_deplacement: select
         options:
             visible: false
     -   name: zone_sensible
         label: Zone sensible
-        filter: 
+        filter:
             zone_sensible: text
         options:
             visible: false
     -   name: risque_integration_topo
         label: Risq. int. topo
-        filter: 
+        filter:
             risque_integration_topo: select
         options:
             visible: false
     -   name: risque_integration_vegetation
         label: Risq. int. végét
-        filter: 
+        filter:
             risque_integration_vegetation: select
         options:
             visible: false

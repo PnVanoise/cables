@@ -11,74 +11,77 @@ groups:
                 label: "Nom de la zone sensible"
                 type: string
             -   name: niveau_sensibilite
-                label: "Niveau sensibilité" 
-                type: string 
-    -   name: Poteaux inventories
+                label: "Niveau de sensibilité"
+                type: string
+    -   name: Poteaux inventoriés
         fields:
             -   name: nb_poteaux_inventories
-                label: "Nombre poteaux inventories"
+                label: "Nb poteaux inventoriés"
                 type: string
-                help: Nombre poteaux inventories
+                help: Nombre de poteaux inventoriés
             -   name: nb_poteaux_inventories_risque_fort
-                label: Nbr. poteaux inventories risque fort
+                label: Nb poteaux inventoriés risque fort
                 type: string
-                help: Nbr. poteaux inventories risque fort
+                help: Nombre de poteaux inventoriés en risque fort
             -   name: nb_poteaux_inventories_risque_secondaire
-                label: Nbr. poteaux inventories risque secondaire
+                label: Nb poteaux inventoriés risque secondaire
                 type: string
-                help: Nbr. poteaux inventories risque secondaire
+                help: Nombre de poteaux inventories en risque secondaire
             -   name: nb_poteaux_inventories_risque_faible
-                label: Nbr poteaux inventories risque faible
-                help: Nbr poteaux inventories risque faible
+                label: Nb poteaux inventoriés risque faible
+                help: Nombre de poteaux inventoriés en risque faible
                 type: string
-    -   name: Tronçons inventories
+    -   name: Tronçons inventoriés
         fields:
             -   name: m_troncons_inventories
-                label: "Troncons inventories"
+                label: "Tronçons inventoriés (m)"
+                help : Linéaire de tronçons inventoriés (m)
                 type: string
-            -   name: m_troncons_equipes_risque_faible
-                label: Troncons équipés risque faible
-                help: Troncons équipés risque faible
+            -   name: m_troncons_inventories_risque_fort
+                label: Tronçons inventoriés risque fort (m)
+                help : Linéaire de tronçons inventoriés en risque fort (m)
                 type: string
             -   name: m_troncons_inventories_risque_secondaire
-                label: Troncons inventories risque secondaire
-                help: Troncons inventories risque secondaire
+                label: Tronçons inventoriés risque secondaire (m)
+                help: Linéaire de tronçons inventoriés en risque secondaire (m)
                 type: string
             -   name: m_troncons_inventories_risque_faible
-                label: Troncons inventories risque faible
-                help: Troncons inventories risque faible
+                label: Tronçons inventoriés risque faible (m)
+                help: Linéaire de tronçons inventoriés en risque faible (m)
                 type: string
     -   name: Poteaux équipés
         fields:
-            -   name: nb_poteaux_equipés
-                label: "Nbr. poteaux équipés"
+            -   name: nb_poteaux_equipes
+                label: "Nb poteaux équipés"
+                help: Nombre de poteaux équipés
                 type: string
             -   name: nb_poteaux_equipes_risque_fort
-                label: Nbr. poteaux équipés risque fort
-                help: Nbr. poteaux équipés risque fort
+                label: Nb poteaux équipés risque fort
+                help: Nombre de poteaux équipés en risque fort
                 type: string
             -   name: nb_poteaux_equipes_risque_secondaire
-                label: nbr. poteaux équipés risque secondaire
-                help: nbr. poteaux équipés risque secondaire
+                label: Nb poteaux équipés risque secondaire
+                help: Nombre de poteaux équipés en risque secondaire
                 type: string
             -   name: nb_poteaux_equipes_risque_faible
-                label: Nbr. poteaux équipés risque faible
-                help: Nbr. poteaux équipés risque faible
-                type: string 
+                label: Nb poteaux équipés risque faible
+                help: Nombre de poteaux équipés en risque faible
+                type: string
     -   name: Tronçons équipés
         fields:
             -   name: m_troncons_equipes
-                label: "Troncons équipés"
+                label: "Tronçons équipés (m)"
+                help: Linéaire de tronçons équipés (m)
                 type: string
             -   name: m_troncons_equipes_risque_fort
-                label: Troncons équipés risque fort
-                help: Troncons équipés risque fort
+                label: Tronçons équipés risque fort (m)
+                help: Linéaire de tronçons équipés en risque fort (m)
                 type: string
             -   name: m_troncons_equipes_risque_secondaire
-                label: Troncons équipés risque secondaire
-                help: Troncons équipés risque secondaire
+                label: Tronçons équipés risque secondaire (m)
+                help: Linéaire de tronçons équipés en risque secondaire (m)
                 type: string
             -   name: m_troncons_equipes_risque_faible
-                label: Troncons équipés risque faible
-                help: Troncons équipés risque faible
+                label: Tronçons équipés risque faible (m)
+                help: Linéaire de tronçons équipés en risque risque faible (m)
                 type: string

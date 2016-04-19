@@ -7,70 +7,70 @@ createUrl: "#/cables/edit/poteauxerdf/"
 editUrl: "#/cables/edit/poteauxerdf/"
 detailUrl: "#/cables/poteauxerdf/"
 editAccess: 5
-fields: 
-    -   name: id 
+fields:
+    -   name: id
         label: ID
-        filter: 
+        filter:
             id: text
         options: 
             visible: false
     -   name: dateInventaire
-        label: Date Inventaire
-        filter: 
+        label: Date d'inventaire
+        filter:
             dateInventaire: text
         options:
             visible: true
     -   name: nb_equipement
-        label: Nb équipement 
-        filter: 
+        label: Nb équipements
+        filter:
             nb_equipement: text
         options:
             visible: true
     -   name: risquePoteau
-        label: Risque poteau 
-        filter: 
+        label: Niveau risque
+        filter:
             risquePoteau: select
         options:
             visible: true
     -   name: commune
-        label: Commune 
-        filter: 
+        label: Commune
+        filter:
             commune: select
         options:
             visible: true
     -   name: nbPhotos
-        label: Nb photos 
-        filter: 
+        label: Nb photos
+        filter:
             nbPhotos: text
         options:
-            visible: true
+            visible: false
     -   name: type_poteau_erdf
         label: Type Pot. ERDF
-        filter: 
+        filter:
             type_poteau_erdf: select
         options:
             visible: false
     -   name: type_poteau_erdf_secondaire
         label: Type Pot. ERDF secondaire
-        filter: 
+        filter:
             type_poteau_erdf_secondaire: select
         options:
             visible: false
     -   name: zone_sensible
         label: Zone sensible
-        filter: 
+        filter:
             zone_sensible: text
         options:
             visible: false
     -   name: attractivite
         label: Attractivité
-        filter: 
+        filter:
             attractivite: select
         options:
             visible: false
     -   name: dangerosite
         label: Dangerosité
-        filter: 
+        filter:
             dangerosite: select
         options:
             visible: false

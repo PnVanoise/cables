@@ -1162,7 +1162,7 @@ app.directive('leafletMap', function(){
             $scope.getVisibility = function(category, subLayer){
                 // Clic sur le picto oeil VISIBLE de la couche principale (métier) = Passage oeil NON VISIBLE
                 if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerVisible) {
-                	// Passage couche principale en NON VISIBLE
+                    // Passage couche principale en NON VISIBLE
                 	$scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
                     configServ.put('legendLayer:'+category+':main:visibility', "novisible");
                 	mapService.hideLayer(category);

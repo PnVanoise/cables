@@ -35,7 +35,7 @@ app.factory('LeafletServices', ['$http', function($http) {
 /*
  * * #2 - Service cartographique
  */
-app.service('mapService', function($rootScope, $routeParams, $loading, $q, $timeout, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItemService, selectedCategoryService) {
+app.service('mapService', function($rootScope, $routeParams, $loading, $q, $timeout, $location, configServ, dataServ, LeafletServices, defaultColorService, changeColorService, storeFlag, selectedItemService, selectedCategoryService) {
 
     /*
      * Private variables or functions
@@ -581,15 +581,18 @@ var iconelecpink;
          * - item : la géométrie à mettre en évidence dans la carte
          */
         zoomAndHighlightItem: function(item) {
-            // sélection courante = pas de changement de couleur
-            if (currentSel) {
-                changeColorItem(currentSel, false);
+            // Si on est en édition le zoom et recentrage sur un objet dans la carte n'est pas actif
+            if ($location.path().split('/')[2]!='edit') {
+                // sélection courante = pas de changement de couleur
+                if (currentSel) {
+                    changeColorItem(currentSel, false);
+                }
+                currentSel = item;
+                this.zoomToItem(item);
+                // changement de couleur sur item sélectionné
+                changeColorItem(item, true);
+                return item;
             }
-            currentSel = item;
-            this.zoomToItem(item);
-            // changement de couleur sur item sélectionné
-            changeColorItem(item, true);
-            return item;
         },
 
         manageColor: function(item, category, subLayer, style, color, noVisibleStyle, defaultStyle, changeStyle) {

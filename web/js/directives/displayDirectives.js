@@ -308,37 +308,28 @@ app.directive('breadcrumbs', function(){
                 }
             }
             if(params.length == 4){
-                console.log('4')
-                // Cas pour ajout nouvelle photo à un poteau ou à un tronçon
+                // Cas pour ajout nouvelle photo à un poteau
                 if (params[2] === 'photospoteauxerdf') {
-                    console.log('4 if')
-                    $scope.statutPage = 'nouveauphoto';
+                    $scope.statutPage = 'nouveauphotoequip';
                     url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
                 }
+                // Cas pour ajout nouvelle photo à un tronçon
                 else if (params[2] === 'photostronconserdf') {
-                    console.log('4 if')
-                    $scope.statutPage = 'nouveauphoto';
+                    $scope.statutPage = 'nouveauphotoequip';
                     url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
                 }
-                else {
-                    if(!parseInt(params[3])){
-                        console.log('4 else')
-                        url = params[0] + '/config/breadcrumb?view=' + params[1]
-                    }
-                    else {
-                        if($scope.statutPage == 'edition'){
-                            console.log('edition if')
-                            url = params[0] + '/config/breadcrumb?view=' + params[2] + '&id=' + params[3];
-                        }
-                        else{
-                            console.log('edition else')
-                            url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
-                        }
-                    }
+                // Cas pour ajout nouvel équipement à un poteau
+                if (params[2] === 'eqpoteauxerdf') {
+                    $scope.statutPage = 'nouveauphotoequip';
+                    url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
+                }
+                // Cas pour ajout nouvel équipement à un tronçon
+                else if (params[2] === 'eqtronconserdf') {
+                    $scope.statutPage = 'nouveauphotoequip';
+                    url = params[0] + '/config/breadcrumb?view=' + params[1] + '&id=' + params[3];
                 }
             }
             else if(params.length == 3){
-                console.log('3')
                 //Cas pour ajout nouvelle photo à un poteau ou à un tronçon
                 if (params[1] === 'photospoteauxerdf') {
                     $scope.statutPage = 'photo'
@@ -362,13 +353,11 @@ app.directive('breadcrumbs', function(){
                 }
             }
             else if(params.length == 2){
-                console.log('2')
                 $scope.statutPage = 'nouveau'
                 url = params[0] + '/config/breadcrumb?view=' + params[1];
             }
             configServ.getUrl(url, function(resp){
                 $scope.bc = resp;
-                window.bc = resp;
             });
         },
     };

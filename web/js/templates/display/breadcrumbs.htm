@@ -1,9 +1,11 @@
+<!-- BREADCRUMB DANS PAGES DETAIL -->
 <ol class="breadcrumb" ng-if="statutPage=='detail'">
     <li ng-repeat="item in bc">
         <a ng-if="$index<bc.length-1" ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
         <span class="text-muted" ng-if="$index==bc.length-1">{{item.label}}</span>
     </li>
 </ol>
+<!-- BREADCRUMB DANS PAGES EDITION -->
 <ol class="breadcrumb" ng-if="statutPage=='edition'">
     <li ng-repeat="item in bc">
         <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
@@ -12,18 +14,21 @@
         <span class="text-muted">Edition</span>
     </li>
 </ol>
+<!-- BREADCRUMB DANS PAGES AJOUT (cas mortalites, poteau, tronçon) -->
 <ol class="breadcrumb" ng-if="statutPage=='nouveau'">
     <li ng-repeat="item in bc">
         <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
     </li>
     <span class="text-muted">Ajout</span>
 </ol>
-<ol class="breadcrumb" ng-if="statutPage=='nouveauphoto'">
+<!-- BREADCRUMB DANS PAGES AJOUT (photo et équipement) -->
+<ol class="breadcrumb" ng-if="statutPage=='nouveauphotoequip'">
     <li ng-repeat="item in bc">
         <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
     </li>
     <span class="text-muted">/&nbsp;&nbsp;&nbsp;&nbsp;Ajout</span>
 </ol>
+<!-- BREADCRUMB DANS PAGES DETAIL (photo) -->
 <ol class="breadcrumb" ng-if="statutPage=='photo'">
     <li ng-repeat="item in bc">
         <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>

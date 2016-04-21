@@ -1,21 +1,31 @@
 <ol class="breadcrumb" ng-if="statutPage=='detail'">
     <li ng-repeat="item in bc">
-        <a ng-if="$index<bc.length-1" ng-href="{{item.link}}"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
+        <a ng-if="$index<bc.length-1" ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
         <span class="text-muted" ng-if="$index==bc.length-1">{{item.label}}</span>
     </li>
 </ol>
 <ol class="breadcrumb" ng-if="statutPage=='edition'">
-    <span class="glyphicon glyphicon-chevron-left"></span>
     <li ng-repeat="item in bc">
-        <a ng-href="{{item.link}}">{{item.label}}</a>
+        <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
     </li>
     <li>
         <span class="text-muted">Edition</span>
     </li>
 </ol>
-<ol class="breadcrumb" ng-if="statutPage=='photo'">
-    <span class="glyphicon glyphicon-chevron-left"></span>
+<ol class="breadcrumb" ng-if="statutPage=='nouveau'">
     <li ng-repeat="item in bc">
-        <a ng-href="{{item.link}}">{{item.label}}</a>
+        <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
+    </li>
+    <span class="text-muted">Ajout</span>
+</ol>
+<ol class="breadcrumb" ng-if="statutPage=='nouveauphoto'">
+    <li ng-repeat="item in bc">
+        <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
+    </li>
+    <span class="text-muted">/&nbsp;&nbsp;&nbsp;&nbsp;Ajout</span>
+</ol>
+<ol class="breadcrumb" ng-if="statutPage=='photo'">
+    <li ng-repeat="item in bc">
+        <a ng-href="{{item.link}}">{{item.label}}&nbsp;&nbsp;</a>
     </li>
 </ol>

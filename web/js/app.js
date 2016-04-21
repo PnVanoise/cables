@@ -211,7 +211,7 @@ app.controller('loginController', function($scope, $location, $rootScope, userSe
     });
 
     $scope.$on('user:error', function(ev){
-        userMessages.errorMessage = "Erreur d'identification. Respirez un coup et recommencez."
+        userMessages.errorMessage = "Erreur d'identification. Veuillez recommencer."
     });
 
     $scope.send = function(){

@@ -1,5 +1,5 @@
 subEditAccess: 3
-subSchemaPoteauxUrl: cables/config/poteauxerdf/list 
+subSchemaPoteauxUrl: cables/config/poteauxerdf/list
 subDataPoteauxUrl: cables/zonessensibles/poteauxerdf/
 subSchemaTronconsUrl: cables/config/tronconserdf/list
 subDataTronconsUrl: cables/zonessensibles/tronconserdf/

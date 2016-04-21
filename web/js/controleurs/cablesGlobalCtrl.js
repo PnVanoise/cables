@@ -78,9 +78,9 @@ app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, catego
                     configServ.put('legendLayer:mortalites:mortalitesPercussions:visibility', "visible");
                     configServ.put('legendLayer:mortalites:mortalitesElectrocutions:visibility', "visible");
 
-                    mapService.pictoLayer.mortalites.mainLayer = "css/img/couche_visible.png";
-                    mapService.pictoLayer.mortalites.subLayer.mortalitesPercussions = "css/img/couche_visible.png";
-                    mapService.pictoLayer.mortalites.subLayer.mortalitesElectrocutions = "css/img/couche_visible.png";
+                    mapService.pictoLayer.mortalites.mainLayer = "css/img/icones_couches_legende/couche_visible.png";
+                    mapService.pictoLayer.mortalites.subLayer.mortalitesPercussions = "css/img/icones_couches_legende/couche_visible.png";
+                    mapService.pictoLayer.mortalites.subLayer.mortalitesElectrocutions = "css/img/icones_couches_legende/couche_visible.png";
                 }
             }
 

@@ -554,30 +554,32 @@ app.directive('tablewrapper', function(){
              * Fonctions
              */
             $scope.selectItem = function(item, broadcast, cat){
-                if($scope.currentItem){ // currentItem déclaré dans controller
-                    $scope.currentItem.$selected = false;
-                }
-                if(broadcast == undefined){
-                    broadcast = true;
-                }
-                item.$selected = true; // ligne sur laquelle on vient de cliquer passe en rose
-                $scope.currentItem = item;
-                configServ.put($scope.refName + ':itemId:selected', item.id);
-                if(broadcast){
-                    selectedItemService.length = 0;
-                    selectedCategoryService.length = 0;
+                if (cat !== 'photospoteauxerdf' && cat !== 'photostronconserdf') {
+                    if($scope.currentItem){ // currentItem déclaré dans controller
+                        $scope.currentItem.$selected = false;
+                    }
+                    if(broadcast == undefined){
+                        broadcast = true;
+                    }
+                    item.$selected = true; // ligne sur laquelle on vient de cliquer passe en rose
+                    $scope.currentItem = item;
+                    configServ.put($scope.refName + ':itemId:selected', item.id);
+                    if(broadcast){
+                        selectedItemService.length = 0;
+                        selectedCategoryService.length = 0;
 
-                    angular.forEach(mapService.tabThemaData[cat].getLayers(),
-                        function(geom) {
-                            // Si l'item sélectionné dans le tableau = item dans couche
-                            // => selectedItemService rempli avec item
-                            // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
-                            if (geom.feature.properties.id == item.id) {
-                                selectedItemService.push(geom);
-							    selectedCategoryService.push(cat);
+                        angular.forEach(mapService.tabThemaData[cat].getLayers(),
+                            function(geom) {
+                                // Si l'item sélectionné dans le tableau = item dans couche
+                                // => selectedItemService rempli avec item
+                                // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
+                                if (geom.feature.properties.id == item.id) {
+                                    selectedItemService.push(geom);
+    							    selectedCategoryService.push(cat);
+                                }
                             }
-                        }
-                    );
+                        );
+                    }
                 }
             };
 

@@ -91,8 +91,6 @@
                         <!-- INITIALISATION DE LA PHOTO SI PRESENTE -->
                         <div ng-if="column.options.type=='image'">
                             <span >
-                                {{item.cheminPhoto}}
-                                {{item.id}}
                                 <!-- MINIATURE DE LA PHOTO --> 
                               <img  id="min" class="thumb-image" data-toggle="modal"  data-target="#modalPhoto" data-test="{{item.id}}" data-chemin="{{item.cheminPhoto}}" ng-src="{{item.cheminPhoto}}"/>                  
                             </span>

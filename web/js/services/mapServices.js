@@ -825,118 +825,118 @@ var iconelecpink;
             }
 
 // MORTALITES
-			if(jsonData.properties.cat === 'mortalites') {
-	            // MORTALITES ELECTROCUTION
-	            if(jsonData.properties.cause_mortalite === 'électrocution'){
-	                this.manageColor(
-	                    geom, 
-	                    'mortalites', 
-	                    'mortalitesElectrocutions',
-	                    'marker', 
+            if(jsonData.properties.cat === 'mortalites') {
+                // MORTALITES ELECTROCUTION
+                if(jsonData.properties.cause_mortalite === 'électrocution'){
+                    this.manageColor(
+                        geom, 
+                        'mortalites', 
+                        'mortalitesElectrocutions',
+                        'marker', 
                         null,
-	                    defaultColorService.poNoVisible(), 
-	                    defaultColorService.iconElec(),
-	                    changeColorService.iconElec()
-	                );
-	            }
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.iconElec(),
+                        changeColorService.iconElec()
+                    );
+                }
 
-	            // MORTALITES PERCUSSION
-	            else if(jsonData.properties.cause_mortalite === 'percussion'){
-	                this.manageColor(
-	                    geom,
-	                    'mortalites', 
-	                    'mortalitesPercussions', 
-	                    'marker',
+                // MORTALITES PERCUSSION
+                else if(jsonData.properties.cause_mortalite === 'percussion'){
+                    this.manageColor(
+                        geom,
+                        'mortalites', 
+                        'mortalitesPercussions', 
+                        'marker',
                         null,
-	                    defaultColorService.poNoVisible(), 
-	                    defaultColorService.iconPerc(), 
-	                    changeColorService.iconPerc()
-	                );
-	            };
-	        };
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.iconPerc(), 
+                        changeColorService.iconPerc()
+                    );
+                };
+            };
 
 // TRONCONS A RISQUE
-			if(jsonData.properties.cat === 'tronconserdf') {
-				if (jsonData.properties.risqueTroncon === 'Risque élevé') {
-					this.manageColor(
-	                    geom, 
-	                    'tronconserdf', 
-	                    'tronconsErdfRisqueEleve',
-	                    'line', 
+            if(jsonData.properties.cat === 'tronconserdf') {
+                if (jsonData.properties.risqueTroncon === 'Risque élevé') {
+                    this.manageColor(
+                        geom, 
+                        'tronconserdf', 
+                        'tronconsErdfRisqueEleve',
+                        'line', 
                         null,
-	                    defaultColorService.tronNoVisible(), 
-	                    defaultColorService.tronRisqueEleve(),
-	                    changeColorService.tronRisqueEleve()
-	                );
-				}
+                        defaultColorService.tronNoVisible(), 
+                        defaultColorService.tronRisqueEleve(),
+                        changeColorService.tronRisqueEleve()
+                    );
+                }
                 
-				if (jsonData.properties.risqueTroncon === 'Risque secondaire') {
-	                this.manageColor(
-	                    geom, 
-	                    'tronconserdf', 
-	                    'tronconsErdfRisqueSecondaire',
-	                    'line', 
+                if (jsonData.properties.risqueTroncon === 'Risque secondaire') {
+                    this.manageColor(
+                        geom, 
+                        'tronconserdf', 
+                        'tronconsErdfRisqueSecondaire',
+                        'line', 
                         null,
-	                    defaultColorService.tronNoVisible(), 
-	                    defaultColorService.tronRisqueSecondaire(),
-	                    changeColorService.tronRisqueSecondaire()
-	                );
-            	}
+                        defaultColorService.tronNoVisible(), 
+                        defaultColorService.tronRisqueSecondaire(),
+                        changeColorService.tronRisqueSecondaire()
+                    );
+                }
 
-            	if (jsonData.properties.risqueTroncon === 'Peu ou pas de risque') {
-	                this.manageColor(
-	                    geom, 
-	                    'tronconserdf', 
-	                    'tronconsErdfPeuPasRisque',
-	                    'line', 
+                if (jsonData.properties.risqueTroncon === 'Peu ou pas de risque') {
+                    this.manageColor(
+                        geom, 
+                        'tronconserdf', 
+                        'tronconsErdfPeuPasRisque',
+                        'line', 
                         null,
-	                    defaultColorService.tronNoVisible(), 
-	                    defaultColorService.tronNonRisque(),
-	                    changeColorService.tronNonRisque()
-	                );
-            	}
+                        defaultColorService.tronNoVisible(), 
+                        defaultColorService.tronNonRisque(),
+                        changeColorService.tronNonRisque()
+                    );
+                }
             };
 
 // POTEAUX A RISQUE : Couleur en fonction du niveau de risque
             if(jsonData.properties.cat === 'poteauxerdf'){
                 if (jsonData.properties.risquePoteau === 'Risque élevé') {
-					this.manageColor(
-	                    geom, 
-	                    'poteauxerdf', 
-	                    'poteauxErdfRisqueEleve',
-	                    'marker', 
+                    this.manageColor(
+                        geom, 
+                        'poteauxerdf', 
+                        'poteauxErdfRisqueEleve',
+                        'marker', 
                         null,
-	                    defaultColorService.poNoVisible(), 
-	                    defaultColorService.poteauxErdfRisqueEleve(),
-	                    changeColorService.poRisqueEleve()
-	                );
-				}
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.poteauxErdfRisqueEleve(),
+                        changeColorService.poRisqueEleve()
+                    );
+                }
                 
-				if (jsonData.properties.risquePoteau === 'Risque secondaire') {
-	                this.manageColor(
-	                    geom, 
-	                    'poteauxerdf', 
-	                    'poteauxErdfRisqueSecondaire',
-	                    'marker', 
+                if (jsonData.properties.risquePoteau === 'Risque secondaire') {
+                    this.manageColor(
+                        geom, 
+                        'poteauxerdf', 
+                        'poteauxErdfRisqueSecondaire',
+                        'marker', 
                         null,
-	                    defaultColorService.poNoVisible(), 
-	                    defaultColorService.poteauxErdfRisqueSecondaire(),
-	                    changeColorService.poRisqueSecondaire()
-	                );
-            	}
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.poteauxErdfRisqueSecondaire(),
+                        changeColorService.poRisqueSecondaire()
+                    );
+                }
 
-            	if (jsonData.properties.risquePoteau === 'Peu ou pas de risque') {
-	                this.manageColor(
-	                    geom, 
-	                    'poteauxerdf', 
-	                    'poteauxErdfPeuPasRisque',
-	                    'marker', 
+                if (jsonData.properties.risquePoteau === 'Peu ou pas de risque') {
+                    this.manageColor(
+                        geom, 
+                        'poteauxerdf', 
+                        'poteauxErdfPeuPasRisque',
+                        'marker', 
                         null,
-	                    defaultColorService.poNoVisible(), 
-	                    defaultColorService.poteauxErdfPeuPasRisque(),
-	                    changeColorService.poNonRisque()
-	                );
-            	}
+                        defaultColorService.poNoVisible(), 
+                        defaultColorService.poteauxErdfPeuPasRisque(),
+                        changeColorService.poNonRisque()
+                    );
+                }
             };
 
 // EQUIPEMENTS TRONCONS
@@ -955,7 +955,7 @@ var iconelecpink;
 
 // // EQUIPEMENTS POTEAUX
             if(jsonData.properties.cat === 'eqpoteauxerdf'){
-				this.manageColor(
+                this.manageColor(
                     geom, 
                     'eqpoteauxerdf', 
                     'main',
@@ -1169,11 +1169,11 @@ app.directive('leafletMap', function(){
                 // Clic sur le picto oeil VISIBLE de la couche principale (métier) = Passage oeil NON VISIBLE
                 if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerVisible) {
                     // Passage couche principale en NON VISIBLE
-                	$scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
+                    $scope.pictoLayer[category]["mainLayer"] = pictoLayerNoVisible;
                     configServ.put('legendLayer:'+category+':main:visibility', "novisible");
-                	mapService.hideLayer(category);
+                    mapService.hideLayer(category);
 
-                	// Passage toutes les sous-couches de la catégorie en NON VISIBLE
+                    // Passage toutes les sous-couches de la catégorie en NON VISIBLE
                     var subLayer = $scope.pictoLayer[category]["subLayer"];
                     for(item in subLayer) {
                         $scope.pictoLayer[category]["subLayer"][item] = pictoLayerNoVisible;
@@ -1183,13 +1183,13 @@ app.directive('leafletMap', function(){
 
                 // Clic sur le picto oeil NON VISIBLE de la couche principale (métier) => Passage oeil VISIBLE
                 else if (subLayer === undefined && $scope.pictoLayer[category]["mainLayer"] === pictoLayerNoVisible) {
-                	// Passage couche principale en VISIBLE
-                	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
+                    // Passage couche principale en VISIBLE
+                    $scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
                     configServ.put('legendLayer:'+category+':main:visibility', "visible");
-                	mapService.tabThemaData[category].loaded = false;
+                    mapService.tabThemaData[category].loaded = false;
                     mapService.showLayer(null, category, 'force');
 
-                	// Passage toutes les sous-couches de la catégorie en VISIBLE
+                    // Passage toutes les sous-couches de la catégorie en VISIBLE
                     var subLayer = $scope.pictoLayer[category]["subLayer"];
                     for(item in subLayer) {
                         $scope.pictoLayer[category]["subLayer"][item] = pictoLayerVisible;
@@ -1231,7 +1231,7 @@ app.directive('leafletMap', function(){
                         configServ.put('legendLayer:'+category+':main:visibility', "novisible");
                     }
                     else {
-                    	$scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
+                        $scope.pictoLayer[category]["mainLayer"] = pictoLayerVisible;
                         configServ.put('legendLayer:'+category+':main:visibility', "visible");
                     }
                 }

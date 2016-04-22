@@ -398,10 +398,10 @@ var iconelecpink;
                     }
                 },
                 "eqtronconserdf": {
-                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "eqpoteauxerdf": {
-                    "mainLayer": "css/img/icones_couches_legende/couche_visible.png"
+                    "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png"
                 },
                 "nidifications": {
                     "mainLayer": "css/img/icones_couches_legende/couche_non_visible.png",

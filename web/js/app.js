@@ -86,13 +86,15 @@ app.controller('baseController', function($scope, $location, $modal, dataServ,
     
     // Définition des couches qui sont chargées au démarrage de l'application
     var categoriesFirstLoad = [
-       "zonessensibles", "poteauxerdf", "tronconserdf", "eqtronconserdf", "eqpoteauxerdf"
+       "zonessensibles", "poteauxerdf", "tronconserdf"
     ];
 
     // Mise en cache des couches et sous-couches non visibles donc non chargées au démarrage de l'application
     configServ.put('legendLayer:mortalites:main:visibility', "novisible");
     configServ.put('legendLayer:mortalites:mortalitesPercussions:visibility', "novisible");
     configServ.put('legendLayer:mortalites:mortalitesElectrocutions:visibility', "novisible");
+    configServ.put('legendLayer:eqpoteauxerdf:main:visibility', "novisible");
+    configServ.put('legendLayer:eqtronconserdf:main:visibility', "novisible");
     configServ.put('legendLayer:nidifications:main:visibility', "novisible");
     configServ.put('legendLayer:nidifications:nidificationsGypaete:visibility', "novisible");
     configServ.put('legendLayer:nidifications:nidificationsAigle:visibility', "novisible");

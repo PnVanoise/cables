@@ -49,6 +49,8 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
 
     var empriseInit;
 
+    var zoomInit;
+
     var tileLayers = []; // couche pour les fonds de référence
 
     var currentSel;
@@ -96,10 +98,11 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             });
 
             // Vue par défaut de la carte
-            empriseInit = [resource.center.lat, resource.center.lng]
+            empriseInit = [resource.center.lat, resource.center.lng];
+            zoomInit = resource.center.zoom;
 
             // Vue au premier chargement de l'appli
-            map.setView(empriseInit, resource.center.zoom);
+            map.setView(empriseInit, zoomInit);
         });
     };
 
@@ -122,7 +125,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                 icon: 'glyphicon glyphicon-home',
                 title: 'Emprise initiale',
                 onClick: function(control) {
-                    map.setView(empriseInit, 8);
+                    map.setView(empriseInit, zoomInit);
                 }
             }]
         }).addTo(map);

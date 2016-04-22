@@ -532,7 +532,11 @@ var iconelecpink;
             var promise = loadCategoryData.call(this, subLayer, category, force);
             promise.then(
                 angular.bind(this, function() {
-                    map.addLayer(this.tabThemaData[category]);
+                    var categoryAdded = this.tabThemaData[category];
+                    map.addLayer(categoryAdded);
+                    if (category === 'zonessensibles') {
+                        categoryAdded.bringToBack();
+                    }
                     // if (subLayer === 'poteauxerdf' || 'tronconserdf' || 'nidifications' || 'observations') {
                     //     this.changeVisibilityLayer(category, subLayer);
                     // }

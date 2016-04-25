@@ -72,7 +72,6 @@ app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, catego
             }
             // chargement des données sur la carte et sur dans le tableau des données métier ad hoc
             // Actions sur légende quand on clique sur l'onglet Mortalités
-            if (!mapService.tabThemaData[category.id].loaded) {
                 if (category.id === "mortalites") {
                     configServ.put('legendLayer:mortalites:main:visibility', "visible");
                     configServ.put('legendLayer:mortalites:mortalitesPercussions:visibility', "visible");
@@ -82,7 +81,6 @@ app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, catego
                     mapService.pictoLayer.mortalites.subLayer.mortalitesPercussions = "css/img/icones_couches_legende/couche_visible.png";
                     mapService.pictoLayer.mortalites.subLayer.mortalitesElectrocutions = "css/img/icones_couches_legende/couche_visible.png";
                 }
-            }
 
             // Zones sensibles : interaction entre carte, légende et onglet
             if (category.id === "zonessensibles") {

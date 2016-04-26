@@ -402,13 +402,16 @@ app.directive('simpleform', function(){
                     dirty = false;
                     dfd.resolve('removed');
                     var category = $scope.dataUrl.split('/')[1];
-                    mapService.tabThemaData[category].loaded = false;
-                    mapService.showLayer(null, category, 'force');
-                    if (category === 'poteauxerdf' || 'tronconserdf')
-                    {
-                        mapService.tabThemaData['zonessensibles'].loaded = false;
-                        mapService.showLayer(null, 'zonessensibles', 'force');
-                    };
+                    // Si la catégorie est photospoteauxerdf ou photostronconserdf aucune données est rechargées
+                    if (category != 'photospoteauxerdf' && category != 'photostronconserdf') {
+                        mapService.tabThemaData[category].loaded = false;
+                        mapService.showLayer(null, category, 'force');
+                        if (category === 'poteauxerdf' || 'tronconserdf')
+                        {
+                            mapService.tabThemaData['zonessensibles'].loaded = false;
+                            mapService.showLayer(null, 'zonessensibles', 'force');
+                        };
+                    }
                     $rootScope.$broadcast('form:delete', $scope.data);
 
                 };

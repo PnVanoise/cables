@@ -1,4 +1,4 @@
-/********************************************************
+*******************************************************
  * SIDEBAR TABLEAU DE DONNEES
  ********************************************************/
 /* CARTE : taille de la div de la carte quand la tableau est replié */
@@ -1841,4 +1841,84 @@ a:hover {
 .logo-partenaire {
   padding: 10px 10px 10px 10px;
   display: inline-block;
+}
+
+/* PAGE LOGIN */
+.login-page {
+  /*border: 3px solid red;*/
+  padding-top: 100px;
+}
+
+.div-life {
+  text-align: center;
+  color: #537380;
+  font-size: 20px;
+  font-weight: bold;
+  /*border: 1px solid green;*/
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.div-logo-life {
+  text-align: center;
+  /*padding-top: 10px;*/
+}
+
+.div-part-form-login {
+  text-align: center;
+}
+
+.div-align-right {
+  text-align: right;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.div-align-left {
+  text-align: left;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.bloc-part-gauche {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.bloc-part-droite {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+  padding-top: 60px;
+}
+
+.bloc-part-bas {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.bloc-part-bas-gauche {
+  display: inline-block;
+  padding-right: 20px;
+  /*vertical-align: middle;
+  text-align: left;
+  padding-top: 20px;*/
+}
+
+.bloc-part-bas-droite {
+  display: inline-block;
+  padding-left: 20px;
+  /*vertical-align: middle;
+  text-align: right;
+  padding-top: 20px;*/
+}
+
+.div-ligne {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  margin-right: 10px;
 }

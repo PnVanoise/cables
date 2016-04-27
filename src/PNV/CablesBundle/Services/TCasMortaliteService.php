@@ -178,14 +178,17 @@ class TCasMortaliteService{
      */
     private function hydrate($obj, $data){
         $geom = $this->geometryService->getPoint($data['geom']); 
+        $date = '01-01-1990'; // test
         $obj->setSource($data['source']); 
         $obj->setNbCas($data['nb_cas']);
         $obj->setSexe($data['sexe']); 
         $obj->setAge($data['age']); 
         $obj->setEspece($data['id_espece']); 
         $obj->setCauseMortalite($data['id_cause_mortalite']); 
-        $obj->setGeom($geom); 
-        $obj->setDate(new \DateTime());  
+        $obj->setGeom($geom);          
+        /*$obj->setDate(new \DateTime($data['date'])); // test */
+        $obj->setDate(new \DateTime($data['date'])); // Nouvelle méthode, à appliquer dans tous les autres services
+        // $obj->setDate(new \DateTime());  *** Ce qu'on avait avant *** 
         if($obj->errors()){
             throw new DataObjectException($obj->errors()); 
         }

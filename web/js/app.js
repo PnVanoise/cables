@@ -121,7 +121,7 @@ app.controller('baseController', function($scope, $location, $modal, dataServ,
         $scope.data = resp;
 
         // FIXME DEBUG
-        configServ.put('debug', false);
+        configServ.put('debug', true);
 
         // userMessages.infoMessage = "bienvenue !";
 

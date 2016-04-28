@@ -816,6 +816,7 @@ app.directive('datepick', function(){
             uid: '@',
             date: '=',
             ngrequired: '=',
+            // format: '=', // j'en ai profité pour ajouter le format dans scope, tu le veras dans défini dans dynform.htm et appelé dans datepick.htm
         },
         templateUrl: 'js/templates/form/datepick.htm',
         controller: function($scope){
@@ -825,19 +826,26 @@ app.directive('datepick', function(){
                 $event.stopPropagation();
                 $scope.opened = !$scope.opened;
             };
-
+            /*Cette directive n'est utilisée que pendant la saisie, il faut inverser cette séquence pour envoyer le bon format
+            à la base de donnée*/
             $scope.$watch('date', function(newval){
                 try{
                     newval.setHours(12);
-                    $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+                    // Le format de la date mis dans le scope est celui récupérer dans datepick.hmt(ng-model)
+                    // avant on lui passait le format dd/MM/yyyy
+    /*#Avant*/      // $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+                    // on peut l'inverser facilement en yyyy/MM/dd, qui sera envoyé en BDD
+    /*#Après*/      $scope.date = $scope.date.getFullYear() + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' ('00'+$scope.date.getDate()).slice(-2);
                 }
                 catch(e){
                     if(newval){
                         try{
-                            $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+                            // La même chose ici
+                            // $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+                            $scope.date = $scope.date.getFullYear() + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' ('00'+$scope.date.getDate()).slice(-2);
                         }
                         catch(e){
-                            $scope.date = $scope.date.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
+                            $scope.date = $scope.date.replace(/(\d+)-(\d+)-(\d+)/, '$1/$2/$3');
                         }
                     }
                 }

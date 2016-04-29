@@ -1,6 +1,13 @@
-<div class="input-group">
-<input type="text" id="{{uid}}" class="form-control" datepicker-popup="dd/MM/yyyy" is-open="opened" close-text="Fermer" current-text="Ajourd'hui" clear-text="Effacer" ng-model="date" ng-required="ngrequired"/>
-<span class="input-group-btn">
-    <button type="button" class="btn btn-default" ng-click="toggle($event)"><span class="glyphicon glyphicon-calendar"></span></button>
-</span>
-</div>
+ <div class="input-group">
+    <input type="text" id="{{uid}}" class="form-control" datepicker-popup="{{format}}" 
+              
+  ng-model="date" is-open="opened" max-date="maxDate" 
+  
+  datepicker-options="dateOptions" ng-required="false" 
+  
+  close-text="Fermer" />
+  
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+  </span>
+ </div>

@@ -1,34 +1,24 @@
 <?php
-
 namespace PNV\CablesBundle\Services;
-
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use Commons\Exceptions\DataObjectException;
 use Commons\Exceptions\CascadeException;
-
 // Répertoire où se trouve les données à envoyer pendante "hydrate"
 // En déclarer plusieurs si on veut envoyer des données dans plusieurs tables
 use PNV\CablesBundle\Entity\Edit\TCasMortalite;
-
-
 class TCasMortaliteService{
     
     // doctrine
     private $db;
-
     // normalizer
     private $normalizer;
-
     // geometrie service ** Utils **
     private $geometryService;
-
     public function __construct($db, $normalizer, $geometryService){
         $this->db = $db;
         $this->norm = $normalizer;
         $this->geometryService = $geometryService;
     }
-
      /* ------------ VUE LISTE ---------------
      * Retourne la liste de tous les cas de mortalités
      * paramètre:
@@ -39,7 +29,6 @@ class TCasMortaliteService{
             $repo = $this->db->getRepository('PNVCablesBundle:View\TCasMortaliteView');
             $infos = $repo->findAll();
             $out = array();
-
             // definition de la structure de données sous form GeoJson
             foreach($infos as $info){
                 $out_item = array('type'=>'Feature');
@@ -60,11 +49,7 @@ class TCasMortaliteService{
                 $out[] = $out_item;
             }
             return $out;
-
-
     }
-
-
      /* ------------ VUE UNIQUE ---------------
      *  Retourne le cas sélectionné selon l'id fourni
      *  paramètre: 
@@ -88,7 +73,6 @@ class TCasMortaliteService{
         $out_item['espece']= !is_null($info->getEspece())? $info->getEspece()->getLibelle():'';
         $out_item['cause_mortalite']= !is_null($info->getCauseMortalite())? $info->getCauseMortalite()->getLibelle():'';
         $out_item['geom'] = array($info->getGeomJson()['coordinates']);
-
         return $out_item;
     } 
     /* ------------ CREATION ---------------
@@ -106,7 +90,6 @@ class TCasMortaliteService{
         $manager = $this->db->getManager();
         $manager->getConnection()->beginTransaction();
         $errors = array();
-
         $mort = new TCasMortalite();
     
         try{
@@ -119,15 +102,11 @@ class TCasMortaliteService{
         if($errors){
             throw new DataObjectException($errors);
         }
-
         $manager->persist($mort); // on demande à doctrine gérer l'objet $mort (il ne crée pas encore la requête dans la base de données)
         $manager->flush(); // et ici, Doctrine regarde tous les objets qu'il gère et exécute uniquement cette requête préparée à chaque fois
         $manager->getConnection()->commit();
         return array('id'=>$mort->getId());
-
     }
-
-
     /* ------------ MISE A JOUR ---------------
      *  Met à jour un cas de mortalité avec les données fournies et retourne son ID
      *  paramètres:
@@ -138,7 +117,6 @@ class TCasMortaliteService{
      *  erreurs:
      *      DataObjectException si les données sont invalides
      */
-
     public function update($id, $data){
         $manager = $this->db->getManager();
         $repo = $this->db->getRepository('PNVCablesBundle:Edit\TCasMortalite');
@@ -150,7 +128,6 @@ class TCasMortaliteService{
         $manager->flush();
         return array('id'=>$mort->getId());
     }
-
     /* ------------ SUPPRESSION ---------------
      *  Supprime un cas
      *  paramètres:
@@ -167,7 +144,6 @@ class TCasMortaliteService{
         }
         return false;
     }
-
     /* ------------ PEUPLEMENT ---------------
      *  Peuplement des champs aux objets TCasMortalites
      *  paramètres:
@@ -178,14 +154,17 @@ class TCasMortaliteService{
      */
     private function hydrate($obj, $data){
         $geom = $this->geometryService->getPoint($data['geom']); 
+        $date = '2016-04-30'; // test
         $obj->setSource($data['source']); 
         $obj->setNbCas($data['nb_cas']);
         $obj->setSexe($data['sexe']); 
         $obj->setAge($data['age']); 
         $obj->setEspece($data['id_espece']); 
         $obj->setCauseMortalite($data['id_cause_mortalite']); 
-        $obj->setGeom($geom); 
-        $obj->setDate(new \DateTime());  
+        $obj->setGeom($geom);          
+        // $obj->setDate(new \DateTime($date)); // test 
+        $obj->setDate(new \DateTime($data['date'])); // Nouvelle méthode, à appliquer dans tous les autres services
+        // $obj->setDate(new \DateTime());  *** Ce qu'on avait avant *** 
         if($obj->errors()){
             throw new DataObjectException($obj->errors()); 
         }

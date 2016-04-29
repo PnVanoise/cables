@@ -809,6 +809,52 @@ app.directive('geometry', function($timeout){
  *  uid: id du champ
  *  date: valeur initiale format yyyy-MM-dd
  */
+// app.directive('datepick', function(){
+//     return{
+//         restrict:'A',
+//         scope: {
+//             uid: '@',
+//             date: '=',
+//             ngrequired: '=',
+//             // format: '=', // j'en ai profité pour ajouter le format dans scope, tu le veras dans défini dans dynform.htm et appelé dans datepick.htm
+//         },
+//         templateUrl: 'js/templates/form/datepick.htm',
+//         controller: function($scope){
+//             $scope.opened = false;
+//             $scope.toggle = function($event){
+//                 $event.preventDefault();
+//                 $event.stopPropagation();
+//                 $scope.opened = !$scope.opened;
+//             };
+//             /*Cette directive n'est utilisée que pendant la saisie, il faut inverser cette séquence pour envoyer le bon format
+//             à la base de donnée*/
+//             $scope.$watch('date', function(newval){
+//                 try{
+//                     newval.setHours(12);
+//                     // Le format de la date mis dans le scope est celui récupérer dans datepick.hmt(ng-model)
+//                     // avant on lui passait le format dd/MM/yyyy
+//     /*#Avant*/      // $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+//                     // on peut l'inverser facilement en yyyy/MM/dd, qui sera envoyé en BDD
+//     /*#Après*/      $scope.date = $scope.date.getFullYear() + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' ('00'+$scope.date.getDate()).slice(-2);
+//                 }
+//                 catch(e){
+//                     if(newval){
+//                         try{
+//                             // La même chose ici
+//                             // $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+//                             $scope.date = $scope.date.getFullYear() + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' ('00'+$scope.date.getDate()).slice(-2);
+//                         }
+//                         catch(e){
+//                             $scope.date = $scope.date.replace(/(\d+)-(\d+)-(\d+)/, '$1/$2/$3');
+//                         }
+//                     }
+//                 }
+//             });
+//         }
+//     }
+// });
+
+/* J'ai changé la directive, elle est beaucoup plus simple*/
 app.directive('datepick', function(){
     return{
         restrict:'A',
@@ -818,33 +864,56 @@ app.directive('datepick', function(){
             ngrequired: '=',
         },
         templateUrl: 'js/templates/form/datepick.htm',
-        controller: function($scope){
-            $scope.opened = false;
-            $scope.toggle = function($event){
-                $event.preventDefault();
-                $event.stopPropagation();
-                $scope.opened = !$scope.opened;
+        controller: function($scope, datepickerPopupConfig){
+            // Par défaut, je choisis la date d'aujourd'hui
+            $scope.today = function() {
+                $scope.date = new Date();
+            };
+            $scope.today();
+
+            $scope.clear = function () {
+                $scope.date = null;
             };
 
-            $scope.$watch('date', function(newval){
-                try{
-                    newval.setHours(12);
-                    $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
-                }
-                catch(e){
-                    if(newval){
-                        try{
-                            $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
-                        }
-                        catch(e){
-                            $scope.date = $scope.date.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
-                        }
-                    }
-                }
-            });
+            // Fonction pour désactiver les week-end 
+            $scope.disabled = function(date, mode) {
+                return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+            };
+
+            $scope.toggleMin = function() {
+                $scope.minDate = $scope.minDate ? null : new Date();
+            };
+            $scope.toggleMin();
+
+
+            $scope.open = function($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+
+                $scope.opened = true;
+            };
+
+            $scope.dateOptions = {
+                formatYear: 'yyyy',
+                startingDay: 1
+            };
+
+            $scope.format = 'yyyy-MM-dd';
+              
+            /*  Décommenter cette ligne si vous voulez pas que l'utilisateur choisit que les dates
+            *   passées ou la date d'aujourd'hui. 
+            */ 
+            // $scope.maxDate = new Date();
+             
+            // Traduction
+            datepickerPopupConfig.currentText = 'Aujourd\'hui';
+            datepickerPopupConfig.clearText = 'Effacer';
+            datepickerPopupConfig.closeText = 'Fermer';
+            
         }
     }
 });
+
 
 
 // app.factory('SpreadSheet', function(){

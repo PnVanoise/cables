@@ -72,7 +72,9 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
     }
     else{
         $scope.saveUrl = $scope._appName + '/mortalites';
-        $scope.data = {}
+        $scope.data = {
+            // date: '2016/23/03'
+        };
     }
 
     $scope.$on('form:init', function(ev, data){

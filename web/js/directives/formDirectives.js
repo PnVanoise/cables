@@ -803,57 +803,6 @@ app.directive('geometry', function($timeout){
     };
 });
 
-/*
- * datepicker
- * params:
- *  uid: id du champ
- *  date: valeur initiale format yyyy-MM-dd
- */
-// app.directive('datepick', function(){
-//     return{
-//         restrict:'A',
-//         scope: {
-//             uid: '@',
-//             date: '=',
-//             ngrequired: '=',
-//             // format: '=', // j'en ai profité pour ajouter le format dans scope, tu le veras dans défini dans dynform.htm et appelé dans datepick.htm
-//         },
-//         templateUrl: 'js/templates/form/datepick.htm',
-//         controller: function($scope){
-//             $scope.opened = false;
-//             $scope.toggle = function($event){
-//                 $event.preventDefault();
-//                 $event.stopPropagation();
-//                 $scope.opened = !$scope.opened;
-//             };
-//             /*Cette directive n'est utilisée que pendant la saisie, il faut inverser cette séquence pour envoyer le bon format
-//             à la base de donnée*/
-//             $scope.$watch('date', function(newval){
-//                 try{
-//                     newval.setHours(12);
-//                     // Le format de la date mis dans le scope est celui récupérer dans datepick.hmt(ng-model)
-//                     // avant on lui passait le format dd/MM/yyyy
-//     /*#Avant*/      // $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
-//                     // on peut l'inverser facilement en yyyy/MM/dd, qui sera envoyé en BDD
-//     /*#Après*/      $scope.date = $scope.date.getFullYear() + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' ('00'+$scope.date.getDate()).slice(-2);
-//                 }
-//                 catch(e){
-//                     if(newval){
-//                         try{
-//                             // La même chose ici
-//                             // $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
-//                             $scope.date = $scope.date.getFullYear() + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' ('00'+$scope.date.getDate()).slice(-2);
-//                         }
-//                         catch(e){
-//                             $scope.date = $scope.date.replace(/(\d+)-(\d+)-(\d+)/, '$1/$2/$3');
-//                         }
-//                     }
-//                 }
-//             });
-//         }
-//     }
-// });
-
 /* J'ai changé la directive, elle est beaucoup plus simple*/
 app.directive('datepick', function(){
     return{
@@ -865,7 +814,7 @@ app.directive('datepick', function(){
         },
         templateUrl: 'js/templates/form/datepick.htm',
         controller: function($scope, datepickerPopupConfig){
-            // Par défaut, je choisis la date d'aujourd'hui
+            // Par défaut, la date du jour est affichée
             $scope.today = function() {
                 $scope.date = new Date();
             };
@@ -898,9 +847,12 @@ app.directive('datepick', function(){
                 startingDay: 1
             };
 
-            $scope.format = 'yyyy-MM-dd';
+            // Format anglais passé à datepicker-popup
+            // $scope.format = 'yyyy-MM-dd';
+            // Format français passé à datepicker-popup
+            $scope.format = 'dd-MM-yyyy';
               
-            /*  Décommenter cette ligne si vous voulez pas que l'utilisateur choisit que les dates
+            /*  Décommenter cette ligne si on ne veut pas que l'utilisateur choisisse que les dates
             *   passées ou la date d'aujourd'hui. 
             */ 
             // $scope.maxDate = new Date();

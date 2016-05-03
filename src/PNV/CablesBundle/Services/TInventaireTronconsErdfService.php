@@ -216,7 +216,7 @@ class TInventaireTronconsErdfService{
         $obj->setRisqueIntegrationVegetation($data['id_risque_integration_vegetation']);
         $obj->setZoneSensible($data['id_zone_sensible']);
         $obj->setGeom($geom);
-        $obj->setDateInventaire(new \DateTime()); 
+        $obj->setDateInventaire(new \DateTime($data['dateInventaire'])); 
         if($obj->errors()){
             throw new DataObjectException($obj->errors()); 
         }

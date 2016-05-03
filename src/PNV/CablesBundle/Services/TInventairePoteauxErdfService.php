@@ -216,7 +216,7 @@ class TInventairePoteauxErdfService{
         $obj->setAttractivite($data['id_attractivite']);
         $obj->setDangerosite($data['id_dangerosite']);
         $obj->setGeom($geom);
-        $obj->setDateInventaire(new \DateTime()); 
+        $obj->setDateInventaire(new \DateTime($data['dateInventaire'])); 
         if($obj->errors()){
             throw new DataObjectException($obj->errors()); 
         }

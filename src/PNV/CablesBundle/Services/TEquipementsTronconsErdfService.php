@@ -187,7 +187,7 @@ class TEquipementsTronconsErdfService{
         $obj->setInventaireTronconErdf($data['idInventaireTronconErdf']);
         $obj->setTypeEquipementTroncon($data['id_type_equipement_troncon']);
         $obj->setGeom($geom);
-        $obj->setDateEquipementTroncon(new \DateTime()); 
+        $obj->setDateEquipementTroncon(new \DateTime($data['dateEquipementTroncon'])); 
         if($obj->errors()){
             throw new DataObjectException($obj->errors()); 
         }

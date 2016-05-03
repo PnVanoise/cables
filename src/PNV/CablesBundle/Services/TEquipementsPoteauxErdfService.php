@@ -200,7 +200,7 @@ class TEquipementsPoteauxErdfService{
         $obj->setNbEquipements($data['id_nb_equipements']);
         $obj->setTypeEquipementPoteau($data['id_type_equipement_poteau']);
         $obj->setInventairePoteauErdf($data['idInventairePoteauErdf']);
-        $obj->setDateEquipement(new \DateTime()); 
+        $obj->setDateEquipement(new \DateTime($data['dateEquipement'])); 
         if($obj->errors()){
             throw new DataObjectException($obj->errors()); 
         }

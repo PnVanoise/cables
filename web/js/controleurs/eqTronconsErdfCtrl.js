@@ -50,7 +50,7 @@ app.controller('eqTronconsErdfDetailCtrl', function($scope, $rootScope, $routePa
     } 
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = "l'équipement troçon de type" + data.type_equipement_troncon + "a été supprimé."
+        userMessages.successMessage = "L'équipement de tronçon de type" + data.type_equipement_troncon + "a été supprimé."
         dataServ.forceReload = true;
         $location.url($scope._appName + '/eqtronconserdf/');
     });
@@ -77,10 +77,10 @@ app.controller('eqTronconsErdfEditCtrl', function($scope, $rootScope, $routePara
 
     $scope.$on('form:init', function(ev, data){
         if(data.type_equipement_troncon){
-        $scope.title = 'Modification de l\'équipement tronçon ' + data.type_equipement_troncon;
+        $scope.title = 'Modification de l\'équipement de tronçon ' + data.type_equipement_troncon;
         }
         else{
-            $scope.title = 'Nouvel équipement';
+            $scope.title = 'Nouvel équipement de tronçon';
         }
     });
 
@@ -89,21 +89,19 @@ app.controller('eqTronconsErdfEditCtrl', function($scope, $rootScope, $routePara
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'l\'équipement tronçon ' + data.type_equipement_troncon + ' a été créé avec succès.'
+        userMessages.successMessage = 'L\'équipement de tronçon ' + data.type_equipement_troncon + ' a été créé avec succès.'
         $location.url($scope._appName + '/eqtronconserdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-
-        userMessages.successMessage = 'l\'équipement tronçon ' + data.type_equipement_troncon + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'L\'équipement de tronçon ' + data.type_equipement_troncon + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/eqtronconserdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-
-        userMessages.successMessage = 'de l\'équipement tronçon ' + data.type_equipement_troncon + ' a été supprimé.'
+        userMessages.successMessage = 'L\'équipement de tronçon ' + data.type_equipement_troncon + ' a été supprimé.'
         dataServ.forceReload = true;
-        $location.url($scope._appName );
+        $location.url($scope._appName + '/eqtronconserdf/');
     });
 });
 

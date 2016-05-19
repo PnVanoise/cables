@@ -32,7 +32,7 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
     $scope.updateUrl = '#/' + $scope._appName + '/edit/photospoteauxerdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        $scope.title = 'Photo n°' + data.id + '  du poteaux ERDF ' + data.inventaire_poteau_erdf;
+        $scope.title = 'Photo n°' + data.id + '  du poteau ERDF ' + data.inventaire_poteau_erdf;
         $scope.cheminPhoto = data.cheminPhoto;
         $('#detailModal').modal('show');
     });
@@ -46,7 +46,7 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = "la photo du poteau" + data.idInventairePoteauErdf + ' a été supprimée.'
+        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/photospoteauxerdf/');
     });
@@ -73,7 +73,7 @@ app.controller('photosPoteauxErdfEditCtrl', function($scope, $rootScope, $routeP
     
     $scope.$on('form:init', function(ev, data){
         if(data.id){
-        $scope.title = "Modifications de la photo" + data.id;
+        $scope.title = "Modification de la photo" + data.id;
         
         }
         else{
@@ -91,17 +91,17 @@ app.controller('photosPoteauxErdfEditCtrl', function($scope, $rootScope, $routeP
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = "la photo du poteau" + data.idInventairePoteauErdf + ' a été créée avec succès.'
+        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été créée avec succès.'
         $location.url($scope._appName + '/photospoteauxerdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = "la photo du poteau" + data.idInventairePoteauErdf + ' a été mise à jour avec succès.'
+        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été mise à jour avec succès.'
         $location.url($scope._appName + '/photospoteauxerdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = "la photo du poteau" + data.idInventairePoteauErdf + ' a été supprimée.'
+        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/poteauxerdf/' + data.idInventairePoteauErdf);
     });

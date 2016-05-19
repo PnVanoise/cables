@@ -25,7 +25,6 @@ app.config(function($routeProvider){
  * controleur pour l'affichage basique des détails 
  */
 app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routeParams, $location, $filter, dataServ, mapService, configServ, userMessages, storeFlag){
-
     $scope._appName = $routeParams.appName;
     $scope.schemaUrl = $scope._appName + '/config/tronconserdf/detail';
     $scope.dataUrl = $scope._appName + '/tronconserdf/' + $routeParams.id;
@@ -34,12 +33,11 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
 
     $scope.$on('display:init', function(ev, data){
         // mapService.selectItem(parseInt($routeParams.id), 'tronconserdf');
-        $scope.title = 'Tronçon ' + data.id;
+        $scope.title = 'Tronçon ERDF ' + data.id;
     });
 
     // Chargement des données sur chargement page de détail
     mapService.tabThemaData['tronconserdf'].loaded = false;
-    // console.log('showlayer mortalitectrl');
     mapService.showLayer(null, 'tronconserdf', 'force');
 
     // Ajout la possibilité de supprimer un élément en mode détail
@@ -51,8 +49,7 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-
-        userMessages.successMessage = 'le tronçon' + data.id + ' a été supprimé.'
+        userMessages.successMessage = 'Le tronçon ERDF' + data.id + ' a été supprimé.'
         // dataServ.forceReload = true;
         $location.url($scope._appName + '/tronconserdf/');
     });
@@ -79,10 +76,10 @@ app.controller('tronconsErdfEditCtrl', function($scope, $rootScope, $routeParams
 
     $scope.$on('form:init', function(ev, data){
         if(data.espece){
-        $scope.title = 'Modification du tronçon' + data.id;
+        $scope.title = 'Modification du tronçon ERDF' + data.id;
         }
         else{
-            $scope.title = 'Nouveau tronçon';
+            $scope.title = 'Nouveau tronçon ERDF';
         }
     });
 
@@ -91,17 +88,17 @@ app.controller('tronconsErdfEditCtrl', function($scope, $rootScope, $routeParams
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'le site de tronconserdf' + data.remarques + ' a été créé avec succès.'
+        userMessages.successMessage = 'Le tronçon ERDF ' + data.remarques + ' a été créé avec succès.'
         $location.url($scope._appName + '/tronconserdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = 'le site de tronconserdf' + data.remarques + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'Le tronçon ERDF ' + data.remarques + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/tronconserdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'le site de tronconserdf ' + data.remarques + ' a été supprimé.'
+        userMessages.successMessage = 'Le tronçon ERDF ' + data.remarques + ' a été supprimé.'
         $location.url($scope._appName + '/tronconserdf/');
     });
 });

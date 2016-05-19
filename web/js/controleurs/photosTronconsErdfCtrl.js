@@ -51,7 +51,7 @@ app.controller('photosTronconsErdfDetailCtrl', function($scope, $rootScope, $rou
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = "la photo du tronçon" + data.idInventaireTronconErdf + ' a été supprimée.'
+        userMessages.successMessage = 'la photo du tronçon ERDF ' + data.idInventaireTronconErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/photostronconserdf/');
     });
@@ -78,7 +78,7 @@ app.controller('photosTronconsErdfEditCtrl', function($scope, $rootScope, $route
 
    $scope.$on('form:init', function(ev, data){
         if(data.id){
-        $scope.title = "Modifications de la photo" + data.id;
+        $scope.title = "Modification de la photo" + data.id;
         
         }
         else{
@@ -96,17 +96,17 @@ app.controller('photosTronconsErdfEditCtrl', function($scope, $rootScope, $route
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = "la photo du tronçon" + data.idInventaireTronconErdf + ' a été créée avec succès.'
+        userMessages.successMessage = 'La photo du tronçon ERDF ' + data.idInventaireTronconErdf + ' a été créée avec succès.'
         $location.url($scope._appName + '/photostronconserdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = "la photo du tronçon" + data.idInventaireTronconErdf + ' a été mise à jour avec succès.'
+        userMessages.successMessage = 'La photo du tronçon ERDF ' + data.idInventaireTronconErdf + ' a été mise à jour avec succès.'
         $location.url($scope._appName + '/photostronconserdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = "la photo du tronçon" + data.idInventaireTronconErdf + ' a été supprimée.'
+        userMessages.successMessage = 'La photo du tronçon ERDF' + data.idInventaireTronconErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/tronconserdf/' + data.idInventaireTronconErdf);
     });

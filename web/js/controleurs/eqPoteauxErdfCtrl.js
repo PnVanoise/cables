@@ -32,7 +32,7 @@ app.controller('eqPoteauxErdfDetailCtrl', function($scope, $rootScope, $routePar
     $scope.updateUrl = '#/' + $scope._appName + '/edit/eqpoteauxerdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        $scope.title = 'Equipement poteaux de type ' + data.type_equipement_poteau;
+        $scope.title = 'Equipement de poteau de type ' + data.type_equipement_poteau;
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail
@@ -45,7 +45,7 @@ app.controller('eqPoteauxErdfDetailCtrl', function($scope, $rootScope, $routePar
     } 
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = "l'équipement poteaux de type" + data.type_equipement_poteau + "a été supprimé."
+        userMessages.successMessage = "L'équipement de poteau de type" + data.type_equipement_poteau + "a été supprimé."
         dataServ.forceReload = true;
         $location.url($scope._appName + '/eqpoteauxerdf/');
     });
@@ -73,10 +73,10 @@ app.controller('eqPoteauxErdfEditCtrl', function($scope, $rootScope, $routeParam
 
     $scope.$on('form:init', function(ev, data){
         if(data.type_equipement_poteau){
-        $scope.title = "Modification de l'équipement poteaux de type" + data.type_equipement_poteau;
+        $scope.title = "Modification de l'équipement de poteau de type" + data.type_equipement_poteau;
         }
         else{
-            $scope.title = "Nouvel équipement";
+            $scope.title = "Nouvel équipement de poteau";
         }
     });
 
@@ -90,18 +90,18 @@ app.controller('eqPoteauxErdfEditCtrl', function($scope, $rootScope, $routeParam
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = "l'équipement poteaux de type" + data.type_equipement_troncon + ' a été créé avec succès.'
+        userMessages.successMessage = "L'équipement de poteau de type " + data.type_equipement_troncon + ' a été créé avec succès.'
         $location.url($scope._appName + '/eqpoteauxerdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = "l'équipement poteaux de type" + data.type_equipement_troncon + ' a été mis à jour avec succès.'
+        userMessages.successMessage = "L'équipement de poteau de type " + data.type_equipement_troncon + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/eqpoteauxerdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = "l'équipement poteaux de type" + data.type_equipement_troncon + ' a été supprimé.'
+        userMessages.successMessage = "L'équipement de poteau de type " + data.type_equipement_troncon + ' a été supprimé.'
         dataServ.forceReload = true;
-        $location.url($scope._appName + '/tronconxerdf/' + data.idInventaireTronconErdf);
+        $location.url($scope._appName + '/poteauxerdf/' + data.idInventaireTronconErdf);
     });
 });

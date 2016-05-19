@@ -49,7 +49,7 @@ app.controller('zsDetailController', function($scope, $rootScope, $routeParams, 
     }
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = 'la zone sensible  ' + data.nom_zone_sensible + ' a été supprimé.'
+        userMessages.successMessage = 'La zone sensible  ' + data.nom_zone_sensible + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/zonessensibles/');
     });
@@ -79,7 +79,7 @@ app.controller('zsEditController', function($scope, $rootScope, $routeParams, $l
         $scope.title = 'Modification de la zone sensible ' + data.nom_zone_sensible;
         }
         else{
-            $scope.title = 'Nouveau site';
+            $scope.title = 'Nouveau zone sensible';
         }
     });
 
@@ -88,19 +88,19 @@ app.controller('zsEditController', function($scope, $rootScope, $routeParams, $l
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'la zone sensible' + data.nom_zone_sensible + ' a été créé avec succès.'
+        userMessages.successMessage = 'La zone sensible' + data.nom_zone_sensible + ' a été créée avec succès.'
         $location.url($scope._appName + '/zonessensibles/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
 
-        userMessages.successMessage = 'la zone sensible' + data.nom_zone_sensible + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'La zone sensible' + data.nom_zone_sensible + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/zonessensibles/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = 'la zone sensible ' + data.nom_zone_sensible + ' a été supprimé.'
+        userMessages.successMessage = 'La zone sensible ' + data.nom_zone_sensible + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/zonessensibles/');
     });

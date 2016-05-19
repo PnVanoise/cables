@@ -52,7 +52,7 @@ app.controller('mortalitesDetailCtrl', function($scope, $rootScope, $routeParams
 
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = 'le  ' + data.espece + ' a été supprimé.'
+        userMessages.successMessage = 'le ' + data.espece + ' a été supprimé.'
         // dataServ.forceReload = true;
         $location.url($scope._appName + '/mortalites/');
     });
@@ -82,7 +82,7 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
             $scope.title = 'Modification du cas de mortalité de ' + data.espece;
         }
         else{
-            $scope.title = 'Nouveau cas';
+            $scope.title = 'Nouveau cas de mortalité';
         };
     });
 
@@ -91,17 +91,17 @@ app.controller('mortalitesEditCtrl', function($scope, $rootScope, $routeParams, 
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'le cas de' + data.espece + ' a été créé avec succès.'
+        userMessages.successMessage = 'Le cas de mortalité ' + data.espece + ' a été créé avec succès.'
         $location.url($scope._appName + '/mortalites/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = 'le cas de ' + data.espece + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'Le cas de mortalité ' + data.espece + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/mortalites/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'le cas ' + data.espece + ' a été supprimé.'
+        userMessages.successMessage = 'Le cas de mortalité ' + data.espece + ' a été supprimé.'
         $location.url($scope._appName + '/mortalites/');
     });
 });

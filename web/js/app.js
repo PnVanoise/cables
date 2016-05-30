@@ -87,8 +87,7 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
 	// Nom de l'appli pour le éléments distincts entre chaque appli
 	configServ.getUrl('js/resources/defaultMap.json', function(res) {
         resource = res[0];
-        $rootScope.appliDep = resource.appli;
-        console.log('baseController : '+$rootScope.appliDep);
+        $scope.appliDep = resource.appli;
     });
 	
     

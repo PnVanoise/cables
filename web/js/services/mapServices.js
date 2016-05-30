@@ -424,7 +424,8 @@ var iconelecpink;
                         "nidificationsGypaete": "css/img/icones_couches_legende/couche_non_visible.png",
                         "nidificationsAigle": "css/img/icones_couches_legende/couche_non_visible.png",
                         "nidificationsGrandDuc": "css/img/icones_couches_legende/couche_non_visible.png",
-                        "nidificationsFaucon": "css/img/icones_couches_legende/couche_non_visible.png"
+                        "nidificationsFaucon": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsCircaete": "css/img/icones_couches_legende/couche_non_visible.png"
                     }
                 },
                 "observations": {
@@ -1039,6 +1040,19 @@ var iconelecpink;
                         changeColorService.polyStyle()
                     );
                 }
+
+                if (jsonData.properties.nom_espece === 'Circaète Jean-le-Blanc') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsCircaete',
+                        'poly', 
+                        '#8A2908',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
             }
 
 // OBSERVATIONS : Classes en fonction du nb d'individus
@@ -1169,6 +1183,12 @@ app.directive('leafletMap', function(){
             $scope.selectBaseLayer = function(layer) {
                 mapService.setBaseLayer(layer);
             }
+
+            // Nom de l'appli pour le éléments distincts entre chaque appli
+            configServ.getUrl('js/resources/defaultMap.json', function(res) {
+                resource = res[0];
+                $scope.appliDep = resource.appli;
+            });
 
             // collapsed bandeau
             $scope.toggleBandeau = function() {

@@ -1,12 +1,23 @@
 [
     {
+        "appli" : "38",
         "order" : 1,
         "id": "default", 
         "clustering": false,
         "name": "Default Map", 
-        "center": {
-            "lat": 45.495759022791844,
-            "lng": 6.310272216796875,
+        "center73": {
+            "lat": 45.5,
+            "lng": 6.3,
+            "zoom": 9
+        },
+        "center74": {
+            "lat": 46.2,
+            "lng": 6.35,
+            "zoom": 10
+        },
+        "center38": {
+            "lat": 45.48,
+            "lng": 5.6,
             "zoom": 10
         },
         "layers": { 

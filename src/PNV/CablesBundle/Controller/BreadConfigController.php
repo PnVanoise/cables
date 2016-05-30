@@ -17,6 +17,13 @@ class BreadConfigController extends Controller{
         $manager = $this->getDoctrine()->getConnection();
 
         $out = array();
+
+        // $json_file = file_get_contents('../../appli.json');
+        // // convert the string to a json object
+        // $jfo = json_decode($json_file);
+        // // read the title value
+        // $schema_appli = $jfo->schema_appli;
+        
         switch($view){
 
 //==> 1- Mortalité par électrocussions

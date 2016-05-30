@@ -27,6 +27,14 @@ class UserService{
      *  le niveau de droits requis (int)
      */
     public function checkLevel($level, $app=100){
+    // Récupération num de l'appli dans un fichier json
+    // public function checkLevel($level){
+    //     $json_file = file_get_contents('../../appli.json');
+    //     // convert the string to a json object
+    //     $jfo = json_decode($json_file);
+    //     // read the title value
+    //     $app = $jfo->appli;
+
         //FIXME $app par defaut => contournement moche pour ne pas refaire toutes les vues chiro
         $currentUser = $this->getUser();
         //return $currentUser->getMaxDroit() >= $level;

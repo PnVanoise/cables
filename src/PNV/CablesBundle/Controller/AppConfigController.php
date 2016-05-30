@@ -20,8 +20,14 @@ class AppConfigController extends Controller{
 
     //path: GET /config/apps
     public function getAppsAction(){
+        // $json_file = file_get_contents('../../appli.json');
+        // // convert the string to a json object
+        // $jfo = json_decode($json_file);
+        // // read the title value
+        // $app = $jfo->appli;
         return new JsonResponse(array(
             array('id'=>'1', 'name'=>'cables', 'appId'=>100),
+            // array('id'=>'1', 'name'=>'cables', 'appId'=>$app),
         ));
     }
 	

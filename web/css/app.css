@@ -1805,7 +1805,7 @@ a:hover {
   opacity: 0;
 }
 
-.modal-dialog-mentions {
+.modal-dialog-mentions-73 {
   width: 800px;
   height: 480px;
 }
@@ -1819,18 +1819,39 @@ a:hover {
   padding-bottom: 10px;
 }
 
-.modal-close {
+/*.modal-close {
   float: right;
   font-size: 25px;
   font-weight: bold;
   color: #537380;
   cursor: pointer;
   padding-right: 15px;
+}*/
+
+.modal-close {
+  float: right;
+  bottom: 0;
+  font-size: 25px;
+  font-weight: bold;
+  color: #537380;
+  cursor: pointer;
+  display: inline-block;
+  padding-right: 10px;
 }
 
-.modal-content-mentions {
+.modal-content-mentions-73 {
   width: 800px;
   height: 480px;
+}
+
+.modal-content-mentions-38 {
+  width: 600px;
+  height: 370px;
+}
+
+.modal-content-mentions-74 {
+  width: 600px;
+  height: 495px;
 }
 
 .logo-partenaire-ligne {

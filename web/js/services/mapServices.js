@@ -98,11 +98,26 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             });
 
             // Vue par défaut de la carte
-            empriseInit = [resource.center.lat, resource.center.lng];
-            zoomInit = resource.center.zoom;
+            if (resource.appli === '73') {
+                empriseInit = [resource.center73.lat, resource.center73.lng];
+                zoomInit = resource.center73.zoom;
+            };
 
-            // Vue au premier chargement de l'appli
+            if (resource.appli === '74') {
+                console.log('dans if')
+                empriseInit = [resource.center74.lat, resource.center74.lng];
+                zoomInit = resource.center74.zoom;
+            };
+
+            if (resource.appli === '38') {
+                console.log('dans if')
+                empriseInit = [resource.center38.lat, resource.center38.lng];
+                zoomInit = resource.center38.zoom;
+            };
+
+             // Vue au premier chargement de l'appli
             map.setView(empriseInit, zoomInit);
+            
         });
     };
 

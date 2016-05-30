@@ -1,4 +1,5 @@
-<div class="login-page">
+<!-- LOGIN 73 -->
+<div class="login-page" ng-if="appliDep=='73'">
   <div class="div-part-form-login">
 
     <!-- BLOC PARTENAIRES GAUCHE -->
@@ -81,3 +82,156 @@
   </div>
   <!-- DIV FORMULAIRE LOGIN -->
 </div>
+<!-- FIN LOGIN 73 -->
+<!-- ========================================================================= -->
+<!-- LOGIN 74 -->
+<div class="login-page" ng-if="appliDep=='74'">
+  <div class="div-part-form-login">
+
+    <!-- BLOC PARTENAIRES GAUCHE -->
+    <div class="bloc-part-gauche">
+      <div class="div-align-right">
+        <img ng-src="css/img/logos/erdf.png"/>
+      </div>
+      <div class="div-align-right">
+        <img ng-src="css/img/logos/rte.jpg"/>
+      </div>
+      <div class="div-align-right">
+        <img ng-src="css/img/logos/lpo_haute_savoie.jpg"/>
+      </div>
+    </div>
+    <!-- FIN BLOC PARTENAIRES GAUCHE -->
+
+    <!-- BLOC CENTRAL -->
+    <div class="div-ligne">
+      <!-- BLOC LIFE -->
+      <div class="div-logo-life">
+        <img ng-src="css/img/logos/life.jpg"/>
+      </div>
+      <div class="div-life">
+        Projet LIFE GypHelp n° LIFE13/NAT/FR/000093
+      </div>
+      <!-- FIN BLOC LIFE -->
+
+      <!-- BLOC FORMULAIRE LOGIN -->
+      <div class="login-form">
+        <!-- MESSAGE ERREUR (en haut à droite) -->
+        <div class="alert alert-danger hide">
+          <button type="button" class="close" data-dismiss="alert"> &times;</button>
+          <h4>Erreur!</h4>
+          Erreur d'identification. Veuillez recommencer.
+        </div>
+        <!-- FIN MESSAGE ERREUR (en haut à droite) -->
+        <form action="#" method="get"  >
+          <input class="form-control" id="login" type="text" ng-model="data['login']" required placeholder="identifiant"/>
+          <input class="form-control" id="pwd" type="password" ng-model="data['pass']" required placeholder="mot de passe"/>
+          <button type="submit" class="btn btn-login" ng-click="send()">Se connecter</button>
+        </form>
+      </div>
+      <!-- FIN BLOC FORMULAIRE LOGIN -->
+
+      <!-- BLOC PARTENAIRES CENTRAL BAS -->
+      <div class="bloc-part-bas">
+        <img ng-src="css/img/logos/natura_2000.png"/>
+      </div>
+      <div>
+        <div class="bloc-part-bas-gauche">
+          <div>
+            <img ng-src="css/img/logos/blanc_oncfs.png"/>
+          </div>
+        </div>
+        <div class="bloc-part-bas-droite">
+          <div>
+            <img ng-src="css/img/logos/blanc_natura_2000.png"/>
+          </div>
+        </div>
+      </div>
+      <!-- FIN BLOC PARTENAIRES CENTRAL BAS -->
+
+    </div>
+    <!-- FIN BLOC CENTRAL -->
+
+    <!-- BLOC PARTENAIRES DROITE -->
+    <div class="bloc-part-droite">
+      <div class="div-align-left">
+        <img ng-src="css/img/logos/pnv.png"/>
+      </div>
+      <div class="div-align-left">
+        <img ng-src="css/img/logos/asters.png"/>
+      </div>
+      <div class="div-align-left">
+        <img ng-src="css/img/logos/pnr_bauges.png"/>
+      </div>
+    </div>
+    <!-- FIN BLOC PARTENAIRES DROITE -->
+
+  </div>
+  <!-- DIV FORMULAIRE LOGIN -->
+</div>
+<!-- FIN LOGIN 74 -->
+<!-- ========================================================================= -->
+<!-- LOGIN 38 -->
+<div class="login-page" ng-if="appliDep=='38'">
+  <div class="div-part-form-login">
+
+    <!-- BLOC PARTENAIRES GAUCHE -->
+    <div class="bloc-part-gauche">
+      <div class="div-align-right">
+        <img ng-src="css/img/logos/erdf.png"/>
+      </div>
+      <div class="div-align-right">
+        <img ng-src="css/img/logos/pne_partenaire.jpg"/>
+      </div>
+      <div class="div-align-right">
+        <img ng-src="css/img/logos/isere_dep.jpg"/>
+      </div>
+    </div>
+    <!-- FIN BLOC PARTENAIRES GAUCHE -->
+
+    <!-- BLOC CENTRAL -->
+    <div class="div-ligne">
+      <div class="div-haut-bloc-central"></div>
+      <!-- BLOC FORMULAIRE LOGIN -->
+      <div class="login-form">
+        <!-- MESSAGE ERREUR (en haut à droite) -->
+        <div class="alert alert-danger hide">
+          <button type="button" class="close" data-dismiss="alert"> &times;</button>
+          <h4>Erreur!</h4>
+          Erreur d'identification. Veuillez recommencer.
+        </div>
+        <!-- FIN MESSAGE ERREUR (en haut à droite) -->
+        <form action="#" method="get"  >
+          <input class="form-control" id="login" type="text" ng-model="data['login']" required placeholder="identifiant"/>
+          <input class="form-control" id="pwd" type="password" ng-model="data['pass']" required placeholder="mot de passe"/>
+          <button type="submit" class="btn btn-login" ng-click="send()">Se connecter</button>
+        </form>
+      </div>
+      <!-- FIN BLOC FORMULAIRE LOGIN -->
+
+      <!-- BLOC PARTENAIRES CENTRAL BAS -->
+      <div class="bloc-part-bas">
+        <img ng-src="css/img/logos/lpo_isere.jpg"/>
+      </div>
+      <!-- FIN BLOC PARTENAIRES CENTRAL BAS -->
+
+    </div>
+    <!-- FIN BLOC CENTRAL -->
+
+    <!-- BLOC PARTENAIRES DROITE -->
+    <div class="bloc-part-droite">
+      <div class="div-align-left">
+        <img ng-src="css/img/logos/pnv.png"/>
+      </div>
+      <div class="div-align-left">
+        <img ng-src="css/img/logos/pnr_chartreuse.png"/>
+      </div>
+      <div class="div-align-left">
+        <img ng-src="css/img/logos/pnr_vercors.jpg"/>
+      </div>
+    </div>
+    <!-- FIN BLOC PARTENAIRES DROITE -->
+
+  </div>
+  <!-- DIV FORMULAIRE LOGIN -->
+</div>
+<!-- FIN LOGIN 38 -->

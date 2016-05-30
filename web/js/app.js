@@ -81,8 +81,16 @@ app.config(function (localStorageServiceProvider) {
 /*
  * Controleur de base
  */
-app.controller('baseController', function($scope, $location, $modal, dataServ,
+app.controller('baseController', function($rootScope, $scope, $location, $modal, dataServ,
     configServ, mapService, userMessages, userServ){
+
+	// Nom de l'appli pour le éléments distincts entre chaque appli
+	configServ.getUrl('js/resources/defaultMap.json', function(res) {
+        resource = res[0];
+        $rootScope.appliDep = resource.appli;
+        console.log('baseController : '+$rootScope.appliDep);
+    });
+	
     
     // Définition des couches qui sont chargées au démarrage de l'application
     var categoriesFirstLoad = [
@@ -242,3 +250,16 @@ app.controller('LegendCtrl', ['$scope', function ($scope) {
        $scope.isExpanded = !$scope.isExpanded;
     };
 }]);
+
+// app.directive('modaldisplay', function(){
+//     return {
+//         restrict: 'A',
+//         template: 'js/templates/display/modal_73.htm',
+//         controller: function($scope, configServ){
+//             configServ.getUrl('js/resources/defaultMap.json', function(res) {
+// 		        resource = res[0];
+// 		        $scope.template = resource.appli;
+// 		    });
+//         }
+//     };
+// });

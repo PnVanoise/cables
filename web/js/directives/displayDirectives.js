@@ -794,3 +794,36 @@ app.directive('filterform', function(){
         }
     };
 });
+
+// app.directive('modaldisplay', function(){
+//     return {
+//         restrict: 'A',
+//         scope: {},
+//         templateUrl: 'js/templates/display/modal_73.htm',
+//         controller: function($scope, configServ){
+//             configServ.getUrl('js/resources/defaultMap.json', function(res) {
+//                 resource = res[0];
+//                 $scope.appliDep = resource.appli;
+//             });
+//         }
+//     };
+// });
+
+app.directive('modaldisplay', function($rootScope, configServ){
+    return {
+        restrict: 'A',
+        templateUrl: function() {
+            var appliDep;
+            configServ.getUrl('js/resources/defaultMap.json', function(res) {
+                resource = res[0];
+                $rootScope.appliDep = resource.appli;
+                console.log('dans template : '+$rootScope.appliDep);
+                // return 'js/templates/display/modal_73.htm';
+            });
+            console.log('hors template : '+$rootScope.appliDep);
+            return 'js/templates/display/modal_'+$rootScope.appliDep+'.htm';
+            // appliDep = '73';
+            // return 'js/templates/display/modal_'+$scope.appliDep+'.htm';
+        }
+    };
+});

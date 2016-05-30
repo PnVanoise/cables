@@ -89,7 +89,7 @@
 <!-- BANDEAU  -->
         <div class="pos-bandeau" ng-class="{'visibilitebandeau' : affichebandeau}">
             <div class="logo-title-user" ng-class="{'visibilitebandeau' : affichebandeau}">
-                <img ng-src="css/img/logo_titre_bleu.png"/>
+                <img ng-src="css/img/logo_titre_bleu_{{appliDep}}.png"/>
             </div>
             <div class="user" ng-if="user">
                 <span class="glyphicon glyphicon-user"></span> {{user.nom_complet}}  <a href="#/logout" ng-click="toggleDeconnect()"><span class="glyphicon glyphicon-off"></span></a>
@@ -135,8 +135,9 @@
         <!-- FIN SPINNER CHARGEMENT DONNEES -->
         <!-- MODAL DES MENTIONS -->
         <div class="modal fade" id="modalMentions">
-            <div class="modal-dialog modal-dialog-mentions">
-                <div class="modal-content modal-content-mentions">
+            <!-- MODAL 73 -->
+            <div class="modal-dialog" ng-if="appliDep=='73'">
+                <div class="modal-content modal-content-mentions-73">
                     <div class="modal-header-mentions">
                         <h3>Projet LIFE GypHelp n° LIFE13/NAT/FR/000093</h3>
                     </div>
@@ -163,6 +164,61 @@
                     </div>
                 </div>
             </div>
+            <!-- FIN MODAL 73 -->
+            <!-- MODAL 38 -->
+            <div class="modal-dialog" ng-if="appliDep=='38'">
+                <div class="modal-content modal-content-mentions-38">
+                    <div class="content-logo">
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/life.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/erdf.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/lpo_isere.jpg"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnv.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pne_partenaire.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnr_vercors.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnr_chartreuse.png"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/isere_dep.jpg"/></div>
+                        </div>
+                        <div>
+                            <div class="modal-close" data-dismiss="modal">
+                                X
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN MODAL 38 -->
+            <!-- MODAL 74 -->
+            <div class="modal-dialog modal-dialog-mentions" ng-if="appliDep=='74'">
+                <div class="modal-content modal-content-mentions-74">
+                    <div class="content-logo">
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/life.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/erdf.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/rte.jpg"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnv.png"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/asters.png"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/lpo_haute_savoie.jpg"/></div>
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/pnr_bauges.png"/></div>
+                        </div>
+                        <div class="logo-partenaire-ligne">
+                            <div class="logo-partenaire"><img ng-src="css/img/logos/natura_2000.png"/></div>
+                        </div>
+                    </div>
+                    <div class="modal-close" data-dismiss="modal">
+                        X
+                    </div>
+                </div>
+            </div>
+            <!-- FIN MODAL 74 -->
         </div>
         <!-- FIN MODAL DES MENTIONS -->
     </body>

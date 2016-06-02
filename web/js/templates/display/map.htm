@@ -114,15 +114,22 @@
             <img ng-src={{pictoLayer["nidifications"]["mainLayer"]}} alt="Couche visible"/> Sites de nidification
             </div>
             <div id="nid" class="sublinks collapse">
-                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsGypaete')">
-                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGypaete"]}} alt="Couche visible" /></div>
-                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_gypaete.png"/></div>
-                    <div class="item-leg">Gypaète barbu</div>
-                </div>
                 <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsAigle')">
                     <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsAigle"]}} alt="Couche visible" /></div>
                     <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_aigle.png"/></div>
                     <div class="item-leg">Aigle royal</div>
+                </div>
+                <!-- GYPAETE POUR 73 -->
+                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsGypaete')" ng-if="appliDep=='73'">
+                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGypaete"]}} alt="Couche visible" /></div>
+                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_gypaete.png"/></div>
+                    <div class="item-leg">Gypaète barbu</div>
+                </div>
+                <!-- GYPAETE POUR 74 -->
+                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsGypaete')" ng-if="appliDep=='74'">
+                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGypaete"]}} alt="Couche visible" /></div>
+                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_gypaete.png"/></div>
+                    <div class="item-leg">Gypaète barbu</div>
                 </div>
                 <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsGrandDuc')">
                     <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsGrandDuc"]}} alt="Couche visible" /></div>
@@ -138,6 +145,27 @@
                     <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsCircaete"]}} alt="Couche visible" /></div>
                     <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_circaete.png"/></div>
                     <div class="item-leg">Circaète Jean-le-Blanc</div>
+                </div>
+                <!-- POUR 38 -->
+                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsBusardStMartin')" ng-if="appliDep=='38'">
+                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsBusardStMartin"]}} alt="Couche visible" /></div>
+                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_busard_st_martin.png"/></div>
+                    <div class="item-leg">Busard</div>
+                </div>
+                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsBusardCendre')" ng-if="appliDep=='38'">
+                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsBusardCendre"]}} alt="Couche visible" /></div>
+                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_busard_cendre.png"/></div>
+                    <div class="item-leg">Busard cendré</div>
+                </div>
+                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsBusardRoseaux')" ng-if="appliDep=='38'">
+                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsBusardRoseaux"]}} alt="Couche visible" /></div>
+                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_busard_roseaux.png"/></div>
+                    <div class="item-leg">Busard des Roseaux</div>
+                </div>
+                <div class="labelLayerSub" ng-click="getVisibility('nidifications', 'nidificationsCigogneBlanche')" ng-if="appliDep=='38'">
+                    <div class="item-leg"><img ng-src={{pictoLayer["nidifications"]["subLayer"]["nidificationsCigogneBlanche"]}} alt="Couche visible" /></div>
+                    <div class="item-leg"><img ng-src="css/img/icones_couches_legende/nidifications_cigogne_blanche.png"/></div>
+                    <div class="item-leg">Cigogne blanche</div>
                 </div>
             </div>
 <!-- OBSERVATIONS VAUTOURS -->

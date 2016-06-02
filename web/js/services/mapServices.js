@@ -425,7 +425,11 @@ var iconelecpink;
                         "nidificationsAigle": "css/img/icones_couches_legende/couche_non_visible.png",
                         "nidificationsGrandDuc": "css/img/icones_couches_legende/couche_non_visible.png",
                         "nidificationsFaucon": "css/img/icones_couches_legende/couche_non_visible.png",
-                        "nidificationsCircaete": "css/img/icones_couches_legende/couche_non_visible.png"
+                        "nidificationsCircaete": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsBusardStMartin": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsBusardCendre": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsBusardRoseaux": "css/img/icones_couches_legende/couche_non_visible.png",
+                        "nidificationsCigogneBlanche": "css/img/icones_couches_legende/couche_non_visible.png"
                     }
                 },
                 "observations": {
@@ -995,7 +999,7 @@ var iconelecpink;
                         'nidifications', 
                         'nidificationsAigle',
                         'poly', 
-                        '#5882FA',
+                        '#2E64FE',
                         defaultColorService.noPolyStyle(), 
                         defaultColorService.polyStyle(),
                         changeColorService.polyStyle()
@@ -1008,7 +1012,7 @@ var iconelecpink;
                         'nidifications', 
                         'nidificationsGrandDuc',
                         'poly', 
-                        '#D400FF',
+                        '#8904B1',
                         defaultColorService.noPolyStyle(), 
                         defaultColorService.polyStyle(),
                         changeColorService.polyStyle()
@@ -1021,7 +1025,7 @@ var iconelecpink;
                         'nidifications', 
                         'nidificationsFaucon',
                         'poly', 
-                        '#04B404',
+                        '#088A08',
                         defaultColorService.noPolyStyle(), 
                         defaultColorService.polyStyle(),
                         changeColorService.polyStyle()
@@ -1034,7 +1038,7 @@ var iconelecpink;
                         'nidifications', 
                         'nidificationsGypaete',
                         'poly', 
-                        '#F4FF3A',
+                        '#08088A',
                         defaultColorService.noPolyStyle(), 
                         defaultColorService.polyStyle(),
                         changeColorService.polyStyle()
@@ -1047,7 +1051,59 @@ var iconelecpink;
                         'nidifications', 
                         'nidificationsCircaete',
                         'poly', 
+                        '#FFFF00',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
+
+                if (jsonData.properties.nom_espece === 'Busard Saint-Martin') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsBusardStMartin',
+                        'poly', 
+                        '#FF4000',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
+
+                if (jsonData.properties.nom_espece === 'Busard cendré') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsBusardCendre',
+                        'poly', 
                         '#8A2908',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
+
+                if (jsonData.properties.nom_espece === 'Busard des roseaux') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsBusardRoseaux',
+                        'poly', 
+                        '#3B170B',
+                        defaultColorService.noPolyStyle(), 
+                        defaultColorService.polyStyle(),
+                        changeColorService.polyStyle()
+                    );
+                }
+
+                if (jsonData.properties.nom_espece === 'Cigogne blanche') { 
+                   this.manageColor(
+                        geom, 
+                        'nidifications', 
+                        'nidificationsCigogneBlanche',
+                        'poly', 
+                        '#FE2EC8',
                         defaultColorService.noPolyStyle(), 
                         defaultColorService.polyStyle(),
                         changeColorService.polyStyle()

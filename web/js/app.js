@@ -107,6 +107,11 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
     configServ.put('legendLayer:nidifications:nidificationsAigle:visibility', "novisible");
     configServ.put('legendLayer:nidifications:nidificationsGrandDuc:visibility', "novisible");
     configServ.put('legendLayer:nidifications:nidificationsFaucon:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsCircaete:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsBusardStMartin:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsBusardCendre:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsBusardRoseaux:visibility', "novisible");
+    configServ.put('legendLayer:nidifications:nidificationsCigogneBlanche:visibility', "novisible");
     configServ.put('legendLayer:observations:main:visibility', "novisible");
     configServ.put('legendLayer:observations:observationsNombre020:visibility', "novisible");
     configServ.put('legendLayer:observations:observationsNombre2040:visibility', "novisible");

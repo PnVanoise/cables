@@ -126,16 +126,12 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
      */
     var addControls = function() {
 
-        // Ajout d'un panneau de type sidebar pour contenir la légende
-        var sidebar = L.control.sidebar('legendblock', {
-            closeButton: true,
-            position: 'left'
-        });
-        map.addControl(sidebar);
+        // CONTROL ECHELLE
+        L.control.scale().addTo(map);
 
-        // bouton pour revenir à l'emprise de départ
+        // CONTROL EMPRISE INITIALE
         L.easyButton({
-            position:"topright",
+            position:"bottomleft",
             states: [{
                 icon: 'glyphicon glyphicon-home',
                 title: 'Emprise initiale',
@@ -145,26 +141,28 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             }]
         }).addTo(map);
 
-        /*
-         * GESTION LEGENDE
-         */
+        // CONTROL PLEIN ECRAN
+        L.control.fullscreen({
+            position: 'bottomleft',
+            title: 'Afficher en plein écran !'
+        }).addTo(map);
 
-        // Légende Leaflet
-        layerControl = L.control.layers(tileLayers, null, { collapsed: false});
+        // CONTROL ZOOM
+        L.control.zoom({
+            maxZoom: 18,
+            position: 'bottomleft'
+        }).addTo(map);
 
-        // Ajout de la légende Leaflet sur la carte
-        layerControl.addTo(map);
-        // Suppression du conteneur de la légande Leaflet par défaut
+        // CONTROL LEGENDE
+        layerControl = L.control.layers(tileLayers, null, { collapsed: false}).addTo(map);;
+        // Suppression du conteneur de la légande Leaflet par défaut pour le recréer par la suite
         layerControl._container.remove();
-        // Mise en place des couches dans la légende personnalisée : voir template-url ==> map.htm
-        // document.getElementById('baselayers').appendChild(layerControl.onAdd(map));
-
-        /*
-         * FIN GESTION LEGENDE
-         */
-
-        //Ajout d'une l'échelle
-        L.control.scale().addTo(map);
+        // Ajout d'un panneau de type sidebar pour contenir la légende
+        var sidebar = L.control.sidebar('legendblock', {
+            closeButton: true,
+            position: 'left'
+        });
+        map.addControl(sidebar);
     };
 
     /*
@@ -449,20 +447,15 @@ var iconelecpink;
          */
         initMap: function(elementId) {
             map = L.map(elementId, {
-                maxZoom: 18,
-                fullscreenControl:true,
-                // Ajout de l'option plein écran
-                fullscreenControlOptions:{
-                    position:'topright',
-                    title: 'Afficher en plein écran !'
-                }
+                zoomControl:false,
             });
 
             loadMapConfig();
+
+            // Ajout des controls sur la carte
             addControls();
 
-            // detect any change in selection, then zoom on item and highlight
-            // it
+            // Si aucun changement dans sélection, zoom et surbrillance sur sélection courante
             $rootScope.$watchCollection(function() {
                 return selectedItemService;
             }, angular.bind(this, function(newVal, oldVal) {

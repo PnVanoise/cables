@@ -86,6 +86,33 @@
         <!-- MESSAGE UTILISATEUR -->
         <div usermsg></div>
 
+        <div class='div-bloc-carte'>
+            <!-- CARTE -->
+            <div class="map large" leaflet-map data="geoms" ></div>
+            <!-- FIN CARTE -->
+
+            <!-- BOUTON BANDEAU -->
+            <div class='btn-bandeau' ng-click="toggleBandeau()" ng-if="affichebandeau" ng-class="{'visibilitebandeau' : affichebandeau}">
+                <img ng-src="css/img/btn_bandeau_down_bleu_4.png"/>
+            </div>
+            <div class='btn-bandeau' ng-click="toggleBandeau()" ng-if="!affichebandeau">
+                <img ng-src="css/img/btn_bandeau_up_bleu_1.png"/>
+            </div>
+            <!-- FIN BOUTON BANDEAU -->
+            <!-- BOUTON TABLEAU -->
+            <div class='btn-table' ng-class="{'visibilite' : !affichetableau}" ng-click="toggleTableau()">
+                <img ng-src="css/img/tableau_bleu.png"/>
+            </div>
+            <!-- FIN BOUTON TABLEAU -->
+            <!-- BOUTON MENTIONS -->
+            <!-- <div class='btn-mentions' ng-click="modalMentions(['toto'])"> -->
+            <div class='btn-mentions' data-toggle="modal" data-target="#modalMentions">
+                <img ng-src="css/img/partenariat_3_26.jpg"/>
+            </div>
+            <!-- FIN BOUTON MENTIONS -->
+        </div>
+            
+
 <!-- BANDEAU  -->
         <div class="pos-bandeau" ng-class="{'visibilitebandeau' : affichebandeau}">
             <div class="logo-title-user" ng-class="{'visibilitebandeau' : affichebandeau}">
@@ -97,43 +124,19 @@
         </div>
 <!-- FIN BANDEAU  -->
 
-        <div>
-            <!-- CARTE -->
-            <div class="contenu fixed-map" ng-class="{'visibilite' : !affiche }">
-                <div class="map large" leaflet-map data="geoms" ></div>
-            </div>
-            <!-- FIN CARTE -->
-            <!-- BOUTON BANDEAU -->
-            <div class='btn-bandeau' ng-click="toggleBandeau()" ng-if="affichebandeau">
-                <img ng-src="css/img/btn_bandeau_down_bleu_4.png"/>
-            </div>
-            <div class='btn-bandeau' ng-click="toggleBandeau()" ng-if="!affichebandeau">
-                <img ng-src="css/img/btn_bandeau_up_bleu_1.png"/>
-            </div>
-            <!-- AFFICHAGE TABLEAU -->
-            <!-- BOUTON TABLEAU -->
-            <div class='btn-table' ng-class="{'visibilite' : !affiche }" ng-click="toggle()">
-                <img ng-src="css/img/tableau_bleu.png"/>
-            </div>
-            <!-- TABLEAU -->
-            <!-- IMPORTANT : ng-view => cela veut dire que l'affichage de tous les templates liés à un changement d'url se fait dans la div ci-dessous => même le template pour la page de login -->
-            <div class="datablock float-right padded" ng-view ng-class="{'visibilite' : affiche }">
-            </div>
-            <!-- FIN AFFICHAGE TABLEAU -->
-            <!-- BOUTON MENTIONS -->
-            <!-- <div class='btn-mentions' ng-click="modalMentions(['toto'])"> -->
-            <div class='btn-mentions' data-toggle="modal" data-target="#modalMentions">
-                <img ng-src="css/img/partenariat_3_26.jpg"/>
-            </div>
-            <!-- FIN BOUTON MENTIONS -->
+<!-- TABLEAU -->
+        <!-- IMPORTANT : ng-view => cela veut dire que l'affichage de tous les templates liés à un changement d'url se fait dans la div ci-dessous => même le template pour la page de login -->
+        <div class="datablock" ng-view ng-class="{'visibilitetableau' : affichetableau, 'visibilitebandeau' : affichebandeau}">
         </div>
+<!-- FIN TABLEAU -->
 
-        <!-- SPINNER CHARGEMENT DONNEES -->
+<!-- SPINNER CHARGEMENT DONNEES -->
         <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}"
              ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}">
         </div>
         <!-- FIN SPINNER CHARGEMENT DONNEES -->
-        <!-- MODAL DES MENTIONS -->
+        
+<!-- MODAL DES MENTIONS -->
         <div class="modal fade" id="modalMentions">
             <!-- MODAL 73 -->
             <div class="modal-dialog" ng-if="appliDep=='73'">
@@ -220,6 +223,6 @@
             </div>
             <!-- FIN MODAL 74 -->
         </div>
-        <!-- FIN MODAL DES MENTIONS -->
+<!-- FIN MODAL DES MENTIONS -->
     </body>
 </html>

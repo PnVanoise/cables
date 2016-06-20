@@ -133,7 +133,7 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
         $scope.data = resp;
 
         // FIXME DEBUG
-        configServ.put('debug', true);
+        configServ.put('debug', false);
 
         // userMessages.infoMessage = "bienvenue !";
 
@@ -163,13 +163,12 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
     // collapsed tableau de données
     $scope.toggle = function() {
        $scope.affiche = !$scope.affiche;
-       console.log('affiche : '+$scope.affiche)
     };
 
     // PALIATIF : change la valeur pour que affiche soit toujours à true (tableau ouvert) pour que la page de connexion s'affiche avec le ng-view
     $scope.toggleDeconnect = function() {
-       if ($scope.affiche === true) {
-        $scope.affiche = !$scope.affiche;
+       if ($scope.affichetableau === true) {
+        $scope.affichetableau = !$scope.affichetableau;
        }
     };
 
@@ -177,6 +176,10 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
     $scope.srcImageBtn = "css/img/btn_bandeau_up.png";
     $scope.toggleBandeau = function() {
         $scope.affichebandeau = !$scope.affichebandeau;
+    };
+
+    $scope.toggleTableau = function() {
+        $scope.affichetableau = !$scope.affichetableau;
     };
 
     $scope.check = function(val){

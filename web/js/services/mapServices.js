@@ -1386,7 +1386,7 @@ app.directive('maplist', function($rootScope, $timeout, mapService) {
             };
 
             var _createFilterCtrl = function(){
-                var filterCtrl = L.control({position: 'topright'});
+                var filterCtrl = L.control({position: 'bottomleft'});
                 filterCtrl.onAdd = function(map){
                     this._filtCtrl = L.DomUtil.create('div', 'filterBtn');
                     this.update();

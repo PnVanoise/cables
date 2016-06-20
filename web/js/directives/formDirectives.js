@@ -719,8 +719,9 @@ app.directive('geometry', function($timeout){
                     circle: false,
                     marker: $scope.options.geometryType == 'point',
                     polyline: $scope.options.geometryType == 'linestring',
-                    polygon: $scope.options.geometryType == 'polygon',
+                    polygon: $scope.options.geometryType == 'polygon'
                 },
+                position: 'bottomleft'
             });
             map.addControl(controls);
 
@@ -735,18 +736,18 @@ app.directive('geometry', function($timeout){
              * affichage coords curseur en edition
              * TODO confirmer le maintien
              */
-            coordsDisplay = L.control({position: 'bottomright'});
-            coordsDisplay.onAdd = function(map){
-                this._dsp = L.DomUtil.create('div', 'coords-dsp');
-                return this._dsp;
-            };
-            coordsDisplay.update = function(evt){
-                this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
-            };
-            map.on('mousemove', function(e){
-                coordsDisplay.update(e);
-            });
-            coordsDisplay.addTo(map);
+            // coordsDisplay = L.control({position: 'bottomright'});
+            // coordsDisplay.onAdd = function(map){
+            //     this._dsp = L.DomUtil.create('div', 'coords-dsp');
+            //     return this._dsp;
+            // };
+            // coordsDisplay.update = function(evt){
+            //     this._dsp.innerHTML = '<span>Long. : ' + evt.latlng.lng + '</span><span>Lat. : ' + evt.latlng.lat + '</span>';
+            // };
+            // map.on('mousemove', function(e){
+            //     coordsDisplay.update(e);
+            // });
+            // coordsDisplay.addTo(map);
             /*
              * ---------------------------------------
              */

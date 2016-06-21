@@ -74,28 +74,54 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             });
 
             // Ajout des couches sur la carte
-            var i = 0;
-            resource.layers.baselayers.forEach(function(_layer, name){
-                // Récupération des différentes propriétés pour l'affichage dans la carte et dans la légende
-                var layerData = LeafletServices.loadData(_layer);
-                var layerDataId = layerData.id;
-                var layerDataName = layerData.name;
-                var layerDataMap = layerData.map;
-                var layerDataActive = layerData.active;
-                tileLayers[i] = {id: layerDataId, name: layerDataName, active: layerDataActive, map: layerDataMap};
+            if (resource.serveur === '139') {
+                var i = 0;
+                resource.layers.baselayers_139.forEach(function(_layer, name){
+                    // Récupération des différentes propriétés pour l'affichage dans la carte et dans la légende
+                    var layerData = LeafletServices.loadData(_layer);
+                    var layerDataId = layerData.id;
+                    var layerDataName = layerData.name;
+                    var layerDataMap = layerData.map;
+                    var layerDataActive = layerData.active;
+                    tileLayers[i] = {id: layerDataId, name: layerDataName, active: layerDataActive, map: layerDataMap};
 
-                if(currentBaseLayer){
-                    if(layerData.name == currentBaseLayer){
-                        layerData.map.addTo(map);
+                    if(currentBaseLayer){
+                        if(layerData.name == currentBaseLayer){
+                            layerData.map.addTo(map);
+                        }
+                    } else {
+                        if(layerData.active){
+                            layerData.map.addTo(map);
+                            currentBaseLayer = layerData.map;
+                        }
                     }
-                } else {
-                    if(layerData.active){
-                        layerData.map.addTo(map);
-                        currentBaseLayer = layerData.map;
+                    i++;
+                });
+            }
+            else if (resource.serveur === '141') {
+                var i = 0;
+                resource.layers.baselayers_141.forEach(function(_layer, name){
+                    // Récupération des différentes propriétés pour l'affichage dans la carte et dans la légende
+                    var layerData = LeafletServices.loadData(_layer);
+                    var layerDataId = layerData.id;
+                    var layerDataName = layerData.name;
+                    var layerDataMap = layerData.map;
+                    var layerDataActive = layerData.active;
+                    tileLayers[i] = {id: layerDataId, name: layerDataName, active: layerDataActive, map: layerDataMap};
+
+                    if(currentBaseLayer){
+                        if(layerData.name == currentBaseLayer){
+                            layerData.map.addTo(map);
+                        }
+                    } else {
+                        if(layerData.active){
+                            layerData.map.addTo(map);
+                            currentBaseLayer = layerData.map;
+                        }
                     }
-                }
-                i++;
-            });
+                    i++;
+                });
+            };
 
             // Vue par défaut de la carte
             if (resource.appli === '73') {

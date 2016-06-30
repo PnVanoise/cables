@@ -26,18 +26,14 @@ class UserService{
      * params:
      *  le niveau de droits requis (int)
      */
-    public function checkLevel($level, $app=100){
-    // Récupération num de l'appli dans un fichier json
-    // public function checkLevel($level){
-    //     $json_file = file_get_contents('../../appli.json');
-    //     // convert the string to a json object
-    //     $jfo = json_decode($json_file);
-    //     // read the title value
-    //     $app = $jfo->appli;
-
+    public function checkLevel($level){
         //FIXME $app par defaut => contournement moche pour ne pas refaire toutes les vues chiro
         $currentUser = $this->getUser();
         //return $currentUser->getMaxDroit() >= $level;
+
+        // Accès à l'ID de l'appli pour la gestion du contenu spécifique
+        $path = '/home/intranetsigdev/projets_angular/cables_cc/app/config_appli_cables.txt';
+        $app = intval(file_get_contents($path, null, null, 0, 3));
         return $currentUser['apps'][$app] >= $level;
     }
 

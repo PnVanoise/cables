@@ -20,14 +20,11 @@ class AppConfigController extends Controller{
 
     //path: GET /config/apps
     public function getAppsAction(){
-        // $json_file = file_get_contents('../../appli.json');
-        // // convert the string to a json object
-        // $jfo = json_decode($json_file);
-        // // read the title value
-        // $app = $jfo->appli;
+        // Accès à l'ID de l'appli pour la gestion du contenu spécifique
+        $path = $this->container->getParameter('kernel.root_dir').'/config_appli_cables.txt';
+        $app = intval(file_get_contents($path, null, null, 0, 3));
         return new JsonResponse(array(
-            array('id'=>'1', 'name'=>'cables', 'appId'=>100),
-            // array('id'=>'1', 'name'=>'cables', 'appId'=>$app),
+            array('id'=>'1', 'name'=>'cables', 'appId'=>$app),
         ));
     }
 	

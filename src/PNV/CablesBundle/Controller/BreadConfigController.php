@@ -18,17 +18,15 @@ class BreadConfigController extends Controller{
 
         $out = array();
 
-        // $json_file = file_get_contents('../../appli.json');
-        // // convert the string to a json object
-        // $jfo = json_decode($json_file);
-        // // read the title value
-        // $schema_appli = $jfo->schema_appli;
-        
+        // Accès au nom du schéma de l'appli pour la gestion du contenu spécifique
+        $path = $this->container->getParameter('kernel.root_dir').'/config_appli_cables.txt';
+        $schema = file_get_contents($path, null, null, 4, 8);
+
         switch($view){
 
 //==> 1- Mortalité par électrocussions
             case 'mortalites':
-                $req = $manager->prepare('SELECT id_cas_mortalite, t_cas_mortalite.id_espece, t_especes.nom_espece as label FROM cables73.t_cas_mortalite LEFT JOIN cables73.t_especes  ON t_especes.id_espece = t_cas_mortalite.id_espece WHERE id_cas_mortalite=:id_cas_mortalite ORDER BY id_cas_mortalite');
+                $req = $manager->prepare('SELECT id_cas_mortalite, t_cas_mortalite.id_espece, t_especes.nom_espece as label FROM '.$schema.'.t_cas_mortalite LEFT JOIN '.$schema.'.t_especes  ON t_especes.id_espece = t_cas_mortalite.id_espece WHERE id_cas_mortalite=:id_cas_mortalite ORDER BY id_cas_mortalite');
                 $req->bindValue('id_cas_mortalite', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -40,7 +38,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out));
 //==> 2- Inventaires troncons ERDF
             case 'tronconserdf':
-                $req = $manager->prepare('SELECT id_inventaire_troncon_erdf as label FROM cables73.t_inventaire_troncons_erdf WHERE id_inventaire_troncon_erdf=:id_inventaire_troncon_erdf');
+                $req = $manager->prepare('SELECT id_inventaire_troncon_erdf as label FROM '.$schema.'.t_inventaire_troncons_erdf WHERE id_inventaire_troncon_erdf=:id_inventaire_troncon_erdf');
                 $req->bindValue('id_inventaire_troncon_erdf', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -52,7 +50,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out2));
 //==> 3- Inventaires poteaux ERDF
             case 'poteauxerdf':
-                $req = $manager->prepare('SELECT id_inventaire_poteau_erdf as label FROM cables73.t_inventaire_poteaux_erdf WHERE id_inventaire_poteau_erdf=:id_inventaire_poteau_erdf');
+                $req = $manager->prepare('SELECT id_inventaire_poteau_erdf as label FROM '.$schema.'.t_inventaire_poteaux_erdf WHERE id_inventaire_poteau_erdf=:id_inventaire_poteau_erdf');
                 $req->bindValue('id_inventaire_poteau_erdf', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -64,7 +62,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out3));
 //==> 4- Equipements poteaux ERDF
             case 'eqpoteauxerdf':
-                $req = $manager->prepare('SELECT id_equipement_poteau_erdf, dico_type_equipement_poteau.nom_type_equipement_poteau as label FROM cables73.t_equipements_poteaux_erdf LEFT JOIN cables73.dico_type_equipement_poteau  ON dico_type_equipement_poteau.id_type_equipement_poteau = t_equipements_poteaux_erdf.id_type_equipement_poteau WHERE id_equipement_poteau_erdf=:id_equipement_poteau_erdf ORDER BY id_equipement_poteau_erdf');
+                $req = $manager->prepare('SELECT id_equipement_poteau_erdf, dico_type_equipement_poteau.nom_type_equipement_poteau as label FROM '.$schema.'.t_equipements_poteaux_erdf LEFT JOIN '.$schema.'.dico_type_equipement_poteau  ON dico_type_equipement_poteau.id_type_equipement_poteau = t_equipements_poteaux_erdf.id_type_equipement_poteau WHERE id_equipement_poteau_erdf=:id_equipement_poteau_erdf ORDER BY id_equipement_poteau_erdf');
                 $req->bindValue('id_equipement_poteau_erdf', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -76,7 +74,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out4));
 //==> 5- Equipements tronçons ERDF
             case 'eqtronconserdf':
-                $req = $manager->prepare('SELECT id_equipement_troncon_erdf, dico_type_equipement_troncon.nom_type_equipement_troncon as label FROM cables73.t_equipements_troncons_erdf LEFT JOIN cables73.dico_type_equipement_troncon  ON dico_type_equipement_troncon.id_type_equipement_troncon = t_equipements_troncons_erdf.id_type_equipement_troncon WHERE id_equipement_troncon_erdf=:id_equipement_troncon_erdf ORDER BY id_equipement_troncon_erdf');
+                $req = $manager->prepare('SELECT id_equipement_troncon_erdf, dico_type_equipement_troncon.nom_type_equipement_troncon as label FROM '.$schema.'.t_equipements_troncons_erdf LEFT JOIN '.$schema.'.dico_type_equipement_troncon  ON dico_type_equipement_troncon.id_type_equipement_troncon = t_equipements_troncons_erdf.id_type_equipement_troncon WHERE id_equipement_troncon_erdf=:id_equipement_troncon_erdf ORDER BY id_equipement_troncon_erdf');
                 $req->bindValue('id_equipement_troncon_erdf', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -88,7 +86,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out5));
 //==> 6- Sites de nidifications
             case 'nidifications':
-                $req = $manager->prepare('SELECT id_espece, nom_espece as label FROM cables73.v_sites_nidification_zone_tampon WHERE id_espece=:id_espece');
+                $req = $manager->prepare('SELECT id_espece, nom_espece as label FROM '.$schema.'.v_sites_nidification_zone_tampon WHERE id_espece=:id_espece');
                 $req->bindValue('id_espece', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -100,7 +98,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out6));
 //==> 6- Observations
             case 'observations':
-                $req = $manager->prepare('SELECT id_observation, t_especes.nom_espece as label FROM cables73.t_observations LEFT JOIN cables73.t_especes  ON t_especes.id_espece = t_observations.id_espece WHERE id_observation=:id_observation ORDER BY id_observation');
+                $req = $manager->prepare('SELECT id_observation, t_especes.nom_espece as label FROM '.$schema.'.t_observations LEFT JOIN '.$schema.'.t_especes  ON t_especes.id_espece = t_observations.id_espece WHERE id_observation=:id_observation ORDER BY id_observation');
                 $req->bindValue('id_observation', $id);
                 $req->execute();
                 $res = $req->fetchAll();
@@ -112,7 +110,7 @@ class BreadConfigController extends Controller{
         return new JsonResponse(array_reverse($out6));
 //==>7- Zones sensibles
             case 'zonessensibles':
-                $req = $manager->prepare('SELECT id_zone_sensible, nom_zone_sensible as label FROM cables73.v_zones_sensibles WHERE id_zone_sensible=:id_zone_sensible');
+                $req = $manager->prepare('SELECT id_zone_sensible, nom_zone_sensible as label FROM '.$schema.'.v_zones_sensibles WHERE id_zone_sensible=:id_zone_sensible');
                 $req->bindValue('id_zone_sensible', $id);
                 $req->execute();
                 $res1 = $req->fetchAll();

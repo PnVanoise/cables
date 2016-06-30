@@ -76,7 +76,7 @@
             </thead>
             <!-- AFFICHAGE DES DONNEES -->
             <tbody>
-                <tr ng-repeat="item in $data" ng-click="selectItem(item, true, item.cat)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr class="galerie-photo" ng-repeat="item in $data" ng-click="selectItem(item, true, item.cat)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
 
                     <td style="text-align: center">
                         <a class="link-mute" id="item{{item.id}}" ng-href="{{schema.detailUrl}}{{item.id}}" ng-click="savePhotoUrl(item.id)">
@@ -90,10 +90,8 @@
                         <span ng-if="column.options.type=='select'">{{column.options.choices|tselect:item[column.name]}}</span>
                         <!-- INITIALISATION DE LA PHOTO SI PRESENTE -->
                         <div ng-if="column.options.type=='image'">
-                            <span >
-                                <!-- MINIATURE DE LA PHOTO --> 
-                              <img  id="min" class="thumb-image" data-toggle="modal"  data-target="#modalPhoto" data-test="{{item.id}}" data-chemin="{{item.cheminPhoto}}" ng-src="{{item.cheminPhoto}}"/>                  
-                            </span>
+                            <a class="photo" href="{{item.cheminPhoto}}">
+                              <img  id="min" class="thumb-image" ng-src="{{item.cheminPhoto}}"/></a>                
                         </div>
                         <!-- FIN -->                       
                         <ul ng-if="column.options.type=='list'" class="list list-inline">
@@ -107,19 +105,3 @@
         </table>
     </div>
 </div>
-<!-- MODAL POUR APERCU DE LA PHOTO -->
-<div class="modal fade" id="modalPhoto">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"></h4>
-      </div>
-      <div id="photo" class="modal-body-photo"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>      
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIN -->

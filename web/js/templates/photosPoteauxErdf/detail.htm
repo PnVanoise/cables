@@ -1,25 +1,10 @@
 <div breadcrumbs appname="cables"></div>
-<div class="padded" detail-display schemaurl="schemaUrl" dataurl="dataUrl" dataid="dataId" updateurl="updateUrl"
+
+<div class="" detail-display schemaurl="schemaUrl" dataurl="dataUrl" dataid="dataId" updateurl="updateUrl"
   saveurl="saveUrl" redirectto="#/cables/photospoteauxerdf/"  data="data">
     <h1>{{title}}</h1>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailModal">Voir la photo</button>
 </div>
-  <!-- Modal de la photo -->
-  <div class="modal fade bs-example-modal-lg" id="detailModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content detail">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">{{title}}</h4>
-        </div>
-        <div class="modal-body">
-         
-        <img  class="img-responsive"  ng-src="{{cheminPhoto}}"/>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div>
+  <button type="button" class="btn btn-info photo-detail-tronc" href="{{cheminPhoto}}">Voir la photo</button>      
+</div>

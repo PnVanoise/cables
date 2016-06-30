@@ -119,6 +119,8 @@ app.directive('photoupload', function(){
             };
             uploader.onCompleteItem = function(fileItem, response) {
                 $scope.chemin = 'img/photos/' + response.cheminPhoto; // si le chargement est bon, on remplit cheminPhoto avec la réponse
+                console.log('chemin : '+response);
+                console.log('response : '+$scope.chemin);
                 userMessages.successMessage = "Photo chargée avec succès.";
             };
         }

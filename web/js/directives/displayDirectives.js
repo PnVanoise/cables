@@ -388,28 +388,29 @@ app.directive('tablewrapper', function(){
                 return x;
             };
 
-            // Modal pour l'aperçu de la photo
+            // Affichage photo dans modal
+            // Galerie photo dans modal avec plugin colorbox (voir js/lib/colorbox-1.6.4)
+            // Zoom et déplacement sur chaque photo avec plugin wheelzoom (voir js/lib/wheelzoom-master)
             $(document).ready(function () {
-                $('#modalPhoto').on('show.bs.modal', function (event) { // Récupération de l'ID du modal (#modalPhoto)
-                    var chemin = null;
-                    var image = $(event.relatedTarget) // récuperation de l'évenement sur la photo
-                    var id = image.data('test') // Extraction des données : ID de la photo
-                    var cheminPhoto = image.data('chemin') //                    : chemin de la photo
-
-                    var title = 'Aperçu de la photo #' + id // Titre du modal avec l'ID
-                    var modal = $(this)
-                    modal.find('.modal-title').text(title)
-
-                    var img = $('<img />', {            // Création de la photo d'aperçu
-                        id: id,
-                        src: cheminPhoto,
-                        width: 595,
-                        height: 500,
-                    });
-                    $('#photo').html(img);             // Initialisation de la photo dans la div #photo du #modalPhoto
-                })
+                // Exécution colorbox sur objet du DOM avec attr class photo
+                $(".photo").colorbox(
+                    {
+                        // Pour avoir galerie avoir un objet du DOM avec attr class galerie-photo
+                        rel: 'galerie-photo',
+                        // Dimension de la modal
+                        width: '800px',
+                        height: '600px',
+                        // Sur chargement complet des photos dans modal
+                        onComplete: function(){
+                            // Recherche des éléments du DOM dont attr class = cboxPhoto
+                            // => doit ressortir que les photos dans la modal
+                            var img = document.querySelector('[class*="cboxPhoto"]');
+                            // Exécution du plugin wheelzoom pour zoom et déplacement dans image
+                            wheelzoom(img);
+                        }
+                    }
+                );
             });
-
 
             var filterFuncs = {
                 starting: function(key, filterTxt){

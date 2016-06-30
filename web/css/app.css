@@ -197,7 +197,7 @@
   position: static; 
   margin-top: 0px;
   padding-top: 5px;
-  padding-bottom: 0px;
+  padding-bottom: 5px;
   background: #537380;
   font-color: #ffffff;
   border: 1px solid #537380;
@@ -964,7 +964,7 @@ background-color:  aliceblue
   width: 150px;
   height: 100px;
   overflow: hidden;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 .large-image{
     max-width: 100%;
@@ -1936,4 +1936,15 @@ a:hover {
   vertical-align: middle;
   text-align: center;
   margin-right: 10px;
+}
+
+#open-popup {padding:20px}
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 40px;
+  width: auto;
+  max-width: 200px;
+  margin: 20px auto;
+  text-align: center;
 }

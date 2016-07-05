@@ -5,8 +5,8 @@ groups:
     -   name: Informations
         fields:
             -   name: idInventaireTronconErdf
-                label: Tronçon ERDF
-                help: Tronçon ERDF concerné
+                label: Tronçon Enedis
+                help: Tronçon Enedis concerné
                 type: clickableinteger
                 urlpart: "cables/tronconserdf/"
             -   name: dateEquipementTroncon

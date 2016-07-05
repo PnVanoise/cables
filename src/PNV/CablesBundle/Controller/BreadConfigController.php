@@ -38,7 +38,7 @@ class BreadConfigController extends Controller{
                 // $out[] = array('id_cas_mortalite'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_espece'];
         return new JsonResponse(array_reverse($out));
-//==> 2- Inventaires troncons ERDF
+//==> 2- Inventaires troncons Enedis
             case 'tronconserdf':
                 $req = $manager->prepare('SELECT id_inventaire_troncon_erdf as label FROM '.$schema.'.t_inventaire_troncons_erdf WHERE id_inventaire_troncon_erdf=:id_inventaire_troncon_erdf');
                 $req->bindValue('id_inventaire_troncon_erdf', $id);
@@ -46,11 +46,11 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out2[] = array('id'=>$res['id_inventaire_troncon_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/tronconserdf/'.$id);
-                $out2[] = array('id_inventaire_troncon_erdf'=>null, 'label'=>'Inventaires tronçons ERDF', 'link'=>'#/cables/tronconserdf');
+                $out2[] = array('id_inventaire_troncon_erdf'=>null, 'label'=>'Inventaires tronçons Enedis', 'link'=>'#/cables/tronconserdf');
                 // $out2[] = array('id_inventaire_troncon_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_inventaire_troncon_erdf'];
         return new JsonResponse(array_reverse($out2));
-//==> 3- Inventaires poteaux ERDF
+//==> 3- Inventaires poteaux Enedis
             case 'poteauxerdf':
                 $req = $manager->prepare('SELECT id_inventaire_poteau_erdf as label FROM '.$schema.'.t_inventaire_poteaux_erdf WHERE id_inventaire_poteau_erdf=:id_inventaire_poteau_erdf');
                 $req->bindValue('id_inventaire_poteau_erdf', $id);
@@ -58,11 +58,11 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out3[] = array('id'=>$res['id_inventaire_poteau_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/poteauxerdf/'.$id);
-                $out3[] = array('id_inventaire_poteau_erdf'=>null, 'label'=>'Inventaires poteaux ERDF', 'link'=>'#/cables/poteauxerdf');
+                $out3[] = array('id_inventaire_poteau_erdf'=>null, 'label'=>'Inventaires poteaux Enedis', 'link'=>'#/cables/poteauxerdf');
                 // $out3[] = array('id_inventaire_poteau_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_inventaire_poteau_erdf'];
         return new JsonResponse(array_reverse($out3));
-//==> 4- Equipements poteaux ERDF
+//==> 4- Equipements poteaux Enedis
             case 'eqpoteauxerdf':
                 $req = $manager->prepare('SELECT id_equipement_poteau_erdf, dico_type_equipement_poteau.nom_type_equipement_poteau as label FROM '.$schema.'.t_equipements_poteaux_erdf LEFT JOIN '.$schema.'.dico_type_equipement_poteau  ON dico_type_equipement_poteau.id_type_equipement_poteau = t_equipements_poteaux_erdf.id_type_equipement_poteau WHERE id_equipement_poteau_erdf=:id_equipement_poteau_erdf ORDER BY id_equipement_poteau_erdf');
                 $req->bindValue('id_equipement_poteau_erdf', $id);
@@ -70,11 +70,11 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out4[] = array('id'=>$res['id_equipement_poteau_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/eqpoteauxerdf/'.$id);
-                $out4[] = array('id_equipement_poteau_erdf'=>null, 'label'=>'Equipements poteaux ERDF', 'link'=>'#/cables/eqpoteauxerdf');
+                $out4[] = array('id_equipement_poteau_erdf'=>null, 'label'=>'Equipements poteaux Enedis', 'link'=>'#/cables/eqpoteauxerdf');
                 // $out4[] = array('id_equipement_poteau_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_equipement_poteau_erdf'];
         return new JsonResponse(array_reverse($out4));
-//==> 5- Equipements tronçons ERDF
+//==> 5- Equipements tronçons Enedis
             case 'eqtronconserdf':
                 $req = $manager->prepare('SELECT id_equipement_troncon_erdf, dico_type_equipement_troncon.nom_type_equipement_troncon as label FROM '.$schema.'.t_equipements_troncons_erdf LEFT JOIN '.$schema.'.dico_type_equipement_troncon  ON dico_type_equipement_troncon.id_type_equipement_troncon = t_equipements_troncons_erdf.id_type_equipement_troncon WHERE id_equipement_troncon_erdf=:id_equipement_troncon_erdf ORDER BY id_equipement_troncon_erdf');
                 $req->bindValue('id_equipement_troncon_erdf', $id);
@@ -82,7 +82,7 @@ class BreadConfigController extends Controller{
                 $res = $req->fetchAll();
                 $res = $res[0];
                 $out5[] = array('id'=>$res['id_equipement_troncon_erdf'], 'label'=>implode('/', array_reverse(explode('-', $res['label']))), 'link'=>'#/cables/eqtronconserdf/'.$id);
-                $out5[] = array('id_equipement_troncon_erdf'=>null, 'label'=>'Equipements tronçons ERDF', 'link'=>'#/cables/eqtronconserdf');
+                $out5[] = array('id_equipement_troncon_erdf'=>null, 'label'=>'Equipements tronçons Enedis', 'link'=>'#/cables/eqtronconserdf');
                 // $out5[] = array('id_equipement_troncon_erdf'=>null, 'label'=>'Cables', 'link'=>'#/cables');  
                 $id = $res['id_equipement_troncon_erdf'];
         return new JsonResponse(array_reverse($out5));

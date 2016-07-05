@@ -44,11 +44,11 @@
                     <div class="item-leg">Electrocution</div>
                 </div>
             </div>
-<!-- TRONCONS ERDF -->
+<!-- TRONCONS Enedis -->
             <div></div>
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-down': !isExpanded, 'glyphicon-chevron-right': isExpanded}"></i></a>
             <div class='legendBlock-item' ng-click="getVisibility('tronconserdf')">
-            <img ng-src={{pictoLayer["tronconserdf"]["mainLayer"]}} alt="Couche visible"/> Tronçons ERDF à risque
+            <img ng-src={{pictoLayer["tronconserdf"]["mainLayer"]}} alt="Couche visible"/> Tronçons Enedis à risque
             </div>
             <div id="tr" class="sublinks collapse in">
                 <div class="labelLayerSub" ng-click="getVisibility('tronconserdf', 'tronconsErdfRisqueEleve')">
@@ -67,11 +67,11 @@
                     <div class="item-leg">Peu pas de risque</div>
                 </div>
             </div>
-<!-- POTEAUX ERDF -->
+<!-- POTEAUX Enedis -->
             <div></div>
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#pt" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-down': !isExpanded, 'glyphicon-chevron-right': isExpanded}"></i></a>
             <div class='legendBlock-item' ng-click="getVisibility('poteauxerdf')">
-            <img ng-src={{pictoLayer["poteauxerdf"]["mainLayer"]}} alt="Couche visible"/> Poteaux ERDF à risque
+            <img ng-src={{pictoLayer["poteauxerdf"]["mainLayer"]}} alt="Couche visible"/> Poteaux Enedis à risque
             </div>
             <div id="pt" class="sublinks collapse in">
                 <div class="labelLayerSub" ng-click="getVisibility('poteauxerdf', 'poteauxErdfRisqueEleve')">
@@ -90,7 +90,7 @@
                     <div class="item-leg">Peu ou pas de risque</div>
                 </div>
             </div>
-<!-- EQUIPEMENTS TRONCONS ERDF -->
+<!-- EQUIPEMENTS TRONCONS Enedis -->
             <div></div>
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#equip" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i></a>
             <div class='legendBlock-item'> Equipements de neutralisation</div>
@@ -98,13 +98,13 @@
                 <div class="labelLayerSub" ng-click="getVisibility('eqtronconserdf')">
                     <div class="item-leg"><img ng-src={{pictoLayer["eqtronconserdf"]["mainLayer"]}} alt="Couche visible" /></div>
                     <div class="item-leg"><img ng-src="css/img/icones_couches_legende/equip_troncons.png"/></div>
-                    <div class="item-leg">Tronçons ERDF</div>
+                    <div class="item-leg">Tronçons Enedis</div>
                 </div>
-<!-- EQUIPEMENTS POTEAUX ERDF -->
+<!-- EQUIPEMENTS POTEAUX Enedis -->
                 <div class="labelLayerSub" ng-click="getVisibility('eqpoteauxerdf')">
                     <div class="item-leg"><img ng-src={{pictoLayer["eqpoteauxerdf"]["mainLayer"]}} alt="Couche visible" /></div>
                     <div class="item-leg"><img ng-src="css/img/icones_couches_legende/equip_poteaux.png"/></div>
-                    <div class="item-leg">Poteaux ERDF</div>
+                    <div class="item-leg">Poteaux Enedis</div>
                 </div>
             </div>
 <!-- NIDIFICATIONS -->
@@ -202,9 +202,9 @@
                 <div class="item-leg"><img ng-src="css/img/icones_couches_legende/communes.png"/></div>
                 <div class="item-leg">Communes</div>
             </div>
-<!-- ERDF -->
+<!-- Enedis -->
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i></a>
-            <div class='legendBlock-item'> ERDF</div>
+            <div class='legendBlock-item'> Enedis</div>
             <div id="erdf" class="sublinks collapse ">
                 <div class="labelLayerSubRef" ng-click="getVisibility('erdfappareilcoupure')">
                     <div class="item-leg"><img ng-src={{pictoLayer["erdfappareilcoupure"]["mainLayer"]}} alt="Couche visible" /></div>

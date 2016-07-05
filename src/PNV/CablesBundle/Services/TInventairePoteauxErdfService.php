@@ -61,7 +61,7 @@ class TInventairePoteauxErdfService{
                     'dangerosite'=>!is_null($info->getDangerosite())? $info->getDangerosite()->getLibelle(): 'null',
                 );
                 $out_item['geometry'] = $info->getGeomJson();
-                $out_item['properties']['geomLabel'] = sprintf('<a href="#/cables/poteauxerdf/%s">Poteau ERDF %s</a>',
+                $out_item['properties']['geomLabel'] = sprintf('<a href="#/cables/poteauxerdf/%s">Poteau Enedis %s</a>',
                     $info->getId(), $info->getId());
                 $out[] = $out_item;
             }

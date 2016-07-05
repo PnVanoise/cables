@@ -35,7 +35,7 @@ app.controller('poteauxErdfDetailCtrl', function($scope, $rootScope, $routeParam
     // écoute sur display:init déclenché par broadcast dans displayDirectives > dir detailDisplay
     // utilisé dans page de détail
     $scope.$on('display:init', function(ev, data){
-        $scope.title = 'Poteau ERDF de type ' + data.type_poteau_erdf;
+        $scope.title = 'Poteau Enedis de type ' + data.type_poteau_erdf;
     });
 
     // Chargement des données sur chargement page de détail
@@ -52,7 +52,7 @@ app.controller('poteauxErdfDetailCtrl', function($scope, $rootScope, $routeParam
     } 
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = 'Le poteau ERDF ' + data.id + ' a été supprimé.'
+        userMessages.successMessage = 'Le poteau Enedis ' + data.id + ' a été supprimé.'
         // dataServ.forceReload = true;
         $location.url($scope._appName + '/poteauxerdf/');
     });
@@ -79,10 +79,10 @@ app.controller('poteauxErdfEditCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.$on('form:init', function(ev, data){
         if(data.id){
-        $scope.title = "Modification du poteau ERDF n° " + data.id;
+        $scope.title = "Modification du poteau Enedis n° " + data.id;
         }
         else{
-            $scope.title = "Nouveau poteau ERDF";
+            $scope.title = "Nouveau poteau Enedis";
         }
     });
 
@@ -91,17 +91,17 @@ app.controller('poteauxErdfEditCtrl', function($scope, $rootScope, $routeParams,
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'Le poteau ERDF de type ' + data.type_poteau_erdf + ' a été créé avec succès.'
+        userMessages.successMessage = 'Le poteau Enedis de type ' + data.type_poteau_erdf + ' a été créé avec succès.'
         $location.url($scope._appName + '/poteauxerdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = 'Le poteau ERDF de type ' + data.type_poteau_erdf + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'Le poteau Enedis de type ' + data.type_poteau_erdf + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/poteauxerdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'Le poteau ERDF ' + data.type_poteau_erdf + ' a été supprimé.'
+        userMessages.successMessage = 'Le poteau Enedis ' + data.type_poteau_erdf + ' a été supprimé.'
         $location.url($scope._appName + '/poteauxerdf/');
     });
 });

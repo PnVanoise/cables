@@ -32,7 +32,7 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
     $scope.updateUrl = '#/' + $scope._appName + '/edit/photospoteauxerdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        $scope.title = 'Photo n°' + data.id + '  du poteau ERDF ' + data.inventaire_poteau_erdf;
+        $scope.title = 'Photo n°' + data.id + '  du poteau Enedis ' + data.inventaire_poteau_erdf;
         $scope.cheminPhoto = data.cheminPhoto;
     });
 
@@ -67,7 +67,7 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été supprimée.'
+        userMessages.successMessage = 'La photo du poteau Enedis ' + data.idInventairePoteauErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/photospoteauxerdf/');
     });
@@ -112,17 +112,17 @@ app.controller('photosPoteauxErdfEditCtrl', function($scope, $rootScope, $routeP
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été créée avec succès.'
+        userMessages.successMessage = 'La photo du poteau Enedis ' + data.idInventairePoteauErdf + ' a été créée avec succès.'
         $location.url($scope._appName + '/photospoteauxerdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été mise à jour avec succès.'
+        userMessages.successMessage = 'La photo du poteau Enedis ' + data.idInventairePoteauErdf + ' a été mise à jour avec succès.'
         $location.url($scope._appName + '/photospoteauxerdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'La photo du poteau ERDF ' + data.idInventairePoteauErdf + ' a été supprimée.'
+        userMessages.successMessage = 'La photo du poteau Enedis ' + data.idInventairePoteauErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/poteauxerdf/' + data.idInventairePoteauErdf);
     });

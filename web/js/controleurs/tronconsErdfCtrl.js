@@ -33,7 +33,7 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
 
     $scope.$on('display:init', function(ev, data){
         // mapService.selectItem(parseInt($routeParams.id), 'tronconserdf');
-        $scope.title = 'Tronçon ERDF ' + data.id;
+        $scope.title = 'Tronçon Enedis ' + data.id;
     });
 
     // Chargement des données sur chargement page de détail
@@ -49,7 +49,7 @@ app.controller('tronconsErdfDetailCtrl', function($scope, $rootScope, $routePara
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'Le tronçon ERDF' + data.id + ' a été supprimé.'
+        userMessages.successMessage = 'Le tronçon Enedis' + data.id + ' a été supprimé.'
         // dataServ.forceReload = true;
         $location.url($scope._appName + '/tronconserdf/');
     });
@@ -76,10 +76,10 @@ app.controller('tronconsErdfEditCtrl', function($scope, $rootScope, $routeParams
 
     $scope.$on('form:init', function(ev, data){
         if(data.espece){
-        $scope.title = 'Modification du tronçon ERDF' + data.id;
+        $scope.title = 'Modification du tronçon Enedis' + data.id;
         }
         else{
-            $scope.title = 'Nouveau tronçon ERDF';
+            $scope.title = 'Nouveau tronçon Enedis';
         }
     });
 
@@ -88,17 +88,17 @@ app.controller('tronconsErdfEditCtrl', function($scope, $rootScope, $routeParams
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'Le tronçon ERDF ' + data.remarques + ' a été créé avec succès.'
+        userMessages.successMessage = 'Le tronçon Enedis ' + data.remarques + ' a été créé avec succès.'
         $location.url($scope._appName + '/tronconserdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = 'Le tronçon ERDF ' + data.remarques + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'Le tronçon Enedis ' + data.remarques + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/tronconserdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'Le tronçon ERDF ' + data.remarques + ' a été supprimé.'
+        userMessages.successMessage = 'Le tronçon Enedis ' + data.remarques + ' a été supprimé.'
         $location.url($scope._appName + '/tronconserdf/');
     });
 });

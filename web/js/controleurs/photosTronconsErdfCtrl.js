@@ -37,7 +37,7 @@ app.controller('photosTronconsErdfDetailCtrl', function($scope, $rootScope, $rou
     $scope.updateUrl = '#/' + $scope._appName + '/edit/photostronconserdf/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        $scope.title = 'Photo n°' + data.id + '  du tronçon ERDF ' + data.inventaire_troncon_erdf;
+        $scope.title = 'Photo n°' + data.id + '  du tronçon Enedis ' + data.inventaire_troncon_erdf;
         $scope.cheminPhoto = data.cheminPhoto; 
         $('#detailModal').modal('show');
     });
@@ -73,7 +73,7 @@ app.controller('photosTronconsErdfDetailCtrl', function($scope, $rootScope, $rou
         $scope.data = {}
     } 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'la photo du tronçon ERDF ' + data.idInventaireTronconErdf + ' a été supprimée.'
+        userMessages.successMessage = 'la photo du tronçon Enedis ' + data.idInventaireTronconErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/photostronconserdf/');
     });
@@ -118,17 +118,17 @@ app.controller('photosTronconsErdfEditCtrl', function($scope, $rootScope, $route
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'La photo du tronçon ERDF ' + data.idInventaireTronconErdf + ' a été créée avec succès.'
+        userMessages.successMessage = 'La photo du tronçon Enedis ' + data.idInventaireTronconErdf + ' a été créée avec succès.'
         $location.url($scope._appName + '/photostronconserdf/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.successMessage = 'La photo du tronçon ERDF ' + data.idInventaireTronconErdf + ' a été mise à jour avec succès.'
+        userMessages.successMessage = 'La photo du tronçon Enedis ' + data.idInventaireTronconErdf + ' a été mise à jour avec succès.'
         $location.url($scope._appName + '/photostronconserdf/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.successMessage = 'La photo du tronçon ERDF' + data.idInventaireTronconErdf + ' a été supprimée.'
+        userMessages.successMessage = 'La photo du tronçon Enedis' + data.idInventaireTronconErdf + ' a été supprimée.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/tronconserdf/' + data.idInventaireTronconErdf);
     });

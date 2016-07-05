@@ -43,12 +43,12 @@ groups:
                 help: Neutralisation prévue attraction
                 type: bool
             -   name: id_type_poteau_erdf
-                label: Type Poteau ERDF
-                help: Type de poteau ERDF
+                label: Type Poteau Enedis
+                help: Type de poteau Enedis
                 type: select
             -   name: id_type_poteau_erdf_secondaire
                 label: Type poteau secondaire
-                help: Type poteau ERDF secondaire
+                help: Type poteau Enedis secondaire
                 type: select
             -   name: id_zone_sensible
                 label: Zone sensible

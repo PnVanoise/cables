@@ -72,7 +72,7 @@ class TEquipementsPoteauxErdfService{
                 'id_nb_equipements'=>$info->getIdNbEquipements(),
             );
             $out_item['geometry'] = $info->getGeomJson();
-            $out_item['properties']['geomLabel'] = sprintf('<a href="#/cables/eqpoteauxerdf/%s"> Equipement poteau ERDF %s</a>',
+            $out_item['properties']['geomLabel'] = sprintf('<a href="#/cables/eqpoteauxerdf/%s"> Equipement poteau Enedis %s</a>',
                 $info->getId(), $info->getId());
             $out[] = $out_item;
         }

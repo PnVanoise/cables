@@ -61,7 +61,7 @@ class TInventaireTronconsErdfService{
                 'zone_sensible'=>!is_null($info->getZoneSensible())? $info->getZoneSensible()->getLibelle():'',
             );
             $out_item['geometry'] = $info->getGeomJson();
-            $out_item['properties']['geomLabel'] = sprintf('<a href="#/cables/tronconserdf/%s">Tronçon ERDF %s</a>',
+            $out_item['properties']['geomLabel'] = sprintf('<a href="#/cables/tronconserdf/%s">Tronçon Enedis %s</a>',
                 $info->getId(), $info->getId());
             $out[] = $out_item;
         }

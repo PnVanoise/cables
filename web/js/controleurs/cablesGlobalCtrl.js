@@ -15,16 +15,16 @@ app.config(function($routeProvider){
             title: 'Cas de mortalités'
         }, {
             id: 'poteauxerdf',
-            title: 'Poteaux ERDF'
+            title: 'Poteaux Enedis'
         }, {
             id: 'tronconserdf',
-            title: 'Tronçons ERDF'
+            title: 'Tronçons Enedis'
         }, {
             id: 'eqpoteauxerdf',
-            title: 'Equipements poteaux ERDF'
+            title: 'Equipements poteaux Enedis'
         }, {
             id: 'eqtronconserdf',
-            title: 'Equipements tronçons ERDF'
+            title: 'Equipements tronçons Enedis'
         }
     ];
 

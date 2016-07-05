@@ -5,8 +5,8 @@ groups:
     -   name: Informations
         fields:
             -   name: idInventairePoteauErdf
-                label: Poteau ERDF
-                help: Poteau ERDF concerné
+                label: Poteau Enedis
+                help: Poteau Enedis concerné
                 type: clickableinteger
                 urlpart: "cables/poteauxerdf/"
             -   name: type_equipement_poteau

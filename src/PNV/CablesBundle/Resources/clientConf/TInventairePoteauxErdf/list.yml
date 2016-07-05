@@ -1,4 +1,4 @@
-title: Inventaires Poteaux ERDF
+title: Inventaires Poteaux Enedis
 maplist: cables/poteauxerdf
 refname: cables/poteauxerdf
 emptyMsg: Aucun inventaire poteau
@@ -45,13 +45,13 @@ fields:
         options:
             visible: false
     -   name: type_poteau_erdf
-        label: Type Pot. ERDF
+        label: Type Pot. Enedis
         filter:
             type_poteau_erdf: select
         options:
             visible: false
     -   name: type_poteau_erdf_secondaire
-        label: Type Pot. ERDF secondaire
+        label: Type Pot. Enedis secondaire
         filter:
             type_poteau_erdf_secondaire: select
         options:

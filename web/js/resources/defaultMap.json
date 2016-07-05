@@ -1,8 +1,10 @@
 [
     {
-        "appli" : "73",
         "serveur": "139",
-        "order" : 1,
+        "appli": "73",
+        "id_appli": 100,
+        "schema": "cables73",
+        "order": 1,
         "id": "default", 
         "clustering": false,
         "name": "Default Map", 

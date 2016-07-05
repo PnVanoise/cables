@@ -18,9 +18,11 @@ class BreadConfigController extends Controller{
 
         $out = array();
 
-        // Accès au nom du schéma de l'appli pour la gestion du contenu spécifique
-        $path = $this->container->getParameter('kernel.root_dir').'/config_appli_cables.txt';
-        $schema = file_get_contents($path, null, null, 4, 8);
+        // Récupération du schema depuis le fichier de config de l'appli
+        $path = $this->container->getParameter('kernel.root_dir').'/../web/js/resources/defaultMap.json';
+        $json = file_get_contents($path);
+        $data = json_decode($json, true);
+        $schema = $data[0]['schema'];
 
         switch($view){
 

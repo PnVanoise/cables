@@ -32,9 +32,16 @@ class UserService{
         //return $currentUser->getMaxDroit() >= $level;
 
         // Accès à l'ID de l'appli pour la gestion du contenu spécifique
-        $path = '/home/intranetsigdev/projets_angular/cables_cc/app/config_appli_cables.txt';
-        $app = intval(file_get_contents($path, null, null, 0, 3));
-        return $currentUser['apps'][$app] >= $level;
+        // $path = '/home/intranetsigdev/projets_angular/cables_cc/app/config_appli_cables.txt';
+        // $app_id = intval(file_get_contents($path, null, null, 0, 3));
+
+        // Méthode de récupération de l'id depuis un json
+        // Méthode avec container ne fonctionne pas hors des controller
+        $path = __DIR__ . '/../../../../web/js/resources/defaultMap.json';
+        $json = file_get_contents($path);
+        $data = json_decode($json, true);
+        $app_id = $data[0]['id_appli'];
+        return $currentUser['apps'][$app_id] >= $level;
     }
 
     /*

@@ -23,8 +23,18 @@ class AppConfigController extends Controller{
         // Accès à l'ID de l'appli pour la gestion du contenu spécifique
         $path = $this->container->getParameter('kernel.root_dir').'/config_appli_cables.txt';
         $app = intval(file_get_contents($path, null, null, 0, 3));
+
+        // Méthode de récupération de l'id depuis un fichier texte
+        // $path = $this->container->getParameter('kernel.root_dir').'../web/js/resources/config_appli_cables.txt';
+        // $app = intval(file_get_contents($path, null, null, 0, 3));
+        
+        // Méthode de récupération de l'id depuis un json
+        $path = $this->container->getParameter('kernel.root_dir').'/../web/js/resources/defaultMap.json';
+        $json = file_get_contents($path);
+        $data = json_decode($json, true);
+        $app_id = $data[0]['id_appli'];
         return new JsonResponse(array(
-            array('id'=>'1', 'name'=>'cables', 'appId'=>$app),
+            array('id'=>'1', 'name'=>'cables', 'appId'=>$app_id),
         ));
     }
 	

@@ -14,6 +14,11 @@
         <!-- BOUTON EXPORTER -->
         <div class="btn-group">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-share"><span><span class="font-exporter"> Exporter <span></button>
+
+            <button class="btn btn-primary dropdown-toggle" ng-click="export2pdf()"><span class="glyphicon glyphicon-share"><span><span class="font-exporter"> Export PDF <span></button>
+
+            <div id="imageexport"><a ng-href="export/export_vue.csv" >Export csv</a></div>
+
             <ul class="dropdown-menu " role="menu">
                 <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'csv',escape:'false'});"> <img src='css/img/icons/csv.png' width='24px'> CSV</a></li>          
                                         

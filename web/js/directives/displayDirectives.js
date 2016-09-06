@@ -374,7 +374,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, mapService, selectedItemService, selectedPage, selectedCategoryService){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, $q, $loading, mapService, selectedItemService, selectedPage, selectedCategoryService){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -409,7 +409,9 @@ app.directive('tablewrapper', function(){
                             wheelzoom(img);
                         }
                     }
-                );
+                ).on('click', function(event) {
+                    event.preventDefault();
+                });
             });
 
             var filterFuncs = {
@@ -576,7 +578,7 @@ app.directive('tablewrapper', function(){
                                 // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
                                 if (geom.feature.properties.id == item.id) {
                                     selectedItemService.push(geom);
-    							    selectedCategoryService.push(cat);
+                                    selectedCategoryService.push(cat);
                                 }
                             }
                         );
@@ -624,6 +626,82 @@ app.directive('tablewrapper', function(){
             //         $scope.tableParams.page(pgnum);
             //     }
             // }
+
+            // EXPORT PDF
+            var pdfFileDefinition = {
+                content: [
+                    {
+                        image: '',
+                    },
+                    {
+                        text: 'Fruits and Calories'
+                    }
+                ],
+                styles: {
+                    header: {
+                        bold: true,
+                        contentolor: '#000',
+                        fontSize: 11
+                    },
+                    // Autres propriétés
+                }
+            };
+
+            var map2cropimage = function () {
+                var deferred = $q.defer(); // gestion promise pour assurer constitution complète image
+                var map = mapService.getMap(); // Récupération objet map (ici map se trouve dans un service AngularJs mapService)
+                var sizemap = map.getSize();
+                leafletImage(map, function(err, canvas) { // plugin pour la création de l'image depuis la map
+                    var itemImage = canvas.toDataURL('image/jpeg');
+                    var finalCanvas = document.createElement('canvas');
+                    
+                    // taille du canvas qui permet de créer l'image finale = détermine la taille de l'image finale
+                    finalCanvas.width = 400;
+                    finalCanvas.height = 300;
+                    
+                    var context = finalCanvas.getContext('2d');
+                    var imageObj = new Image();
+                    imageObj.src = itemImage;
+                    
+                    // taille du morceau de la map qu'on souhaite récupérer (taille map = 1680x660)
+                    // todo : partie à rendre dynamique selon la taille de la map afin d'avoir des proportions plutôt que des constantes
+                    var sourceWidth = 400;
+                    var sourceHeight = 300;
+                    // coordonnées à partir desquelles le morceau de map est récupéré
+                    // pour cet example une image de 400x300 centrée sur la map est récupérée
+                    var sourceX = sizemap.x / 2 - sourceWidth / 2;
+                    var sourceY = sizemap.y / 2 - sourceHeight / 2;
+                    
+                    // création de l'image depuis le canvas
+                    context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, sourceWidth, sourceHeight);
+                    var imgfin = new Image();
+                    
+                    // bloc permettant de faire afficher l'image pour tester
+                    // créer <div id="images"></div> dans html
+                    // imgfin.src = canvas2.toDataURL("image/png");
+                    // document.getElementById('images').innerHTML = '';
+                    // document.getElementById('images').appendChild(imgfin);
+                    
+                    // Insertion de l'image dans l'objet qui va constituer le PDF
+                    pdfFileDefinition.content[0].image = finalCanvas.toDataURL("image/png");
+                    
+                    deferred.resolve();
+                });
+                return deferred.promise;
+            }
+
+            // Fonction qui crée le PDF depuis l'objet qui définit sa structure et qui ouvre le PDF dans la navigateur
+            $scope.export2pdf = function () {
+                var deferred = $q.defer();
+                // var promise = exportimg.call(); // appel fonction exportimg en promise
+                var promise = map2cropimage.call(); // appel fonction exportimg en promise
+                promise.then(function() {
+                    pdfMake.createPdf(pdfFileDefinition).open(); // exécution de pdfMake.createPdf quand l'image est constituée
+                });
+            }
+
+            // FIN EXPORT PDF
+
 
             // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
             $rootScope.$watchCollection(function() {

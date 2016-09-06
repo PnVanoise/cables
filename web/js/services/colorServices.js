@@ -115,23 +115,20 @@ app.service('defaultColorService', function () {
 
     //Style pour les mortalités par pércussion
     this.iconPerc = function(){
-        // console.log('dans defaultColorService iconPerc');
-        iconPerc = L.AwesomeMarkers.icon({
-            icon: 'glyphicon-certificate',
-            markerColor: 'cadetblue',
-            iconColor: '#FFF'
+        iconPerc = L.icon({
+            iconUrl: 'css/lib/images/cas_mortalites_percussion.png',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
         });
     return iconPerc;
     }
 
     //Style pour les mortalités par électrocution
     this.iconElec = function(){
-        // console.log('dans defaultColorService iconElec');
-        iconElec = L.AwesomeMarkers.icon({
-            prefix: 'fa',
-            icon: 'bolt',
-            markerColor: 'cadetblue',
-            iconColor: '#DECF06'
+        iconElec = L.icon({
+            iconUrl: 'css/lib/images/cas_mortalites_electrocution.png',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
         });
     return iconElec;
     }
@@ -141,6 +138,8 @@ app.service('defaultColorService', function () {
         poNoVisible = L.icon({
             className : 'poNoVisible',
             iconUrl: 'css/lib/images/marker-poteau-novisible.png',
+            iconSize: [17, 17],
+            iconAnchor: [8, 8],
         });
     return poNoVisible;
     }
@@ -148,8 +147,9 @@ app.service('defaultColorService', function () {
     //Style pour les poteaux à risque élevé
     this.poteauxErdfRisqueEleve = function(){
         poRisqueEleve = L.icon({
-            className : 'poRisqueEleve',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/poteaux_risque_eleve.png',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
         });
     return poRisqueEleve;
     }
@@ -157,8 +157,9 @@ app.service('defaultColorService', function () {
     //Style pour les poteaux à risque secondaire
     this.poteauxErdfRisqueSecondaire = function(){
         poRisqueSecondaire = L.icon({
-            className : 'poRisqueSecondaire',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/poteaux_risque_secondaire.png',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
         });
     return poRisqueSecondaire;
     }
@@ -166,8 +167,9 @@ app.service('defaultColorService', function () {
     //Style pour les poteaux à non risque
     this.poteauxErdfPeuPasRisque = function(){
         poNonRisque = L.icon({
-            className : 'poNonRisque',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/poteaux_risque_peupas.png',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
         });
     return poNonRisque;
     }
@@ -175,8 +177,9 @@ app.service('defaultColorService', function () {
     //Style pour les équipements poteaux
     this.eqPoteau = function(){
         eqPoteau = L.icon({
-            className : 'eqPoteau',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/equip_poteaux.png',
+            iconSize: [10, 10],
+            iconAnchor: [5, 5],
         });
     return eqPoteau;
     }
@@ -482,25 +485,20 @@ app.service('changeColorService', function () {
     return tronNonRisque;
     }
 
-    //Style pour les mortalités par pércussion
     this.iconPerc = function(){
-        // console.log('dans changeColorService iconElec');
-        iconPerc = L.AwesomeMarkers.icon({
-            icon: 'glyphicon-certificate',
-            markerColor: 'pink',
-            iconColor: '#FFF'
+        iconPerc = L.icon({
+            iconUrl: 'css/lib/images/cas_mortalites_percussion_selection.png',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
         });
     return iconPerc;
     }
 
-    //Style pour les mortalités par électrocution
     this.iconElec = function(){
-        // console.log('dans changeColorService iconElec');
-        iconElec = L.AwesomeMarkers.icon({
-            prefix: 'fa',
-            icon: 'bolt',
-            markerColor: 'pink',
-            iconColor: '#FFF'
+        iconElec = L.icon({
+            iconUrl: 'css/lib/images/cas_mortalites_electrocution_selection.png',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
         });
     return iconElec;
     }
@@ -508,8 +506,9 @@ app.service('changeColorService', function () {
     //Style pour les poteaux à risque élevé
     this.poRisqueEleve = function(){
         poRisqueEleve = L.icon({
-            className : 'poRisqueClick',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/poteaux_risque_selection.png',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
         });
     return poRisqueEleve;
     }
@@ -517,8 +516,9 @@ app.service('changeColorService', function () {
     //Style pour les poteaux à risque secondaire
     this.poRisqueSecondaire = function(){
         poRisqueSecondaire = L.icon({
-            className : 'poRisqueClick',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/poteaux_risque_selection.png',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
         });
     return poRisqueSecondaire;
     }
@@ -526,8 +526,9 @@ app.service('changeColorService', function () {
     //Style pour les poteaux à non risque
     this.poNonRisque = function(){
         poNonRisque = L.icon({
-            className : 'poRisqueClick',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/poteaux_risque_selection.png',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
         });
     return poNonRisque;
     }
@@ -535,8 +536,9 @@ app.service('changeColorService', function () {
     //Style pour les équipements poteaux
     this.eqPoteau = function(){
         eqPoteau = L.icon({
-            className : 'eqPoteauClick',
-            iconUrl: 'css/lib/images/marker-poteau.png',
+            iconUrl: 'css/lib/images/equip_poteaux_selection.png',
+            iconSize: [10, 10],
+            iconAnchor: [5, 5],
         });
     return eqPoteau;
     }

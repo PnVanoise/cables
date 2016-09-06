@@ -213,8 +213,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
         var tronRisqueSecondaire = defaultColorService.tronRisqueSecondaire();   // 12 - tronçons risques secondaires
         var tronNonRisque        = defaultColorService.tronNonRisque();          // 13 - tronçons non risques
         var zOffset              = 0;
-
-var iconelecpink;
+        var iconelecpink;
                                                     // position de l'élément avant click
         if (_status) {
             // Changement de couleurs et icons au click

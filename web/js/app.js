@@ -94,6 +94,7 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
     // Définition des couches qui sont chargées au démarrage de l'application
     var categoriesFirstLoad = [
        "zonessensibles", "poteauxerdf", "tronconserdf"
+        // "poteauxerdf"
     ];
 
     // Mise en cache des couches et sous-couches non visibles donc non chargées au démarrage de l'application

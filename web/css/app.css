@@ -1908,20 +1908,21 @@ a:hover {
   display: inline-block;
   vertical-align: middle;
   margin-right: 20px;
+  padding-top: 150px;
 }
 
 .bloc-part-droite {
   display: inline-block;
   vertical-align: middle;
   margin-left: 20px;
-  padding-top: 60px;
+  padding-top: 180px;
 }
 
 .bloc-part-bas {
   display: inline-block;
   vertical-align: middle;
-  padding-top: 40px;
-  padding-bottom: 30px;
+  padding-top: 10px;
+  /*padding-bottom: 30px;*/
 }
 
 .bloc-part-bas-gauche {

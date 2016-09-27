@@ -634,7 +634,7 @@ app.directive('tablewrapper', function(){
                         image: '',
                     },
                     {
-                        text: 'Fruits and Calories'
+                        text: 'Test export carte et données attributaires'
                     }
                 ],
                 styles: {
@@ -648,6 +648,7 @@ app.directive('tablewrapper', function(){
             };
 
             var map2cropimage = function () {
+                $loading.start('spinner-export-pdf');
                 var deferred = $q.defer(); // gestion promise pour assurer constitution complète image
                 var map = mapService.getMap(); // Récupération objet map (ici map se trouve dans un service AngularJs mapService)
                 var sizemap = map.getSize();
@@ -697,11 +698,11 @@ app.directive('tablewrapper', function(){
                 var promise = map2cropimage.call(); // appel fonction exportimg en promise
                 promise.then(function() {
                     pdfMake.createPdf(pdfFileDefinition).open(); // exécution de pdfMake.createPdf quand l'image est constituée
+                    $loading.finish('spinner-export-pdf');
                 });
             }
 
             // FIN EXPORT PDF
-
 
             // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
             $rootScope.$watchCollection(function() {

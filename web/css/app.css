@@ -176,8 +176,10 @@
 .btn-primary {
   /*position: absolute;*/
   padding: 5px 5px 5px 5px;
-  /*font-family: sans-serif;
-  font-size: 12px;*/
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  /*background: red;*/
 }
 
 .font-exporter {

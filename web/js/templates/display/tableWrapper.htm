@@ -2,6 +2,9 @@
 <select class="form-control" ng-model="params.filter()[column.name]" ng-options="item.libelle as item.libelle for item in column.options.choices.map(filterZero)"></select>
 </script>
 
+<div dw-loading="spinner-export-pdf" dw-loading-options="{text: 'Création du PDF'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}">
+</div>
+
 <div style="clear: both; margin-top: 5px;">
 <filterform ng-if="filterUrl" url="{{filterUrl}}" schema="schema.filtering" callback="filterCallback"></filterform>
 </div>
@@ -10,22 +13,11 @@
     <span class="text-primary">Aucune donnée</span>
 </h3>
 <div class="pos-table" ng-if="data.length">
-    <div class="btn-group float-right" style="margin-bottom: 1ex;">
+    <div class="float-right" style="margin-bottom: 1ex;">
         <!-- BOUTON EXPORTER -->
-        <div class="btn-group">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-share"><span><span class="font-exporter"> Exporter <span></button>
+            <button class="btn btn-primary" ng-click="export2pdf()">Export PDF&nbsp;&nbsp;<span class="glyphicon glyphicon-file"><span></button>
 
-            <button class="btn btn-primary dropdown-toggle" ng-click="export2pdf()"><span class="glyphicon glyphicon-share"><span><span class="font-exporter"> Export PDF <span></button>
-
-            <div id="imageexport"><a ng-href="export/export_vue.csv" >Export csv</a></div>
-
-            <ul class="dropdown-menu " role="menu">
-                <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'csv',escape:'false'});"> <img src='css/img/icons/csv.png' width='24px'> CSV</a></li>          
-                                        
-                <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'excel',escape:'false'});"> <img src='css/img/icons/xls.png' width='24px'> XLS</a></li>
-                <li><a ng-href="" onClick ="$('#listDonnees').tableExport({type:'doc',escape:'false'});"> <img src='css/img/icons/word.png' width='24px'> DOC</a></li>
-            </ul>
-        </div> 
+            <a href="export/export_vue.csv" class="btn btn-primary" role="button">Export CSV&nbsp;&nbsp;<span class="glyphicon glyphicon-list"><span></a>
         <!-- FIN -->
     </div>
     <div class="tb-wrapper">

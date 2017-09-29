@@ -699,35 +699,38 @@ app.directive('tablewrapper', function(){
 
             // FIN EXPORT PDF
 
-            // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
+            // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objets sélectionnés
             $rootScope.$watchCollection(function() {
                 return selectedItemService;
             }, function(newVal, oldVal) {
-                // Pour éviter un lancement à l'initial
-                if (newVal == oldVal) {
-                    return;
-                }
+                if (newVal == oldVal) { return; }  // Pour éviter un lancement à l'initial
 
-                var selectedItem = selectedItemService[0].feature.properties;
-                var selectedCategory = selectedCategoryService[0];
+                var selectedItems = newVal.map(function(item) {
+                  return item.feature.properties;
+                });
+                var ids = selectedItems.map(function(item) {
+                  return item.id;
+                });
+                var categories = selectedItems.map(function(item) {
+                  return item.cat;
+                });
                 var category = $scope.refName.split('/')[1];
                 angular.forEach($scope.data, function(item) {
-                    if (item.id == selectedItem.id &&
-                        selectedItem.cat == category) {
-                        item.$selected = true; // Exécuté sur clic objet dans la carte => ligne correspondante dans tableau devient rose
-                    } else {
-                        item.$selected = false;
-                    }
+                  // Exécuté sur clic objet dans la carte => ligne correspondante dans tableau devient rose
+                  item.$selected = (ids.indexOf(item.id) >= 0 && categories.indexOf(category) >= 0);
                 });
+
                 var page;
                 configServ.get($scope.refName + ':ngTable:Page', function(page){
                     page = page;
                     selectedPage.length = 0;
                     selectedPage.push(page);
                 });
+
+                if (selectedItems.length > 1) { return; }  // Do not change page in case of multiples results
                 var idx = null;
                 for (var key in orderedData){
-                    if (orderedData[key].id === selectedItem.id){
+                    if (orderedData[key].id === selectedItems[0].id){
                         idx = orderedData.indexOf(orderedData[key]);
                     }
                 }

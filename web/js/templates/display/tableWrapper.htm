@@ -87,8 +87,8 @@
                         <span ng-if="column.options.type=='select'">{{column.options.choices|tselect:item[column.name]}}</span>
                         <!-- INITIALISATION DE LA PHOTO SI PRESENTE -->
                         <div ng-if="column.options.type=='image'">
-                            <a class="photo" href="{{item.cheminPhoto}}">
-                              <img  id="min" class="thumb-image" ng-src="{{item.cheminPhoto}}"/></a>                
+                            <a class="photo" href="{{item.cheminPhoto}}" modaldisplay-img>
+                              <img  id="min" class="thumb-image" ng-src="{{item.cheminPhoto}}"/></a>
                         </div>
                         <!-- FIN -->                       
                         <ul ng-if="column.options.type=='list'" class="list list-inline">

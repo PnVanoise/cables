@@ -912,3 +912,19 @@ app.directive('exportSelected', function (selectedItemService) { return {
     })
   }
 }})
+
+app.directive('modaldisplayImg', function() {
+  return {
+    restrict: 'A',
+    link: function(scope, el) {
+      el.colorbox({
+        width: 800,
+        height: 600,
+        onComplete: function() {
+          // Exécution du plugin wheelzoom pour zoom et déplacement dans image
+          wheelzoom($('.cboxPhoto')[0])
+        }
+      })
+      }
+    }
+})

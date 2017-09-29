@@ -738,20 +738,6 @@ app.directive('tablewrapper', function(){
                 $scope.tableParams.page(pgnum);
             });
 
-            //$scope.$watch('data', function(newval){
-                //if(newval){
-                    //$scope.data.forEach(function(item){
-                        //if(item.$selected){
-                            //console.log('dans if data');
-                            //$scope.currentItem = item;
-                            //window.itemsel = item;
-                            //$rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
-                        //}
-                    //});
-                    //$scope.tableParams.reload();
-                //}
-            //});
-
             /*
              * Listeners
              */

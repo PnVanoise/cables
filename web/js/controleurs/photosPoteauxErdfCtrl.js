@@ -1,6 +1,5 @@
 var app = angular.module('photosPoteauxErdfCtrl');
 
-
 /*
  * configuration des routes
  */
@@ -34,28 +33,6 @@ app.controller('photosPoteauxErdfDetailCtrl', function($scope, $rootScope, $rout
     $scope.$on('display:init', function(ev, data){
         $scope.title = 'Photo n°' + data.id + '  du poteau Enedis ' + data.inventaire_poteau_erdf;
         $scope.cheminPhoto = data.cheminPhoto;
-    });
-
-    // Affichage photo dans modal avec plugin colorbox (voir js/lib/colorbox-1.6.4)
-    // Zoom et déplacement sur chaque photo avec plugin wheelzoom (voir js/lib/wheelzoom-master)
-    $(document).ready(function () {
-        console.log('ready');
-        // Exécution colorbox sur objet du DOM avec attr class photo-detail
-        $(".photo-detail-tronc").colorbox(
-            {
-                // Dimension de la modal
-                width: '800px',
-                height: '600px',
-                // Sur chargement complet des photos dans modal
-                onComplete: function(){
-                    // Recherche des éléments du DOM dont attr class = cboxPhoto
-                    // => doit ressortir que les photos dans la modal
-                    var img = document.querySelector('[class*="cboxPhoto"]');
-                    // Exécution du plugin wheelzoom pour zoom et déplacement dans image
-                    wheelzoom(img);
-                }
-            }
-        );
     });
 
     // Ajout la possibilité de supprimer un élément en mode détail

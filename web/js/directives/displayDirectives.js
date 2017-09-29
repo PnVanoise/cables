@@ -907,3 +907,20 @@ app.directive('modaldisplay', function($rootScope, configServ){
         }
     };
 });
+
+app.directive('modaldisplayImg', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, el) {
+            el.colorbox({
+                width: 800,
+                height: 600,
+                // Sur chargement complet des photos dans modal
+                onComplete: function() {
+                    // Exécution du plugin wheelzoom pour zoom et déplacement dans image
+                    wheelzoom($('.cboxPhoto')[0]);
+                }
+            });
+        }
+    };
+});

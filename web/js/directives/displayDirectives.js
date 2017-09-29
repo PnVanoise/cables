@@ -375,7 +375,7 @@ app.directive('tablewrapper', function(){
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
         controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, $q, $loading, mapService, selectedItemService, selectedPage, selectedCategoryService){
-            $scope.currentItem = null;
+            $scope.currentItems = [];
             $scope._checkall = false;
             filterIds = [];
             extFilter = false;
@@ -556,33 +556,28 @@ app.directive('tablewrapper', function(){
             /*
              * Fonctions
              */
-            $scope.selectItem = function(item, broadcast, cat){
+            $scope.selectItem = function(item, cat, $event){
                 if (cat !== 'photospoteauxerdf' && cat !== 'photostronconserdf') {
-                    if($scope.currentItem){ // currentItem déclaré dans controller
-                        $scope.currentItem.$selected = false;
-                    }
-                    if(broadcast == undefined){
-                        broadcast = true;
+                    if (!$event.ctrlKey) { // Not cumulative
+                      $scope.currentItems.forEach(function(item) {
+                          item.$selected = false;
+                      });
+                      $scope.currentItems.length = 0;
+                      selectedItemService.length = 0;
+                      selectedCategoryService.length = 0;
                     }
                     item.$selected = true; // ligne sur laquelle on vient de cliquer passe en rose
-                    $scope.currentItem = item;
-                    configServ.put($scope.refName + ':itemId:selected', item.id);
-                    if(broadcast){
-                        selectedItemService.length = 0;
-                        selectedCategoryService.length = 0;
+                    $scope.currentItems.push(item);
 
-                        angular.forEach(mapService.tabThemaData[cat].getLayers(),
-                            function(geom) {
-                                // Si l'item sélectionné dans le tableau = item dans couche
-                                // => selectedItemService rempli avec item
-                                // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
-                                if (geom.feature.properties.id == item.id) {
-                                    selectedItemService.push(geom);
-                                    selectedCategoryService.push(cat);
-                                }
-                            }
-                        );
-                    }
+                    angular.forEach(mapService.tabThemaData[cat].getLayers(), function(geom) {
+                        // Si l'item sélectionné dans le tableau = item dans couche
+                        // => selectedItemService rempli avec item
+                        // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
+                        if (geom.feature.properties.id == item.id) {
+                            selectedItemService.push(geom);
+                            selectedCategoryService.push(cat);
+                        }
+                    });
                 }
             };
 

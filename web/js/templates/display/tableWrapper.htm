@@ -73,7 +73,7 @@
             </thead>
             <!-- AFFICHAGE DES DONNEES -->
             <tbody>
-                <tr class="galerie-photo" ng-repeat="item in $data" ng-click="selectItem(item, true, item.cat)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr class="galerie-photo" ng-repeat="item in $data" ng-click="selectItem(item, item.cat, $event)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
 
                     <td style="text-align: center">
                         <a class="link-mute" id="item{{item.id}}" ng-href="{{schema.detailUrl}}{{item.id}}" ng-click="savePhotoUrl(item.id)">

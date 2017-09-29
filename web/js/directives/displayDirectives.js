@@ -537,7 +537,7 @@ app.directive('tablewrapper', function(){
                     $defer.resolve(orderedData.slice((curPg - 1) * params.count(), curPg * params.count()));
                 }
             });
-            
+
             // récupération des filtres utilisés sur le tableau
             configServ.get($scope.refName + ':ngTable:Filter', function(filter){
                 $scope.tableParams.filter(filter);
@@ -605,7 +605,7 @@ app.directive('tablewrapper', function(){
             //     var selectedItem = selectedItemService[0].feature.properties;
             //     var category = $scope.refName.split('/')[1];
             //     // var data = mapService.tabThemaData[category];
-                
+
             //     angular.forEach($scope.data, function(item) {
             //     // angular.forEach(data, function(item) {
             //         if (item.id == selectedItem.id &&
@@ -655,15 +655,15 @@ app.directive('tablewrapper', function(){
                 leafletImage(map, function(err, canvas) { // plugin pour la création de l'image depuis la map
                     var itemImage = canvas.toDataURL('image/jpeg');
                     var finalCanvas = document.createElement('canvas');
-                    
+
                     // taille du canvas qui permet de créer l'image finale = détermine la taille de l'image finale
                     finalCanvas.width = 400;
                     finalCanvas.height = 300;
-                    
+
                     var context = finalCanvas.getContext('2d');
                     var imageObj = new Image();
                     imageObj.src = itemImage;
-                    
+
                     // taille du morceau de la map qu'on souhaite récupérer (taille map = 1680x660)
                     // todo : partie à rendre dynamique selon la taille de la map afin d'avoir des proportions plutôt que des constantes
                     var sourceWidth = 400;
@@ -672,20 +672,20 @@ app.directive('tablewrapper', function(){
                     // pour cet example une image de 400x300 centrée sur la map est récupérée
                     var sourceX = sizemap.x / 2 - sourceWidth / 2;
                     var sourceY = sizemap.y / 2 - sourceHeight / 2;
-                    
+
                     // création de l'image depuis le canvas
                     context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, sourceWidth, sourceHeight);
                     var imgfin = new Image();
-                    
+
                     // bloc permettant de faire afficher l'image pour tester
                     // créer <div id="images"></div> dans html
                     // imgfin.src = canvas2.toDataURL("image/png");
                     // document.getElementById('images').innerHTML = '';
                     // document.getElementById('images').appendChild(imgfin);
-                    
+
                     // Insertion de l'image dans l'objet qui va constituer le PDF
                     pdfFileDefinition.content[0].image = finalCanvas.toDataURL("image/png");
-                    
+
                     deferred.resolve();
                 });
                 return deferred.promise;

@@ -881,8 +881,10 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             // Au click: Zoom et affiche le label de la couche s'il y'en a
             geom.on('click', function(e){
                 $rootScope.$apply(function() {
-                    selectedItemService.length = 0;
-                    selectedCategoryService.length = 0;
+                    if (!e.originalEvent.ctrlKey) {
+                        selectedItemService.length = 0;
+                        selectedCategoryService.length = 0;
+                    }
                     selectedItemService.push(geom);
                     selectedCategoryService.push(cat);
                 });

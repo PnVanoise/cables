@@ -53,7 +53,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
 
     var tileLayers = []; // couche pour les fonds de référence
 
-    var currentSel;
+    var currentSel = [];
 
     var currentBaseLayer = null;
 
@@ -143,7 +143,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
 
              // Vue au premier chargement de l'appli
             map.setView(empriseInit, zoomInit);
-            
+
         });
     };
 
@@ -232,7 +232,9 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             tronRisqueSecondaire = changeColorService.tronRisqueSecondaire();
             tronNonRisque        = changeColorService.tronNonRisque();
             zOffset              = 1000;
-        } try {
+        }
+
+        try {
             if(item.feature.properties.cause_mortalite === 'électrocution') {
                 item.setIcon(iconElec);
             }
@@ -578,7 +580,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                     return;
                 }
                 if (newVal) {
-                    this.zoomAndHighlightItem(selectedItemService[0]);
+                    this.zoomAndHighlightItem(selectedItemService);
                 }
             }));
 
@@ -710,23 +712,29 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
         },
 
         /*
-         * Actions faites (zoom et couleur de sélection) sur la sélection d'un élément sur la carte ou dans un tableau
+         * Actions faites (zoom et couleur de sélection) sur la sélection d'un
+         * élément sur la carte ou dans un tableau
          * Parameters :
-         * - item : la géométrie à mettre en évidence dans la carte
+         * - collection : la collection de géométrie à mettre en évidence
+         *                dans la carte
          */
-        zoomAndHighlightItem: function(item) {
-            // Si on est en édition le zoom et recentrage sur un objet dans la carte n'est pas actif
-            if ($location.path().split('/')[2]!='edit') {
-                // sélection courante = pas de changement de couleur
-                if (currentSel) {
-                    changeColorItem(currentSel, false);
-                }
-                currentSel = item;
-                this.zoomToItem(item);
-                // changement de couleur sur item sélectionné
-                changeColorItem(item, true);
-                return item;
+        zoomAndHighlightItem: function(collection) {
+            // Si on est en édition le zoom et recentrage
+            // sur un objet dans la carte n'est pas actif
+            if ($location.path().split('/')[2]=='edit') { return; }
+
+            // sélection courante = pas de changement de couleur
+            if (currentSel.length>0) {
+                collection.forEach(function(item) {
+                    changeColorItem(item, false);
+                }.bind(this));
             }
+            currentSel = collection.slice();
+            collection.forEach(function(item) {
+              this.zoomToItem(item);
+              // changement de couleur sur item sélectionné
+              changeColorItem(item, true);
+            }.bind(this));
         },
 
         manageColor: function(item, category, subLayer, style, color, noVisibleStyle, defaultStyle, changeStyle) {

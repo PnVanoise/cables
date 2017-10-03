@@ -699,7 +699,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
          * Permet de zoomer sur un objets quel que soit son type (point, ligne et polygone)
          * Parameters :
          * - item : un élément (géométrique et attributaire) d'un ensemble de données métier
-         */    
+         */
         zoomToItem: function(item) {
             try {
                 // centre la carte sur l'objet point sélectionné
@@ -724,11 +724,9 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             if ($location.path().split('/')[2]=='edit') { return; }
 
             // sélection courante = pas de changement de couleur
-            if (currentSel.length>0) {
-                collection.forEach(function(item) {
-                    changeColorItem(item, false);
-                }.bind(this));
-            }
+            currentSel.forEach(function(item) {
+                changeColorItem(item, false);
+            }.bind(this));
             currentSel = collection.slice();
             collection.forEach(function(item) {
               this.zoomToItem(item);
@@ -889,14 +887,12 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                     selectedCategoryService.push(cat);
                 });
             });
-            if(jsonData.properties.geomLabel){
+            if (jsonData.properties.geomLabel) {
                 geom.bindPopup(jsonData.properties.geomLabel);
             }
-            try{
-
+            try {
                 geom.setZIndexOffset(0);
-            }
-            catch(e){}
+            } catch(e) {}
 
             /*
              * Distribution des couleurs aux différentes couches

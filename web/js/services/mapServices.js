@@ -712,6 +712,16 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
         },
 
         /*
+         * Permet de zoomer sur des objets quel que soit leurs types
+         * Parameters :
+         * - collection : une collection de features
+         */
+        zoomToCollection: function(collection) {
+            var fg = new L.FeatureGroup(collection);
+            map.fitBounds(fg.getBounds());
+        },
+
+        /*
          * Actions faites (zoom et couleur de sélection) sur la sélection d'un
          * élément sur la carte ou dans un tableau
          * Parameters :
@@ -728,8 +738,8 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                 changeColorItem(item, false);
             }.bind(this));
             currentSel = collection.slice();
+            this.zoomToCollection(collection);
             collection.forEach(function(item) {
-              this.zoomToItem(item);
               // changement de couleur sur item sélectionné
               changeColorItem(item, true);
             }.bind(this));

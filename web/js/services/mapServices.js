@@ -893,6 +893,10 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                         selectedItemService.length = 0;
                         selectedCategoryService.length = 0;
                     }
+                    if (selectedCategoryService.length > 0
+                      && selectedCategoryService.indexOf(cat) === -1) {
+                      return;
+                    }
                     selectedItemService.push(geom);
                     selectedCategoryService.push(cat);
                 });

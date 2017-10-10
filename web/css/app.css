@@ -958,6 +958,19 @@ background-color:  aliceblue
   content: url('img/marker-snap.png');
 }
 
+/* Leaflet.Draw */
+.leaflet-top .leaflet-draw {
+  margin-top: 120px;
+  margin-left: 4px;
+}
+.leaflet-draw-toolbar > a {
+    display: none;
+}
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+    display: block;
+    background-position: -36.5px -2px;
+}
+
 /*
  * Photos
  */

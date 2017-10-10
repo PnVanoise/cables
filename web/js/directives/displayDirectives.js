@@ -720,22 +720,23 @@ app.directive('tablewrapper', function(){
                   item.$selected = (ids.indexOf(item.id) >= 0 && categories.indexOf(category) >= 0);
                 });
 
-                var page;
-                configServ.get($scope.refName + ':ngTable:Page', function(page){
-                    page = page;
-                    selectedPage.length = 0;
-                    selectedPage.push(page);
-                });
+                if (selectedItems.length === 0 || !selectedItems[0]) {  // Do not change page in case of multiples results
+                  var page;
+                  configServ.get($scope.refName + ':ngTable:Page', function(page){
+                      page = page;
+                      selectedPage.length = 0;
+                      selectedPage.push(page);
+                  });
 
-                if (selectedItems.length > 1) { return; }  // Do not change page in case of multiples results
-                var idx = null;
-                for (var key in orderedData){
-                    if (orderedData[key].id === selectedItems[0].id){
-                        idx = orderedData.indexOf(orderedData[key]);
-                    }
+                  var idx = null;
+                  for (var key in orderedData){
+                      if (selectedItems.length > 0 && orderedData[key].id === selectedItems[0].id){
+                          idx = orderedData.indexOf(orderedData[key]);
+                      }
+                  }
+                  var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
+                  $scope.tableParams.page(pgnum);
                 }
-                var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
-                $scope.tableParams.page(pgnum);
             });
 
             /*

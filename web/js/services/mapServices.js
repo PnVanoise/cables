@@ -478,7 +478,18 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
          */
         initMap: function(elementId) {
             map = L.map(elementId, {
-                zoomControl:false,
+              zoomControl: false,
+            });
+
+            var drawnItems = new L.FeatureGroup();
+            map.addLayer(drawnItems);
+            var drawControl = new L.Control.Draw({
+              edit: {
+                featureGroup: drawnItems,
+              },
+            });
+            map.addControl(drawControl);
+
             });
 
             loadMapConfig();

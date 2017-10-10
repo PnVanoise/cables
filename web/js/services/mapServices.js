@@ -745,8 +745,10 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
          * - collection : une collection de features
          */
         zoomToCollection: function(collection) {
-            var fg = new L.FeatureGroup(collection);
-            map.fitBounds(fg.getBounds());
+            if (collection.length === 0) return;
+            var bounds = new L.FeatureGroup(collection).getBounds();
+            if (!bounds.isValid()) return;
+            map.fitBounds(bounds);
         },
 
         /*

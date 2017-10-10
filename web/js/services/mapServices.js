@@ -490,6 +490,23 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             });
             map.addControl(drawControl);
 
+            map.on(L.Draw.Event.CREATED, function(e) {
+              var drawn = e.layer.toGeoJSON();
+              var selected = [];
+              geoms.forEach(function(geom) {
+                var intersect = turf.intersect(drawn, geom.toGeoJSON());
+                if (intersect.geometry) {
+                  selected.push(geom);
+                }
+                $rootScope.$apply(function() {
+                  selectedItemService.length = 0;
+                  selectedCategoryService.length = 0;
+                  if (selected.length>0) {
+                    selectedItemService.push.apply(selectedItemService, selected);
+                    selectedCategoryService.push('FIXME');
+                  }
+                });
+              });
             });
 
             loadMapConfig();

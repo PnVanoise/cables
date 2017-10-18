@@ -596,32 +596,6 @@ app.directive('tablewrapper', function(){
                 }
             };
 
-            // var displaySelected = function() {
-            //     var selectedItem = selectedItemService[0].feature.properties;
-            //     var category = $scope.refName.split('/')[1];
-            //     // var data = mapService.tabThemaData[category];
-
-            //     angular.forEach($scope.data, function(item) {
-            //     // angular.forEach(data, function(item) {
-            //         if (item.id == selectedItem.id &&
-            //             selectedItem.cat == category) {
-            //             item.$selected = true;
-            //         } else {
-            //             item.$selected = false;
-            //         }
-            //     });
-            //     if (selectedItem && selectedItem.cat == category) {
-            //         var idx = null;
-            //         for (var key in orderedData){
-            //             if (orderedData[key].id === selectedItem.id){
-            //                 idx = orderedData.indexOf(orderedData[key]);
-            //             }
-            //         }
-            //         var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
-            //         $scope.tableParams.page(pgnum);
-            //     }
-            // }
-
             // EXPORT PDF
             var pdfFileDefinition = {
                 content: [

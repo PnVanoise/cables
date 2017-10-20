@@ -326,6 +326,9 @@
 .map.small{
     height: 92vh;
 }
+.map.right-cropped {
+    width: 55%;
+}
 
 .content-panel {
  min-height: 90vh;

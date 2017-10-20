@@ -501,9 +501,9 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                 $rootScope.$apply(function() {
                   selectedItemService.length = 0;
                   selectedCategoryService.length = 0;
-                  if (selected.length>0) {
+                  if (selected.length > 0) {
                     selectedItemService.push.apply(selectedItemService, selected);
-                    selectedCategoryService.push('FIXME');
+                    selectedCategoryService.push(selected[0].feature.properties.cat);
                   }
                 });
               });

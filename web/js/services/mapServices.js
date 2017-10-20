@@ -942,7 +942,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
              * Distribution des couleurs aux différentes couches
              */
 
-// COUCHES DE REFERENCE = ERDF, RTE, OGM, COMMUNES
+            // COUCHES DE REFERENCE = ERDF, RTE, OGM, COMMUNES
              switch (jsonData.properties.cat) {
                 case'erdfappareilcoupure':
                     geom.setIcon(defaultColorService.erdfac())

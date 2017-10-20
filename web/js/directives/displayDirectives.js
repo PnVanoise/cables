@@ -374,7 +374,7 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, $q, $loading, mapService, selectedItemService, selectedPage, selectedCategoryService){
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, $q, $loading, $timeout, mapService, selectedItemService, selectedPage, selectedCategoryService){
             $scope.currentItems = [];
             $scope._checkall = false;
             filterIds = [];
@@ -557,6 +557,7 @@ app.directive('tablewrapper', function(){
              * Fonctions
              */
             $scope.selectItem = function(item, cat, $event){
+                var category = $scope.refName.split('/')[1];
                 if (cat !== 'photospoteauxerdf' && cat !== 'photostronconserdf') {
                     if (!$event.ctrlKey) { // Not cumulative
                       $scope.currentItems.forEach(function(item) {
@@ -573,7 +574,7 @@ app.directive('tablewrapper', function(){
                         // Si l'item sélectionné dans le tableau = item dans couche
                         // => selectedItemService rempli avec item
                         // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
-                        if (geom.feature.properties.id == item.id) {
+                        if (geom.feature.properties.id == item.id && category === cat) {
                             selectedItemService.push(geom);
                             selectedCategoryService.push(cat);
                         }
@@ -678,20 +679,37 @@ app.directive('tablewrapper', function(){
                 return selectedItemService;
             }, function(newVal, oldVal) {
                 if (newVal == oldVal) { return; }  // Pour éviter un lancement à l'initial
+                var category = $scope.refName.split('/')[1];
 
                 var selectedItems = newVal.map(function(item) {
                   return item.feature.properties;
                 });
-                var ids = selectedItems.map(function(item) {
-                  return item.id;
+
+                // Avoid mixing categories
+                var filtered_items = [];
+                selectedItems.forEach(function(item, i) {
+                  if (item.cat !== category) {
+                    filtered_items.push(item);
+                    console.log('filtered', item);
+                  }
                 });
-                var categories = selectedItems.map(function(item) {
-                  return item.cat;
+                filtered_items.forEach(function(item) {
+                  selectedItems.splice(selectedItems.indexOf(idx), 1);
                 });
-                var category = $scope.refName.split('/')[1];
+                var ids = selectedItems.map(function(item) { return item.id; });
+
+                $timeout(function() {
+                  var filtered = selectedItemService.filter(function(e) {
+                      return ids.indexOf(e.feature.properties.id) >= 0;
+                  });
+                  selectedItemService.length = 0;
+                  selectedItemService.push.apply(selectedItemService, filtered);
+                }, 10);
+
+
                 angular.forEach($scope.data, function(item) {
                   // Exécuté sur clic objet dans la carte => ligne correspondante dans tableau devient rose
-                  item.$selected = (ids.indexOf(item.id) >= 0 && categories.indexOf(category) >= 0);
+                  item.$selected = (ids.indexOf(item.id) >= 0);
                 });
 
                 if (selectedItems.length === 0 || !selectedItems[0]) {  // Do not change page in case of multiples results
@@ -700,7 +718,7 @@ app.directive('tablewrapper', function(){
                       page = page;
                       selectedPage.length = 0;
                       selectedPage.push(page);
-                  });
+                  })
 
                   var idx = null;
                   for (var key in orderedData){

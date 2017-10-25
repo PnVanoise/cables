@@ -326,6 +326,9 @@
 .map.small{
     height: 92vh;
 }
+.map.right-cropped {
+    width: 55%;
+}
 
 .content-panel {
  min-height: 90vh;
@@ -956,6 +959,19 @@ background-color:  aliceblue
 }
 .leaflet-marker-icon.marker-snapped {
   content: url('img/marker-snap.png');
+}
+
+/* Leaflet.Draw */
+.leaflet-top .leaflet-draw {
+  margin-top: 120px;
+  margin-left: 4px;
+}
+.leaflet-draw-toolbar > a {
+    display: none;
+}
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon {
+    display: block;
+    background-position: -36.5px -2px;
 }
 
 /*

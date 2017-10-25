@@ -53,7 +53,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
 
     var tileLayers = []; // couche pour les fonds de référence
 
-    var currentSel;
+    var currentSel = [];
 
     var currentBaseLayer = null;
 
@@ -143,7 +143,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
 
              // Vue au premier chargement de l'appli
             map.setView(empriseInit, zoomInit);
-            
+
         });
     };
 
@@ -232,7 +232,9 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             tronRisqueSecondaire = changeColorService.tronRisqueSecondaire();
             tronNonRisque        = changeColorService.tronNonRisque();
             zOffset              = 1000;
-        } try {
+        }
+
+        try {
             if(item.feature.properties.cause_mortalite === 'électrocution') {
                 item.setIcon(iconElec);
             }
@@ -476,7 +478,35 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
          */
         initMap: function(elementId) {
             map = L.map(elementId, {
-                zoomControl:false,
+              zoomControl: false,
+            });
+
+            var drawnItems = new L.FeatureGroup();
+            map.addLayer(drawnItems);
+            var drawControl = new L.Control.Draw({
+              edit: {
+                featureGroup: drawnItems,
+              },
+            });
+            map.addControl(drawControl);
+
+            map.on(L.Draw.Event.CREATED, function(e) {
+              var drawn = e.layer.toGeoJSON();
+              var selected = [];
+              geoms.forEach(function(geom) {
+                var intersect = turf.intersect(drawn, geom.toGeoJSON());
+                if (intersect.geometry) {
+                  selected.push(geom);
+                }
+                $rootScope.$apply(function() {
+                  selectedItemService.length = 0;
+                  selectedCategoryService.length = 0;
+                  if (selected.length > 0) {
+                    selectedItemService.push.apply(selectedItemService, selected);
+                    selectedCategoryService.push(selected[0].feature.properties.cat);
+                  }
+                });
+              });
             });
 
             loadMapConfig();
@@ -578,7 +608,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                     return;
                 }
                 if (newVal) {
-                    this.zoomAndHighlightItem(selectedItemService[0]);
+                    this.zoomAndHighlightItem(selectedItemService);
                 }
             }));
 
@@ -697,7 +727,7 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
          * Permet de zoomer sur un objets quel que soit son type (point, ligne et polygone)
          * Parameters :
          * - item : un élément (géométrique et attributaire) d'un ensemble de données métier
-         */    
+         */
         zoomToItem: function(item) {
             try {
                 // centre la carte sur l'objet point sélectionné
@@ -710,23 +740,39 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
         },
 
         /*
-         * Actions faites (zoom et couleur de sélection) sur la sélection d'un élément sur la carte ou dans un tableau
+         * Permet de zoomer sur des objets quel que soit leurs types
          * Parameters :
-         * - item : la géométrie à mettre en évidence dans la carte
+         * - collection : une collection de features
          */
-        zoomAndHighlightItem: function(item) {
-            // Si on est en édition le zoom et recentrage sur un objet dans la carte n'est pas actif
-            if ($location.path().split('/')[2]!='edit') {
-                // sélection courante = pas de changement de couleur
-                if (currentSel) {
-                    changeColorItem(currentSel, false);
-                }
-                currentSel = item;
-                this.zoomToItem(item);
-                // changement de couleur sur item sélectionné
-                changeColorItem(item, true);
-                return item;
-            }
+        zoomToCollection: function(collection) {
+            if (collection.length === 0) return;
+            var bounds = new L.FeatureGroup(collection).getBounds();
+            if (!bounds.isValid()) return;
+            map.fitBounds(bounds);
+        },
+
+        /*
+         * Actions faites (zoom et couleur de sélection) sur la sélection d'un
+         * élément sur la carte ou dans un tableau
+         * Parameters :
+         * - collection : la collection de géométrie à mettre en évidence
+         *                dans la carte
+         */
+        zoomAndHighlightItem: function(collection) {
+            // Si on est en édition le zoom et recentrage
+            // sur un objet dans la carte n'est pas actif
+            if ($location.path().split('/')[2]=='edit') { return; }
+
+            // sélection courante = pas de changement de couleur
+            currentSel.forEach(function(item) {
+                changeColorItem(item, false);
+            }.bind(this));
+            currentSel = collection.slice();
+            this.zoomToCollection(collection);
+            collection.forEach(function(item) {
+              // changement de couleur sur item sélectionné
+              changeColorItem(item, true);
+            }.bind(this));
         },
 
         manageColor: function(item, category, subLayer, style, color, noVisibleStyle, defaultStyle, changeStyle) {
@@ -873,26 +919,30 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             // Au click: Zoom et affiche le label de la couche s'il y'en a
             geom.on('click', function(e){
                 $rootScope.$apply(function() {
-                    selectedItemService.length = 0;
-                    selectedCategoryService.length = 0;
+                    if (!e.originalEvent.ctrlKey) {
+                        selectedItemService.length = 0;
+                        selectedCategoryService.length = 0;
+                    }
+                    if (selectedCategoryService.length > 0
+                      && selectedCategoryService.indexOf(cat) === -1) {
+                      return;
+                    }
                     selectedItemService.push(geom);
                     selectedCategoryService.push(cat);
                 });
             });
-            if(jsonData.properties.geomLabel){
+            if (jsonData.properties.geomLabel) {
                 geom.bindPopup(jsonData.properties.geomLabel);
             }
-            try{
-
+            try {
                 geom.setZIndexOffset(0);
-            }
-            catch(e){}
+            } catch(e) {}
 
             /*
              * Distribution des couleurs aux différentes couches
              */
 
-// COUCHES DE REFERENCE = ERDF, RTE, OGM, COMMUNES
+            // COUCHES DE REFERENCE = ERDF, RTE, OGM, COMMUNES
              switch (jsonData.properties.cat) {
                 case'erdfappareilcoupure':
                     geom.setIcon(defaultColorService.erdfac())

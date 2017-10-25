@@ -181,6 +181,8 @@ app.controller('baseController', function($rootScope, $scope, $location, $modal,
 
     $scope.toggleTableau = function() {
         $scope.affichetableau = !$scope.affichetableau;
+        mapService.getMap().invalidateSize();
+        mapService.getMap()._onResize();
     };
 
     $scope.check = function(val){

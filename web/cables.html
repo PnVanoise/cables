@@ -52,8 +52,10 @@
         <script src="js/lib/leaflet/leaflet-src.js"></script>
         <link rel="stylesheet" href="js/lib/leaflet/leaflet.css">
 
-        <script src="js/lib/leaflet.draw/leaflet.draw-src.js"></script>
-        <link rel="stylesheet" href="js/lib/leaflet.draw/leaflet.draw.css">
+        <!-- <script src="js/lib/leaflet.draw/leaflet.draw-src.js"></script> -->
+        <!-- <link rel="stylesheet" href="js/lib/leaflet.draw/leaflet.draw.css"> -->
+        <script src="Leaflet.draw-0.4.11/dist/leaflet.draw-src.js"></script>
+        <link rel="stylesheet" href="Leaflet.draw-0.4.11/dist/leaflet.draw.css">
         <script type='text/javascript' src="js/lib/leaflet.restoreview.js"></script>
         <script src="js/lib/fullscreen/Control.FullScreen.js"></script>
         <link rel="stylesheet" href="js/lib/fullscreen/Control.FullScreen.css" />
@@ -64,9 +66,9 @@
         <link rel="stylesheet" href="js/lib/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
         <script src="js/lib/Leaflet.label/leaflet.label-src.js"></script>
         <link rel="stylesheet" href="js/lib/Leaflet.label/leaflet.label.css" />
-        <script src="js/lib/leaflet.draw-trad-fr.js"></script>
         <link rel="stylesheet" href="js/lib/easy-button/easy-button.css" />
         <script src="js/lib/easy-button/easy-button.js"></script>
+        <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
 
         <!-- Leaflet-image = Export image depuis la map sans composant serveur en utilisant Canvas et CORS -->
         <script src="js/lib/leaflet-image/leaflet-image.js"></script>
@@ -105,7 +107,7 @@
 
         <div class='div-bloc-carte'>
             <!-- CARTE -->
-            <div class="map large" leaflet-map data="geoms" ></div>
+            <div class="map large" leaflet-map data="geoms" ng-class="{'right-cropped': !affichetableau}"></div>
             <!-- FIN CARTE -->
 
             <!-- BOUTON BANDEAU -->

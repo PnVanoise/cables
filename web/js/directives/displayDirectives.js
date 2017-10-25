@@ -374,8 +374,8 @@ app.directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, $q, $loading, mapService, selectedItemService, selectedPage, selectedCategoryService){
-            $scope.currentItem = null;
+        controller: function($scope, $rootScope, $filter, configServ, userServ, ngTableParams, $modal, $q, $loading, $timeout, mapService, selectedItemService, selectedPage, selectedCategoryService){
+            $scope.currentItems = [];
             $scope._checkall = false;
             filterIds = [];
             extFilter = false;
@@ -537,7 +537,7 @@ app.directive('tablewrapper', function(){
                     $defer.resolve(orderedData.slice((curPg - 1) * params.count(), curPg * params.count()));
                 }
             });
-            
+
             // récupération des filtres utilisés sur le tableau
             configServ.get($scope.refName + ':ngTable:Filter', function(filter){
                 $scope.tableParams.filter(filter);
@@ -556,33 +556,29 @@ app.directive('tablewrapper', function(){
             /*
              * Fonctions
              */
-            $scope.selectItem = function(item, broadcast, cat){
+            $scope.selectItem = function(item, cat, $event){
+                var category = $scope.refName.split('/')[1];
                 if (cat !== 'photospoteauxerdf' && cat !== 'photostronconserdf') {
-                    if($scope.currentItem){ // currentItem déclaré dans controller
-                        $scope.currentItem.$selected = false;
-                    }
-                    if(broadcast == undefined){
-                        broadcast = true;
+                    if (!$event.ctrlKey) { // Not cumulative
+                      $scope.currentItems.forEach(function(item) {
+                          item.$selected = false;
+                      });
+                      $scope.currentItems.length = 0;
+                      selectedItemService.length = 0;
+                      selectedCategoryService.length = 0;
                     }
                     item.$selected = true; // ligne sur laquelle on vient de cliquer passe en rose
-                    $scope.currentItem = item;
-                    configServ.put($scope.refName + ':itemId:selected', item.id);
-                    if(broadcast){
-                        selectedItemService.length = 0;
-                        selectedCategoryService.length = 0;
+                    $scope.currentItems.push(item);
 
-                        angular.forEach(mapService.tabThemaData[cat].getLayers(),
-                            function(geom) {
-                                // Si l'item sélectionné dans le tableau = item dans couche
-                                // => selectedItemService rempli avec item
-                                // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
-                                if (geom.feature.properties.id == item.id) {
-                                    selectedItemService.push(geom);
-                                    selectedCategoryService.push(cat);
-                                }
-                            }
-                        );
-                    }
+                    angular.forEach(mapService.tabThemaData[cat].getLayers(), function(geom) {
+                        // Si l'item sélectionné dans le tableau = item dans couche
+                        // => selectedItemService rempli avec item
+                        // => cela déclenche les actions dans $watchCollection en dessous qui écoute sur selectedItemService
+                        if (geom.feature.properties.id == item.id && category === cat) {
+                            selectedItemService.push(geom);
+                            selectedCategoryService.push(cat);
+                        }
+                    });
                 }
             };
 
@@ -600,32 +596,6 @@ app.directive('tablewrapper', function(){
                     configServ.put('returnPhotoUrl', returnPhotoUrl);
                 }
             };
-
-            // var displaySelected = function() {
-            //     var selectedItem = selectedItemService[0].feature.properties;
-            //     var category = $scope.refName.split('/')[1];
-            //     // var data = mapService.tabThemaData[category];
-                
-            //     angular.forEach($scope.data, function(item) {
-            //     // angular.forEach(data, function(item) {
-            //         if (item.id == selectedItem.id &&
-            //             selectedItem.cat == category) {
-            //             item.$selected = true;
-            //         } else {
-            //             item.$selected = false;
-            //         }
-            //     });
-            //     if (selectedItem && selectedItem.cat == category) {
-            //         var idx = null;
-            //         for (var key in orderedData){
-            //             if (orderedData[key].id === selectedItem.id){
-            //                 idx = orderedData.indexOf(orderedData[key]);
-            //             }
-            //         }
-            //         var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
-            //         $scope.tableParams.page(pgnum);
-            //     }
-            // }
 
             // EXPORT PDF
             var pdfFileDefinition = {
@@ -655,15 +625,15 @@ app.directive('tablewrapper', function(){
                 leafletImage(map, function(err, canvas) { // plugin pour la création de l'image depuis la map
                     var itemImage = canvas.toDataURL('image/jpeg');
                     var finalCanvas = document.createElement('canvas');
-                    
+
                     // taille du canvas qui permet de créer l'image finale = détermine la taille de l'image finale
                     finalCanvas.width = 400;
                     finalCanvas.height = 300;
-                    
+
                     var context = finalCanvas.getContext('2d');
                     var imageObj = new Image();
                     imageObj.src = itemImage;
-                    
+
                     // taille du morceau de la map qu'on souhaite récupérer (taille map = 1680x660)
                     // todo : partie à rendre dynamique selon la taille de la map afin d'avoir des proportions plutôt que des constantes
                     var sourceWidth = 400;
@@ -672,20 +642,20 @@ app.directive('tablewrapper', function(){
                     // pour cet example une image de 400x300 centrée sur la map est récupérée
                     var sourceX = sizemap.x / 2 - sourceWidth / 2;
                     var sourceY = sizemap.y / 2 - sourceHeight / 2;
-                    
+
                     // création de l'image depuis le canvas
                     context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, sourceWidth, sourceHeight);
                     var imgfin = new Image();
-                    
+
                     // bloc permettant de faire afficher l'image pour tester
                     // créer <div id="images"></div> dans html
                     // imgfin.src = canvas2.toDataURL("image/png");
                     // document.getElementById('images').innerHTML = '';
                     // document.getElementById('images').appendChild(imgfin);
-                    
+
                     // Insertion de l'image dans l'objet qui va constituer le PDF
                     pdfFileDefinition.content[0].image = finalCanvas.toDataURL("image/png");
-                    
+
                     deferred.resolve();
                 });
                 return deferred.promise;
@@ -704,55 +674,62 @@ app.directive('tablewrapper', function(){
 
             // FIN EXPORT PDF
 
-            // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objet sélectionné
+            // Actions lancées sur les changements de valeurs dans l'objet selectedItemService = objets sélectionnés
             $rootScope.$watchCollection(function() {
                 return selectedItemService;
             }, function(newVal, oldVal) {
-                // Pour éviter un lancement à l'initial
-                if (newVal == oldVal) {
-                    return;
-                }
-
-                var selectedItem = selectedItemService[0].feature.properties;
-                var selectedCategory = selectedCategoryService[0];
+                if (newVal == oldVal) { return; }  // Pour éviter un lancement à l'initial
                 var category = $scope.refName.split('/')[1];
-                angular.forEach($scope.data, function(item) {
-                    if (item.id == selectedItem.id &&
-                        selectedItem.cat == category) {
-                        item.$selected = true; // Exécuté sur clic objet dans la carte => ligne correspondante dans tableau devient rose
-                    } else {
-                        item.$selected = false;
-                    }
-                });
-                var page;
-                configServ.get($scope.refName + ':ngTable:Page', function(page){
-                    page = page;
-                    selectedPage.length = 0;
-                    selectedPage.push(page);
-                });
-                var idx = null;
-                for (var key in orderedData){
-                    if (orderedData[key].id === selectedItem.id){
-                        idx = orderedData.indexOf(orderedData[key]);
-                    }
-                }
-                var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
-                $scope.tableParams.page(pgnum);
-            });
 
-            //$scope.$watch('data', function(newval){
-                //if(newval){
-                    //$scope.data.forEach(function(item){
-                        //if(item.$selected){
-                            //console.log('dans if data');
-                            //$scope.currentItem = item;
-                            //window.itemsel = item;
-                            //$rootScope.$broadcast($scope.refName + ':ngTable:ItemSelected', item);
-                        //}
-                    //});
-                    //$scope.tableParams.reload();
-                //}
-            //});
+                var selectedItems = newVal.map(function(item) {
+                  return item.feature.properties;
+                });
+
+                // Avoid mixing categories
+                var filtered_items = [];
+                selectedItems.forEach(function(item, i) {
+                  if (item.cat !== category) {
+                    filtered_items.push(item);
+                    console.log('filtered', item);
+                  }
+                });
+                filtered_items.forEach(function(item) {
+                  selectedItems.splice(selectedItems.indexOf(idx), 1);
+                });
+                var ids = selectedItems.map(function(item) { return item.id; });
+
+                $timeout(function() {
+                  var filtered = selectedItemService.filter(function(e) {
+                      return ids.indexOf(e.feature.properties.id) >= 0;
+                  });
+                  selectedItemService.length = 0;
+                  selectedItemService.push.apply(selectedItemService, filtered);
+                }, 10);
+
+
+                angular.forEach($scope.data, function(item) {
+                  // Exécuté sur clic objet dans la carte => ligne correspondante dans tableau devient rose
+                  item.$selected = (ids.indexOf(item.id) >= 0);
+                });
+
+                if (selectedItems.length === 0 || !selectedItems[0]) {  // Do not change page in case of multiples results
+                  var page;
+                  configServ.get($scope.refName + ':ngTable:Page', function(page){
+                      page = page;
+                      selectedPage.length = 0;
+                      selectedPage.push(page);
+                  })
+
+                  var idx = null;
+                  for (var key in orderedData){
+                      if (selectedItems.length > 0 && orderedData[key].id === selectedItems[0].id){
+                          idx = orderedData.indexOf(orderedData[key]);
+                      }
+                  }
+                  var pgnum = Math.ceil((idx + 1) / $scope.tableParams.count());
+                  $scope.tableParams.page(pgnum);
+                }
+            });
 
             /*
              * Listeners

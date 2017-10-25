@@ -884,3 +884,36 @@ app.directive('modaldisplay', function($rootScope, configServ){
         }
     };
 });
+
+app.directive('exportSelected', function (selectedItemService) {
+  return {
+    restrict: 'A',
+    link: function(scope, element) {
+      console.log(element);
+      element.attr('download', 'export.csv');
+      element.bind('click', function(e) {
+        var csvContent = "data:text/csv;charset=utf-8,";
+        console.log(selectedItemService);
+        selectedItemService.forEach(function(f, index){
+          var item = f.feature.properties;
+          dataString = [
+            item.id,
+            item.nom_zone_sensible,
+            item.m_troncons_equipes,
+            item.m_troncons_inventories,
+            item.nb_poteaux_equipes,
+            item.nb_poteaux_inventories,
+            item.niveau_sensibilite,
+          ].join(",");
+          console.log(dataString, item)
+          csvContent += index < selectedItemService.length ? dataString+ "\n" : dataString;
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        element.attr('href', encodedUri);
+        // link.click();
+        // link.remove();
+      });
+    }
+  };
+});

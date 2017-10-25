@@ -886,6 +886,24 @@ app.directive('modaldisplay', function($rootScope, configServ){
 });
 
 app.directive('exportSelected', function (selectedItemService) {
+  var extractProperties = function(props) {
+    var result = []
+    var keys = {
+      'zonessensibles': [
+        'id',
+        'nom_zone_sensible',
+        'm_troncons_equipes',
+        'm_troncons_inventories',
+        'nb_poteaux_equipes',
+        'nb_poteaux_inventories',
+        'niveau_sensibilite',
+      ]
+    }
+    keys[props.cat].forEach(function(attr) {
+      result.push(props[attr])
+    })
+    return result
+  }
   return {
     restrict: 'A',
     link: function(scope, element) {
@@ -893,16 +911,7 @@ app.directive('exportSelected', function (selectedItemService) {
       element.bind('click', function(e) {
         var csvContent = "data:text/csv;charset=utf-8,";
         selectedItemService.forEach(function(f, index){
-          var item = f.feature.properties;
-          csvContent += [
-            item.id,
-            item.nom_zone_sensible,
-            item.m_troncons_equipes,
-            item.m_troncons_inventories,
-            item.nb_poteaux_equipes,
-            item.nb_poteaux_inventories,
-            item.niveau_sensibilite,
-          ].join(",");
+          csvContent += extractProperties(f.feature.properties).join(",");
           if (index < selectedItemService.length) { csvContent += '\n'; }
         });
         element.attr('href', encodeURI(csvContent));

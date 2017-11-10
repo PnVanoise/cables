@@ -680,6 +680,8 @@ app.directive('tablewrapper', function(){
             }, function(newVal, oldVal) {
                 if (newVal == oldVal) { return; }  // Pour éviter un lancement à l'initial
                 var category = $scope.refName.split('/')[1];
+                // Don't do anything if it's not active tab
+                if (category !== $rootScope.category.id) { return; }
 
                 var selectedItems = newVal.map(function(item) {
                   return item.feature.properties;
@@ -690,7 +692,6 @@ app.directive('tablewrapper', function(){
                 selectedItems.forEach(function(item, i) {
                   if (item.cat !== category) {
                     filtered_items.push(item);
-                    console.log('filtered', item);
                   }
                 });
                 filtered_items.forEach(function(item) {

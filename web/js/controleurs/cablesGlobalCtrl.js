@@ -96,9 +96,14 @@ app.controller('CategoryCtrl', function($rootScope, $scope, $loading, $q, catego
                 mapService.tabThemaData[category.id].loaded = false;
                 mapService.showLayer(null, category.id, 'force');
             }
-            
             dfd.resolve('loading data');
         });
+
+    $scope.$watch('category', function(newVal, oldVal) {
+      selectedItemService.length = 0
+      selectedCategoryService.length = 0
+      $rootScope.category = category
+    });
 
     $scope.$watchCollection(
         // ce qui est écouté = getLayer renvoie les objets dans un featureGroup, donc le nombre

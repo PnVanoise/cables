@@ -17,13 +17,14 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class TZonesSensiblesController extends Controller{
 
     // path: GET /cables/zonessensibles 
-    public function listAction(){
+    public function listAction(Request $request){
         /*
          * retourne la liste des zones sensibles 
          */
         $ss = $this->get('tZonesSensiblesService');
 
-        return new JsonResponse($ss->getList());
+        $full = $request->query->get('short') !== 'true';
+        return new JsonResponse($ss->getList($full));
     }
 
     // path: GET /cables/mortelec/{id} 
@@ -36,4 +37,3 @@ class TZonesSensiblesController extends Controller{
         return new JsonResponse($ss->getOne($id));
     }  
 }
-

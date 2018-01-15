@@ -804,7 +804,7 @@ app.directive('geometry', function($timeout){
             // Sorti du contexte d'édition les controls pour le dessin et le bloc affichant les coordonnées sont supprimés de la carte
             $scope.$on('$destroy', function() {
                 map.removeControl(controls);
-                map.removeControl(coordsDisplay);
+                // map.removeControl(coordsDisplay);
                 if (!map._selectDrawControl._active) {
                   map.addControl(map._selectDrawControl);
                   map._selectDrawControl._active = true;

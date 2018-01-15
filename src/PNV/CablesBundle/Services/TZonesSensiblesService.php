@@ -35,7 +35,7 @@ class TZonesSensiblesService{
      * paramètre:
      *    findAll => liste tous les cas selon leurs ids
      */
-    public function getList($full){
+    public function getList(){
         $repo = $this->db->getRepository('PNVCablesBundle:View\VueZonesSensibles');
         $infos = $repo->findAll();
         $out = array();
@@ -53,20 +53,6 @@ class TZonesSensiblesService{
                 'm_troncons_inventories'=>$info->getMTronconsInventories(),
                 'm_troncons_equipes'=>$info->getMTronconsEquipes(),
             );
-            if ($full) {
-                $out_item['properties']['nb_poteaux_inventories_risque_fort']= $info->getNbPoteauxInventoriesRisqueFort();
-                $out_item['properties']['nb_poteaux_inventories_risque_secondaire']= $info->getNbPoteauxInventoriesRisqueSecondaire();
-                $out_item['properties']['nb_poteaux_inventories_risque_faible']= $info->getNbPoteauxInventoriesRisqueFaible();
-                $out_item['properties']['nb_poteaux_equipes_risque_fort']= $info->getNbPoteauxEquipesRisqueFort();
-                $out_item['properties']['nb_poteaux_equipes_risque_secondaire']= $info->getNbPoteauxEquipesRisqueSecondaire();
-                $out_item['properties']['nb_poteaux_equipes_risque_faible']= $info->getNbPoteauxEquipesRisqueFaible();
-                $out_item['properties']['m_troncons_inventories_risque_fort']= $info->getMTronconsInventoriesRisqueFort();
-                $out_item['properties']['m_troncons_inventories_risque_secondaire']= $info->getMTronconsInventoriesRisqueSecondaire();
-                $out_item['properties']['m_troncons_inventories_risque_faible']= $info->getMTronconsInventoriesRisqueFaible();
-                $out_item['properties']['m_troncons_equipes_risque_fort']= $info->getMTronconsEquipesRisqueFort();
-                $out_item['properties']['m_troncons_equipes_risque_secondaire']= $info->getMTronconsEquipesRisqueSecondaire();
-                $out_item['properties']['m_troncons_equipes_risque_faible']= $info->getMTronconsEquipesRisqueFaible();
-            }
             $out_item['geometry'] = $info->getGeom();
             $out_item['style'] = array (
                     'color' => '#999',

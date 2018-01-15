@@ -712,6 +712,10 @@ app.directive('geometry', function($timeout){
 
             // on passe les couches au controle de l'édition
             var guideLayers = couches;
+            if (map._selectDrawControl._active) {
+              map._selectDrawControl.removeFrom(map);
+              map._selectDrawControl._active = false;
+            }
             var controls = new L.Control.Draw({
                 edit: {
                     featureGroup: $scope.editLayer},
@@ -801,6 +805,10 @@ app.directive('geometry', function($timeout){
             $scope.$on('$destroy', function() {
                 map.removeControl(controls);
                 map.removeControl(coordsDisplay);
+                if (!map._selectDrawControl._active) {
+                  map.addControl(map._selectDrawControl);
+                  map._selectDrawControl._active = true;
+                }
             });
         },
     };

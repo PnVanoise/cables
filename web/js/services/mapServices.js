@@ -488,7 +488,10 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
                 featureGroup: drawnItems,
               },
             });
+            drawControl._active = true;
+            map._selectDrawControl = drawControl;
             map.addControl(drawControl);
+            drawControl._container.classList.add('c2c-select')
 
             map.on(L.Draw.Event.CREATED, function(e) {
               var drawn = e.layer.toGeoJSON();

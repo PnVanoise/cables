@@ -807,6 +807,7 @@ app.directive('geometry', function($timeout){
                 // map.removeControl(coordsDisplay);
                 if (!map._selectDrawControl._active) {
                   map.addControl(map._selectDrawControl);
+                  map._selectDrawControl._container.classList.add('c2c-select')
                   map._selectDrawControl._active = true;
                 }
             });

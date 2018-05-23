@@ -498,17 +498,17 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
               var selected = [];
               geoms.forEach(function(geom) {
                 var intersect = turf.intersect(drawn, geom.toGeoJSON());
-                if (intersect.geometry) {
+                if (intersect && intersect.geometry) {
                   selected.push(geom);
                 }
-                $rootScope.$apply(function() {
-                  selectedItemService.length = 0;
-                  selectedCategoryService.length = 0;
-                  if (selected.length > 0) {
-                    selectedItemService.push.apply(selectedItemService, selected);
-                    selectedCategoryService.push(selected[0].feature.properties.cat);
-                  }
-                });
+              });
+              $rootScope.$apply(function() {
+                selectedItemService.length = 0;
+                selectedCategoryService.length = 0;
+                if (selected.length > 0) {
+                  selectedItemService.push.apply(selectedItemService, selected);
+                  selectedCategoryService.push(selected[0].feature.properties.cat);
+                }
               });
             });
 

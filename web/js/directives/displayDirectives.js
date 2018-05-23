@@ -886,37 +886,18 @@ app.directive('modaldisplay', function($rootScope, configServ){
     };
 });
 
-app.directive('exportSelected', function (selectedItemService) {
-  var extractProperties = function(props) {
-    var result = []
-    var keys = {
-      'zonessensibles': [
-        'id',
-        'nom_zone_sensible',
-        'm_troncons_equipes',
-        'm_troncons_inventories',
-        'nb_poteaux_equipes',
-        'nb_poteaux_inventories',
-        'niveau_sensibilite',
-      ]
-    }
-    keys[props.cat].forEach(function(attr) {
-      result.push(props[attr])
+app.directive('exportSelected', function (selectedItemService) { return {
+  restrict: 'A',
+  link: function(scope, element) {
+    element.attr('download', 'export.csv')
+    element.bind('click', function(e) {
+      window.location = window.location.protocol + '//' +
+        window.location.host +
+        ':6543/export/zonessensibles?ids=' +
+        (selectedItemService.map(function(f, index){
+          return f.feature.properties.id
+        }).join(','))
+      e.preventDefault()
     })
-    return result
   }
-  return {
-    restrict: 'A',
-    link: function(scope, element) {
-      element.attr('download', 'export.csv');
-      element.bind('click', function(e) {
-        var csvContent = "data:text/csv;charset=utf-8,";
-        selectedItemService.forEach(function(f, index){
-          csvContent += extractProperties(f.feature.properties).join(",");
-          if (index < selectedItemService.length) { csvContent += '\n'; }
-        });
-        element.attr('href', encodeURI(csvContent));
-      });
-    }
-  };
-});
+}})

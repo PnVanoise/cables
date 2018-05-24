@@ -891,13 +891,23 @@ app.directive('exportSelected', function (selectedItemService) { return {
   link: function(scope, element) {
     element.attr('download', 'export.csv')
     element.bind('click', function(e) {
-      window.location = window.location.protocol + '//' +
-        window.location.host +
-        ':6543/export/zonessensibles?ids=' +
-        (selectedItemService.map(function(f, index){
-          return f.feature.properties.id
-        }).join(','))
       e.preventDefault()
+      var location = window.location.protocol + '//' +
+        window.location.host + ':6543/export/'
+      switch (element.attr('export-selected')) {
+        case 'CSV':
+          window.location = location + 'zonessensibles?ids=' +
+            (selectedItemService.map(function(f, index){
+              return f.feature.properties.id
+            }).join(','))
+          break
+        case 'CSVC':
+          window.location = location + 'communes'
+          break
+        case 'CSVD':
+          window.location = location + 'departements?group'
+          break
+      }
     })
   }
 }})

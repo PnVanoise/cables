@@ -15,11 +15,18 @@
 <div class="pos-table" ng-if="data.length">
     <div class="float-right" style="margin-bottom: 1ex;">
         <!-- BOUTON EXPORTER -->
-            <button class="btn btn-primary" ng-click="export2pdf()">Export PDF&nbsp;&nbsp;<span class="glyphicon glyphicon-file"><span></button>
-            <a href="#" class="btn btn-primary" role="button" export-selected="CSV">
-              Export CSV&nbsp;&nbsp;
-              <span class="glyphicon glyphicon-list"><span>
-              </a>
+        <button class="btn btn-primary" ng-click="export2pdf()">
+          <span class="glyphicon glyphicon-file"></span>
+          Export PDF
+        </button>
+        <div class="btn-group">
+          <a href="#" class="btn btn-primary" role="button" export-selected="CSV">
+            <span class="glyphicon glyphicon-list"></span>
+            CSV de la séléction
+          </a>
+          <a href="#" class="btn btn-primary" role="button" export-selected="CSVC">Communes</a>
+          <a href="#" class="btn btn-primary" role="button" export-selected="CSVD">Départements</a>
+        </div>
         <!-- FIN -->
     </div>
     <div class="tb-wrapper">

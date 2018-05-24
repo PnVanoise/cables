@@ -896,10 +896,11 @@ app.directive('exportSelected', function (selectedItemService) { return {
         window.location.host + ':6543/export/'
       switch (element.attr('export-selected')) {
         case 'CSV':
-          window.location = location + 'zonessensibles?ids=' +
-            (selectedItemService.map(function(f, index){
-              return f.feature.properties.id
-            }).join(','))
+          ids = selectedItemService.map(function(f, index){
+            return f.feature.properties.id
+          })
+          if (ids.length === 0) { alert('Aucune sélection.'); return; }
+          window.location = location + 'zonessensibles?ids=' + ids.join(',')
           break
         case 'CSVC':
           window.location = location + 'communes'

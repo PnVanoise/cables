@@ -494,9 +494,11 @@ app.service('mapService', function($rootScope, $routeParams, $loading, $q, $time
             drawControl._container.classList.add('c2c-select')
 
             map.on(L.Draw.Event.CREATED, function(e) {
+              var category = window.location.hash.split('/').pop()
               var drawn = e.layer.toGeoJSON();
               var selected = [];
               geoms.forEach(function(geom) {
+                if (geom.feature.properties.cat !== category) return
                 var intersect = turf.intersect(drawn, geom.toGeoJSON());
                 if (intersect && intersect.geometry) {
                   selected.push(geom);

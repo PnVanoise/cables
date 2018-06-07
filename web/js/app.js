@@ -76,8 +76,11 @@ app.run(function($rootScope, $templateCache) {
 
 
 app.config(function (localStorageServiceProvider) {
-    localStorageServiceProvider.setPrefix('cables');
+  localStorageServiceProvider.setPrefix(
+    'cables__' + window.location.pathname.split('/')[1]
+  )
 })
+
 /*
  * Controleur de base
  */

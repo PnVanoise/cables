@@ -214,7 +214,8 @@ app.service('userServ', function(dataServ, $rootScope, localStorageService){
         _user = resp;
         _user.pass = _tmp_password;
         this.setUser()
-        $rootScope.$broadcast('user:login', _user);
+        $rootScope.$broadcast('user:login', _user)
+        this.profile()
     });
 
     this.disconnected = function(resp){
@@ -226,6 +227,16 @@ app.service('userServ', function(dataServ, $rootScope, localStorageService){
     this.error = function(resp){
         $rootScope.$broadcast('user:error');
     };
+
+    this.profile = function() {
+      var location = window.location.protocol + '//' +
+        window.location.host + ':6543/profile?user=' + _user.identifiant
+
+      dataServ.get(location, function (resp) {
+        _user.profile = resp.org.toUpperCase()
+        this.setUser()
+      }.bind(this))
+    }
 
 
 });

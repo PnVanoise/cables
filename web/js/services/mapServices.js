@@ -1388,6 +1388,7 @@ app.directive('leafletMap', function(){
     return {
         restrict: 'A',
         scope: {
+            user: '=',
             data: '=',
             name: '='
         },

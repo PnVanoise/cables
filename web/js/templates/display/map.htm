@@ -211,6 +211,7 @@
                 <div class="item-leg">Communes</div>
             </div>
 <!-- Enedis -->
+          <div ng-if="user.profile==='ENEDIS'">
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#erdf" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i></a>
             <div class='legendBlock-item'> Enedis</div>
             <div id="erdf" class="sublinks collapse ">
@@ -245,8 +246,9 @@
                     <div class="item-leg">Remontées<br>aérosouterraines</div>
                 </div>
             </div>
+          </div> <!-- end ng-if enedis -->
 <!-- OGM -->
-            <div></div>
+          <div ng-if="user.profile==='OGM'">
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#ogm" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i></a>
             <div class='legendBlock-item'> OGM</div>
             <div id="ogm" class="sublinks collapse">
@@ -276,8 +278,9 @@
                     <div class="item-leg">Tronçons visualisés<br>dangereux</div>
                 </div>
             </div>
+          </div> <!-- end ng-if enedis -->
 <!-- RTE -->
-            <div></div>
+          <div ng-if="user.profile==='RTE'">
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#rte" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-right': !isExpanded, 'glyphicon-chevron-down': isExpanded}"></i></a>
             <div class='legendBlock-item'> RTE</div>
             <div id="rte" class="sublinks collapse">
@@ -297,6 +300,7 @@
                     <div class="item-leg">Poteaux</div>
                 </div>
             </div>
+          </div> <!-- end ng-if enedis -->
 <!-- ### FIN FONDS CARTO VECTEUR ### -->
 <div class="separateurVecteur"></div>
 <!-- ### FONDS CARTO RASTER ### -->

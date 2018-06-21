@@ -49,7 +49,7 @@
             <div></div>
             <a ng-controller="LegendCtrl" ng-href="" ng-click="togglePThemaData()" class="legendBlock-item" data-toggle="collapse" data-target="#tr" data-parent="#legendblock"><i class="glyphicon" ng-class="{'glyphicon-chevron-down': !isExpanded, 'glyphicon-chevron-right': isExpanded}"></i></a>
             <div class='legendBlock-item' ng-click="getVisibility('tronconserdf')">
-            <img ng-src={{pictoLayer["tronconserdf"]["mainLayer"]}} alt="Couche visible"/> Tronçons Enedis à risque
+              <img ng-src={{pictoLayer["tronconserdf"]["mainLayer"]}} alt="Couche visible"/> Tronçons Enedis à risque
             </div>
             <div id="tr" class="sublinks collapse in">
                 <div class="labelLayerSub" ng-click="getVisibility('tronconserdf', 'tronconsErdfRisqueEleve')">

@@ -900,15 +900,22 @@ app.directive('exportSelected', function (selectedItemService) { return {
             return f.feature.properties.id
           })
           if (ids.length === 0) { alert('Aucune sélection.'); return; }
-          window.location = location + 'zonessensibles?ids=' + ids.join(',')
+          location += 'zonessensibles?ids=' + ids.join(',')
           break
         case 'CSVC':
-          window.location = location + 'communes'
+          location += 'communes'
           break
         case 'CSVD':
-          window.location = location + 'departements?group'
+          location += 'departements?group'
+          break
+        case 'CSVL':
+          location += 'life?life=true'
+          break
+        case 'CSVHL':
+          location += 'life?life=false'
           break
       }
+      window.location = location
     })
   }
 }})

@@ -889,9 +889,7 @@ app.directive('modaldisplay', function($rootScope, configServ){
 app.directive('exportSelected', function (selectedItemService) { return {
   restrict: 'A',
   link: function(scope, element) {
-    element.attr('download', 'export.csv')
     element.bind('click', function(e) {
-      e.preventDefault()
       var location = window.location.protocol + '//' +
         window.location.host + ':6543/export/'
       switch (element.attr('export-selected')) {
@@ -915,7 +913,7 @@ app.directive('exportSelected', function (selectedItemService) { return {
           location += 'life?life=false'
           break
       }
-      window.location = location
+      element.attr('href', location)
     })
   }
 }})
